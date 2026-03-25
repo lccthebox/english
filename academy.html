@@ -257,6 +257,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
   .kakao-cards-grid{grid-template-columns:1fr}
   .branches-grid{grid-template-columns:1fr 1fr}
   nav .nav-links{display:none}
+  .hamburger{display:flex}
   .quiz-options{grid-template-columns:1fr}
 }
 @media(max-width:600px){
@@ -267,6 +268,13 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.2);padding:16px 0}
   .stat-item:last-child{border-bottom:none}
 }
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
+.mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 </style>
 </head>
 <body>
@@ -280,8 +288,24 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
     <li><a href="#reviews">후기</a></li>
     <li><a href="study.html">원어민스터디</a></li>
   </ul>
-  <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
+    <button class="hamburger" onclick="document.getElementById('mobMenu').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<div class="mobile-menu" id="mobMenu">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobMenu').classList.remove('open')">✕</button>
+  <a href="index.html" onclick="document.getElementById('mobMenu').classList.remove('open')">홈</a>
+  <a href="#quiz" onclick="document.getElementById('mobMenu').classList.remove('open')">클래스 찾기</a>
+  <a href="classes.html" onclick="document.getElementById('mobMenu').classList.remove('open')">수업 소개</a>
+  <a href="#schedule" onclick="document.getElementById('mobMenu').classList.remove('open')">시간표</a>
+  <a href="#reviews" onclick="document.getElementById('mobMenu').classList.remove('open')">후기</a>
+  <a href="study.html" onclick="document.getElementById('mobMenu').classList.remove('open')">원어민스터디</a>
+  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
+</div>
 
 <!-- HERO -->
 <div class="hero-slideshow">
