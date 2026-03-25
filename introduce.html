@@ -33,7 +33,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
 /* HERO */
-.page-hero{background:var(--ink);padding:88px 6% 80px;position:relative;overflow:hidden}
+.page-hero{padding:88px 6% 80px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("hero/introduce.jpg");background-size:cover;background-position:center}
+.page-hero::after{content:"";position:absolute;inset:0;background:rgba(8,14,40,.78);z-index:0;pointer-events:none}
+.page-hero>*{position:relative;z-index:1}
 .page-hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(26,95,204,.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(123,179,255,.8);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
 .hero-eyebrow::before{content:'';width:20px;height:2px;background:#7BB3FF}
@@ -41,13 +43,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .page-hero h1 em{color:#7BB3FF;font-style:normal}
 .page-hero p{font-size:17px;color:rgba(255,255,255,.6);font-weight:300;max-width:560px;line-height:1.9}
 
-/* STATS ROW */
-.stats-row{background:var(--blue);padding:32px 6%;display:flex;justify-content:center;gap:0}
-.stat-item{flex:1;max-width:200px;text-align:center;padding:0 24px;border-right:1px solid rgba(255,255,255,.2)}
-.stat-item:last-child{border-right:none}
-.stat-num{font-size:36px;font-weight:900;color:var(--white);line-height:1;display:flex;align-items:baseline;justify-content:center;gap:2px}
-.stat-unit{font-size:18px;font-weight:700}
-.stat-label{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px}
+
 
 /* SECTIONS */
 section{padding:88px 6%}
@@ -91,19 +87,6 @@ section{padding:88px 6%}
 .cert-name{font-size:13px;font-weight:600;color:var(--ink);line-height:1.5}
 .cert-sub{font-size:11px;color:var(--ink-mute);margin-top:4px}
 
-/* BRANCHES */
-.branches-section{background:var(--bg)}
-.branches-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:52px}
-.branch-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;text-decoration:none;color:inherit;display:block}
-.branch-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,95,204,.12);border-color:var(--blue)}
-.branch-photo{width:100%;height:200px;overflow:hidden;background:var(--blue-light)}
-.branch-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.branch-card:hover .branch-photo img{transform:scale(1.04)}
-.branch-body{padding:24px}
-.branch-city{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:8px}
-.branch-name{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px}
-.branch-addr{font-size:14px;color:var(--ink-mute);line-height:1.7;margin-bottom:12px}
-.branch-link{font-size:13px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:4px}
 
 /* MAP */
 .map-section{background:var(--white);padding:88px 6%}
@@ -149,10 +132,29 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
   .why-grid{grid-template-columns:1fr}
   .cert-grid{grid-template-columns:1fr 1fr}
   .map-info-grid{grid-template-columns:1fr}
-  .stats-row{flex-wrap:wrap}
-  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.2);padding:14px 0;max-width:100%}
-  .stat-item:last-child{border-bottom:none}
 }
+
+/* BRANCHES */
+.branches-section{background:var(--bg);padding:80px 6%}
+.branches-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
+.branch-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;text-decoration:none;color:inherit;display:block}
+.branch-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,95,204,.12);border-color:var(--blue)}
+.branch-photo{width:100%;height:180px;overflow:hidden;background:var(--blue-light)}
+.branch-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.branch-card:hover .branch-photo img{transform:scale(1.04)}
+.branch-body{padding:22px}
+.branch-city{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:6px}
+.branch-name{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.branch-addr{font-size:13px;color:var(--ink-mute);line-height:1.7;margin-bottom:10px}
+.branch-link{font-size:13px;font-weight:600;color:var(--blue)}
+@media(max-width:600px){.branches-grid{grid-template-columns:1fr}}
+
+/* 후기 강조 탭 */
+.nav-review{background:linear-gradient(135deg,#FFB800,#FF6B00);color:#fff!important;border-radius:50px;padding:6px 16px;font-weight:700!important;font-size:13px!important;transition:all .2s!important}
+.nav-review:hover{opacity:.85;transform:translateY(-1px)}
+/* 원어민스터디 버튼 */
+.nav-study{background:transparent;color:#10B981!important;border:1.5px solid #10B981;border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important;white-space:nowrap}
+.nav-study:hover{background:#10B981;color:#fff!important}
 </style>
 </head>
 <body>
@@ -160,10 +162,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 <nav>
   <a href="../index.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
-    <li><a href="academy.html">어학원 수업</a></li>
-    <li><a href="classes.html">강사 소개</a></li>
-    <li><a href="../study.html">원어민스터디</a></li>
-    <li><a href="academy.html#reviews">후기</a></li>
+    <li><a href="introduce.html">더박스 소개</a></li>
+    <li><a href="classes.html">수업 안내</a></li>
+    <li><a href="more.html">더박스 플러스</a></li>
+    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
   </ul>
   <div class="nav-right">
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
@@ -175,11 +177,11 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 
 <div class="mobile-menu" id="mobMenu">
   <button class="mobile-menu-close" onclick="document.getElementById('mobMenu').classList.remove('open')">✕</button>
-  <a href="../index.html">홈</a>
-  <a href="academy.html">어학원 수업</a>
-  <a href="classes.html">강사 소개</a>
-  <a href="../study.html">원어민스터디</a>
-  <a href="academy.html#reviews">후기</a>
+  <a href="introduce.html" onclick="document.getElementById('mobMenu').classList.remove('open')">더박스 소개</a>
+  <a href="classes.html" onclick="document.getElementById('mobMenu').classList.remove('open')">수업 안내</a>
+  <a href="more.html" onclick="document.getElementById('mobMenu').classList.remove('open')">더박스 플러스</a>
+  <a href="reviews.html" onclick="document.getElementById('mobMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
+  <a href="../study.html" onclick="document.getElementById('mobMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
 </div>
 
@@ -190,13 +192,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
   <p>더박스는 단순한 영어학원이 아닙니다. 영어를 배우는 경험을 '시험'에서 '소통'으로 바꾸는 곳입니다.</p>
 </div>
 
-<!-- STATS -->
-<div class="stats-row">
-  <div class="stat-item"><div class="stat-num"><span class="count-num" data-target="12325">0</span><span class="stat-unit">+</span></div><div class="stat-label">누적 수강생</div></div>
-  <div class="stat-item"><div class="stat-num"><span class="count-num" data-target="10">0</span><span class="stat-unit">명</span></div><div class="stat-label">전문 강사</div></div>
-  <div class="stat-item"><div class="stat-num"><span class="count-num" data-target="23">0</span><span class="stat-unit">가지</span></div><div class="stat-label">커리큘럼</div></div>
-  <div class="stat-item"><div class="stat-num"><span class="count-num" data-target="4">0</span><span class="stat-unit">개</span></div><div class="stat-label">운영 지점</div></div>
-</div>
+
 
 <!-- PHILOSOPHY -->
 <section class="philosophy-section fade-up">
@@ -330,83 +326,33 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
   </div>
 </section>
 
+
+
+<!-- CTA -->
 <!-- BRANCHES -->
 <section class="branches-section fade-up">
   <div class="section-eyebrow">지점 안내</div>
   <div class="section-title">가장 가까운 곳에서<br>시작해보세요</div>
   <div class="branches-grid">
     <a href="https://naver.me/5BcjX84R" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/대구.jpg" alt="대구 본점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
-      <div class="branch-body">
-        <div class="branch-city">DAEGU · 대구</div>
-        <div class="branch-name">더박스 대구 본점</div>
-        <div class="branch-addr">대구광역시 중구 동성로2 (동성로3가 90-1) 6층<br>반월당역 13·14번 출구 도보 5분</div>
-        <div class="branch-link">예약하기 →</div>
-      </div>
+      <div class="branch-photo"><img src="branch/대구.jpg" alt="대구 본점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
+      <div class="branch-body"><div class="branch-city">DAEGU · 대구</div><div class="branch-name">더박스 대구 본점</div><div class="branch-addr">대구광역시 중구 동성로2 (동성로3가 90-1) 6층<br>반월당역 13·14번 출구 도보 5분</div><div class="branch-link">예약하기 →</div></div>
     </a>
     <a href="https://map.naver.com/p/entry/place/1388157012?placePath=%2Fhome&c=15.00,0,0,0,dh" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/부산.jpg" alt="부산 서면점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
-      <div class="branch-body">
-        <div class="branch-city">BUSAN · 부산</div>
-        <div class="branch-name">더박스 서면점</div>
-        <div class="branch-addr">부산광역시 부산진구 서면 일대</div>
-        <div class="branch-link">지점 보기 →</div>
-      </div>
+      <div class="branch-photo"><img src="branch/부산.jpg" alt="부산 서면점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
+      <div class="branch-body"><div class="branch-city">BUSAN · 부산</div><div class="branch-name">더박스 서면점</div><div class="branch-addr">부산광역시 부산진구 서면 일대</div><div class="branch-link">지점 보기 →</div></div>
     </a>
     <a href="https://naver.me/GLz3xn3B" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/창원.jpg" alt="창원 중앙점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
-      <div class="branch-body">
-        <div class="branch-city">CHANGWON · 창원</div>
-        <div class="branch-name">더박스 중앙점</div>
-        <div class="branch-addr">경상남도 창원시 중앙동 일대</div>
-        <div class="branch-link">예약하기 →</div>
-      </div>
+      <div class="branch-photo"><img src="branch/창원.jpg" alt="창원 중앙점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
+      <div class="branch-body"><div class="branch-city">CHANGWON · 창원</div><div class="branch-name">더박스 중앙점</div><div class="branch-addr">경상남도 창원시 중앙동 일대</div><div class="branch-link">예약하기 →</div></div>
     </a>
     <a href="https://naver.me/xRh9Gx7w" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/울산.jpg" alt="울산 삼산점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
-      <div class="branch-body">
-        <div class="branch-city">ULSAN · 울산</div>
-        <div class="branch-name">더박스 삼산점</div>
-        <div class="branch-addr">울산광역시 남구 삼산동 일대</div>
-        <div class="branch-link">예약하기 →</div>
-      </div>
+      <div class="branch-photo"><img src="branch/울산.jpg" alt="울산 삼산점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
+      <div class="branch-body"><div class="branch-city">ULSAN · 울산</div><div class="branch-name">더박스 삼산점</div><div class="branch-addr">울산광역시 남구 삼산동 일대</div><div class="branch-link">예약하기 →</div></div>
     </a>
   </div>
 </section>
 
-<!-- MAP -->
-<section class="map-section fade-up">
-  <div class="section-eyebrow">오시는 길</div>
-  <div class="section-title">대구 본점</div>
-  <div class="map-wrap">
-    <iframe
-      src="https://map.naver.com/p/entry/place/1742045734?placePath=%2Fhome&c=15.00,0,0,0,dh"
-      title="더박스 대구 본점 지도"
-      allowfullscreen
-      loading="lazy">
-    </iframe>
-  </div>
-  <div class="map-info-grid">
-    <div class="map-info-item">
-      <div class="map-info-label">주소</div>
-      <div class="map-info-val">대구광역시 중구 동성로2<br>(동성로3가 90-1) 6층</div>
-    </div>
-    <div class="map-info-item">
-      <div class="map-info-label">지하철</div>
-      <div class="map-info-val">반월당역 13·14번 출구<br>도보 5분</div>
-    </div>
-    <div class="map-info-item">
-      <div class="map-info-label">전화</div>
-      <div class="map-info-val"><a href="tel:01086739664" style="color:var(--blue);text-decoration:none">010-8673-9664</a></div>
-    </div>
-    <div class="map-info-item">
-      <div class="map-info-label">주차</div>
-      <div class="map-info-val">전용 주차장 없음<br>주변 민영/공영 주차장 이용</div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
 <section class="cta-section fade-up">
   <div class="cta-title">시작을 어디서 하느냐에 따라<br><em>말문이 트이는 속도</em>가 달라요</div>
   <p class="cta-desc">더박스에서 시작하세요.</p>
@@ -428,9 +374,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 </footer>
 
 <script>
-// COUNT UP
-function countUp(el){const t=+el.dataset.target;let c=0;const r=setInterval(()=>{c=Math.min(c+t/60,t);el.textContent=Math.floor(c).toLocaleString();if(c>=t)clearInterval(r)},30)}
-new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.count-num').forEach(countUp)}})},{threshold:.3}).observe(document.querySelector('.stats-row'));
+
 
 // FADE
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.07});

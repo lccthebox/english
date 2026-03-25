@@ -32,7 +32,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
 /* HERO */
-.page-hero{padding:72px 6% 60px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("academy/mainhero/main2.jpg");background-size:cover;background-position:center}
+.page-hero{padding:72px 6% 60px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("academy/hero/classes.jpg");background-size:cover;background-position:center}
 .page-hero::before{content:'';position:absolute;inset:0;background:rgba(8,14,38,.78);z-index:0;pointer-events:none}
 .page-hero>*{position:relative;z-index:1}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(123,179,255,.8);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
@@ -50,67 +50,36 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 
 /* INTRO GRID */
 .intro-section{padding:56px 6% 80px}
-.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-/* TEACHER INTRO CARD */
-.tcard{
-  background:var(--white);border-radius:20px;overflow:hidden;
-  border:1px solid var(--border);
+/* LIST CARD */
+.lcard{
+  background:var(--white);border:1px solid var(--border);border-radius:16px;
   text-decoration:none;color:inherit;
-  transition:all .3s;display:flex;flex-direction:column;
-  position:relative;
+  display:flex;align-items:center;gap:20px;
+  padding:20px 24px;
+  transition:all .25s;position:relative;overflow:hidden;
 }
-.tcard:hover{transform:translateY(-6px);box-shadow:0 20px 56px rgba(26,95,204,.14);border-color:var(--blue)}
-.tcard-accent{height:6px;background:var(--blue);transition:background .2s}
-.tcard.tag-트렌디 .tcard-accent{background:#8B5CF6}
-.tcard.tag-미디어 .tcard-accent{background:#0EA5E9}
-.tcard.tag-기초 .tcard-accent{background:#10B981}
-.tcard.tag-주말 .tcard-accent{background:#F59E0B}
-.tcard.tag-비즈니스 .tcard-accent{background:#EF4444}
-.tcard.tag-중국어 .tcard-accent{background:#F97316}
-
-/* photo strip */
-.tcard-photo{width:100%;height:200px;overflow:hidden;position:relative;background:var(--blue-light)}
-.tcard-photo img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s}
-.tcard:hover .tcard-photo img{transform:scale(1.05)}
-.tcard-photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:56px}
-.tcard-level-badge{position:absolute;top:12px;left:12px;background:rgba(26,26,26,.7);color:var(--white);font-size:11px;font-weight:700;padding:4px 10px;border-radius:50px;backdrop-filter:blur(4px)}
-
-/* body */
-.tcard-body{padding:24px 24px 20px;flex:1;display:flex;flex-direction:column}
-.tcard-en{font-size:10px;font-weight:700;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
-.tcard.tag-트렌디 .tcard-en{color:#8B5CF6}
-.tcard.tag-미디어 .tcard-en{color:#0EA5E9}
-.tcard.tag-기초 .tcard-en{color:#10B981}
-.tcard.tag-주말 .tcard-en{color:#F59E0B}
-.tcard.tag-비즈니스 .tcard-en{color:#EF4444}
-.tcard.tag-중국어 .tcard-en{color:#F97316}
-.tcard-kr{font-size:22px;font-weight:900;color:var(--ink);margin-bottom:2px}
-.tcard-class{font-size:14px;font-weight:500;color:var(--ink-mute);margin-bottom:14px}
-.tcard-quote{font-size:13px;color:var(--ink-soft);line-height:1.7;flex:1;padding-left:10px;border-left:2px solid var(--border)}
-
-/* meta row */
-.tcard-meta{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
-.tcard-chip{font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:50px;padding:4px 12px;color:var(--ink-mute);font-weight:500}
-
-/* arrow */
-.tcard-footer{padding:14px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.tcard-footer-text{font-size:13px;font-weight:600;color:var(--blue)}
-.tcard.tag-트렌디 .tcard-footer-text{color:#8B5CF6}
-.tcard.tag-미디어 .tcard-footer-text{color:#0EA5E9}
-.tcard.tag-기초 .tcard-footer-text{color:#10B981}
-.tcard.tag-주말 .tcard-footer-text{color:#F59E0B}
-.tcard.tag-비즈니스 .tcard-footer-text{color:#EF4444}
-.tcard.tag-중국어 .tcard-footer-text{color:#F97316}
-.tcard-arrow-circle{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink-mute);transition:all .2s}
-.tcard:hover .tcard-arrow-circle{background:var(--blue);border-color:var(--blue);color:var(--white)}
-.tcard.tag-트렌디:hover .tcard-arrow-circle{background:#8B5CF6;border-color:#8B5CF6}
-.tcard.tag-미디어:hover .tcard-arrow-circle{background:#0EA5E9;border-color:#0EA5E9}
-.tcard.tag-기초:hover .tcard-arrow-circle{background:#10B981;border-color:#10B981}
-.tcard.tag-주말:hover .tcard-arrow-circle{background:#F59E0B;border-color:#F59E0B}
-.tcard.tag-비즈니스:hover .tcard-arrow-circle{background:#EF4444;border-color:#EF4444}
-.tcard.tag-중국어:hover .tcard-arrow-circle{background:#F97316;border-color:#F97316}
-
+.lcard:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.1);border-color:var(--blue)}
+.lcard-bar{position:absolute;left:0;top:0;bottom:0;width:4px}
+.lcard-avatar{
+  width:72px;height:72px;border-radius:50%;overflow:hidden;
+  flex-shrink:0;background:var(--blue-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:700;color:var(--blue);
+}
+.lcard-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.lcard-avatar[data-init]::before{content:attr(data-init)}
+.lcard-content{flex:1;min-width:0}
+.lcard-en{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px}
+.lcard-kr{font-size:20px;font-weight:900;color:var(--ink);line-height:1.1;margin-bottom:2px}
+.lcard-class{font-size:13px;color:var(--ink-mute);margin-bottom:8px}
+.lcard-quote{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-bottom:10px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lcard-chips{display:flex;gap:6px;flex-wrap:wrap}
+.lcard-chip{font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:50px;padding:3px 10px;color:var(--ink-mute)}
+.lcard-arrow{font-size:18px;color:var(--ink-mute);flex-shrink:0;transition:all .2s;margin-left:8px}
+.lcard:hover .lcard-arrow{color:var(--blue);transform:translateX(4px)}
 /* hidden */
 .tcard.hidden{display:none}
 
@@ -138,6 +107,14 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 
 @media(max-width:900px){.intro-grid{grid-template-columns:1fr 1fr}nav .nav-links{display:none}.hamburger{display:flex}}
 @media(max-width:600px){.intro-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.intro-grid{grid-template-columns:1fr}}
+
+/* 후기 강조 탭 */
+.nav-review{background:linear-gradient(135deg,#FFB800,#FF6B00);color:#fff!important;border-radius:50px;padding:6px 16px;font-weight:700!important;font-size:13px!important;transition:all .2s!important}
+.nav-review:hover{opacity:.85;transform:translateY(-1px)}
+/* 원어민스터디 버튼 */
+.nav-study{background:transparent;color:#10B981!important;border:1.5px solid #10B981;border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important;white-space:nowrap}
+.nav-study:hover{background:#10B981;color:#fff!important}
 </style>
 </head>
 <body>
@@ -145,12 +122,13 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 <nav>
   <a href="index.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
-    <li><a href="academy.html#quiz">클래스 찾기</a></li>
-    <li><a href="academy.html#schedule">시간표</a></li>
-    <li><a href="academy.html#reviews">후기</a></li>
-    <li><a href="study.html">원어민스터디</a></li>
+    <li><a href="academy/introduce.html">더박스 소개</a></li>
+    <li><a href="academy/classes.html">수업 안내</a></li>
+    <li><a href="academy/more.html">더박스 플러스</a></li>
+    <li><a href="academy/reviews.html" class="nav-review">⭐ 후기</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:10px">
+  <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="메뉴">
       <span></span><span></span><span></span>
@@ -160,12 +138,12 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
-  <a href="index.html">홈</a>
-  <a href="classes.html">수업 소개</a>
-  <a href="academy.html#schedule">시간표</a>
-  <a href="academy.html#reviews">후기</a>
-  <a href="study.html">원어민스터디</a>
-  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px">상담 예약</a>
+  <a href="academy/introduce.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 소개</a>
+  <a href="academy/classes.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">수업 안내</a>
+  <a href="academy/more.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 플러스</a>
+  <a href="academy/reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
+  <a href="study.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
+  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
 </div>
 
 <div class="page-hero">
@@ -188,213 +166,132 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 <section class="intro-section">
   <div class="intro-grid" id="introGrid">
 
-    <a href="academy/james.html" class="tcard tag-기초 fade-up" data-tags="기초">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/james.jpg" alt="제임스" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
-        <div class="tcard-level-badge">왕기초~</div>
+    <a href="academy/james.html" class="lcard fade-up" data-tags="기초" style="transition-delay:0s">
+      <div class="lcard-bar" style="background:#10B981"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/james.jpg" alt="제임스" onerror="this.style.display='none';this.parentElement.dataset.init='제'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">JAMES</div>
-        <div class="tcard-kr">제임스</div>
-        <div class="tcard-class">진짜영어</div>
-        <div class="tcard-quote">내 머릿속에 외운 표현이 아닌 말하는 법을 배우는 시대</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">왕기초~</span>
-          <span class="tcard-chip">주4회</span>
-          <span class="tcard-chip">월화수목</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#10B981">JAMES</div>
+        <div class="lcard-kr">제임스</div>
+        <div class="lcard-class">진짜영어</div>
+        <div class="lcard-quote">내 머릿속에 외운 표현이 아닌 말하는 법을 배우는 시대</div>
+        <div class="lcard-chips"><span class="lcard-chip">왕기초~</span><span class="lcard-chip">주4회</span><span class="lcard-chip">월화수목</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
-    <a href="academy/chris.html" class="tcard tag-미디어 fade-up" data-tags="미디어" style="transition-delay:.05s">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/chris.jpg" alt="크리스" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
-        <div class="tcard-level-badge">왕기초~</div>
+    <a href="academy/chris.html" class="lcard fade-up" data-tags="미디어" style="transition-delay:.05s">
+      <div class="lcard-bar" style="background:#0EA5E9"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/chris.jpg" alt="크리스" onerror="this.style.display='none';this.parentElement.dataset.init='크'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">CHRIS</div>
-        <div class="tcard-kr">크리스</div>
-        <div class="tcard-class">미디어영어</div>
-        <div class="tcard-quote">네이티브처럼 사고하고, 네이티브처럼 말하자</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">왕기초~</span>
-          <span class="tcard-chip">주2~4회</span>
-          <span class="tcard-chip">미드·영드·TED</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#0EA5E9">CHRIS</div>
+        <div class="lcard-kr">크리스</div>
+        <div class="lcard-class">미디어영어</div>
+        <div class="lcard-quote">네이티브처럼 사고하고, 네이티브처럼 말하자</div>
+        <div class="lcard-chips"><span class="lcard-chip">왕기초~</span><span class="lcard-chip">주2~4회</span><span class="lcard-chip">미드·영드·TED</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
-    <a href="academy/cerline.html" class="tcard tag-기초 fade-up" data-tags="기초" style="transition-delay:.1s">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/cerline.jpg" alt="설린" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
-        <div class="tcard-level-badge">왕기초~</div>
+    <a href="academy/cerline.html" class="lcard fade-up" data-tags="기초" style="transition-delay:.1s">
+      <div class="lcard-bar" style="background:#10B981"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/cerline.jpg" alt="설린" onerror="this.style.display='none';this.parentElement.dataset.init='설'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">CERLINE</div>
-        <div class="tcard-kr">설린</div>
-        <div class="tcard-class">도전영어</div>
-        <div class="tcard-quote">영어회화, 어렵게 생각하지 마세요. 시작이 반입니다.</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">왕기초~</span>
-          <span class="tcard-chip">주2회</span>
-          <span class="tcard-chip">월수 / 화목</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#10B981">CERLINE</div>
+        <div class="lcard-kr">설린</div>
+        <div class="lcard-class">도전영어</div>
+        <div class="lcard-quote">영어회화, 어렵게 생각하지 마세요. 시작이 반입니다.</div>
+        <div class="lcard-chips"><span class="lcard-chip">왕기초~</span><span class="lcard-chip">주2회</span><span class="lcard-chip">월수/화목</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
-    <a href="academy/riley.html" class="tcard tag-기초 fade-up" data-tags="기초" style="transition-delay:.05s">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/riley.jpg" alt="라일리" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
-        <div class="tcard-level-badge">왕기초~</div>
+    <a href="academy/riley.html" class="lcard fade-up" data-tags="기초" style="transition-delay:0s">
+      <div class="lcard-bar" style="background:#10B981"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/riley.jpg" alt="라일리" onerror="this.style.display='none';this.parentElement.dataset.init='라'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">RILEY</div>
-        <div class="tcard-kr">라일리</div>
-        <div class="tcard-class">Right 영어</div>
-        <div class="tcard-quote">정확하게 배워, 지금 바로 쓰자.</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">왕기초~</span>
-          <span class="tcard-chip">주2회</span>
-          <span class="tcard-chip">교차수강 가능</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#10B981">RILEY</div>
+        <div class="lcard-kr">라일리</div>
+        <div class="lcard-class">Right 영어</div>
+        <div class="lcard-quote">정확하게 배워, 지금 바로 쓰자.</div>
+        <div class="lcard-chips"><span class="lcard-chip">왕기초~</span><span class="lcard-chip">주2회</span><span class="lcard-chip">교차수강</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
-    <a href="academy/tina.html" class="tcard tag-트렌디 fade-up" data-tags="트렌디" style="transition-delay:.1s">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/tina.jpg" alt="티나" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
-        <div class="tcard-level-badge">왕기초~</div>
+    <a href="academy/tina.html" class="lcard fade-up" data-tags="트렌디" style="transition-delay:.05s">
+      <div class="lcard-bar" style="background:#8B5CF6"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/tina.jpg" alt="티나" onerror="this.style.display='none';this.parentElement.dataset.init='티'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">TINA</div>
-        <div class="tcard-kr">티나</div>
-        <div class="tcard-class">트렌디영어</div>
-        <div class="tcard-quote">영어회화는 놀이예요. 재밌게 배우면 자연스럽게 입으로 내뱉어집니다</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">왕기초~</span>
-          <span class="tcard-chip">주2회</span>
-          <span class="tcard-chip">MZ·밈·트렌드</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#8B5CF6">TINA</div>
+        <div class="lcard-kr">티나</div>
+        <div class="lcard-class">트렌디영어</div>
+        <div class="lcard-quote">영어회화는 놀이예요. 재밌게 배우면 자연스럽게 입으로 내뱉어집니다</div>
+        <div class="lcard-chips"><span class="lcard-chip">왕기초~</span><span class="lcard-chip">주2회</span><span class="lcard-chip">MZ·밈·트렌드</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
-    <a href="academy/jane.html" class="tcard tag-트렌디 fade-up" data-tags="트렌디" style="transition-delay:.0s">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/jane.jpg" alt="제인" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
-        <div class="tcard-level-badge">왕기초~</div>
+    <a href="academy/jane.html" class="lcard fade-up" data-tags="트렌디" style="transition-delay:.1s">
+      <div class="lcard-bar" style="background:#8B5CF6"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/jane.jpg" alt="제인" onerror="this.style.display='none';this.parentElement.dataset.init='제'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">JANE</div>
-        <div class="tcard-kr">제인</div>
-        <div class="tcard-class">제일영어</div>
-        <div class="tcard-quote">처음으로 빠짐없이 출석한 수업, 그러니까 늘더라고요</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">왕기초~</span>
-          <span class="tcard-chip">주2회</span>
-          <span class="tcard-chip">실전·체득</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#8B5CF6">JANE</div>
+        <div class="lcard-kr">제인</div>
+        <div class="lcard-class">제일영어</div>
+        <div class="lcard-quote">처음으로 빠짐없이 출석한 수업, 그러니까 늘더라고요</div>
+        <div class="lcard-chips"><span class="lcard-chip">왕기초~</span><span class="lcard-chip">주2회</span><span class="lcard-chip">실전·체득</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
-    <a href="academy/courtney.html" class="tcard tag-비즈니스 fade-up" data-tags="비즈니스" style="transition-delay:.05s">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/courtney.jpg" alt="코트니" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
-        <div class="tcard-level-badge">초중급~</div>
+    <a href="academy/courtney.html" class="lcard fade-up" data-tags="비즈니스" style="transition-delay:0s">
+      <div class="lcard-bar" style="background:#EF4444"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/courtney.jpg" alt="코트니" onerror="this.style.display='none';this.parentElement.dataset.init='코'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">COURTNEY</div>
-        <div class="tcard-kr">코트니</div>
-        <div class="tcard-class">Go-To 영어</div>
-        <div class="tcard-quote">Where confidence meets conversation.</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">초중급~</span>
-          <span class="tcard-chip">주2회</span>
-          <span class="tcard-chip">10년 경력</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#EF4444">COURTNEY</div>
+        <div class="lcard-kr">코트니</div>
+        <div class="lcard-class">Go-To 영어</div>
+        <div class="lcard-quote">Where confidence meets conversation.</div>
+        <div class="lcard-chips"><span class="lcard-chip">초중급~</span><span class="lcard-chip">주2회</span><span class="lcard-chip">10년경력</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
-    <a href="academy/diana.html" class="tcard tag-주말 fade-up" data-tags="주말" style="transition-delay:.1s">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/diana.jpg" alt="다이애나" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
-        <div class="tcard-level-badge">왕기초~</div>
+    <a href="academy/diana.html" class="lcard fade-up" data-tags="주말" style="transition-delay:.05s">
+      <div class="lcard-bar" style="background:#F59E0B"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/diana.jpg" alt="다이애나" onerror="this.style.display='none';this.parentElement.dataset.init='다'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">DIANA</div>
-        <div class="tcard-kr">다이애나</div>
-        <div class="tcard-class">바로영어</div>
-        <div class="tcard-quote">머리로 말고, 입으로 말을 해야죠.</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">왕기초~</span>
-          <span class="tcard-chip">주2회</span>
-          <span class="tcard-chip">토·일</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#F59E0B">DIANA</div>
+        <div class="lcard-kr">다이애나</div>
+        <div class="lcard-class">바로영어</div>
+        <div class="lcard-quote">머리로 말고, 입으로 말을 해야죠.</div>
+        <div class="lcard-chips"><span class="lcard-chip">왕기초~</span><span class="lcard-chip">주말반</span><span class="lcard-chip">액티비티</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
-    <a href="academy/chinese.html" class="tcard tag-중국어 fade-up" data-tags="중국어" style="transition-delay:.05s">
-      <div class="tcard-accent"></div>
-      <div class="tcard-photo">
-        <img src="academy/profile/짜이뤼.jpg" alt="짜이뤼" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
-        <div class="tcard-level-badge">성조 시작반~</div>
+    <a href="academy/chinese.html" class="lcard fade-up" data-tags="중국어" style="transition-delay:.1s">
+      <div class="lcard-bar" style="background:#F97316"></div>
+      <div class="lcard-avatar">
+        <img src="academy/profile/짜이뤼.jpg" alt="짜이뤼" onerror="this.style.display='none';this.parentElement.dataset.init='짜'">
       </div>
-      <div class="tcard-body">
-        <div class="tcard-en">CHINESE</div>
-        <div class="tcard-kr">짜이뤼</div>
-        <div class="tcard-class">미親중국어</div>
-        <div class="tcard-quote">중국어는 시작을 제대로 하셔야 합니다</div>
-        <div class="tcard-meta">
-          <span class="tcard-chip">성조부터</span>
-          <span class="tcard-chip">주2회</span>
-          <span class="tcard-chip">토·일</span>
-        </div>
+      <div class="lcard-content">
+        <div class="lcard-en" style="color:#F97316">CHINESE</div>
+        <div class="lcard-kr">짜이뤼</div>
+        <div class="lcard-class">미親중국어</div>
+        <div class="lcard-quote">중국어는 시작을 제대로 하셔야 합니다</div>
+        <div class="lcard-chips"><span class="lcard-chip">성조부터</span><span class="lcard-chip">주말반</span><span class="lcard-chip">중국어</span></div>
       </div>
-      <div class="tcard-footer">
-        <span class="tcard-footer-text">수업 자세히 보기</span>
-        <div class="tcard-arrow-circle">→</div>
-      </div>
+      <div class="lcard-arrow">→</div>
     </a>
-
   </div>
 </section>
 
