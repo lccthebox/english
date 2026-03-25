@@ -122,11 +122,19 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
 }
 
 /* 후기 강조 탭 */
-.nav-review{background:linear-gradient(135deg,#FFB800,#FF6B00);color:#fff!important;border-radius:50px;padding:6px 16px;font-weight:700!important;font-size:13px!important;transition:all .2s!important}
-.nav-review:hover{opacity:.85;transform:translateY(-1px)}
+.nav-review{color:#FF6B00!important;font-weight:700!important;font-size:14px!important;transition:all .2s!important}
+.nav-review:hover{color:#FFB800!important}
 /* 원어민스터디 버튼 */
 .nav-study{background:transparent;color:#10B981!important;border:1.5px solid #10B981;border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important;white-space:nowrap}
 .nav-study:hover{background:#10B981;color:#fff!important}
+
+/* SCHEDULE BANNER */
+.schedule-link-banner{background:var(--blue-light);border-top:2px solid var(--blue);border-bottom:2px solid var(--blue);padding:24px 6%}
+.schedule-link-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:960px;margin:0 auto}
+.schedule-link-label{font-size:16px;font-weight:700;color:var(--blue);margin-bottom:4px}
+.schedule-link-sub{font-size:13px;color:var(--ink-mute)}
+.schedule-link-btn{background:var(--blue);color:#fff;border-radius:50px;padding:12px 28px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;white-space:nowrap}
+.schedule-link-btn:hover{background:var(--blue-dark);transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -196,6 +204,16 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
   </div>
 </section>
 
+
+<div class="schedule-link-banner fade-up">
+  <div class="schedule-link-inner">
+    <div>
+      <div class="schedule-link-label">📅 월별 시간표</div>
+      <div class="schedule-link-sub">수업 일정을 미리 확인하고 등록하세요</div>
+    </div>
+    <a href="../academy.html#schedule" class="schedule-link-btn">시간표 확인하기 →</a>
+  </div>
+</div>
 <section class="class-photos-section fade-up">
   <div class="section-eyebrow">수업 사진</div>
   <div class="section-title">수업 분위기를 확인하세요</div>
