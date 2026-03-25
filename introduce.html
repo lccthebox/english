@@ -34,7 +34,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 
 /* HERO */
 .page-hero{padding:88px 6% 80px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("academy/hero/introduce.jpg");background-size:cover;background-position:center}
-.page-hero::after{content:"";position:absolute;inset:0;background:rgba(8,14,40,.78);z-index:0;pointer-events:none}
+.page-hero::after{content:"";position:absolute;inset:0;background:rgba(8,14,40,.55);z-index:0;pointer-events:none}
 .page-hero>*{position:relative;z-index:1}
 .page-hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(26,95,204,.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(123,179,255,.8);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
@@ -139,7 +139,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 .branches-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
 .branch-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;text-decoration:none;color:inherit;display:block}
 .branch-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,95,204,.12);border-color:var(--blue)}
-.branch-photo{width:100%;height:180px;overflow:hidden;background:var(--blue-light)}
+.branch-photo{width:100%;height:220px;overflow:hidden;background:var(--blue-light)}
 .branch-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .branch-card:hover .branch-photo img{transform:scale(1.04)}
 .branch-body{padding:22px}
@@ -150,8 +150,8 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 @media(max-width:600px){.branches-grid{grid-template-columns:1fr}}
 
 /* 후기 강조 탭 */
-.nav-review{background:linear-gradient(135deg,#FFB800,#FF6B00);color:#fff!important;border-radius:50px;padding:6px 16px;font-weight:700!important;font-size:13px!important;transition:all .2s!important}
-.nav-review:hover{opacity:.85;transform:translateY(-1px)}
+.nav-review{color:#FF6B00!important;font-weight:700!important;font-size:14px!important;transition:all .2s!important}
+.nav-review:hover{color:#FFB800!important}
 /* 원어민스터디 버튼 */
 .nav-study{background:transparent;color:#10B981!important;border:1.5px solid #10B981;border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important;white-space:nowrap}
 .nav-study:hover{background:#10B981;color:#fff!important}
