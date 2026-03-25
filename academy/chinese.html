@@ -32,7 +32,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
 /* HERO — 가로 레이아웃, 사진 작고 원형 */
-.teacher-hero{background:var(--bg);padding:60px 6%;display:flex;gap:52px;align-items:center}
+.teacher-hero{background:var(--bg);padding:60px 6%;display:flex;gap:52px;align-items:center;position:relative}
+.teacher-hero::before{content:"";position:absolute;inset:0;background-image:url("../hero/chinese.jpg");background-size:cover;background-position:center;opacity:.06;pointer-events:none}
 .hero-photo-col{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:12px}
 .hero-avatar{width:160px;height:160px;border-radius:50%;overflow:hidden;background:var(--blue-light);border:4px solid var(--white);box-shadow:0 8px 32px rgba(26,95,204,.18);flex-shrink:0}
 .hero-avatar img{width:100%;height:100%;object-fit:cover;object-position:top}
@@ -119,6 +120,13 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
 @media(max-width:480px){
   .hero-photo-col{flex-direction:column}
 }
+
+/* 후기 강조 탭 */
+.nav-review{background:linear-gradient(135deg,#FFB800,#FF6B00);color:#fff!important;border-radius:50px;padding:6px 16px;font-weight:700!important;font-size:13px!important;transition:all .2s!important}
+.nav-review:hover{opacity:.85;transform:translateY(-1px)}
+/* 원어민스터디 버튼 */
+.nav-study{background:transparent;color:#CC2222!important;border:1.5px solid #CC2222;border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important;white-space:nowrap}
+.nav-study:hover{background:#10B981;color:#fff!important}
 </style>
 </head>
 <body>
@@ -126,10 +134,10 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
 <nav>
   <a href="../index.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
-    <li><a href="../classes.html">수업 소개</a></li>
-    <li><a href="../academy.html#schedule">시간표</a></li>
-    <li><a href="../academy.html#reviews">후기</a></li>
-    <li><a href="../study.html">원어민스터디</a></li>
+    <li><a href="introduce.html">더박스 소개</a></li>
+    <li><a href="classes.html">수업 안내</a></li>
+    <li><a href="more.html">더박스 플러스</a></li>
+    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
   </ul>
   <div class="nav-right">
     <a href="../classes.html" class="nav-back">← 강사 목록</a>
@@ -142,12 +150,12 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
 
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
-  <a href="../index.html">홈</a>
-  <a href="../classes.html">수업 소개</a>
-  <a href="../academy.html#schedule">시간표</a>
-  <a href="../academy.html#reviews">후기</a>
-  <a href="../study.html">원어민스터디</a>
-  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px">상담 예약</a>
+  <a href="introduce.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 소개</a>
+  <a href="classes.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">수업 안내</a>
+  <a href="more.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 플러스</a>
+  <a href="reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
+  <a href="../study.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#CC2222;font-weight:700">원어민스터디</a>
+  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
 </div>
 
 <div class="teacher-hero fade-up">
@@ -220,7 +228,8 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
   <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com</div>
   <div class="footer-links">
     <a href="../index.html">홈</a>
-    <a href="../classes.html">강사 목록</a>
+    <a href="../introduce.html">소개</a>
+  <a href="../classes.html">강사 목록</a>
     <a href="../study.html">원어민스터디</a>
   </div>
 </footer>
