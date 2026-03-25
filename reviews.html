@@ -158,15 +158,15 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
 <body>
 
 <nav>
-  <a href="../index.html" class="nav-logo">THE<span>BOX</span></a>
+  <a href="index.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
     <li><a href="more.html">더박스 플러스</a></li>
     <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
   </ul>
-  <div class="nav-right">
-    <a href="../study.html" class="nav-study">원어민스터디</a>
+  <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobMenuReviews').classList.toggle('open')" aria-label="메뉴">
       <span></span><span></span><span></span>
@@ -176,13 +176,14 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
 
 <div class="mobile-menu" id="mobMenuReviews">
   <button class="mobile-menu-close" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">✕</button>
-  <a href="introduce.html">더박스 소개</a>
-  <a href="classes.html">수업 안내</a>
-  <a href="more.html">더박스 플러스</a>
-  <a href="reviews.html" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
-  <a href="../study.html" style="color:#10B981;font-weight:700">원어민스터디</a>
+  <a href="introduce.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">더박스 소개</a>
+  <a href="classes.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">수업 안내</a>
+  <a href="more.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">더박스 플러스</a>
+  <a href="reviews.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
+  <a href="study.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
 </div>
+
 
 <!-- HERO -->
 <div class="page-hero fade-up">

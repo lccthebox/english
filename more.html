@@ -31,7 +31,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
 /* HERO */
-.page-hero{padding:72px 6% 60px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("hero/more.jpg");background-size:cover;background-position:center}
+.page-hero{padding:72px 6% 60px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("academy/hero/more.jpg");background-size:cover;background-position:center}
 .page-hero::after{content:"";position:absolute;inset:0;background:rgba(8,14,40,.8);z-index:0;pointer-events:none}
 .page-hero>*{position:relative;z-index:1}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(123,179,255,.8);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
@@ -141,14 +141,15 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
 <body>
 
 <nav>
-  <a href="../index.html" class="nav-logo">THE<span>BOX</span></a>
+  <a href="index.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
     <li><a href="more.html">더박스 플러스</a></li>
     <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
   </ul>
-  <div class="nav-right">
+  <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobMenu').classList.toggle('open')" aria-label="메뉴">
       <span></span><span></span><span></span>
@@ -162,9 +163,10 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
   <a href="classes.html" onclick="document.getElementById('mobMenu').classList.remove('open')">수업 안내</a>
   <a href="more.html" onclick="document.getElementById('mobMenu').classList.remove('open')">더박스 플러스</a>
   <a href="reviews.html" onclick="document.getElementById('mobMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
-  <a href="../study.html" onclick="document.getElementById('mobMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
+  <a href="study.html" onclick="document.getElementById('mobMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
 </div>
+
 
 <div class="page-hero fade-up">
   <div class="hero-eyebrow">더 알아보기</div>

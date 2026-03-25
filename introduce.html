@@ -33,7 +33,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
 /* HERO */
-.page-hero{padding:88px 6% 80px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("hero/introduce.jpg");background-size:cover;background-position:center}
+.page-hero{padding:88px 6% 80px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("academy/hero/introduce.jpg");background-size:cover;background-position:center}
 .page-hero::after{content:"";position:absolute;inset:0;background:rgba(8,14,40,.78);z-index:0;pointer-events:none}
 .page-hero>*{position:relative;z-index:1}
 .page-hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(26,95,204,.2) 0%,transparent 65%);border-radius:50%;pointer-events:none}
@@ -160,14 +160,15 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 <body>
 
 <nav>
-  <a href="../index.html" class="nav-logo">THE<span>BOX</span></a>
+  <a href="index.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
     <li><a href="more.html">더박스 플러스</a></li>
     <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
   </ul>
-  <div class="nav-right">
+  <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobMenu').classList.toggle('open')" aria-label="메뉴">
       <span></span><span></span><span></span>
@@ -181,9 +182,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
   <a href="classes.html" onclick="document.getElementById('mobMenu').classList.remove('open')">수업 안내</a>
   <a href="more.html" onclick="document.getElementById('mobMenu').classList.remove('open')">더박스 플러스</a>
   <a href="reviews.html" onclick="document.getElementById('mobMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
-  <a href="../study.html" onclick="document.getElementById('mobMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
+  <a href="study.html" onclick="document.getElementById('mobMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
 </div>
+
 
 <!-- HERO -->
 <div class="page-hero fade-up">
@@ -289,7 +291,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
   <div class="cert-grid">
     <div class="cert-card">
       <div class="cert-img">
-        <img src="cert/cert1.jpg" alt="인증서 1" onerror="this.parentElement.innerHTML='🏆'">
+        <img src="academy/cert/cert1.jpg" alt="인증서 1" onerror="this.parentElement.innerHTML='🏆'">
       </div>
       <div class="cert-body">
         <div class="cert-name">연구개발전담부서 인증</div>
@@ -298,7 +300,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
     </div>
     <div class="cert-card">
       <div class="cert-img">
-        <img src="cert/cert2.jpg" alt="인증서 2" onerror="this.parentElement.innerHTML='🏅'">
+        <img src="academy/cert/cert2.jpg" alt="인증서 2" onerror="this.parentElement.innerHTML='🏅'">
       </div>
       <div class="cert-body">
         <div class="cert-name">교육우수학원 인증</div>
@@ -307,7 +309,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
     </div>
     <div class="cert-card">
       <div class="cert-img">
-        <img src="cert/cert3.jpg" alt="인증서 3" onerror="this.parentElement.innerHTML='📜'">
+        <img src="academy/cert/cert3.jpg" alt="인증서 3" onerror="this.parentElement.innerHTML='📜'">
       </div>
       <div class="cert-body">
         <div class="cert-name">인증서 3</div>
@@ -316,7 +318,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
     </div>
     <div class="cert-card">
       <div class="cert-img">
-        <img src="cert/cert4.jpg" alt="인증서 4" onerror="this.parentElement.innerHTML='📜'">
+        <img src="academy/cert/cert4.jpg" alt="인증서 4" onerror="this.parentElement.innerHTML='📜'">
       </div>
       <div class="cert-body">
         <div class="cert-name">인증서 4</div>
@@ -335,19 +337,19 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
   <div class="section-title">가장 가까운 곳에서<br>시작해보세요</div>
   <div class="branches-grid">
     <a href="https://naver.me/5BcjX84R" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/대구.jpg" alt="대구 본점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
+      <div class="branch-photo"><img src="academy/branch/대구.jpg" alt="대구 본점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
       <div class="branch-body"><div class="branch-city">DAEGU · 대구</div><div class="branch-name">더박스 대구 본점</div><div class="branch-addr">대구광역시 중구 동성로2 (동성로3가 90-1) 6층<br>반월당역 13·14번 출구 도보 5분</div><div class="branch-link">예약하기 →</div></div>
     </a>
     <a href="https://map.naver.com/p/entry/place/1388157012?placePath=%2Fhome&c=15.00,0,0,0,dh" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/부산.jpg" alt="부산 서면점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
+      <div class="branch-photo"><img src="academy/branch/부산.jpg" alt="부산 서면점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
       <div class="branch-body"><div class="branch-city">BUSAN · 부산</div><div class="branch-name">더박스 서면점</div><div class="branch-addr">부산광역시 부산진구 서면 일대</div><div class="branch-link">지점 보기 →</div></div>
     </a>
     <a href="https://naver.me/GLz3xn3B" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/창원.jpg" alt="창원 중앙점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
+      <div class="branch-photo"><img src="academy/branch/창원.jpg" alt="창원 중앙점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
       <div class="branch-body"><div class="branch-city">CHANGWON · 창원</div><div class="branch-name">더박스 중앙점</div><div class="branch-addr">경상남도 창원시 중앙동 일대</div><div class="branch-link">예약하기 →</div></div>
     </a>
     <a href="https://naver.me/xRh9Gx7w" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/울산.jpg" alt="울산 삼산점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
+      <div class="branch-photo"><img src="academy/branch/울산.jpg" alt="울산 삼산점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px\'>🏢</div>'"></div>
       <div class="branch-body"><div class="branch-city">ULSAN · 울산</div><div class="branch-name">더박스 삼산점</div><div class="branch-addr">울산광역시 남구 삼산동 일대</div><div class="branch-link">예약하기 →</div></div>
     </a>
   </div>
