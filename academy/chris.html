@@ -8,80 +8,97 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--white:#ffffff;--bg:#F3F6FB;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#777;--blue:#1A5FCC;--blue-light:#EEF4FF;--border:#D8E4F5;--radius:14px}
+:root{--white:#fff;--bg:#F3F6FB;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#777;--blue:#1A5FCC;--blue-dark:#1448A8;--blue-light:#EEF4FF;--border:#D8E4F5;--radius:14px}
 html{scroll-behavior:smooth}
 body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.6;overflow-x:hidden}
-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:2px solid var(--blue);padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-size:17px;font-weight:900;color:var(--ink);text-decoration:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:2px solid var(--blue);padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav-logo{font-size:17px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0}
 .nav-logo span{color:var(--blue)}
-.nav-back{font-size:13px;color:var(--ink-mute);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
-.nav-back:hover{color:var(--ink)}
-.nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
-.nav-cta:hover{opacity:.85}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-back{font-size:13px;color:var(--ink-mute);text-decoration:none;border:1px solid var(--border);border-radius:50px;padding:7px 16px;transition:all .2s}
+.nav-back:hover{border-color:var(--blue);color:var(--blue)}
+.nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:var(--blue-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
+.mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
-/* HERO */
-.teacher-hero{background:var(--bg);padding:72px 6% 0;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;min-height:480px}
-.hero-left{padding-bottom:72px}
-.hero-eyebrow{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+/* HERO — 가로 레이아웃, 사진 작고 원형 */
+.teacher-hero{background:var(--bg);padding:60px 6%;display:flex;gap:52px;align-items:center}
+.hero-photo-col{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.hero-avatar{width:160px;height:160px;border-radius:50%;overflow:hidden;background:var(--blue-light);border:4px solid var(--white);box-shadow:0 8px 32px rgba(26,95,204,.18);flex-shrink:0}
+.hero-avatar img{width:100%;height:100%;object-fit:cover;object-position:top}
+.hero-en-badge{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:2px;text-transform:uppercase;text-align:center}
+.hero-content{flex:1;min-width:0}
+.hero-eyebrow{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .hero-eyebrow::before{content:'';width:20px;height:2px;background:var(--blue)}
-.hero-name{font-size:clamp(40px,6vw,72px);font-weight:900;color:var(--ink);line-height:1;margin-bottom:8px}
-.hero-class{font-size:20px;font-weight:700;color:var(--blue);margin-bottom:20px}
-.hero-quote{font-size:17px;color:var(--ink-soft);line-height:1.7;font-weight:300;border-left:3px solid var(--blue);padding-left:16px;margin-bottom:32px}
-.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
-.meta-chip{background:var(--white);border:1.5px solid var(--border);border-radius:50px;padding:8px 18px;font-size:13px;font-weight:500;color:var(--ink)}
-.meta-chip span{color:var(--blue);font-weight:700}
-.hero-right{position:relative;display:flex;justify-content:center;align-items:flex-end}
-.teacher-photo-wrap{width:100%;max-width:360px;aspect-ratio:3/4;border-radius:20px;overflow:hidden;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:0 20px 60px rgba(26,95,204,.15)}
-.teacher-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
+.hero-name{font-size:clamp(36px,5vw,60px);font-weight:900;color:var(--ink);line-height:1;margin-bottom:6px}
+.hero-class{font-size:16px;font-weight:600;color:var(--blue);margin-bottom:16px}
+.hero-quote{font-size:16px;color:var(--ink-soft);line-height:1.75;border-left:3px solid var(--blue);padding-left:14px;margin-bottom:24px;font-weight:300}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.hero-chip{background:var(--white);border:1.5px solid var(--border);border-radius:50px;padding:7px 16px;font-size:13px;color:var(--ink-soft)}
+.hero-chip strong{color:var(--blue);font-weight:700}
 
-/* CONTENT */
-section{padding:80px 6%}
-.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--blue);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+/* SECTIONS */
+section{padding:64px 6%}
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--blue);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .section-eyebrow::before{content:'';width:20px;height:2px;background:var(--blue)}
-.section-title{font-size:clamp(24px,3vw,36px);font-weight:900;line-height:1.2;margin-bottom:20px;color:var(--ink)}
-
-/* INTRO */
+.section-title{font-size:clamp(22px,3vw,34px);font-weight:900;line-height:1.2;margin-bottom:18px;color:var(--ink)}
 .intro-section{background:var(--white)}
 .intro-text{font-size:16px;color:var(--ink-soft);line-height:2;font-weight:300;max-width:720px}
-
-/* FEATURES */
 .features-section{background:var(--bg)}
-.features-intro{font-size:15px;color:var(--ink-mute);margin-bottom:32px;font-weight:300}
-.feature-list{display:flex;flex-direction:column;gap:0;max-width:680px}
-.feature-item{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.features-intro{font-size:15px;color:var(--ink-mute);margin-bottom:24px;font-weight:300}
+.feature-list{display:flex;flex-direction:column;max-width:700px}
+.feature-item{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .feature-item:first-child{border-top:1px solid var(--border)}
-.feature-check{width:28px;height:28px;border-radius:50%;background:var(--blue);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px}
+.feature-check{width:26px;height:26px;border-radius:50%;background:var(--blue);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
 .feature-text{font-size:15px;color:var(--ink);line-height:1.7}
 
-/* INSTA */
-.insta-section{background:var(--white);padding:48px 6%}
-.insta-inner{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.insta-text{}
-.insta-label{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:6px}
-.insta-name{font-size:18px;font-weight:700;color:var(--ink)}
-.insta-sub{font-size:13px;color:var(--ink-mute);margin-top:4px}
-.insta-btn{background:var(--ink);color:var(--white);border:none;border-radius:50px;padding:12px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s;white-space:nowrap}
-.insta-btn:hover{opacity:.8}
+/* CLASS PHOTOS */
+.class-photos-section{background:var(--white)}
+.class-photos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}
+.class-photo{border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:var(--blue-light)}
+.class-photo img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.class-photo:hover img{transform:scale(1.04)}
+.photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--blue);background:var(--blue-light)}
 
-/* NAV BETWEEN TEACHERS */
-.teacher-nav{background:var(--bg);padding:32px 6%;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+/* INSTA */
+.insta-section{background:var(--bg);padding:40px 6%}
+.insta-inner{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.insta-label{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.insta-name{font-size:16px;font-weight:700;color:var(--ink)}
+.insta-sub{font-size:13px;color:var(--ink-mute);margin-top:3px}
+.insta-btn{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:var(--white);border:none;border-radius:50px;padding:11px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap}
+.insta-btn:hover{opacity:.9}
+
+/* TEACHER NAV */
+.teacher-nav{background:var(--bg);padding:24px 6%;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
 .t-nav-btn{text-decoration:none;color:var(--ink-mute);font-size:14px;font-weight:500;transition:color .2s;display:flex;align-items:center;gap:6px}
 .t-nav-btn:hover{color:var(--blue)}
-.t-nav-btn.disabled{opacity:.3;pointer-events:none}
+.t-nav-btn.disabled{opacity:.25;pointer-events:none}
 .t-nav-back{font-size:13px;color:var(--ink-mute);text-decoration:none;border:1.5px solid var(--border);border-radius:50px;padding:8px 20px;transition:all .2s}
 .t-nav-back:hover{border-color:var(--blue);color:var(--blue)}
 
 /* CTA */
-.cta-section{background:var(--ink);padding:72px 6%;text-align:center}
-.cta-title{font-size:clamp(26px,3.5vw,44px);font-weight:900;color:var(--white);margin-bottom:12px}
+.cta-section{background:var(--ink);padding:64px 6%;text-align:center}
+.cta-title{font-size:clamp(24px,3.5vw,42px);font-weight:900;color:var(--white);margin-bottom:12px}
 .cta-title em{color:#7BB3FF;font-style:normal}
-.cta-desc{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:36px}
+.cta-desc{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:32px}
 .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-blue{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:15px 36px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s;box-shadow:0 6px 20px rgba(26,95,204,.4)}
-.btn-blue:hover{opacity:.9;transform:translateY(-2px)}
-.btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:15px 36px;font-size:15px;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
+.btn-blue{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:14px 34px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s;box-shadow:0 6px 20px rgba(26,95,204,.4)}
+.btn-blue:hover{opacity:.9;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:14px 34px;font-size:15px;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
 .btn-ghost:hover{border-color:var(--white)}
-footer{background:#111;padding:32px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+
+footer{background:#111;padding:28px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 .footer-logo{font-size:15px;font-weight:900;color:rgba(255,255,255,.7)}
 .footer-logo span{color:#7BB3FF}
 .footer-info{font-size:12px;color:rgba(255,255,255,.3);line-height:1.8}
@@ -90,39 +107,64 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
 .footer-links a:hover{color:rgba(255,255,255,.7)}
 .fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
-@media(max-width:768px){.teacher-hero{grid-template-columns:1fr;padding-top:48px}.hero-right{display:none}}
 
-/* CLASS PHOTOS */
-.class-photos-section{background:var(--bg)}
-.class-photos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:36px}
-.class-photo{border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:var(--blue-light)}
-.class-photo img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
-.class-photo:hover img{transform:scale(1.04)}
-.photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;background:var(--blue-light)}
-@media(max-width:600px){.class-photos-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .teacher-hero{flex-direction:column;gap:32px;padding:40px 6%}
+  .hero-avatar{width:120px;height:120px}
+  .hero-photo-col{flex-direction:row;align-items:center;gap:20px}
+  .class-photos-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:480px){
+  .hero-photo-col{flex-direction:column}
+}
 </style>
 </head>
 <body>
+
 <nav>
-  <a href="index.html" class="nav-logo">THE<span>BOX</span></a>
-  <a href="academy.html" class="nav-back">← 강사 목록</a>
-  <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
+  <a href="../index.html" class="nav-logo">THE<span>BOX</span></a>
+  <ul class="nav-links">
+    <li><a href="../classes.html">수업 소개</a></li>
+    <li><a href="../academy.html#schedule">시간표</a></li>
+    <li><a href="../academy.html#reviews">후기</a></li>
+    <li><a href="../study.html">원어민스터디</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="../classes.html" class="nav-back">← 강사 목록</a>
+    <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
+    <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<div class="teacher-hero">
-  <div class="hero-left fade-up">
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="../index.html">홈</a>
+  <a href="../classes.html">수업 소개</a>
+  <a href="../academy.html#schedule">시간표</a>
+  <a href="../academy.html#reviews">후기</a>
+  <a href="../study.html">원어민스터디</a>
+  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px">상담 예약</a>
+</div>
+
+<div class="teacher-hero fade-up">
+  <div class="hero-photo-col">
+    <div class="hero-avatar">
+      <img src="profile/chris.jpg" alt="크리스" onerror="this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='48px';this.parentElement.innerHTML='👤'">
+    </div>
+    <div class="hero-en-badge">CHRIS</div>
+  </div>
+  <div class="hero-content">
     <div class="hero-eyebrow">미디어영어</div>
     <div class="hero-name">크리스</div>
     <div class="hero-class">CHRIS — 미디어영어</div>
     <div class="hero-quote">네이티브처럼 사고하고, 네이티브처럼 말하자</div>
-    <div class="hero-meta">
-      <div class="meta-chip">레벨 <span>왕기초~</span></div>
-      <div class="meta-chip">수업 요일 <span>월·화·수·목 (주4회) 스케줄에 따라 주2~4회 가능</span></div>
-    </div>
-  </div>
-  <div class="hero-right fade-up">
-    <div class="teacher-photo-wrap">
-      <img src="profile/chris.jpg" alt="크리스" onerror="this.parentElement.innerHTML='👤'">
+    <div class="hero-chips">
+      <div class="hero-chip">레벨 <strong>왕기초~</strong></div>
+      <div class="hero-chip">요일 <strong>월·화·수·목 (주4회) 스케줄에 따라 주2~4회 가능</strong></div>
     </div>
   </div>
 </div>
@@ -139,30 +181,28 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
   <p class="features-intro">아래 항목 중 하나라도 해당된다면, 크리스 선생님 수업을 추천드립니다!</p>
   <div class="feature-list">
     <div class="feature-item"><div class="feature-check">✓</div><div class="feature-text">영드, 미드뿐 아니라 외국 영화, 다양한 소셜미디어 영상물 등을 즐긴다</div></div>
-    <div class="feature-item"><div class="feature-check">✓</div><div class="feature-text">다른 나라의 문화를 이해하고, 왜 이런 문장과 단어가 나왔는지 알아가며 배우고 싶다</div></div>
+    <div class="feature-item"><div class="feature-check">✓</div><div class="feature-text">다른 나라의 문화를 이해하고 왜 이런 문장과 단어가 나왔는지 알아가며 배우고 싶다</div></div>
     <div class="feature-item"><div class="feature-check">✓</div><div class="feature-text">미디어를 이용한 회화, 문법, 발음, 듣기를 한 번에 해보고 싶다</div></div>
 
   </div>
 </section>
 
-
-
-
-<!-- CLASS PHOTOS -->
 <section class="class-photos-section fade-up">
   <div class="section-eyebrow">수업 사진</div>
   <div class="section-title">수업 분위기를 확인하세요</div>
   <div class="class-photos-grid">
-    <div class="class-photo"><img src="classes/chris1.jpg" alt="수업 사진 1" onerror="this.parentElement.innerHTML='<div class=photo-placeholder>📸</div>'"></div>
-    <div class="class-photo"><img src="classes/chris2.jpg" alt="수업 사진 2" onerror="this.parentElement.innerHTML='<div class=photo-placeholder>📸</div>'"></div>
-    <div class="class-photo"><img src="classes/chris3.jpg" alt="수업 사진 3" onerror="this.parentElement.innerHTML='<div class=photo-placeholder>📸</div>'"></div>
-    <div class="class-photo"><img src="classes/chris4.jpg" alt="수업 사진 4" onerror="this.parentElement.innerHTML='<div class=photo-placeholder>📸</div>'"></div>
+    <div class="class-photo"><img src="classes/chris/chris1.jpg" alt="수업 사진 1" onerror="this.parentElement.innerHTML='<div class=photo-placeholder>📸</div>'"></div>
+    <div class="class-photo"><img src="classes/chris/chris2.jpg" alt="수업 사진 2" onerror="this.parentElement.innerHTML='<div class=photo-placeholder>📸</div>'"></div>
+    <div class="class-photo"><img src="classes/chris/chris3.jpg" alt="수업 사진 3" onerror="this.parentElement.innerHTML='<div class=photo-placeholder>📸</div>'"></div>
+    <div class="class-photo"><img src="classes/chris/chris4.jpg" alt="수업 사진 4" onerror="this.parentElement.innerHTML='<div class=photo-placeholder>📸</div>'"></div>
   </div>
 </section>
 
+
+
 <div class="teacher-nav">
   <a href="james.html" class="t-nav-btn">← 제임스</a>
-  <a href="academy.html" class="t-nav-back">강사 전체 보기</a>
+  <a href="../classes.html" class="t-nav-back">강사 전체 보기</a>
   <a href="cerline.html" class="t-nav-btn">설린 →</a>
 </div>
 
@@ -179,8 +219,9 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
   <div class="footer-logo">THE<span>BOX</span></div>
   <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com</div>
   <div class="footer-links">
-    <a href="index.html">홈</a><a href="academy.html">강사 목록</a>
-    <a href="study.html">원어민스터디</a>
+    <a href="../index.html">홈</a>
+    <a href="../classes.html">강사 목록</a>
+    <a href="../study.html">원어민스터디</a>
   </div>
 </footer>
 
