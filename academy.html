@@ -32,11 +32,12 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 8s ease}
 .slide.active .slide-bg{transform:scale(1.04)}
 .slide-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,50,.82) 0%,rgba(10,20,50,.15) 60%,transparent 100%)}
-.slide-bg.a1{background-color:#0d1a3a;background-image:url('mainhero/academy1.jpg')}
-.slide-bg.a2{background-color:#0a1530;background-image:url('mainhero/academy2.jpg')}
-.slide-bg.a3{background-color:#0d2030;background-image:url('mainhero/academy3.jpg')}
-.slide-bg.a4{background-color:#101828;background-image:url('mainhero/academy4.jpg')}
-.slide-bg.a5{background-color:#0a1520;background-image:url('mainhero/academy5.jpg')}
+.slide-bg.a1{background-color:#0d1a3a;background-image:url('academy/mainhero/main1.jpg')}
+.slide-bg.a2{background-color:#0a1530;background-image:url('academy/mainhero/main2.jpg')}
+.slide-bg.a3{background-color:#0d2030;background-image:url('academy/mainhero/main3.jpg')}
+.slide-bg.a4{background-color:#101828;background-image:url('academy/mainhero/main4.jpg')}
+.slide-bg.a5{background-color:#0a1520;background-image:url('academy/mainhero/main5.jpg')}
+.slide-bg.a6{background-color:#0a1a10;background-image:url('academy/mainhero/main6.jpg')}
 .slide-content{position:relative;z-index:2;padding:0 8% 64px;width:100%}
 .slide-tag{display:inline-block;background:var(--blue);color:var(--white);font-size:11px;font-weight:700;letter-spacing:1.5px;padding:5px 14px;border-radius:50px;margin-bottom:16px}
 .slide-title{font-size:clamp(32px,5vw,60px);font-weight:900;color:var(--white);line-height:1.15;margin-bottom:12px}
@@ -289,8 +290,9 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
   <div class="slide"><div class="slide-bg a3"></div><div class="slide-content"><div class="slide-tag">소규모 수업</div><div class="slide-title">소규모 클래스에서<br><em>말하는 기회</em> 극대화</div><div class="slide-sub">개인 피드백과 충분한 말하기 시간을 보장합니다</div></div></div>
   <div class="slide"><div class="slide-bg a4"></div><div class="slide-content"><div class="slide-tag">23가지 커리큘럼</div><div class="slide-title">취향에 맞게<br><em>골라듣는</em> 수업</div><div class="slide-sub">미디어, 트렌디, 실전, 중국어까지 다양하게</div></div></div>
   <div class="slide"><div class="slide-bg a5"></div><div class="slide-content"><div class="slide-tag">대구·부산·창원·울산</div><div class="slide-title">가장 가까운 곳에서<br><em>시작</em>하세요</div><div class="slide-sub">시작을 어디서 하느냐가 말문이 트이는 속도를 바꿉니다</div></div></div>
-  <div class="slide-counter"><strong id="cur">1</strong> / 5</div>
-  <div class="slide-dots"><button class="dot active" onclick="goSlide(0)"></button><button class="dot" onclick="goSlide(1)"></button><button class="dot" onclick="goSlide(2)"></button><button class="dot" onclick="goSlide(3)"></button><button class="dot" onclick="goSlide(4)"></button></div>
+  <div class="slide"><div class="slide-bg a6"></div><div class="slide-content"><div class="slide-tag">더박스 어학원</div><div class="slide-title">배우고 묵혀두는 영어 말고<br><em>살아있는 영어</em></div><div class="slide-sub">오늘 배워서 내일 바로 쓸 수 있는 실용적인 영어</div></div></div>
+  <div class="slide-counter"><strong id="cur">1</strong> / 6</div>
+  <div class="slide-dots"><button class="dot active" onclick="goSlide(0)"></button><button class="dot" onclick="goSlide(1)"></button><button class="dot" onclick="goSlide(2)"></button><button class="dot" onclick="goSlide(3)"></button><button class="dot" onclick="goSlide(4)"></button><button class="dot" onclick="goSlide(5)"></button></div>
 </div>
 
 <!-- STATS -->
@@ -367,72 +369,72 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
     <div class="carousel-track-wrap">
       <div class="carousel-track" id="tcTrack">
 
-        <a href="james.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/james.jpg" alt="제임스" onerror="this.parentElement.innerHTML='👨'"></div>
+        <a href="academy/james.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/james.jpg" alt="제임스" onerror="this.parentElement.innerHTML='👨'"></div>
           <div class="tc-en">JAMES</div><div class="tc-kr">제임스</div>
           <div class="tc-class">진짜영어 · 왕기초~</div>
           <div class="tc-quote">내 머릿속에 외운 표현이 아닌 말하는 법을 배우는 시대</div>
           <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">주4회</span></div>
         </div><div class="tc-arrow">→</div></a>
 
-        <a href="chris.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/chris.jpg" alt="크리스" onerror="this.parentElement.innerHTML='👨'"></div>
+        <a href="academy/chris.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/chris.jpg" alt="크리스" onerror="this.parentElement.innerHTML='👨'"></div>
           <div class="tc-en">CHRIS</div><div class="tc-kr">크리스</div>
           <div class="tc-class">미디어영어 · 왕기초~</div>
           <div class="tc-quote">네이티브처럼 사고하고, 네이티브처럼 말하자</div>
           <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">주2~4회</span><span class="tc-tag">미디어</span></div>
         </div><div class="tc-arrow">→</div></a>
 
-        <a href="cerline.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/cerline.jpg" alt="설린" onerror="this.parentElement.innerHTML='👩'"></div>
+        <a href="academy/cerline.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/cerline.jpg" alt="설린" onerror="this.parentElement.innerHTML='👩'"></div>
           <div class="tc-en">CERLINE</div><div class="tc-kr">설린</div>
           <div class="tc-class">도전영어 · 왕기초~</div>
           <div class="tc-quote">영어회화, 어렵게 생각하지 마세요. 시작이 반입니다.</div>
           <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">주2회</span></div>
         </div><div class="tc-arrow">→</div></a>
 
-        <a href="riley.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/riley.jpg" alt="라일리" onerror="this.parentElement.innerHTML='👨'"></div>
+        <a href="academy/riley.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/riley.jpg" alt="라일리" onerror="this.parentElement.innerHTML='👨'"></div>
           <div class="tc-en">RILEY</div><div class="tc-kr">라일리</div>
           <div class="tc-class">Right 영어 · 왕기초~</div>
           <div class="tc-quote">정확하게 배워, 지금 바로 쓰자.</div>
           <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">주2회</span><span class="tc-tag">교차수강</span></div>
         </div><div class="tc-arrow">→</div></a>
 
-        <a href="tina.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/tina.jpg" alt="티나" onerror="this.parentElement.innerHTML='👩'"></div>
+        <a href="academy/tina.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/tina.jpg" alt="티나" onerror="this.parentElement.innerHTML='👩'"></div>
           <div class="tc-en">TINA</div><div class="tc-kr">티나</div>
           <div class="tc-class">트렌디영어 · 왕기초~</div>
           <div class="tc-quote">영어회화는 놀이예요. 재밌게 배우면 자연스럽게 입으로 내뱉어집니다</div>
           <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">트렌디</span><span class="tc-tag">주2회</span></div>
         </div><div class="tc-arrow">→</div></a>
 
-        <a href="jane.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/jane.jpg" alt="제인" onerror="this.parentElement.innerHTML='👩'"></div>
+        <a href="academy/jane.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/jane.jpg" alt="제인" onerror="this.parentElement.innerHTML='👩'"></div>
           <div class="tc-en">JANE</div><div class="tc-kr">제인</div>
           <div class="tc-class">제일영어 · 왕기초~</div>
           <div class="tc-quote">처음으로 빠짐없이 출석한 수업, 그러니까 늘더라고요</div>
           <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">주2회</span><span class="tc-tag">실전</span></div>
         </div><div class="tc-arrow">→</div></a>
 
-        <a href="courtney.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/courtney.jpg" alt="코트니" onerror="this.parentElement.innerHTML='👩'"></div>
+        <a href="academy/courtney.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/courtney.jpg" alt="코트니" onerror="this.parentElement.innerHTML='👩'"></div>
           <div class="tc-en">COURTNEY</div><div class="tc-kr">코트니</div>
           <div class="tc-class">Go-To 영어 · 초중급~</div>
           <div class="tc-quote">Where confidence meets conversation.</div>
           <div class="tc-tags"><span class="tc-tag">초중급~</span><span class="tc-tag">주2회</span><span class="tc-tag">10년경력</span></div>
         </div><div class="tc-arrow">→</div></a>
 
-        <a href="diana.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/diana.jpg" alt="다이애나" onerror="this.parentElement.innerHTML='👩'"></div>
+        <a href="academy/diana.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/diana.jpg" alt="다이애나" onerror="this.parentElement.innerHTML='👩'"></div>
           <div class="tc-en">DIANA</div><div class="tc-kr">다이애나</div>
           <div class="tc-class">바로영어 · 왕기초~</div>
           <div class="tc-quote">머리로 말고, 입으로 말을 해야죠.</div>
           <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">주말반</span><span class="tc-tag">액티비티</span></div>
         </div><div class="tc-arrow">→</div></a>
 
-        <a href="chinese.html" class="tc"><div class="tc-top"></div><div class="tc-body">
-          <div class="tc-photo"><img src="profile/짜이뤼.jpg" alt="짜이뤼" onerror="this.parentElement.innerHTML='👩'"></div>
+        <a href="academy/chinese.html" class="tc"><div class="tc-top"></div><div class="tc-body">
+          <div class="tc-photo"><img src="academy/profile/짜이뤼.jpg" alt="짜이뤼" onerror="this.parentElement.innerHTML='👩'"></div>
           <div class="tc-en">CHINESE</div><div class="tc-kr">짜이뤼</div>
           <div class="tc-class">미親중국어 · 성조 시작반~</div>
           <div class="tc-quote">중국어는 시작을 제대로 하셔야 합니다</div>
@@ -470,16 +472,16 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
     <button class="sch-tab" onclick="showSch(this,'짜이뤼')">짜이뤼</button>
   </div>
   <div class="schedule-imgs">
-    <div class="sch-img active" id="sch-total"><img src="schedule/total.jpg" alt="전체 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>전체 아카데미 시간표</strong>schedule/total.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-제임스"><img src="schedule/제임스.jpg" alt="제임스 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>제임스 시간표</strong>schedule/제임스.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-크리스"><img src="schedule/크리스.jpg" alt="크리스 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>크리스 시간표</strong>schedule/크리스.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-설린"><img src="schedule/설린.jpg" alt="설린 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>설린 시간표</strong>schedule/설린.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-라일리"><img src="schedule/라일리.jpg" alt="라일리 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>라일리 시간표</strong>schedule/라일리.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-티나"><img src="schedule/티나.jpg" alt="티나 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>티나 시간표</strong>schedule/티나.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-제인"><img src="schedule/제인.jpg" alt="제인 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>제인 시간표</strong>schedule/제인.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-코트니"><img src="schedule/코트니.jpg" alt="코트니 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>코트니 시간표</strong>schedule/코트니.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-다이애나"><img src="schedule/다이애나.jpg" alt="다이애나 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>다이애나 시간표</strong>schedule/다이애나.jpg 를 업로드해주세요</div></div>
-    <div class="sch-img" id="sch-짜이뤼"><img src="schedule/짜이뤼.jpg" alt="짜이뤼 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>짜이뤼 시간표</strong>schedule/짜이뤼.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img active" id="sch-total"><img src="academy/schedule/total.jpg" alt="전체 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>전체 아카데미 시간표</strong>schedule/total.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-제임스"><img src="academy/schedule/제임스.jpg" alt="제임스 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>제임스 시간표</strong>schedule/제임스.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-크리스"><img src="academy/schedule/크리스.jpg" alt="크리스 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>크리스 시간표</strong>schedule/크리스.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-설린"><img src="academy/schedule/설린.jpg" alt="설린 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>설린 시간표</strong>schedule/설린.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-라일리"><img src="academy/schedule/라일리.jpg" alt="라일리 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>라일리 시간표</strong>schedule/라일리.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-티나"><img src="academy/schedule/티나.jpg" alt="티나 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>티나 시간표</strong>schedule/티나.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-제인"><img src="academy/schedule/제인.jpg" alt="제인 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>제인 시간표</strong>schedule/제인.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-코트니"><img src="academy/schedule/코트니.jpg" alt="코트니 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>코트니 시간표</strong>schedule/코트니.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-다이애나"><img src="academy/schedule/다이애나.jpg" alt="다이애나 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>다이애나 시간표</strong>schedule/다이애나.jpg 를 업로드해주세요</div></div>
+    <div class="sch-img" id="sch-짜이뤼"><img src="academy/schedule/짜이뤼.jpg" alt="짜이뤼 시간표" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="sch-placeholder" style="display:none"><strong>짜이뤼 시간표</strong>schedule/짜이뤼.jpg 를 업로드해주세요</div></div>
   </div>
 </section>
 
@@ -602,7 +604,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
   <div class="section-title">가장 가까운 곳에서<br>시작해보세요</div>
   <div class="branches-grid">
     <a href="https://naver.me/5BcjX84R" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/대구.jpg" alt="대구 본점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
+      <div class="branch-photo"><img src="academy/branch/대구.jpg" alt="대구 본점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
       <div class="branch-body">
         <div class="branch-city">DAEGU</div>
         <div class="branch-name">더박스 대구 본점</div>
@@ -611,7 +613,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
     <a href="https://map.naver.com/p/entry/place/1388157012?placePath=%2Fhome&c=15.00,0,0,0,dh" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/부산.jpg" alt="부산 서면점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
+      <div class="branch-photo"><img src="academy/branch/부산.jpg" alt="부산 서면점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
       <div class="branch-body">
         <div class="branch-city">BUSAN</div>
         <div class="branch-name">더박스 서면점</div>
@@ -620,7 +622,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
     <a href="https://naver.me/GLz3xn3B" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/창원.jpg" alt="창원 중앙점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
+      <div class="branch-photo"><img src="academy/branch/창원.jpg" alt="창원 중앙점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
       <div class="branch-body">
         <div class="branch-city">CHANGWON</div>
         <div class="branch-name">더박스 중앙점</div>
@@ -629,7 +631,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
     <a href="https://naver.me/xRh9Gx7w" target="_blank" class="branch-card">
-      <div class="branch-photo"><img src="branch/울산.jpg" alt="울산 삼산점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
+      <div class="branch-photo"><img src="academy/branch/울산.jpg" alt="울산 삼산점" onerror="this.parentElement.style.background='#dce8f5';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:40px\'>🏢</div>'"></div>
       <div class="branch-body">
         <div class="branch-city">ULSAN</div>
         <div class="branch-name">더박스 삼산점</div>
@@ -665,7 +667,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
 // ── HERO SLIDESHOW ──
 let cur=0;const slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot'),counter=document.getElementById('cur');
 function goSlide(n){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dots[cur].classList.add('active');counter.textContent=cur+1}
-const auto=setInterval(()=>goSlide((cur+1)%slides.length),5000);
+const auto=setInterval(()=>goSlide((cur+1)%6),5000);
 dots.forEach((d,i)=>d.addEventListener('click',()=>{clearInterval(auto);goSlide(i)}));
 
 // ── COUNT UP ──
@@ -733,15 +735,15 @@ document.querySelectorAll('.quiz-opt').forEach(btn=>{
 function nextStep(f){if(!ans[f])return;document.getElementById('step'+f).classList.remove('active');document.getElementById('pb'+f).classList.add('done');document.getElementById('step'+(f+1)).classList.add('active')}
 function prevStep(t){document.getElementById('step'+t).classList.remove('active');document.getElementById('step'+(t-1)).classList.add('active')}
 const T={
-  james:{name:'제임스',cls:'진짜영어',f:'james.html',p:'profile/james.jpg'},
-  chris:{name:'크리스',cls:'미디어영어',f:'chris.html',p:'profile/chris.jpg'},
-  cerline:{name:'설린',cls:'도전영어',f:'cerline.html',p:'profile/cerline.jpg'},
-  riley:{name:'라일리',cls:'Right 영어',f:'riley.html',p:'profile/riley.jpg'},
-  tina:{name:'티나',cls:'트렌디영어',f:'tina.html',p:'profile/tina.jpg'},
-  jane:{name:'제인',cls:'제일영어',f:'jane.html',p:'profile/jane.jpg'},
-  courtney:{name:'코트니',cls:'Go-To 영어',f:'courtney.html',p:'profile/courtney.jpg'},
-  diana:{name:'다이애나',cls:'바로영어',f:'diana.html',p:'profile/diana.jpg'},
-  chinese:{name:'짜이뤼',cls:'미親중국어',f:'chinese.html',p:'profile/짜이뤼.jpg'},
+  james:{name:'제임스',cls:'진짜영어',f:'academy/james.html',p:'academy/profile/james.jpg'},
+  chris:{name:'크리스',cls:'미디어영어',f:'academy/chris.html',p:'academy/profile/chris.jpg'},
+  cerline:{name:'설린',cls:'도전영어',f:'academy/cerline.html',p:'academy/profile/cerline.jpg'},
+  riley:{name:'라일리',cls:'Right 영어',f:'academy/riley.html',p:'academy/profile/riley.jpg'},
+  tina:{name:'티나',cls:'트렌디영어',f:'academy/tina.html',p:'academy/profile/tina.jpg'},
+  jane:{name:'제인',cls:'제일영어',f:'academy/jane.html',p:'academy/profile/jane.jpg'},
+  courtney:{name:'코트니',cls:'Go-To 영어',f:'academy/courtney.html',p:'academy/profile/courtney.jpg'},
+  diana:{name:'다이애나',cls:'바로영어',f:'academy/diana.html',p:'academy/profile/diana.jpg'},
+  chinese:{name:'짜이뤼',cls:'미親중국어',f:'academy/chinese.html',p:'academy/profile/짜이뤼.jpg'},
 };
 function getRec(){
   const g=ans[1],t=ans[2],s=ans[3];
