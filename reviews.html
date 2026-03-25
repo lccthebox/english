@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>후기 | 더박스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#fff;--bg:#F3F6FB;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#777;
+  --blue:#1A5FCC;--blue-dark:#1448A8;--blue-light:#EEF4FF;--border:#D8E4F5;--radius:14px;
+  --orange:#FF6B00;--green:#10B981;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.6;overflow-x:hidden}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:2px solid var(--blue);padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav-logo{font-size:17px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:20px;list-style:none;align-items:center}
+.nav-links a{font-size:14px;color:var(--ink-mute);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-review{background:linear-gradient(135deg,#FFB800,#FF6B00);color:#fff!important;border-radius:50px;padding:6px 16px;font-weight:700!important;font-size:13px!important;transition:all .2s!important}
+.nav-review:hover{opacity:.85;transform:translateY(-1px)}
+.nav-study{background:transparent;color:#CC2222!important;border:1.5px solid #CC2222;border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important;white-space:nowrap}
+.nav-study:hover{background:#CC2222;color:#fff!important}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:var(--blue-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
+.mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
+
+/* HERO */
+.page-hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:72px 6% 60px;position:relative;overflow:hidden;text-align:center}
+.page-hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,107,0,.15) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.page-hero>*{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,0,.15);border:1px solid rgba(255,107,0,.3);color:#FFB800;font-size:12px;font-weight:700;letter-spacing:1.5px;padding:6px 18px;border-radius:50px;margin-bottom:20px}
+.page-hero h1{font-size:clamp(34px,5vw,62px);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:14px}
+.page-hero h1 em{background:linear-gradient(135deg,#FFB800,#FF6B00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.page-hero p{font-size:16px;color:rgba(255,255,255,.6);max-width:500px;margin:0 auto 32px}
+.hero-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap}
+.hero-stat-num{font-size:28px;font-weight:900;color:var(--white);line-height:1}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
+
+/* TAB NAV */
+.tab-nav{background:var(--white);border-bottom:2px solid var(--border);padding:0 6%;position:sticky;top:64px;z-index:90}
+.tab-nav-inner{display:flex;gap:0}
+.tab-btn{background:transparent;border:none;padding:18px 28px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab-btn::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--orange);transform:scaleX(0);transition:transform .25s}
+.tab-btn.active{color:var(--orange);font-weight:700}
+.tab-btn.active::after{transform:scaleX(1)}
+.tab-btn:hover:not(.active){color:var(--ink)}
+
+/* PANELS */
+.tab-panel{display:none;padding:64px 6% 88px}
+.tab-panel.active{display:block}
+.panel-title{font-size:clamp(22px,3vw,32px);font-weight:900;color:var(--ink);margin-bottom:8px}
+.panel-sub{font-size:14px;color:var(--ink-mute);margin-bottom:40px}
+
+/* KAKAO */
+.kakao-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.kakao-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.08)}
+.kakao-card-header{background:#B2C7E8;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.kakao-card-avatar{width:38px;height:38px;border-radius:50%;background:#FFE300;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:2px solid rgba(255,255,255,.6)}
+.kakao-card-sender{font-size:13px;font-weight:700;color:#1a1a1a}
+.kakao-card-class{font-size:11px;color:rgba(26,26,26,.6);margin-top:1px}
+.kakao-card-body{padding:16px}
+.kakao-msg{background:#FFE300;border-radius:4px 16px 16px 16px;padding:13px 16px;font-size:13px;line-height:1.8;color:#1a1a1a;position:relative}
+.kakao-msg::before{content:'';position:absolute;top:0;left:-7px;border-top:8px solid #FFE300;border-left:8px solid transparent}
+.kakao-card-footer{padding:8px 16px 12px;display:flex;justify-content:flex-end}
+.kakao-time{font-size:11px;color:#aaa}
+
+/* NAVER */
+.naver-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.naver-card{background:var(--white);border:1px solid #e8e8e8;border-radius:10px;padding:20px;position:relative}
+.naver-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#03C75A;border-radius:10px 10px 0 0}
+.naver-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.naver-logo{font-size:11px;font-weight:900;color:#03C75A;letter-spacing:-0.5px;background:#E8FAF0;border-radius:4px;padding:2px 7px}
+.naver-stars{display:flex;gap:2px}
+.naver-star{color:#FFB800;font-size:13px}
+.naver-body{font-size:13px;color:#333;line-height:1.8;margin-bottom:12px}
+.naver-meta{font-size:11px;color:#999}
+.naver-tag{display:inline-block;background:#f0f0f0;border-radius:4px;padding:2px 8px;font-size:11px;color:#666;margin-top:6px}
+
+/* CAFE */
+.cafe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cafe-card{background:#fff;border:1px solid #e8ddd0;border-radius:8px;overflow:hidden}
+.cafe-card-top{background:#9B4521;padding:12px 16px;display:flex;align-items:center;gap:8px}
+.cafe-card-top-icon{width:20px;height:20px;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#9B4521}
+.cafe-card-top-title{font-size:12px;font-weight:700;color:#fff}
+.cafe-card-top-date{font-size:11px;color:rgba(255,255,255,.6);margin-left:auto}
+.cafe-card-body{padding:16px}
+.cafe-card-subject{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+.cafe-card-text{font-size:13px;color:#555;line-height:1.75}
+.cafe-card-footer{padding:10px 16px;background:#faf6f2;border-top:1px solid #e8ddd0;display:flex;align-items:center;gap:6px}
+.cafe-card-av{width:24px;height:24px;border-radius:50%;background:#9B4521;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.cafe-card-name{font-size:11px;color:#777}
+.cafe-card-class{font-size:11px;color:#9B4521;font-weight:600;margin-left:auto}
+
+/* VIDEO */
+.video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.video-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s}
+.video-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.1)}
+.video-thumb{width:100%;aspect-ratio:16/9;background:#1a1a2e;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.video-thumb img{width:100%;height:100%;object-fit:cover}
+.video-play{position:absolute;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.video-body{padding:16px}
+.video-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.video-meta{font-size:12px;color:var(--ink-mute)}
+
+/* MORE BTN */
+.more-btn-wrap{text-align:center;margin-top:36px}
+.btn-out{background:transparent;color:var(--blue);border:1.5px solid var(--blue);padding:12px 32px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none;display:inline-block}
+.btn-out:hover{background:var(--blue);color:var(--white)}
+.btn-out-orange{border-color:var(--orange);color:var(--orange)}
+.btn-out-orange:hover{background:var(--orange);color:var(--white)}
+
+/* CTA */
+.cta-section{background:var(--ink);padding:72px 6%;text-align:center}
+.cta-title{font-size:clamp(26px,3.5vw,44px);font-weight:900;color:var(--white);margin-bottom:12px}
+.cta-title em{color:#7BB3FF;font-style:normal}
+.cta-desc{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:32px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-blue{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:14px 34px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s;box-shadow:0 6px 20px rgba(26,95,204,.4)}
+.btn-blue:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:14px 34px;font-size:15px;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
+.btn-ghost:hover{border-color:var(--white)}
+
+footer{background:#111;padding:32px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:15px;font-weight:900;color:rgba(255,255,255,.7)}
+.footer-logo span{color:#7BB3FF}
+.footer-info{font-size:12px;color:rgba(255,255,255,.3);line-height:1.8}
+.footer-links{display:flex;gap:16px}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:rgba(255,255,255,.7)}
+
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .kakao-cards-grid,.naver-grid{grid-template-columns:1fr}
+  .cafe-grid,.video-grid{grid-template-columns:1fr}
+  nav .nav-links{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:600px){
+  .tab-btn{padding:14px 14px;font-size:12px}
+  .hero-stats{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">THE<span>BOX</span></a>
+  <ul class="nav-links">
+    <li><a href="introduce.html">더박스 소개</a></li>
+    <li><a href="classes.html">수업 안내</a></li>
+    <li><a href="more.html">더박스 플러스</a></li>
+    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="../study.html" class="nav-study">원어민스터디</a>
+    <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
+    <button class="hamburger" onclick="document.getElementById('mobMenuReviews').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobMenuReviews">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">✕</button>
+  <a href="introduce.html">더박스 소개</a>
+  <a href="classes.html">수업 안내</a>
+  <a href="more.html">더박스 플러스</a>
+  <a href="reviews.html" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
+  <a href="../study.html" style="color:#CC2222;font-weight:700">원어민스터디</a>
+  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero fade-up">
+  <div class="hero-badge">⭐ 수강생 생생 후기</div>
+  <h1>직접 경험한<br><em>진짜 후기</em></h1>
+  <p>더박스를 선택한 수강생들이 직접 전하는 솔직한 이야기를 들어보세요.</p>
+  <div class="hero-stats">
+    <div><div class="hero-stat-num">12,325+</div><div class="hero-stat-label">누적 수강생</div></div>
+    <div><div class="hero-stat-num">⭐ 4.9</div><div class="hero-stat-label">평균 만족도</div></div>
+    <div><div class="hero-stat-num">98%</div><div class="hero-stat-label">재수강 의향</div></div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" onclick="switchTab('kakao', this)">💬 카톡 후기</button>
+    <button class="tab-btn" onclick="switchTab('naver', this)">🟢 네이버 후기</button>
+    <button class="tab-btn" onclick="switchTab('cafe', this)">☕ 카페 후기</button>
+    <button class="tab-btn" onclick="switchTab('video', this)">🎬 영상 후기</button>
+  </div>
+</div>
+
+<!-- KAKAO -->
+<div class="tab-panel active" id="panel-kakao">
+  <div class="panel-title">💬 카톡 후기</div>
+  <p class="panel-sub">수강생분들이 직접 보내주신 카카오톡 후기</p>
+  <div class="kakao-cards-grid">
+    <div class="kakao-card">
+      <div class="kakao-card-header">
+        <div class="kakao-card-avatar">😊</div>
+        <div><div class="kakao-card-sender">박○○</div><div class="kakao-card-class">설린 반</div></div>
+      </div>
+      <div class="kakao-card-body">
+        <div class="kakao-msg">설린쌤과 3년 동안 갈고닦은 영어로 호주 오자마자 잡 겟하고, 스폰서 비자 제안까지 받았어요. 준비해서 가는 거랑 그냥 가는 거랑 진짜 달라요! 더박스 진짜 최고예요 🔥</div>
+      </div>
+      <div class="kakao-card-footer"><div class="kakao-time">오후 2:34</div></div>
+    </div>
+    <div class="kakao-card">
+      <div class="kakao-card-header">
+        <div class="kakao-card-avatar">🙋</div>
+        <div><div class="kakao-card-sender">최○○</div><div class="kakao-card-class">라일리 반</div></div>
+      </div>
+      <div class="kakao-card-body">
+        <div class="kakao-msg">라일리 쌤이 "자신은 손해"라고 자주 말씀하시는데 그 말이 진짜 맞아요. 수업에서 최대한 이용해 먹으면 정말 느는 게 느껴져요. 지각도 아깝다는 말도 공감 200% 😄</div>
+      </div>
+      <div class="kakao-card-footer"><div class="kakao-time">오후 4:12</div></div>
+    </div>
+    <div class="kakao-card">
+      <div class="kakao-card-header">
+        <div class="kakao-card-avatar">✨</div>
+        <div><div class="kakao-card-sender">김○○</div><div class="kakao-card-class">설린 반</div></div>
+      </div>
+      <div class="kakao-card-body">
+        <div class="kakao-msg">쉬운 문법과 단어로 문장 만들기 연습을 꾸준히 하다 보니 어느새 자연스럽게 말이 나오기 시작했어요. 영어가 이렇게 쉬울 수도 있구나 싶어요 😊</div>
+      </div>
+      <div class="kakao-card-footer"><div class="kakao-time">오전 11:08</div></div>
+    </div>
+    <div class="kakao-card">
+      <div class="kakao-card-header">
+        <div class="kakao-card-avatar">🌟</div>
+        <div><div class="kakao-card-sender">이○○</div><div class="kakao-card-class">제임스 반</div></div>
+      </div>
+      <div class="kakao-card-body">
+        <div class="kakao-msg">외워서 말하는 게 아니라 생각하는 방식 자체가 바뀌었어요. 머릿속에서 영어로 떠오르기 시작하는 느낌이 진짜 신기해요. 제임스 선생님 수업 강추합니다!</div>
+      </div>
+      <div class="kakao-card-footer"><div class="kakao-time">오전 9:42</div></div>
+    </div>
+    <div class="kakao-card">
+      <div class="kakao-card-header">
+        <div class="kakao-card-avatar">🎉</div>
+        <div><div class="kakao-card-sender">정○○</div><div class="kakao-card-class">티나 반</div></div>
+      </div>
+      <div class="kakao-card-body">
+        <div class="kakao-msg">체코 교환학생 가기 전에 티나 선생님 수업 들었는데 현지에서 진짜 써먹었어요! 영어가 되니까 세상이 넓어진 느낌이에요 🌍</div>
+      </div>
+      <div class="kakao-card-footer"><div class="kakao-time">오후 7:15</div></div>
+    </div>
+    <div class="kakao-card">
+      <div class="kakao-card-header">
+        <div class="kakao-card-avatar">💪</div>
+        <div><div class="kakao-card-sender">강○○</div><div class="kakao-card-class">코트니 반</div></div>
+      </div>
+      <div class="kakao-card-body">
+        <div class="kakao-msg">코트니 선생님은 나이에 상관없이 정말 편하게 시작할 수 있어요. 처음에 걱정했는데 선생님이 너무 따뜻하게 대해주셔서 금방 적응했어요 😊</div>
+      </div>
+      <div class="kakao-card-footer"><div class="kakao-time">오후 3:28</div></div>
+    </div>
+  </div>
+  <div class="more-btn-wrap">
+    <a href="#" target="_blank" class="btn-out btn-out-orange">카톡 후기 더보기 →</a>
+  </div>
+</div>
+
+<!-- NAVER -->
+<div class="tab-panel" id="panel-naver">
+  <div class="panel-title">🟢 네이버 후기</div>
+  <p class="panel-sub">네이버 플레이스에 남겨주신 수강생 후기</p>
+  <div class="naver-grid">
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo">N</div><div class="naver-stars"><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span></div></div>
+      <div class="naver-body">해외여행에서 드디어 영어로 대화했을 때 감동이었어요. 더박스 강사님들 덕분이에요. 수업 분위기가 정말 좋아서 매주 기다려져요.</div>
+      <div class="naver-meta">이○○ · 40대</div>
+      <div class="naver-tag">크리스 반</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo">N</div><div class="naver-stars"><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span></div></div>
+      <div class="naver-body">체코 교환학생 가기 전 티나 선생님 수업을 듣고 갔는데 현지 생활을 즐겁게 잘 지내고 있어요. 영어가 되니까 세상이 넓어진 느낌이에요.</div>
+      <div class="naver-meta">강○○ · 대학생</div>
+      <div class="naver-tag">티나 반</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo">N</div><div class="naver-stars"><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span></div></div>
+      <div class="naver-body">코트니 선생님은 나이에 상관없이 정말 편하게 시작할 수 있어요. 처음에 걱정했는데 선생님이 너무 따뜻하게 대해주셔서 금방 적응했어요.</div>
+      <div class="naver-meta">윤○○ · 50대</div>
+      <div class="naver-tag">코트니 반</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo">N</div><div class="naver-stars"><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span></div></div>
+      <div class="naver-body">소규모라서 발표 기회가 정말 많아요. 대형 학원이랑 확실히 달랐어요. 말을 계속 하다 보니 자연스럽게 실력이 늘더라고요.</div>
+      <div class="naver-meta">김○○ · 대학생</div>
+      <div class="naver-tag">티나 반</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo">N</div><div class="naver-stars"><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span></div></div>
+      <div class="naver-body">혼자 영어권 여행 가고 싶어서 무작정 시작했는데, 지금은 실제로 혼자 여행 다녀왔어요. 기초부터 제대로 잡아주신 덕분이에요.</div>
+      <div class="naver-meta">이○○ · 직장인</div>
+      <div class="naver-tag">라일리 반</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo">N</div><div class="naver-stars"><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span><span class="naver-star">★</span></div></div>
+      <div class="naver-body">처음엔 한마디도 못 했는데 이제는 외국인 앞에서도 편하게 말할 수 있어요. 영어가 즐거운 일상이 됐습니다.</div>
+      <div class="naver-meta">오○○ · 30대</div>
+      <div class="naver-tag">제인 반</div>
+    </div>
+  </div>
+  <div class="more-btn-wrap">
+    <a href="https://map.naver.com/p/entry/place/1742045734?placePath=%2Fhome" target="_blank" class="btn-out">네이버 후기 더보기 →</a>
+  </div>
+</div>
+
+<!-- CAFE -->
+<div class="tab-panel" id="panel-cafe">
+  <div class="panel-title">☕ 카페 후기</div>
+  <p class="panel-sub">더박스 공식 네이버 카페에 올라온 수강 후기</p>
+  <div class="cafe-grid">
+    <div class="cafe-card">
+      <div class="cafe-card-top"><div class="cafe-card-top-icon">카</div><div class="cafe-card-top-title">더박스 공식카페 후기</div><div class="cafe-card-top-date">2025.03.12</div></div>
+      <div class="cafe-card-body"><div class="cafe-card-subject">약 1년 8개월 수강 후기 (제인반)</div><div class="cafe-card-text">처음엔 한마디도 못 했는데 이제는 외국인 앞에서도 편하게 말할 수 있어요. 제인 선생님 덕분에 영어가 즐거운 일상이 됐습니다.</div></div>
+      <div class="cafe-card-footer"><div class="cafe-card-av">오</div><div class="cafe-card-name">오○○</div><div class="cafe-card-class">제인 반 · 1년 8개월</div></div>
+    </div>
+    <div class="cafe-card">
+      <div class="cafe-card-top"><div class="cafe-card-top-icon">카</div><div class="cafe-card-top-title">더박스 공식카페 후기</div><div class="cafe-card-top-date">2025.02.28</div></div>
+      <div class="cafe-card-body"><div class="cafe-card-subject">자신감 있게 말하는 영어 (라일리반)</div><div class="cafe-card-text">혼자 영어권 여행 가고 싶어서 무작정 시작했는데, 지금은 실제로 혼자 여행 다녀왔어요. 기초부터 제대로 잡아주신 덕분이에요.</div></div>
+      <div class="cafe-card-footer"><div class="cafe-card-av">이</div><div class="cafe-card-name">이○○</div><div class="cafe-card-class">라일리 반 · 직장인</div></div>
+    </div>
+    <div class="cafe-card">
+      <div class="cafe-card-top"><div class="cafe-card-top-icon">카</div><div class="cafe-card-top-title">더박스 공식카페 후기</div><div class="cafe-card-top-date">2025.01.15</div></div>
+      <div class="cafe-card-body"><div class="cafe-card-subject">소규모 수업의 진가 (티나반)</div><div class="cafe-card-text">소규모라서 발표 기회가 정말 많아요. 대형 학원이랑 확실히 달랐어요. 말을 계속 하다 보니 자연스럽게 실력이 늘더라고요.</div></div>
+      <div class="cafe-card-footer"><div class="cafe-card-av">김</div><div class="cafe-card-name">김○○</div><div class="cafe-card-class">티나 반 · 대학생</div></div>
+    </div>
+    <div class="cafe-card">
+      <div class="cafe-card-top"><div class="cafe-card-top-icon">카</div><div class="cafe-card-top-title">더박스 공식카페 후기</div><div class="cafe-card-top-date">2024.12.04</div></div>
+      <div class="cafe-card-body"><div class="cafe-card-subject">제임스쌤 진짜영어 후기</div><div class="cafe-card-text">외워서 말하는 게 아니라 생각하는 방식 자체가 바뀌었어요. 머릿속에서 영어로 떠오르기 시작하는 느낌이 신기해요.</div></div>
+      <div class="cafe-card-footer"><div class="cafe-card-av">정</div><div class="cafe-card-name">정○○</div><div class="cafe-card-class">제임스 반 · 30대</div></div>
+    </div>
+  </div>
+  <div class="more-btn-wrap">
+    <a href="reviews.html" target="_blank" class="btn-out">카페 후기 더보기 →</a>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="tab-panel" id="panel-video">
+  <div class="panel-title">🎬 영상 후기</div>
+  <p class="panel-sub">수강생분들이 직접 말하는 더박스 영상 후기</p>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="video-thumb">
+        <img src="reviews/video1.jpg" alt="영상 후기 썸네일" onerror="this.style.display='none'">
+        <div class="video-play">▶</div>
+      </div>
+      <div class="video-body">
+        <div class="video-title">수강생 인터뷰 — 영어가 되니까 세상이 달라졌어요</div>
+        <div class="video-meta">더박스 공식 채널</div>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="video-thumb">
+        <img src="reviews/video2.jpg" alt="영상 후기 썸네일" onerror="this.style.display='none'">
+        <div class="video-play">▶</div>
+      </div>
+      <div class="video-body">
+        <div class="video-title">1년 수강 후기 — 호주에서 잡 오퍼 받은 이야기</div>
+        <div class="video-meta">더박스 공식 채널</div>
+      </div>
+    </div>
+  </div>
+  <div class="more-btn-wrap">
+    <a href="#" target="_blank" class="btn-out">영상 후기 더보기 →</a>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section fade-up">
+  <div class="cta-title">후기가 증명하는<br><em>더박스의 실력</em></div>
+  <p class="cta-desc">직접 경험해보세요. 무료 상담으로 시작합니다.</p>
+  <div class="cta-btns">
+    <a href="https://naver.me/5BcjX84R" target="_blank" class="btn-blue">무료 상담 예약</a>
+    <a href="classes.html" class="btn-ghost">수업 알아보기</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">THE<span>BOX</span></div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com</div>
+  <div class="footer-links">
+    <a href="../index.html">홈</a>
+    <a href="introduce.html">소개</a>
+    <a href="classes.html">수업 안내</a>
+    <a href="../study.html">원어민스터디</a>
+  </div>
+</footer>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: .07 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
