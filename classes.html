@@ -24,10 +24,17 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .nav-links a:hover{color:var(--blue);font-weight:500}
 .nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
 .nav-cta:hover{background:var(--blue-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
+.mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
 /* HERO */
-.page-hero{background:var(--ink);padding:72px 6% 60px;position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;top:-60px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(26,95,204,.25) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.page-hero{padding:72px 6% 60px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("academy/mainhero/main2.jpg");background-size:cover;background-position:center}
+.page-hero::before{content:'';position:absolute;inset:0;background:rgba(8,14,38,.78);z-index:0;pointer-events:none}
+.page-hero>*{position:relative;z-index:1}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(123,179,255,.8);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .hero-eyebrow::before{content:'';width:20px;height:2px;background:#7BB3FF}
 .page-hero h1{font-size:clamp(36px,5vw,64px);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:16px}
@@ -129,7 +136,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 .fade-up{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 
-@media(max-width:900px){.intro-grid{grid-template-columns:1fr 1fr}nav .nav-links{display:none}}
+@media(max-width:900px){.intro-grid{grid-template-columns:1fr 1fr}nav .nav-links{display:none}.hamburger{display:flex}}
 @media(max-width:600px){.intro-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -143,8 +150,23 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
     <li><a href="academy.html#reviews">후기</a></li>
     <li><a href="study.html">원어민스터디</a></li>
   </ul>
-  <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
+    <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="index.html">홈</a>
+  <a href="classes.html">수업 소개</a>
+  <a href="academy.html#schedule">시간표</a>
+  <a href="academy.html#reviews">후기</a>
+  <a href="study.html">원어민스터디</a>
+  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px">상담 예약</a>
+</div>
 
 <div class="page-hero">
   <div class="hero-eyebrow">수업 소개</div>
@@ -166,10 +188,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 <section class="intro-section">
   <div class="intro-grid" id="introGrid">
 
-    <a href="james.html" class="tcard tag-기초 fade-up" data-tags="기초">
+    <a href="academy/james.html" class="tcard tag-기초 fade-up" data-tags="기초">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/james.jpg" alt="제임스" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
+        <img src="academy/profile/james.jpg" alt="제임스" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
         <div class="tcard-level-badge">왕기초~</div>
       </div>
       <div class="tcard-body">
@@ -189,10 +211,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
 
-    <a href="chris.html" class="tcard tag-미디어 fade-up" data-tags="미디어" style="transition-delay:.05s">
+    <a href="academy/chris.html" class="tcard tag-미디어 fade-up" data-tags="미디어" style="transition-delay:.05s">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/chris.jpg" alt="크리스" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
+        <img src="academy/profile/chris.jpg" alt="크리스" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
         <div class="tcard-level-badge">왕기초~</div>
       </div>
       <div class="tcard-body">
@@ -212,10 +234,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
 
-    <a href="cerline.html" class="tcard tag-기초 fade-up" data-tags="기초" style="transition-delay:.1s">
+    <a href="academy/cerline.html" class="tcard tag-기초 fade-up" data-tags="기초" style="transition-delay:.1s">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/설린.jpg" alt="설린" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
+        <img src="academy/profile/cerline.jpg" alt="설린" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
         <div class="tcard-level-badge">왕기초~</div>
       </div>
       <div class="tcard-body">
@@ -235,10 +257,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
 
-    <a href="riley.html" class="tcard tag-기초 fade-up" data-tags="기초" style="transition-delay:.05s">
+    <a href="academy/riley.html" class="tcard tag-기초 fade-up" data-tags="기초" style="transition-delay:.05s">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/라일리.jpg" alt="라일리" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
+        <img src="academy/profile/riley.jpg" alt="라일리" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👨</div>'">
         <div class="tcard-level-badge">왕기초~</div>
       </div>
       <div class="tcard-body">
@@ -258,10 +280,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
 
-    <a href="tina.html" class="tcard tag-트렌디 fade-up" data-tags="트렌디" style="transition-delay:.1s">
+    <a href="academy/tina.html" class="tcard tag-트렌디 fade-up" data-tags="트렌디" style="transition-delay:.1s">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/티나.jpg" alt="티나" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
+        <img src="academy/profile/tina.jpg" alt="티나" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
         <div class="tcard-level-badge">왕기초~</div>
       </div>
       <div class="tcard-body">
@@ -281,10 +303,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
 
-    <a href="jane.html" class="tcard tag-트렌디 fade-up" data-tags="트렌디" style="transition-delay:.0s">
+    <a href="academy/jane.html" class="tcard tag-트렌디 fade-up" data-tags="트렌디" style="transition-delay:.0s">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/제인.jpg" alt="제인" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
+        <img src="academy/profile/jane.jpg" alt="제인" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
         <div class="tcard-level-badge">왕기초~</div>
       </div>
       <div class="tcard-body">
@@ -304,10 +326,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
 
-    <a href="courtney.html" class="tcard tag-비즈니스 fade-up" data-tags="비즈니스" style="transition-delay:.05s">
+    <a href="academy/courtney.html" class="tcard tag-비즈니스 fade-up" data-tags="비즈니스" style="transition-delay:.05s">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/코트니.jpg" alt="코트니" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
+        <img src="academy/profile/courtney.jpg" alt="코트니" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
         <div class="tcard-level-badge">초중급~</div>
       </div>
       <div class="tcard-body">
@@ -327,10 +349,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
 
-    <a href="diana.html" class="tcard tag-주말 fade-up" data-tags="주말" style="transition-delay:.1s">
+    <a href="academy/diana.html" class="tcard tag-주말 fade-up" data-tags="주말" style="transition-delay:.1s">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/다이애나.jpg" alt="다이애나" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
+        <img src="academy/profile/diana.jpg" alt="다이애나" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
         <div class="tcard-level-badge">왕기초~</div>
       </div>
       <div class="tcard-body">
@@ -350,10 +372,10 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
       </div>
     </a>
 
-    <a href="chinese.html" class="tcard tag-중국어 fade-up" data-tags="중국어" style="transition-delay:.05s">
+    <a href="academy/chinese.html" class="tcard tag-중국어 fade-up" data-tags="중국어" style="transition-delay:.05s">
       <div class="tcard-accent"></div>
       <div class="tcard-photo">
-        <img src="profile/짜이뤼.jpg" alt="짜이뤼" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
+        <img src="academy/profile/짜이뤼.jpg" alt="짜이뤼" onerror="this.parentElement.innerHTML='<div class=tcard-photo-placeholder>👩</div>'">
         <div class="tcard-level-badge">성조 시작반~</div>
       </div>
       <div class="tcard-body">
