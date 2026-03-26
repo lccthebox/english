@@ -991,6 +991,9 @@ function buildCalendar(teacher, accentColor) {
 document.querySelectorAll('.cal-wrap').forEach(el => {
   el.innerHTML = buildCalendar(el.dataset.teacher, el.dataset.color);
 });
+
+// ── SCHEDULE ──
+function showSch(btn,name){
   document.querySelectorAll('.sch-img').forEach(e=>e.classList.remove('active'));
   document.querySelectorAll('.sch-tab').forEach(e=>e.classList.remove('active'));
   document.getElementById('sch-'+name).classList.add('active');
