@@ -99,6 +99,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
     <div class="sidebar">
       <div class="sidebar-item active" onclick="showSection('notice',this)"><span class="sidebar-icon">📢</span>공지사항</div>
       <div class="sidebar-item" onclick="showSection('monthly',this)"><span class="sidebar-icon">📰</span>월간 더박스</div>
+      <div class="sidebar-item" onclick="showSection('video',this)"><span class="sidebar-icon">🎬</span>영상 후기</div>
     </div>
     <div class="admin-main">
 
@@ -173,6 +174,40 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
         </div>
       </div>
 
+
+      <!-- 영상 후기 -->
+      <div class="section" id="sec-video">
+        <div class="section-title">🎬 영상 후기</div>
+        <div class="form-card">
+          <div class="form-title">새 영상 후기 등록</div>
+          <div class="form-row">
+            <label class="form-label">제목</label>
+            <input class="form-input" id="videoTitle" placeholder="수강생 인터뷰 — 영어가 되니까 세상이 달라졌어요">
+          </div>
+          <div class="form-row">
+            <label class="form-label">유튜브 링크</label>
+            <input class="form-input" id="videoUrl" placeholder="https://youtu.be/XXXXXXXXX">
+          </div>
+          <div class="form-row">
+            <label class="form-label">썸네일 이미지 (클릭 시 유튜브로 이동)</label>
+            <div class="upload-area" id="videoUploadArea" onclick="document.getElementById('videoFile').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')"
+              ondrop="handleVideoDrop(event)">
+              <div id="videoUploadText">📁 클릭하거나 이미지를 드래그해서 업로드</div>
+              <img id="videoUploadPreview" class="upload-preview">
+            </div>
+            <input type="file" id="videoFile" accept="image/*" style="display:none" onchange="previewVideoFile(this)">
+          </div>
+          <button class="submit-btn" id="videoSubmitBtn" onclick="addVideo()">등록</button>
+        </div>
+        <div class="list-card">
+          <div class="list-header" style="grid-template-columns:60px 1fr 120px 60px">
+            <span>썸네일</span><span>제목</span><span>유튜브</span><span>삭제</span>
+          </div>
+          <div id="videoList"><div class="empty-list">로딩 중...</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -215,6 +250,7 @@ function showAdmin() {
   document.getElementById('adminWrap').style.display = 'block';
   loadNotices();
   loadMonthly();
+  loadVideos();
 }
 
 // ── 섹션 전환 ──
@@ -355,6 +391,89 @@ async function delMonthly(id, coverUrl) {
   await sb.from('monthly').delete().eq('id', id);
   toast('🗑️ 삭제되었습니다');
   loadMonthly();
+}
+
+
+// ── 영상 후기 ──
+let uploadedVideoFile = null;
+
+function previewVideoFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  uploadedVideoFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('videoUploadPreview').src = e.target.result;
+    document.getElementById('videoUploadPreview').style.display = 'block';
+    document.getElementById('videoUploadText').textContent = '✅ ' + file.name;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleVideoDrop(e) {
+  e.preventDefault();
+  document.getElementById('videoUploadArea').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    uploadedVideoFile = file;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('videoUploadPreview').src = ev.target.result;
+      document.getElementById('videoUploadPreview').style.display = 'block';
+      document.getElementById('videoUploadText').textContent = '✅ ' + file.name;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+async function addVideo() {
+  const title = document.getElementById('videoTitle').value.trim();
+  const youtubeUrl = document.getElementById('videoUrl').value.trim();
+  const btn = document.getElementById('videoSubmitBtn');
+  if (!title) { toast('제목을 입력해주세요'); return; }
+  if (!youtubeUrl) { toast('유튜브 링크를 입력해주세요'); return; }
+  if (!uploadedVideoFile) { toast('썸네일 이미지를 업로드해주세요'); return; }
+
+  btn.disabled = true; btn.textContent = '업로드 중...';
+
+  const ext = uploadedVideoFile.name.split('.').pop();
+  const fileName = `videos/${Date.now()}.${ext}`;
+  const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, uploadedVideoFile, { upsert: true });
+  if (upErr) { toast('❌ 이미지 업로드 실패: ' + upErr.message); btn.disabled = false; btn.textContent = '등록'; return; }
+
+  const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+  await sb.from('videos').insert({ title, thumbnail_url: urlData.publicUrl, youtube_url: youtubeUrl });
+
+  document.getElementById('videoTitle').value = '';
+  document.getElementById('videoUrl').value = '';
+  document.getElementById('videoUploadPreview').style.display = 'none';
+  document.getElementById('videoUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+  uploadedVideoFile = null;
+  btn.disabled = false; btn.textContent = '등록';
+  toast('✅ 영상 후기가 등록되었습니다');
+  loadVideos();
+}
+
+async function loadVideos() {
+  const { data } = await sb.from('videos').select('*').order('created_at', { ascending: false });
+  const el = document.getElementById('videoList');
+  if (!data || data.length === 0) { el.innerHTML = '<div class="empty-list">등록된 영상이 없습니다</div>'; return; }
+  el.innerHTML = data.map(v => `
+    <div class="list-item" style="grid-template-columns:60px 1fr 120px 60px">
+      <img src="${v.thumbnail_url}" class="monthly-thumb">
+      <span style="font-size:14px;font-weight:500">${v.title}</span>
+      <a href="${v.youtube_url}" target="_blank" style="font-size:12px;color:var(--blue)">유튜브 →</a>
+      <button class="del-btn" onclick="delVideo('${v.id}','${v.thumbnail_url}')">삭제</button>
+    </div>`).join('');
+}
+
+async function delVideo(id, thumbUrl) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  const path = thumbUrl.split('/thebox-assets/')[1];
+  if (path) await sb.storage.from('thebox-assets').remove([path]);
+  await sb.from('videos').delete().eq('id', id);
+  toast('🗑️ 삭제되었습니다');
+  loadVideos();
 }
 
 // 세션 확인

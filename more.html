@@ -177,17 +177,7 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
 <div class="tab-panel" id="panel-video">
   <div class="panel-title">🎬 영상 후기</div>
   <p class="panel-sub">수강생들이 직접 말하는 더박스 영상 후기</p>
-  <div class="video-grid" id="videoGrid">
-    <div class="video-card">
-      <div class="video-placeholder"><div class="video-placeholder-icon">▶</div><p>유튜브 링크를 주시면 등록해드릴게요</p></div>
-      <div class="video-card-body"><div class="video-card-title">영상 후기 1</div><div class="video-card-meta">더박스 공식 채널</div></div>
-    </div>
-    <div class="video-card">
-      <div class="video-placeholder"><div class="video-placeholder-icon">▶</div><p>유튜브 링크를 주시면 등록해드릴게요</p></div>
-      <div class="video-card-body"><div class="video-card-title">영상 후기 2</div><div class="video-card-meta">더박스 공식 채널</div></div>
-    </div>
-  </div>
-  <p class="hint">💡 유튜브 링크 주시면 바로 추가해드릴게요!</p>
+  <div class="video-grid" id="videoGrid"><div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--ink-mute)">로딩 중...</div></div>
 </div>
 
 <div class="cta-band fade-up">
@@ -281,6 +271,7 @@ document.head.insertAdjacentHTML('beforeend', '<style>.monthly-thumb{aspect-rati
 
 loadNotices();
 loadMonthly();
+loadVideos();
 </script>
 </body>
 </html>
