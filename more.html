@@ -147,50 +147,14 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
 <div class="tab-panel active" id="panel-notice">
   <div class="panel-title">📢 공지사항</div>
   <p class="panel-sub">더박스의 중요한 소식을 전해드립니다</p>
-  <div class="notice-list">
-    <a href="#" class="notice-item">
-      <span class="notice-badge badge-new">NEW</span>
-      <span class="notice-title">2026년 4월 수업 일정 안내</span>
-      <span class="notice-date">2026.03.25</span>
-    </a>
-    <a href="#" class="notice-item">
-      <span class="notice-badge badge-event">이벤트</span>
-      <span class="notice-title">더박스 봄맞이 이벤트 안내</span>
-      <span class="notice-date">2026.03.20</span>
-    </a>
-    <a href="#" class="notice-item">
-      <span class="notice-badge badge-general">공지</span>
-      <span class="notice-title">더박스 홈페이지 리뉴얼 안내</span>
-      <span class="notice-date">2026.03.15</span>
-    </a>
-    <a href="#" class="notice-item">
-      <span class="notice-badge badge-general">공지</span>
-      <span class="notice-title">공휴일 수업 운영 안내 (3월)</span>
-      <span class="notice-date">2026.03.01</span>
-    </a>
-  </div>
-  <p class="hint">💡 Supabase 연동 후 관리자가 직접 등록할 수 있어요</p>
+  <div class="notice-list" id="noticeList"><div style="padding:40px;text-align:center;color:var(--ink-mute)">로딩 중...</div></div>
 </div>
 
 <!-- 월간 더박스 -->
 <div class="tab-panel" id="panel-monthly">
   <div class="panel-title">📰 월간 더박스</div>
   <p class="panel-sub">매달 업데이트되는 더박스 뉴스레터</p>
-  <div class="monthly-grid">
-    <a href="academy/monthly/2026-04.jpg" target="_blank" class="monthly-card">
-      <div class="monthly-thumb"><img src="academy/monthly/2026-04.jpg" alt="4월호" onerror="this.parentElement.innerHTML='📰'"></div>
-      <div class="monthly-body"><div class="monthly-date">2026년 4월</div><div class="monthly-title">월간 더박스 4월호</div></div>
-    </a>
-    <a href="academy/monthly/2026-03.jpg" target="_blank" class="monthly-card">
-      <div class="monthly-thumb"><img src="academy/monthly/2026-03.jpg" alt="3월호" onerror="this.parentElement.innerHTML='📰'"></div>
-      <div class="monthly-body"><div class="monthly-date">2026년 3월</div><div class="monthly-title">월간 더박스 3월호</div></div>
-    </a>
-    <a href="academy/monthly/2025-12.jpg" target="_blank" class="monthly-card">
-      <div class="monthly-thumb"><img src="academy/monthly/2025-12.jpg" alt="12월호" onerror="this.parentElement.innerHTML='📰'"></div>
-      <div class="monthly-body"><div class="monthly-date">2025년 12월</div><div class="monthly-title">월간 더박스 12월호</div></div>
-    </a>
-  </div>
-  <p class="hint">💡 academy/monthly/ 폴더에 YYYY-MM.jpg 형식으로 업로드하면 표시됩니다</p>
+  <div class="monthly-grid" id="monthlyGrid"><div style="padding:40px;text-align:center;color:var(--ink-mute)">로딩 중...</div></div>
 </div>
 
 <!-- 제휴업체 -->
@@ -237,9 +201,14 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
-    <a href="index.html">홈</a><a href="introduce.html">소개</a><a href="classes.html">수업 안내</a><a href="study.html">원어민스터디</a>
+    <a href="academy.html">홈</a>
+    <a href="introduce.html">소개</a>
+    <a href="classes.html">수업 안내</a>
+    <a href="study.html">원어민스터디</a>
+    <a href="https://theboxlive.kr/" target="_blank">온라인강의</a>
+    <a href="https://www.instagram.com/thebox_daegu/" target="_blank">인스타그램</a>
   </div>
 </footer>
 <script>
@@ -252,6 +221,66 @@ function switchTab(name,btn){
 }
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});},{threshold:.07});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ── Supabase 설정 (admin.html과 동일하게 입력) ──
+const SUPABASE_URL = 'https://oualwikibctxvlscpuyn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// 공지사항 로드
+async function loadNotices() {
+  const el = document.getElementById('noticeList');
+  const { data } = await sb.from('notices')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
+    .limit(20);
+
+  if (!data || data.length === 0) {
+    el.innerHTML = '<div style="padding:40px;text-align:center;color:var(--ink-mute)">등록된 공지가 없습니다</div>';
+    return;
+  }
+  const badgeMap = { new: '<span class="notice-badge badge-new">NEW</span>', event: '<span class="notice-badge badge-event">이벤트</span>', general: '<span class="notice-badge badge-general">공지</span>' };
+  el.innerHTML = data.map(n => `
+    <a href="#" class="notice-item">
+      ${badgeMap[n.badge] || badgeMap.general}
+      <span class="notice-title">${n.title}</span>
+      <span class="notice-date">${new Date(n.created_at).toLocaleDateString('ko-KR').replace(/\. /g,'.').replace('.','')}</span>
+    </a>`).join('');
+}
+
+// 월간더박스 로드
+async function loadMonthly() {
+  const el = document.getElementById('monthlyGrid');
+  const { data } = await sb.from('monthly')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
+    .limit(12);
+
+  if (!data || data.length === 0) {
+    el.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--ink-mute)">등록된 월간 더박스가 없습니다</div>';
+    return;
+  }
+  el.innerHTML = data.map(m => `
+    <a href="${m.link_url || m.cover_url}" target="_blank" class="monthly-card">
+      <div class="monthly-thumb"><img src="${m.cover_url}" alt="${m.title}" onerror="this.parentElement.innerHTML='📰'" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="monthly-body">
+        <div class="monthly-date">${m.year_month}</div>
+        <div class="monthly-title">${m.title}</div>
+      </div>
+    </a>`).join('');
+}
+
+// monthly-thumb 정사각형으로
+document.head.insertAdjacentHTML('beforeend', '<style>.monthly-thumb{aspect-ratio:1/1!important}.monthly-thumb img{object-fit:cover;width:100%;height:100%}</style>');
+
+loadNotices();
+loadMonthly();
 </script>
 </body>
 </html>

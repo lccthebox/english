@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>더박스 관리자</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--blue:#1A5FCC;--red:#CC2222;--bg:#F3F6FB;--white:#fff;--ink:#1a1a1a;--mute:#777;--border:#D8E4F5;--radius:12px}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+/* LOGIN */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh}
+.login-box{background:var(--white);border-radius:20px;padding:48px;width:360px;box-shadow:0 8px 32px rgba(0,0,0,.1);text-align:center}
+.login-logo{font-size:24px;font-weight:900;color:var(--ink);margin-bottom:8px}
+.login-logo span{color:var(--blue)}
+.login-sub{font-size:13px;color:var(--mute);margin-bottom:32px}
+.login-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:12px 16px;font-size:14px;font-family:inherit;margin-bottom:12px;outline:none;transition:border .2s}
+.login-input:focus{border-color:var(--blue)}
+.login-btn{width:100%;background:var(--blue);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.login-btn:hover{opacity:.9}
+.login-err{color:var(--red);font-size:13px;margin-top:8px}
+/* ADMIN */
+.admin-wrap{display:none;min-height:100vh}
+.admin-header{background:var(--white);border-bottom:2px solid var(--blue);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.admin-logo{font-size:16px;font-weight:900;color:var(--ink)}
+.admin-logo span{color:var(--blue)}
+.logout-btn{background:transparent;border:1px solid var(--border);border-radius:50px;padding:6px 16px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--mute)}
+.logout-btn:hover{border-color:var(--red);color:var(--red)}
+.admin-body{display:flex;gap:0}
+/* SIDEBAR */
+.sidebar{width:200px;background:var(--white);border-right:1px solid var(--border);min-height:calc(100vh - 60px);padding:20px 0;flex-shrink:0}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:12px 20px;cursor:pointer;font-size:14px;color:var(--mute);transition:all .2s;border-left:3px solid transparent}
+.sidebar-item:hover{background:var(--bg);color:var(--ink)}
+.sidebar-item.active{background:var(--bg);color:var(--blue);font-weight:700;border-left-color:var(--blue)}
+.sidebar-icon{font-size:16px}
+/* MAIN */
+.admin-main{flex:1;padding:32px;max-width:900px}
+.section{display:none}
+.section.active{display:block}
+.section-title{font-size:22px;font-weight:900;margin-bottom:24px;display:flex;align-items:center;gap:12px}
+/* FORM */
+.form-card{background:var(--white);border-radius:var(--radius);padding:28px;border:1px solid var(--border);margin-bottom:24px}
+.form-title{font-size:15px;font-weight:700;margin-bottom:20px;color:var(--blue)}
+.form-row{margin-bottom:16px}
+.form-label{font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block}
+.form-input,.form-select,.form-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;font-family:inherit;outline:none;transition:border .2s;background:var(--white)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue)}
+.form-textarea{min-height:80px;resize:vertical}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.submit-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.submit-btn:hover{opacity:.9}
+.submit-btn:disabled{opacity:.5;cursor:default}
+/* LIST */
+.list-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+.list-header{padding:16px 20px;background:var(--bg);border-bottom:1px solid var(--border);font-size:13px;font-weight:700;color:var(--mute);display:grid;align-items:center}
+.list-item{padding:14px 20px;border-bottom:1px solid var(--border);display:grid;align-items:center;gap:12px;transition:background .15s}
+.list-item:last-child{border-bottom:none}
+.list-item:hover{background:#fafcff}
+.list-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;white-space:nowrap}
+.badge-new{background:#FF6B00;color:#fff}
+.badge-event{background:var(--bg);color:var(--blue);border:1px solid var(--blue)}
+.badge-general{background:var(--bg);color:var(--mute);border:1px solid var(--border)}
+.del-btn{background:transparent;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:inherit;color:var(--mute);transition:all .2s}
+.del-btn:hover{border-color:var(--red);color:var(--red)}
+.monthly-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;background:var(--bg)}
+.toast{position:fixed;bottom:24px;right:24px;background:#333;color:#fff;border-radius:10px;padding:12px 20px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:1000}
+.toast.show{opacity:1}
+.empty-list{padding:40px;text-align:center;color:var(--mute);font-size:14px}
+/* upload area */
+.upload-area{border:2px dashed var(--border);border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg)}
+.upload-area:hover{border-color:var(--blue);background:var(--white)}
+.upload-area.dragover{border-color:var(--blue);background:#f0f6ff}
+.upload-preview{width:100%;max-height:200px;object-fit:contain;margin-top:12px;border-radius:8px;display:none}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">THE<span>BOX</span></div>
+    <div class="login-sub">관리자 페이지</div>
+    <input class="login-input" type="email" id="loginEmail" placeholder="이메일" value="">
+    <input class="login-input" type="password" id="loginPw" placeholder="비밀번호">
+    <button class="login-btn" onclick="doLogin()">로그인</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin-wrap" id="adminWrap">
+  <div class="admin-header">
+    <div class="admin-logo">THE<span>BOX</span> 관리자</div>
+    <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+  </div>
+  <div class="admin-body">
+    <div class="sidebar">
+      <div class="sidebar-item active" onclick="showSection('notice',this)"><span class="sidebar-icon">📢</span>공지사항</div>
+      <div class="sidebar-item" onclick="showSection('monthly',this)"><span class="sidebar-icon">📰</span>월간 더박스</div>
+    </div>
+    <div class="admin-main">
+
+      <!-- 공지사항 -->
+      <div class="section active" id="sec-notice">
+        <div class="section-title">📢 공지사항</div>
+        <div class="form-card">
+          <div class="form-title">새 공지 등록</div>
+          <div class="form-row-2">
+            <div class="form-row" style="margin:0">
+              <label class="form-label">배지</label>
+              <select class="form-select" id="noticeBadge">
+                <option value="new">🔴 NEW</option>
+                <option value="event">🔵 이벤트</option>
+                <option value="general" selected>⚪ 공지</option>
+              </select>
+            </div>
+            <div class="form-row" style="margin:0">
+              <label class="form-label">제목</label>
+              <input class="form-input" id="noticeTitle" placeholder="공지 제목을 입력하세요">
+            </div>
+          </div>
+          <div style="margin-top:16px">
+            <button class="submit-btn" onclick="addNotice()">공지 등록</button>
+          </div>
+        </div>
+        <div class="list-card">
+          <div class="list-header" style="grid-template-columns:60px 1fr 100px 60px">
+            <span>배지</span><span>제목</span><span>날짜</span><span>삭제</span>
+          </div>
+          <div id="noticeList"><div class="empty-list">로딩 중...</div></div>
+        </div>
+      </div>
+
+      <!-- 월간 더박스 -->
+      <div class="section" id="sec-monthly">
+        <div class="section-title">📰 월간 더박스</div>
+        <div class="form-card">
+          <div class="form-title">새 월간 더박스 등록</div>
+          <div class="form-row-2">
+            <div class="form-row" style="margin:0">
+              <label class="form-label">연월 (예: 2026년 5월)</label>
+              <input class="form-input" id="monthlyYM" placeholder="2026년 5월">
+            </div>
+            <div class="form-row" style="margin:0">
+              <label class="form-label">제목</label>
+              <input class="form-input" id="monthlyTitle" placeholder="월간 더박스 5월호">
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:16px">
+            <label class="form-label">커버 이미지 (1080×1080 정사각형)</label>
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('coverFile').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')"
+              ondrop="handleDrop(event)">
+              <div id="uploadText">📁 클릭하거나 이미지를 드래그해서 업로드</div>
+              <img id="uploadPreview" class="upload-preview">
+            </div>
+            <input type="file" id="coverFile" accept="image/*" style="display:none" onchange="previewFile(this)">
+          </div>
+          <div class="form-row">
+            <label class="form-label">클릭 시 이동할 링크 (선택)</label>
+            <input class="form-input" id="monthlyLink" placeholder="https://...">
+          </div>
+          <button class="submit-btn" id="monthlySubmitBtn" onclick="addMonthly()">등록</button>
+        </div>
+        <div class="list-card">
+          <div class="list-header" style="grid-template-columns:60px 1fr 140px 100px 60px">
+            <span>커버</span><span>제목</span><span>연월</span><span>링크</span><span>삭제</span>
+          </div>
+          <div id="monthlyList"><div class="empty-list">로딩 중...</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── SUPABASE 설정 ──
+// 아래 두 값을 Supabase 프로젝트 설정에서 복사해 넣으세요
+const SUPABASE_URL = 'https://oualwikibctxvlscpuyn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ── 로그인 ──
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw = document.getElementById('loginPw').value;
+  const err = document.getElementById('loginErr');
+  err.textContent = '';
+  const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+  if (error) { err.textContent = '이메일 또는 비밀번호가 올바르지 않습니다.'; return; }
+  showAdmin();
+}
+
+async function doLogout() {
+  await sb.auth.signOut();
+  document.getElementById('adminWrap').style.display = 'none';
+  document.getElementById('loginWrap').style.display = 'flex';
+}
+
+async function checkSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) showAdmin();
+}
+
+function showAdmin() {
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('adminWrap').style.display = 'block';
+  loadNotices();
+  loadMonthly();
+}
+
+// ── 섹션 전환 ──
+function showSection(name, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── 토스트 ──
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── 공지사항 ──
+async function loadNotices() {
+  const { data } = await sb.from('notices').select('*').order('created_at', { ascending: false });
+  const el = document.getElementById('noticeList');
+  if (!data || data.length === 0) { el.innerHTML = '<div class="empty-list">등록된 공지가 없습니다</div>'; return; }
+  el.innerHTML = data.map(n => `
+    <div class="list-item" style="grid-template-columns:60px 1fr 100px 60px">
+      <span class="list-badge badge-${n.badge}">${n.badge === 'new' ? 'NEW' : n.badge === 'event' ? '이벤트' : '공지'}</span>
+      <span style="font-size:14px;font-weight:500">${n.title}</span>
+      <span style="font-size:12px;color:var(--mute)">${new Date(n.created_at).toLocaleDateString('ko-KR')}</span>
+      <button class="del-btn" onclick="delNotice('${n.id}')">삭제</button>
+    </div>`).join('');
+}
+
+async function addNotice() {
+  const title = document.getElementById('noticeTitle').value.trim();
+  const badge = document.getElementById('noticeBadge').value;
+  if (!title) { toast('제목을 입력해주세요'); return; }
+  await sb.from('notices').insert({ title, badge });
+  document.getElementById('noticeTitle').value = '';
+  toast('✅ 공지가 등록되었습니다');
+  loadNotices();
+}
+
+async function delNotice(id) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  await sb.from('notices').delete().eq('id', id);
+  toast('🗑️ 삭제되었습니다');
+  loadNotices();
+}
+
+// ── 월간 더박스 ──
+let uploadedFile = null;
+
+function previewFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  uploadedFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('uploadPreview').src = e.target.result;
+    document.getElementById('uploadPreview').style.display = 'block';
+    document.getElementById('uploadText').textContent = '✅ ' + file.name;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadArea').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    uploadedFile = file;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('uploadPreview').src = ev.target.result;
+      document.getElementById('uploadPreview').style.display = 'block';
+      document.getElementById('uploadText').textContent = '✅ ' + file.name;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+async function addMonthly() {
+  const ym = document.getElementById('monthlyYM').value.trim();
+  const title = document.getElementById('monthlyTitle').value.trim();
+  const link = document.getElementById('monthlyLink').value.trim();
+  const btn = document.getElementById('monthlySubmitBtn');
+
+  if (!ym || !title) { toast('연월과 제목을 입력해주세요'); return; }
+  if (!uploadedFile) { toast('커버 이미지를 업로드해주세요'); return; }
+
+  btn.disabled = true;
+  btn.textContent = '업로드 중...';
+
+  // Storage 업로드
+  const ext = uploadedFile.name.split('.').pop();
+  const fileName = `monthly/${Date.now()}.${ext}`;
+  const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, uploadedFile, { upsert: true });
+
+  if (upErr) { toast('❌ 이미지 업로드 실패: ' + upErr.message); btn.disabled = false; btn.textContent = '등록'; return; }
+
+  const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+  const cover_url = urlData.publicUrl;
+
+  await sb.from('monthly').insert({ title, year_month: ym, cover_url, link_url: link || null });
+
+  // 초기화
+  document.getElementById('monthlyYM').value = '';
+  document.getElementById('monthlyTitle').value = '';
+  document.getElementById('monthlyLink').value = '';
+  document.getElementById('uploadPreview').style.display = 'none';
+  document.getElementById('uploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+  uploadedFile = null;
+  btn.disabled = false;
+  btn.textContent = '등록';
+  toast('✅ 월간 더박스가 등록되었습니다');
+  loadMonthly();
+}
+
+async function loadMonthly() {
+  const { data } = await sb.from('monthly').select('*').order('created_at', { ascending: false });
+  const el = document.getElementById('monthlyList');
+  if (!data || data.length === 0) { el.innerHTML = '<div class="empty-list">등록된 항목이 없습니다</div>'; return; }
+  el.innerHTML = data.map(m => `
+    <div class="list-item" style="grid-template-columns:60px 1fr 140px 100px 60px">
+      <img src="${m.cover_url}" class="monthly-thumb" onerror="this.style.background='#eee'">
+      <span style="font-size:14px;font-weight:500">${m.title}</span>
+      <span style="font-size:12px;color:var(--mute)">${m.year_month}</span>
+      <span style="font-size:12px;color:var(--blue);overflow:hidden;text-overflow:ellipsis">${m.link_url ? '링크 있음' : '-'}</span>
+      <button class="del-btn" onclick="delMonthly('${m.id}', '${m.cover_url}')">삭제</button>
+    </div>`).join('');
+}
+
+async function delMonthly(id, coverUrl) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  // Storage 파일도 삭제
+  const path = coverUrl.split('/thebox-assets/')[1];
+  if (path) await sb.storage.from('thebox-assets').remove([path]);
+  await sb.from('monthly').delete().eq('id', id);
+  toast('🗑️ 삭제되었습니다');
+  loadMonthly();
+}
+
+// 세션 확인
+checkSession();
+</script>
+</body>
+</html>
