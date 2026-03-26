@@ -13,7 +13,7 @@ html{scroll-behavior:smooth}
 body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.6;overflow-x:hidden}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:2px solid var(--blue);padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+
 .nav-logo{font-size:17px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0}
 .nav-logo span{color:var(--blue)}
 .nav-links{display:flex;gap:24px;list-style:none}
@@ -32,7 +32,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-
 .mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
 /* HERO — 가로 레이아웃, 사진 작고 원형 */
-.teacher-hero{background:var(--bg);padding:60px 6%;display:flex;gap:52px;align-items:center;position:relative}
+.teacher-hero{background:var(--bg);padding:40px var(--px);display:flex;gap:36px;align-items:center;position:relative}
 .teacher-hero::before{content:"";position:absolute;inset:0;background-image:url("../hero/cerline.jpg");background-size:cover;background-position:center;opacity:.06;pointer-events:none}
 .hero-photo-col{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:12px}
 .hero-avatar{width:160px;height:160px;border-radius:50%;overflow:hidden;background:var(--blue-light);border:4px solid var(--white);box-shadow:0 8px 32px rgba(26,95,204,.18);flex-shrink:0}
@@ -135,6 +135,93 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
 .schedule-link-sub{font-size:13px;color:var(--ink-mute)}
 .schedule-link-btn{background:var(--blue);color:#fff;border-radius:50px;padding:12px 28px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;white-space:nowrap}
 .schedule-link-btn:hover{background:var(--blue-dark);transform:translateY(-1px)}
+
+/* ── RESPONSIVE SYSTEM ── */
+:root{
+  --white:#fff;--bg:#F3F6FB;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#888;
+  --blue:#1A5FCC;--blue-dark:#1448A8;--blue-light:#EEF4FF;--border:#D8E4F5;
+  --radius:12px;--green:#10B981;--orange:#FF6B00;
+  --px:5%;--max:1120px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;
+  line-height:1.65;overflow-x:hidden;-webkit-text-size-adjust:100%}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);border-bottom:1.5px solid var(--border);
+  padding:0 var(--px);height:58px;display:flex;align-items:center;
+  justify-content:space-between;gap:8px;max-width:100%}
+.nav-logo{font-size:16px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0;letter-spacing:-.3px}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:20px;list-style:none;align-items:center}
+.nav-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--blue)}
+.nav-review{color:var(--orange)!important;font-weight:700!important}
+.nav-study{color:var(--green)!important;border:1.5px solid var(--green);border-radius:50px;
+  padding:5px 14px;font-size:12px!important;font-weight:600!important;white-space:nowrap}
+.nav-study:hover{background:var(--green);color:#fff!important}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-cta{background:var(--blue);color:#fff;border:none;border-radius:50px;
+  padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:inherit;text-decoration:none;white-space:nowrap}
+.nav-cta:hover{background:var(--blue-dark)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;
+  background:none;border:none;padding:4px;flex-shrink:0}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);
+  z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:18px;font-weight:700;color:var(--ink);text-decoration:none}
+.mobile-menu-close{position:absolute;top:18px;right:20px;font-size:22px;
+  background:none;border:none;cursor:pointer;color:var(--ink-mute)}
+
+/* SECTIONS */
+section{padding:64px var(--px)}
+.section-inner{max-width:var(--max);margin:0 auto}
+.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--blue);
+  text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.section-eyebrow::before{content:'';width:16px;height:2px;background:var(--blue)}
+.section-title{font-size:clamp(22px,3vw,38px);font-weight:900;line-height:1.2;
+  margin-bottom:10px;color:var(--ink)}
+.section-sub{font-size:14px;color:var(--ink-mute);font-weight:300;
+  line-height:1.85;max-width:520px}
+
+/* FOOTER */
+footer{background:#111;padding:28px var(--px);display:flex;
+  justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:14px;font-weight:900;color:rgba(255,255,255,.7)}
+.footer-logo span{color:#7BB3FF}
+.footer-info{font-size:11px;color:rgba(255,255,255,.3);line-height:1.9}
+.footer-links{display:flex;gap:14px;flex-wrap:wrap}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none}
+.footer-links a:hover{color:rgba(255,255,255,.6)}
+
+/* FADE */
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* MOBILE */
+@media(max-width:768px){
+  :root{--px:4%}
+  nav .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:48px var(--px)}
+  footer{flex-direction:column;gap:12px}
+  .footer-links{gap:12px}
+}
+@media(max-width:480px){
+  :root{--px:4%}
+  .section-title{font-size:clamp(20px,6vw,28px)}
+}
+
+
+@media(max-width:600px){
+  .teacher-hero{flex-direction:column;gap:20px;text-align:center}
+  .teacher-profile{width:96px;height:96px;margin:0 auto}
+  .class-photos-grid{grid-template-columns:1fr 1fr}
+  .schedule-link-inner{flex-direction:column;align-items:flex-start;gap:12px}
+}
 </style>
 </head>
 <body>
