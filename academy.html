@@ -165,8 +165,8 @@ section{padding:88px 6%}
 .cal-legend{display:flex;gap:16px;margin-top:16px;padding:14px 20px;background:var(--bg);flex-wrap:wrap}
 .cal-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-mute)}
 .cal-legend-dot{width:10px;height:10px;border-radius:50%}
-.schedule-section{background:var(--bg)}
-.schedule-tabs{display:flex;gap:8px;margin-top:36px;flex-wrap:wrap}
+.schedule-section{background:var(--bg);text-align:center}
+.schedule-tabs{display:flex;gap:8px;margin-top:36px;flex-wrap:wrap;justify-content:center}
 .sch-tab{background:var(--white);border:1.5px solid var(--border);border-radius:50px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s;color:var(--ink-mute)}
 .sch-tab.active{background:var(--blue);border-color:var(--blue);color:var(--white);font-weight:700}
 .sch-tab:hover:not(.active){border-color:var(--blue);color:var(--blue)}
@@ -175,7 +175,7 @@ section{padding:88px 6%}
 .schedule-imgs{margin-top:24px}
 .sch-img{display:none}
 .sch-img.active{display:block}
-.sch-img img{width:100%;max-width:960px;border-radius:var(--radius);border:1px solid var(--border)}
+.sch-img img{width:100%;max-width:960px;border-radius:var(--radius);border:1px solid var(--border);display:block;margin:0 auto}
 .sch-placeholder{background:var(--white);border:1px dashed var(--border);border-radius:var(--radius);padding:48px;text-align:center;color:var(--ink-mute);font-size:14px}
 .sch-placeholder strong{display:block;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
 
@@ -319,7 +319,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">THE<span>BOX</span></a>
+  <a href="academy.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
@@ -437,7 +437,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
           <div class="tc-en">JAMES</div><div class="tc-kr">제임스</div>
           <div class="tc-class">진짜영어 · 왕기초~</div>
           <div class="tc-quote">내 머릿속에 외운 표현이 아닌 말하는 법을 배우는 시대</div>
-          <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">주4회</span></div>
+          <div class="tc-tags"><span class="tc-tag">왕기초~</span><span class="tc-tag">주2~4회</span></div>
         </div><div class="tc-arrow">→</div></a>
 
         <a href="academy/chris.html" class="tc"><div class="tc-top"></div><div class="tc-body">
@@ -501,7 +501,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
           <div class="tc-en">CHINESE</div><div class="tc-kr">짜이뤼</div>
           <div class="tc-class">미親중국어 · 성조 시작반~</div>
           <div class="tc-quote">중국어는 시작을 제대로 하셔야 합니다</div>
-          <div class="tc-tags"><span class="tc-tag">성조부터</span><span class="tc-tag">주말반</span><span class="tc-tag">중국어</span></div>
+          <div class="tc-tags"><span class="tc-tag">성조부터</span><span class="tc-tag">중국어</span></div>
         </div><div class="tc-arrow">→</div></a>
 
       </div>
@@ -679,7 +679,7 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
     <div class="map-info-item"><div class="map-info-label">주소</div><div class="map-info-val">대구광역시 중구 동성로2<br>(동성로3가 90-1) 6층</div></div>
     <div class="map-info-item"><div class="map-info-label">지하철</div><div class="map-info-val">반월당역 13·14번 출구<br>도보 5분</div></div>
     <div class="map-info-item"><div class="map-info-label">전화</div><div class="map-info-val"><a href="tel:01086739664" style="color:var(--blue);text-decoration:none">010-8673-9664</a></div></div>
-    <div class="map-info-item"><div class="map-info-label">주차</div><div class="map-info-val">전용 주차장 없음<br>주변 민영/공영 주차장 이용</div></div>
+    <div class="map-info-item"><div class="map-info-label">길찾기</div><div class="map-info-val"><a href="https://lccthebox.github.io/thebox/direction/" target="_blank" style="display:inline-block;background:var(--blue);color:#fff;border-radius:50px;padding:8px 20px;font-size:13px;font-weight:700;text-decoration:none;margin-top:4px">🗺️ 길찾기</a></div></div>
   </div>
 </section>
 
@@ -824,12 +824,102 @@ const SCHEDULE_DATA = {
   '제임스': {
     year:2026, month:3,
     classes: [
-      { days:[6,13,20,27], label:'월반', color:'#FFB3C6' },   // 월
-      { days:[7,14,21,28], label:'화반', color:'#FFB3C6' },   // 화
+      { days:[6,13,20,27], color:'#FFB3C6' },
+      { days:[7,14,21,28], color:'#FFB3C6' },
+      { days:[1,8,15,22,29], color:'#B3D4E8' },
+      { days:[2,9,16,23,30], color:'#B3D4E8' },
     ],
-    note:'월·화 수업 / 주4회반 포함',
+    note:'월화반(핑크) · 수목반(블루)',
     teacherColor:'#1A5FCC'
   },
+  '크리스': {
+    year:2026, month:3,
+    classes: [
+      { days:[1,8,15,22], color:'#FDDCB5' },
+      { days:[2,9,16,23], color:'#FDDCB5' },
+      { days:[6,7,13,14,20,21,27,28], color:'#FDDCB5' },
+    ],
+    note:'4월 개강 4/1 · 4월 종강 4/28 · 5월 개강 4/29',
+    teacherColor:'#0EA5E9'
+  },
+  '설린': {
+    year:2026, month:3,
+    classes: [
+      { days:[6,13,20,27], color:'#C9B8E8' },
+      { days:[7,14,21,28], color:'#B8D8B8' },
+      { days:[8,15,22,29], color:'#C9B8E8' },
+      { days:[9,16,23,30], color:'#B8D8B8' },
+    ],
+    note:'월수반(보라) · 화목반(초록)',
+    teacherColor:'#10B981'
+  },
+  '라일리': {
+    year:2026, month:3,
+    classes: [
+      { days:[1,8,15,22,29], color:'#FDD9B5' },
+      { days:[2,9,16,23,30], color:'#B5D8B5' },
+      { days:[4,11,18,25], color:'#B5C8DD' },
+    ],
+    note:'월수반·화목반·주말반 / 4/26,27,28 종강 · 4/29,30 5월개강',
+    teacherColor:'#8B5CF6'
+  },
+  '티나': {
+    year:2026, month:3,
+    classes: [
+      { days:[6,13,20,27], color:'#E88080' },
+      { days:[7,14,21,28], color:'#E88080' },
+      { days:[8,15,22,29], color:'#F5BABA' },
+      { days:[9,16,23,30], color:'#F5BABA' },
+    ],
+    note:'A반(월화·진핑크) · B반(수목·연핑크)',
+    teacherColor:'#F59E0B'
+  },
+  '제인': {
+    year:2026, month:3,
+    classes: [
+      { days:[6,13,20,27], color:'#F5E6B8' },
+      { days:[9,16,23,30], color:'#F5E6B8' },
+      { days:[7,14,21,28], color:'#B8D8D4' },
+      { days:[8,15,22,29], color:'#B8D8D4' },
+    ],
+    note:'월목반(노랑) · 화수반(민트)',
+    teacherColor:'#EC4899'
+  },
+  '코트니': {
+    year:2026, month:3,
+    special: {1:'휴가', 30:'4월 종강'},
+    classes: [
+      { days:[6,13,20,27], color:'#F5C6D4' },
+      { days:[9,16,23], color:'#F5C6D4' },
+      { days:[7,14,21,28], color:'#C9B8E8' },
+      { days:[8,15,22,29], color:'#C9B8E8' },
+    ],
+    note:'4월 개강 6일 · 4월 종강 30일 / 4/1 휴가',
+    teacherColor:'#EF4444'
+  },
+  '다이애나': {
+    year:2026, month:3,
+    special: {4:'4월 개강일'},
+    classes: [
+      { days:[4,11,18,25], color:'#E88080' },
+      { days:[5,12,19,26], color:'#80B8C8' },
+    ],
+    note:'토반(핑크) · 일반(민트)',
+    teacherColor:'#F97316'
+  },
+  '짜이뤼': {
+    year:2026, month:3,
+    special: {15:'휴강', 16:'휴강'},
+    classes: [
+      { days:[1,8,22,29], color:'#80D8D4' },
+      { days:[2,9,23,30], color:'#80D8D4' },
+      { days:[4,11,18,26], color:'#F5A830' },
+      { days:[5,6,7,12,13,14,19,20,21,27,28], color:'#FFE040' },
+    ],
+    note:'수목반(민트) · 토반(오렌지) · 주중(노랑) / 4/15,16 휴강',
+    teacherColor:'#06B6D4'
+  },
+};
   '크리스': {
     year:2026, month:3,
     classes: [
@@ -918,56 +1008,58 @@ function buildCalendar(teacher, accentColor) {
   const data = SCHEDULE_DATA[teacher];
   if (!data) return '<p style="padding:40px;text-align:center;color:#aaa">수업 일정을 준비 중입니다</p>';
 
-  const { year, month, classes, note, teacherColor } = data;
+  const { year, month, classes, note, teacherColor, special } = data;
   const color = accentColor || teacherColor;
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const prevDays = new Date(year, month, 0).getDate();
 
-  // 날짜별 색상 맵 만들기
+  // 날짜별 색상 맵
   const dayMap = {};
   classes.forEach(cls => {
     cls.days.forEach(d => {
-      if (!dayMap[d]) dayMap[d] = [];
-      dayMap[d].push(cls);
+      if (!dayMap[d]) dayMap[d] = cls.color;
     });
   });
 
   const dayLabels = ['일','월','화','수','목','금','토'];
   let cells = '';
 
-  // 이전달
   for (let i = firstDay - 1; i >= 0; i--) {
     cells += `<div class="cal-cell other-month">${prevDays - i}</div>`;
   }
 
-  // 이번달
   for (let d = 1; d <= daysInMonth; d++) {
     const dow = new Date(year, month, d).getDay();
     const sunCls = dow === 0 ? ' sun' : dow === 6 ? ' sat' : '';
-    const clsData = dayMap[d];
-    if (clsData && clsData.length > 0) {
-      const bg = clsData[0].color;
-      const lbl = clsData[0].label;
-      cells += `<div class="cal-cell has-class${sunCls}" style="background:${bg};color:#333">
-        <span style="font-weight:700">${d}</span>
-        <span class="cal-class-label">${lbl}</span>
+    const bg = dayMap[d];
+    const sp = special && special[d];
+
+    if (sp) {
+      // 특별 날짜 (휴가, 개강, 종강)
+      cells += `<div class="cal-cell${sunCls}" style="background:#f5f5f5;border:1px dashed #ccc">
+        <span style="font-size:11px;font-weight:700;color:#333">${d}</span>
+        <span style="font-size:8px;color:#e53e3e;font-weight:700;text-align:center;line-height:1.2">${sp}</span>
+      </div>`;
+    } else if (bg) {
+      cells += `<div class="cal-cell has-class${sunCls}" style="background:${bg};color:#333;font-weight:700">
+        <span>${d}</span>
       </div>`;
     } else {
       cells += `<div class="cal-cell${sunCls}">${d}</div>`;
     }
   }
 
-  // 남은 칸
   const total = firstDay + daysInMonth;
   const remain = total % 7 === 0 ? 0 : 7 - (total % 7);
   for (let i = 1; i <= remain; i++) {
     cells += `<div class="cal-cell other-month">${i}</div>`;
   }
 
-  // 범례
-  const legendItems = classes.map(c =>
-    `<div class="cal-legend-item"><div class="cal-legend-dot" style="background:${c.color};border:1px solid rgba(0,0,0,.1)"></div>${c.label}</div>`
+  // 색상 범례 (중복 제거)
+  const uniqueColors = [...new Set(classes.map(c => c.color))];
+  const legendItems = uniqueColors.map(c =>
+    `<div class="cal-legend-item"><div class="cal-legend-dot" style="background:${c};border:1px solid rgba(0,0,0,.1)"></div><span style="font-size:11px;color:var(--ink-mute)">&nbsp;</span></div>`
   ).join('');
 
   return `
@@ -976,7 +1068,7 @@ function buildCalendar(teacher, accentColor) {
       <div class="cal-teacher-badge" style="background:${teacherColor}">${teacher[0]}</div>
       <div>
         <div class="cal-teacher-name">${teacher} 선생님</div>
-        <div style="font-size:12px;color:#aaa;margin-top:2px">${note}</div>
+        <div style="font-size:11px;color:#aaa;margin-top:2px">${note}</div>
       </div>
     </div>
     <div class="cal-month">2026년 4월</div>
