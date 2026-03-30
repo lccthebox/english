@@ -101,6 +101,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
       <div class="sidebar-item" onclick="showSection('monthly',this)"><span class="sidebar-icon">📰</span>월간 더박스</div>
       <div class="sidebar-item" onclick="showSection('video',this)"><span class="sidebar-icon">🎬</span>영상 후기</div>
       <div class="sidebar-item" onclick="showSection('kakao',this)"><span class="sidebar-icon">💬</span>카톡 후기</div>
+      <div class="sidebar-item" onclick="showSection('cafe',this)"><span class="sidebar-icon">☕</span>카페 후기</div>
     </div>
     <div class="admin-main">
 
@@ -251,6 +252,40 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
           <div id="kakaoList"><div class="empty-list">로딩 중...</div></div>
         </div>
       </div>
+
+      <!-- 카페 후기 -->
+      <div class="section" id="sec-cafe">
+        <div class="section-title">☕ 카페 후기</div>
+        <div class="form-card">
+          <div class="form-title">카페 후기 등록</div>
+          <div class="form-row">
+            <label class="form-label">제목</label>
+            <input class="form-input" id="cafeTitle" placeholder="약 1년 8개월 수강 후기 (제인반)">
+          </div>
+          <div class="form-row">
+            <label class="form-label">카페 후기 링크</label>
+            <input class="form-input" id="cafeLink" placeholder="https://cafe.naver.com/...">
+          </div>
+          <div class="form-row">
+            <label class="form-label">썸네일 이미지</label>
+            <div class="upload-area" id="cafeUploadArea" onclick="document.getElementById('cafeFile').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')"
+              ondrop="handleCafeDrop(event)">
+              <div id="cafeUploadText">📁 클릭하거나 이미지를 드래그해서 업로드</div>
+              <img id="cafeUploadPreview" class="upload-preview">
+            </div>
+            <input type="file" id="cafeFile" accept="image/*" style="display:none" onchange="previewCafeFile(this)">
+          </div>
+          <button class="submit-btn" id="cafeSubmitBtn" onclick="addCafe()">등록</button>
+        </div>
+        <div class="list-card">
+          <div class="list-header" style="grid-template-columns:80px 1fr 120px 60px">
+            <span>썸네일</span><span>제목</span><span>등록일</span><span>삭제</span>
+          </div>
+          <div id="cafeList"><div class="empty-list">로딩 중...</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -295,6 +330,7 @@ function showAdmin() {
   loadMonthly();
   loadVideos();
   loadKakao();
+  loadCafeAdmin();
 }
 
 // ── 섹션 전환 ──
@@ -610,6 +646,88 @@ async function delKakao(id, imgUrl) {
   await sb.from('kakao_reviews').delete().eq('id', id);
   toast('🗑️ 삭제되었습니다');
   loadKakao();
+}
+
+
+// ── 카페 후기 ──
+let uploadedCafeFile = null;
+
+function previewCafeFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  uploadedCafeFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('cafeUploadPreview').src = e.target.result;
+    document.getElementById('cafeUploadPreview').style.display = 'block';
+    document.getElementById('cafeUploadText').textContent = '✅ ' + file.name;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleCafeDrop(e) {
+  e.preventDefault();
+  document.getElementById('cafeUploadArea').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    uploadedCafeFile = file;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('cafeUploadPreview').src = ev.target.result;
+      document.getElementById('cafeUploadPreview').style.display = 'block';
+      document.getElementById('cafeUploadText').textContent = '✅ ' + file.name;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+async function addCafe() {
+  const title = document.getElementById('cafeTitle').value.trim();
+  const link = document.getElementById('cafeLink').value.trim();
+  const btn = document.getElementById('cafeSubmitBtn');
+  if (!title) { toast('제목을 입력해주세요'); return; }
+  if (!link) { toast('링크를 입력해주세요'); return; }
+  if (!uploadedCafeFile) { toast('썸네일 이미지를 업로드해주세요'); return; }
+
+  btn.disabled = true; btn.textContent = '업로드 중...';
+  const ext = uploadedCafeFile.name.split('.').pop();
+  const fileName = `cafe/${Date.now()}.${ext}`;
+  const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, uploadedCafeFile, { upsert: true });
+  if (upErr) { toast('❌ 업로드 실패: ' + upErr.message); btn.disabled = false; btn.textContent = '등록'; return; }
+
+  const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+  await sb.from('cafe_reviews').insert({ title, thumbnail_url: urlData.publicUrl, link_url: link });
+
+  document.getElementById('cafeTitle').value = '';
+  document.getElementById('cafeLink').value = '';
+  document.getElementById('cafeUploadPreview').style.display = 'none';
+  document.getElementById('cafeUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+  uploadedCafeFile = null;
+  btn.disabled = false; btn.textContent = '등록';
+  toast('✅ 카페 후기가 등록되었습니다');
+  loadCafeAdmin();
+}
+
+async function loadCafeAdmin() {
+  const { data } = await sb.from('cafe_reviews').select('*').order('created_at', { ascending: false });
+  const el = document.getElementById('cafeList');
+  if (!data || !data.length) { el.innerHTML = '<div class="empty-list">등록된 카페 후기가 없습니다</div>'; return; }
+  el.innerHTML = data.map(c => `
+    <div class="list-item" style="grid-template-columns:80px 1fr 120px 60px">
+      <img src="${c.thumbnail_url}" style="width:60px;height:40px;object-fit:cover;border-radius:6px;background:#eee">
+      <span style="font-size:14px;font-weight:500">${c.title}</span>
+      <span style="font-size:12px;color:var(--mute)">${new Date(c.created_at).toLocaleDateString('ko-KR')}</span>
+      <button class="del-btn" onclick="delCafe('${c.id}','${c.thumbnail_url}')">삭제</button>
+    </div>`).join('');
+}
+
+async function delCafe(id, thumbUrl) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  const path = thumbUrl.split('/thebox-assets/')[1];
+  if (path) await sb.storage.from('thebox-assets').remove([path]);
+  await sb.from('cafe_reviews').delete().eq('id', id);
+  toast('🗑️ 삭제되었습니다');
+  loadCafeAdmin();
 }
 
 // 세션 확인

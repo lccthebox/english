@@ -67,7 +67,7 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 .kakao-album-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .kakao-album-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .22s;position:relative}
 .kakao-album-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.12);border-color:var(--orange)}
-.kakao-album-thumb{width:100%;aspect-ratio:1/1;overflow:hidden;position:relative;background:var(--bg)}
+.kakao-album-thumb{width:100%;aspect-ratio:1080/1320;overflow:hidden;position:relative;background:var(--bg)}
 .kakao-album-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;display:block}
 .kakao-album-card:hover .kakao-album-thumb img{transform:scale(1.05)}
 .kakao-album-count{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:50px;display:flex;align-items:center;gap:4px}
@@ -111,20 +111,19 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 .naver-meta{font-size:11px;color:#999}
 .naver-tag{display:inline-block;background:#f0f0f0;border-radius:4px;padding:2px 8px;font-size:11px;color:#666;margin-top:6px}
 
-/* CAFE */
-.cafe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.cafe-card{background:#fff;border:1px solid #e8ddd0;border-radius:8px;overflow:hidden}
-.cafe-card-top{background:#9B4521;padding:12px 16px;display:flex;align-items:center;gap:8px}
-.cafe-card-top-icon{width:20px;height:20px;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#9B4521}
-.cafe-card-top-title{font-size:12px;font-weight:700;color:#fff}
-.cafe-card-top-date{font-size:11px;color:rgba(255,255,255,.6);margin-left:auto}
-.cafe-card-body{padding:16px}
-.cafe-card-subject{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
-.cafe-card-text{font-size:13px;color:#555;line-height:1.75}
-.cafe-card-footer{padding:10px 16px;background:#faf6f2;border-top:1px solid #e8ddd0;display:flex;align-items:center;gap:6px}
-.cafe-card-av{width:24px;height:24px;border-radius:50%;background:#9B4521;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
-.cafe-card-name{font-size:11px;color:#777}
-.cafe-card-class{font-size:11px;color:#9B4521;font-weight:600;margin-left:auto}
+/* CAFE REVIEW GRID */
+.cafe-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cafe-review-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:all .22s}
+.cafe-review-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.1);border-color:#9B4521}
+.cafe-review-thumb{width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--bg);position:relative}
+.cafe-review-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.cafe-review-card:hover .cafe-review-thumb img{transform:scale(1.04)}
+.cafe-review-badge{position:absolute;top:8px;left:8px;background:#9B4521;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.cafe-review-body{padding:14px}
+.cafe-review-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cafe-review-meta{font-size:11px;color:var(--ink-mute)}
+@media(max-width:768px){.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cafe-review-grid{grid-template-columns:1fr}}
 
 /* VIDEO */
 .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -394,31 +393,12 @@ footer{background:#111;padding:28px var(--px);display:flex;
 <!-- CAFE -->
 <div class="tab-panel" id="panel-cafe">
   <div class="panel-title">☕ 카페 후기</div>
-  <p class="panel-sub">더박스 공식 네이버 카페에 올라온 수강 후기</p>
-  <div class="cafe-grid">
-    <div class="cafe-card">
-      <div class="cafe-card-top"><div class="cafe-card-top-icon">카</div><div class="cafe-card-top-title">더박스 공식카페 후기</div><div class="cafe-card-top-date">2025.03.12</div></div>
-      <div class="cafe-card-body"><div class="cafe-card-subject">약 1년 8개월 수강 후기 (제인반)</div><div class="cafe-card-text">처음엔 한마디도 못 했는데 이제는 외국인 앞에서도 편하게 말할 수 있어요. 제인 선생님 덕분에 영어가 즐거운 일상이 됐습니다.</div></div>
-      <div class="cafe-card-footer"><div class="cafe-card-av">오</div><div class="cafe-card-name">오○○</div><div class="cafe-card-class">제인 반 · 1년 8개월</div></div>
-    </div>
-    <div class="cafe-card">
-      <div class="cafe-card-top"><div class="cafe-card-top-icon">카</div><div class="cafe-card-top-title">더박스 공식카페 후기</div><div class="cafe-card-top-date">2025.02.28</div></div>
-      <div class="cafe-card-body"><div class="cafe-card-subject">자신감 있게 말하는 영어 (라일리반)</div><div class="cafe-card-text">혼자 영어권 여행 가고 싶어서 무작정 시작했는데, 지금은 실제로 혼자 여행 다녀왔어요. 기초부터 제대로 잡아주신 덕분이에요.</div></div>
-      <div class="cafe-card-footer"><div class="cafe-card-av">이</div><div class="cafe-card-name">이○○</div><div class="cafe-card-class">라일리 반 · 직장인</div></div>
-    </div>
-    <div class="cafe-card">
-      <div class="cafe-card-top"><div class="cafe-card-top-icon">카</div><div class="cafe-card-top-title">더박스 공식카페 후기</div><div class="cafe-card-top-date">2025.01.15</div></div>
-      <div class="cafe-card-body"><div class="cafe-card-subject">소규모 수업의 진가 (티나반)</div><div class="cafe-card-text">소규모라서 발표 기회가 정말 많아요. 대형 학원이랑 확실히 달랐어요. 말을 계속 하다 보니 자연스럽게 실력이 늘더라고요.</div></div>
-      <div class="cafe-card-footer"><div class="cafe-card-av">김</div><div class="cafe-card-name">김○○</div><div class="cafe-card-class">티나 반 · 대학생</div></div>
-    </div>
-    <div class="cafe-card">
-      <div class="cafe-card-top"><div class="cafe-card-top-icon">카</div><div class="cafe-card-top-title">더박스 공식카페 후기</div><div class="cafe-card-top-date">2024.12.04</div></div>
-      <div class="cafe-card-body"><div class="cafe-card-subject">제임스쌤 진짜영어 후기</div><div class="cafe-card-text">외워서 말하는 게 아니라 생각하는 방식 자체가 바뀌었어요. 머릿속에서 영어로 떠오르기 시작하는 느낌이 신기해요.</div></div>
-      <div class="cafe-card-footer"><div class="cafe-card-av">정</div><div class="cafe-card-name">정○○</div><div class="cafe-card-class">제임스 반 · 30대</div></div>
-    </div>
+  <p class="panel-sub">더박스 공식 네이버 카페에 올라온 수강 후기 — 클릭하면 원문으로 이동해요</p>
+  <div class="cafe-review-grid" id="cafeGrid">
+    <div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--ink-mute);font-size:13px">로딩 중...</div>
   </div>
-  <div class="more-btn-wrap">
-    <a href="reviews.html" target="_blank" class="btn-out">카페 후기 더보기 →</a>
+  <div class="more-row" id="cafeMoreRow" style="display:none;justify-content:center;margin-top:24px">
+    <button onclick="loadMoreCafe()" style="background:transparent;border:1.5px solid var(--border);border-radius:50px;padding:10px 28px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);transition:all .2s" onmouseover="this.style.borderColor='#9B4521';this.style.color='#9B4521'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink-mute)'">더보기 ↓</button>
   </div>
 </div>
 
@@ -591,8 +571,50 @@ function renderVideos(){
 function loadMoreVideos(){renderVideos();}
 document.querySelector('[onclick*="video"]')?.addEventListener('click',()=>{if(!videoAll.length)loadVideos();});
 
-// 초기 로드
-loadKakaoAlbum();
+// ── 카페 후기 ──
+let cafeAll=[], cafeShown=0;
+const CAFE_PAGE=6;
+
+async function loadCafe(){
+  const el=document.getElementById('cafeGrid');
+  const{data}=await sb.from('cafe_reviews')
+    .select('*').eq('is_published',true)
+    .order('created_at',{ascending:false});
+  if(!data||!data.length){
+    el.innerHTML='<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--ink-mute);font-size:13px">등록된 카페 후기가 없습니다</div>';
+    return;
+  }
+  cafeAll=data; cafeShown=0; el.innerHTML='';
+  renderCafe();
+}
+
+function renderCafe(){
+  const el=document.getElementById('cafeGrid');
+  const slice=cafeAll.slice(cafeShown,cafeShown+CAFE_PAGE);
+  slice.forEach(c=>{
+    const card=document.createElement('a');
+    card.href=c.link_url; card.target='_blank'; card.className='cafe-review-card';
+    const date=new Date(c.created_at).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1);
+    card.innerHTML=`
+      <div class="cafe-review-thumb">
+        <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy" onerror="this.parentElement.style.background='#f5ede8'">
+        <div class="cafe-review-badge">카페 후기</div>
+      </div>
+      <div class="cafe-review-body">
+        <div class="cafe-review-title">${c.title}</div>
+        <div class="cafe-review-meta">${date} · 더박스 공식카페</div>
+      </div>`;
+    el.appendChild(card);
+  });
+  cafeShown+=slice.length;
+  document.getElementById('cafeMoreRow').style.display=cafeShown<cafeAll.length?'flex':'none';
+}
+function loadMoreCafe(){renderCafe();}
+
+// 카페 탭 클릭 시 로드
+document.querySelector('[onclick*="cafe"]')?.addEventListener('click',()=>{
+  if(!cafeAll.length) loadCafe();
+});
 </script>
 const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
