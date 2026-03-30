@@ -311,8 +311,6 @@ footer{background:#111;padding:40px 6%;display:flex;justify-content:space-betwee
 @media(max-width:600px){.map-info-grid{grid-template-columns:1fr 1fr}}
 
 /* 후기 강조 탭 */
-.nav-review{color:#FF6B00!important;font-weight:700!important;font-size:14px!important;transition:all .2s!important}
-.nav-review:hover{color:#FFB800!important}
 /* 원어민스터디 버튼 */
 
 /* ── RESPONSIVE SYSTEM ── */
@@ -828,7 +826,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script>
 let cur=0;const slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot'),counter=document.getElementById('cur');
 function goSlide(n){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dots[cur].classList.add('active');counter.textContent=cur+1}
@@ -986,77 +984,69 @@ function resetQuiz(){
 
 
 
-// ── REVIEWS KAKAO PREVIEW (Supabase) ──
-async function loadKakaoPreview() {
+// ── REVIEWS PREVIEW (Supabase ESM) ──
+(async () => {
   try {
-    if (!window.supabase || !window.supabase.createClient) return;
-    const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
-    const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-    const sb2 = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const {data} = await sb2.from('kakao_reviews').select('*')
-      .eq('is_published', true)
-      .order('year_month', {ascending: false})
-      .order('sort_order');
-    if (!data || !data.length) {
-      document.getElementById('rvKakaoPreview').innerHTML =
-        '<div style="grid-column:1/-1;padding:48px;text-align:center;color:var(--ink-mute);font-size:13px">아직 등록된 카톡 후기가 없어요</div>';
-      return;
-    }
-    const groups = {};
-    data.forEach(r => {
-      if (!groups[r.year_month]) groups[r.year_month] = [];
-      groups[r.year_month].push(r.image_url);
-    });
-    const el = document.getElementById('rvKakaoPreview');
-    const entries = Object.entries(groups).slice(0, 4);
-    el.innerHTML = entries.map(([month, imgs]) => `
-      <a href="reviews.html" class="kap-card">
-        <div class="kap-thumb">
-          <img src="${imgs[0]}" alt="${month}" loading="lazy">
-          ${imgs.length > 1 ? `<div class="kap-count"><img src="academy/icons/kakao.png" style="width:11px;height:11px;border-radius:50%;vertical-align:middle;margin-right:2px"> ${imgs.length}</div>` : ''}
-        </div>
-        <div class="kap-body">
-          <div class="kap-month">${month}</div>
-          <div class="kap-sub">후기 ${imgs.length}장 · 클릭해서 보기</div>
-        </div>
-      </a>`).join('');
-  } catch(e) { setTimeout(loadKakaoPreview, 300); }
-}
-function tryKakaoPreview() {
-  if (window.supabase && window.supabase.createClient) loadKakaoPreview();
-  else setTimeout(tryKakaoPreview, 200);
-}
-tryKakaoPreview();
+    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+    const SUPABASE_URL = 'https://oualwikibctxvlscpuyn.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// ── 카페 후기 미리보기 ──
-async function loadCafePreview() {
-  try {
-    if (!window.supabase || !window.supabase.createClient) return;
-    const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
-    const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-    const sb2 = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const {data} = await sb2.from('cafe_reviews').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(4);
-    const el = document.getElementById('rvCafeGrid');
-    if (!el) return;
-    if (!data || !data.length) { el.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--ink-mute);font-size:13px">등록된 카페 후기가 없습니다</div>'; return; }
-    el.innerHTML = data.map(c=>`
-      <a href="${c.link_url}" target="_blank" class="kap-card">
-        <div class="kap-thumb">
-          <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy">
-          <div class="kap-count" style="background:#03C75A"><img src="academy/icons/cafe.png" style="width:11px;height:11px;border-radius:0;vertical-align:middle;margin-right:2px"> N카페</div>
-        </div>
-        <div class="kap-body">
-          <div class="kap-month" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px">${c.title}</div>
-          <div class="kap-sub">더박스 공식카페</div>
-        </div>
-      </a>`).join('');
-  } catch(e) { setTimeout(loadCafePreview, 300); }
-}
-function tryCafePreview() {
-  if (window.supabase && window.supabase.createClient) loadCafePreview();
-  else setTimeout(tryCafePreview, 200);
-}
-tryCafePreview();
+    // 카톡 후기 미리보기
+    const { data: kakaoData } = await sb.from('kakao_reviews')
+      .select('*').eq('is_published', true)
+      .order('year_month', { ascending: false }).order('sort_order');
+
+    const kakaoEl = document.getElementById('rvKakaoPreview');
+    if (kakaoEl) {
+      if (!kakaoData || !kakaoData.length) {
+        kakaoEl.innerHTML = '<div style="grid-column:1/-1;padding:48px;text-align:center;color:var(--ink-mute);font-size:13px">아직 등록된 카톡 후기가 없어요</div>';
+      } else {
+        const groups = {};
+        kakaoData.forEach(r => {
+          if (!groups[r.year_month]) groups[r.year_month] = [];
+          groups[r.year_month].push(r.image_url);
+        });
+        const entries = Object.entries(groups).slice(0, 4);
+        kakaoEl.innerHTML = entries.map(([month, imgs]) => `
+          <a href="reviews.html" class="kap-card">
+            <div class="kap-thumb">
+              <img src="${imgs[0]}" alt="${month}" loading="lazy">
+              ${imgs.length > 1 ? `<div class="kap-count"><img src="academy/icons/kakao.png" style="width:11px;height:11px;border-radius:50%;vertical-align:middle;margin-right:2px"> ${imgs.length}</div>` : ''}
+            </div>
+            <div class="kap-body">
+              <div class="kap-month">${month}</div>
+              <div class="kap-sub">후기 ${imgs.length}장 · 클릭해서 보기</div>
+            </div>
+          </a>`).join('');
+      }
+    }
+
+    // 카페 후기 미리보기
+    const { data: cafeData } = await sb.from('cafe_reviews')
+      .select('*').eq('is_published', true)
+      .order('created_at', { ascending: false }).limit(4);
+
+    const cafeEl = document.getElementById('rvCafeGrid');
+    if (cafeEl) {
+      if (!cafeData || !cafeData.length) {
+        cafeEl.innerHTML = '<div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--ink-mute);font-size:13px">등록된 카페 후기가 없습니다</div>';
+      } else {
+        cafeEl.innerHTML = cafeData.map(c => `
+          <a href="${c.link_url}" target="_blank" class="kap-card">
+            <div class="kap-thumb">
+              <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy">
+              <div class="kap-count" style="background:#03C75A"><img src="academy/icons/cafe.png" style="width:11px;height:11px;border-radius:0;vertical-align:middle;margin-right:2px"> N카페</div>
+            </div>
+            <div class="kap-body">
+              <div class="kap-month" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px">${c.title}</div>
+              <div class="kap-sub">더박스 공식카페</div>
+            </div>
+          </a>`).join('');
+      }
+    }
+  } catch(e) { console.error('Supabase preview error:', e); }
+})();
 
 // ── SCHEDULE ──
 function showSch(btn,name){
