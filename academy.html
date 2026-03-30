@@ -158,7 +158,18 @@ section{padding:64px var(--px)}
 .sch-placeholder{background:var(--white);border:1px dashed var(--border);border-radius:var(--radius);padding:48px;text-align:center;color:var(--ink-mute);font-size:14px}
 .sch-placeholder strong{display:block;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
 
-/* ── REVIEWS ── */
+/* KAKAO ALBUM PREVIEW (메인) */
+.kakao-album-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.kap-card{border-radius:var(--radius);overflow:hidden;cursor:pointer;position:relative;border:1px solid var(--border);background:var(--bg);transition:all .2s;text-decoration:none;display:block}
+.kap-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.12);border-color:var(--orange)}
+.kap-thumb{width:100%;aspect-ratio:1/1;overflow:hidden;position:relative}
+.kap-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.kap-card:hover .kap-thumb img{transform:scale(1.05)}
+.kap-count{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:50px}
+.kap-body{padding:11px 13px}
+.kap-month{font-size:13px;font-weight:700;color:var(--ink)}
+.kap-sub{font-size:11px;color:var(--ink-mute);margin-top:2px}
+@media(max-width:600px){.kakao-album-preview{grid-template-columns:repeat(2,1fr)}}
 .reviews-section{background:var(--white)}
 .rv-tabs{display:flex;gap:0;margin-top:36px;border-bottom:2px solid var(--border)}
 .rv-tab{background:transparent;border:none;padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s}
@@ -666,37 +677,8 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
     <!-- KAKAO -->
     <div class="rv-panel active" id="rv-kakao">
-      <div class="kakao-cards-grid">
-        <div class="kakao-card">
-          <div class="kakao-card-header">
-            <div class="kakao-card-avatar">😊</div>
-            <div><div class="kakao-card-sender">박○○</div><div class="kakao-card-class">설린 반</div></div>
-          </div>
-          <div class="kakao-card-body">
-            <div class="kakao-msg">설린쌤과 3년 동안 갈고닦은 영어로 호주 오자마자 잡 겟하고, 스폰서 비자 제안까지 받았어요. 준비해서 가는 거랑 그냥 가는 거랑 진짜 달라요! 더박스 진짜 최고예요 🔥</div>
-          </div>
-          <div class="kakao-card-footer"><div class="kakao-time">오후 2:34</div></div>
-        </div>
-        <div class="kakao-card">
-          <div class="kakao-card-header">
-            <div class="kakao-card-avatar">🙋</div>
-            <div><div class="kakao-card-sender">최○○</div><div class="kakao-card-class">라일리 반</div></div>
-          </div>
-          <div class="kakao-card-body">
-            <div class="kakao-msg">라일리 쌤이 "자신은 손해"라고 자주 말씀하시는데 그 말이 진짜 맞아요. 수업에서 최대한 이용해 먹으면 정말 느는 게 느껴져요. 지각도 아깝다는 말도 공감 200% 😄</div>
-          </div>
-          <div class="kakao-card-footer"><div class="kakao-time">오후 4:12</div></div>
-        </div>
-        <div class="kakao-card">
-          <div class="kakao-card-header">
-            <div class="kakao-card-avatar">✨</div>
-            <div><div class="kakao-card-sender">김○○</div><div class="kakao-card-class">설린 반</div></div>
-          </div>
-          <div class="kakao-card-body">
-            <div class="kakao-msg">쉬운 문법과 단어로 문장 만들기 연습을 꾸준히 하다 보니 어느새 자연스럽게 말이 나오기 시작했어요. 영어가 이렇게 쉬울 수도 있구나 싶어요 😊</div>
-          </div>
-          <div class="kakao-card-footer"><div class="kakao-time">오전 11:08</div></div>
-        </div>
+      <div class="kakao-album-preview" id="rvKakaoPreview">
+        <div style="padding:32px;text-align:center;color:var(--ink-mute);font-size:13px">로딩 중...</div>
       </div>
     </div>
 
@@ -809,8 +791,8 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ── HERO SLIDESHOW ──
 let cur=0;const slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot'),counter=document.getElementById('cur');
 function goSlide(n){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dots[cur].classList.add('active');counter.textContent=cur+1}
 const auto=setInterval(()=>goSlide((cur+1)%6),5000);
@@ -984,6 +966,41 @@ function resetQuiz(){
 }
 
 
+
+// ── REVIEWS KAKAO PREVIEW (Supabase) ──
+(async () => {
+  try {
+    const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
+    const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
+    const {createClient} = window.supabase || {};
+    if (!createClient) return; // supabase SDK 미로드 시 스킵
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const {data} = await sb.from('kakao_reviews').select('*')
+      .eq('is_published', true)
+      .order('year_month', {ascending: false})
+      .order('sort_order');
+    if (!data || !data.length) return;
+    // 월별 그룹
+    const groups = {};
+    data.forEach(r => {
+      if (!groups[r.year_month]) groups[r.year_month] = [];
+      groups[r.year_month].push(r.image_url);
+    });
+    const el = document.getElementById('rvKakaoPreview');
+    const entries = Object.entries(groups).slice(0, 3); // 최신 3개월만
+    el.innerHTML = entries.map(([month, imgs]) => `
+      <a href="reviews.html" class="kap-card">
+        <div class="kap-thumb">
+          <img src="${imgs[0]}" alt="${month}" loading="lazy">
+          ${imgs.length > 1 ? `<div class="kap-count">⧉ ${imgs.length}</div>` : ''}
+        </div>
+        <div class="kap-body">
+          <div class="kap-month">${month}</div>
+          <div class="kap-sub">후기 ${imgs.length}장 · 클릭해서 보기</div>
+        </div>
+      </a>`).join('');
+  } catch(e) { /* 조용히 실패 */ }
+})();
 
 // ── SCHEDULE ──
 function showSch(btn,name){

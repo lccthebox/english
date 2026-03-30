@@ -100,6 +100,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
       <div class="sidebar-item active" onclick="showSection('notice',this)"><span class="sidebar-icon">📢</span>공지사항</div>
       <div class="sidebar-item" onclick="showSection('monthly',this)"><span class="sidebar-icon">📰</span>월간 더박스</div>
       <div class="sidebar-item" onclick="showSection('video',this)"><span class="sidebar-icon">🎬</span>영상 후기</div>
+      <div class="sidebar-item" onclick="showSection('kakao',this)"><span class="sidebar-icon">💬</span>카톡 후기</div>
     </div>
     <div class="admin-main">
 
@@ -208,6 +209,48 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
           <div id="videoList"><div class="empty-list">로딩 중...</div></div>
         </div>
       </div>
+
+      <!-- 카톡 후기 -->
+      <div class="section" id="sec-kakao">
+        <div class="section-title">💬 카톡 후기</div>
+        <div class="form-card">
+          <div class="form-title">카톡 후기 이미지 등록</div>
+          <div class="form-row-2">
+            <div class="form-row" style="margin:0">
+              <label class="form-label">연월 (예: 2026년 4월)</label>
+              <input class="form-input" id="kakaoYM" placeholder="2026년 4월">
+            </div>
+            <div class="form-row" style="margin:0">
+              <label class="form-label">순서 (같은 달 내 정렬)</label>
+              <input class="form-input" type="number" id="kakaoOrder" placeholder="1" value="1" min="1">
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:16px">
+            <label class="form-label">이미지 (1080×1320 권장)</label>
+            <div class="upload-area" id="kakaoUploadArea" onclick="document.getElementById('kakaoFile').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')"
+              ondrop="handleKakaoDrop(event)">
+              <div id="kakaoUploadText">📁 클릭하거나 이미지를 드래그해서 업로드</div>
+              <img id="kakaoUploadPreview" class="upload-preview">
+            </div>
+            <input type="file" id="kakaoFile" accept="image/*" style="display:none" onchange="previewKakaoFile(this)">
+          </div>
+          <button class="submit-btn" id="kakaoSubmitBtn" onclick="addKakao()">등록</button>
+        </div>
+        <div class="form-card" style="margin-top:0">
+          <div class="form-title" style="margin-bottom:12px">월별 필터</div>
+          <select class="form-select" id="kakaoFilter" onchange="loadKakao()" style="max-width:200px">
+            <option value="">전체 보기</option>
+          </select>
+        </div>
+        <div class="list-card">
+          <div class="list-header" style="grid-template-columns:80px 1fr 120px 60px 60px">
+            <span>이미지</span><span>연월</span><span>등록일</span><span>순서</span><span>삭제</span>
+          </div>
+          <div id="kakaoList"><div class="empty-list">로딩 중...</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -251,6 +294,7 @@ function showAdmin() {
   loadNotices();
   loadMonthly();
   loadVideos();
+  loadKakao();
 }
 
 // ── 섹션 전환 ──
@@ -474,6 +518,98 @@ async function delVideo(id, thumbUrl) {
   await sb.from('videos').delete().eq('id', id);
   toast('🗑️ 삭제되었습니다');
   loadVideos();
+}
+
+
+// ── 카톡 후기 ──
+let uploadedKakaoFile = null;
+
+function previewKakaoFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  uploadedKakaoFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('kakaoUploadPreview').src = e.target.result;
+    document.getElementById('kakaoUploadPreview').style.display = 'block';
+    document.getElementById('kakaoUploadText').textContent = '✅ ' + file.name;
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleKakaoDrop(e) {
+  e.preventDefault();
+  document.getElementById('kakaoUploadArea').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    uploadedKakaoFile = file;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('kakaoUploadPreview').src = ev.target.result;
+      document.getElementById('kakaoUploadPreview').style.display = 'block';
+      document.getElementById('kakaoUploadText').textContent = '✅ ' + file.name;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+async function addKakao() {
+  const ym = document.getElementById('kakaoYM').value.trim();
+  const order = parseInt(document.getElementById('kakaoOrder').value) || 1;
+  const btn = document.getElementById('kakaoSubmitBtn');
+  if (!ym) { toast('연월을 입력해주세요'); return; }
+  if (!uploadedKakaoFile) { toast('이미지를 업로드해주세요'); return; }
+
+  btn.disabled = true; btn.textContent = '업로드 중...';
+  const ext = uploadedKakaoFile.name.split('.').pop();
+  const fileName = `kakao/${Date.now()}.${ext}`;
+  const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, uploadedKakaoFile, { upsert: true });
+  if (upErr) { toast('❌ 업로드 실패: ' + upErr.message); btn.disabled = false; btn.textContent = '등록'; return; }
+
+  const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+  await sb.from('kakao_reviews').insert({ year_month: ym, image_url: urlData.publicUrl, sort_order: order });
+
+  document.getElementById('kakaoYM').value = '';
+  document.getElementById('kakaoOrder').value = '1';
+  document.getElementById('kakaoUploadPreview').style.display = 'none';
+  document.getElementById('kakaoUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+  uploadedKakaoFile = null;
+  btn.disabled = false; btn.textContent = '등록';
+  toast('✅ 카톡 후기가 등록되었습니다');
+  loadKakao();
+}
+
+async function loadKakao() {
+  const filterVal = document.getElementById('kakaoFilter').value;
+  let query = sb.from('kakao_reviews').select('*').order('year_month', { ascending: false }).order('sort_order');
+  if (filterVal) query = query.eq('year_month', filterVal);
+  const { data } = await query;
+
+  // 필터 옵션 업데이트
+  const months = [...new Set((await sb.from('kakao_reviews').select('year_month')).data?.map(d => d.year_month) || [])];
+  const filterEl = document.getElementById('kakaoFilter');
+  const cur = filterEl.value;
+  filterEl.innerHTML = '<option value="">전체 보기</option>' + months.map(m => `<option value="${m}" ${m===cur?'selected':''}>${m}</option>`).join('');
+
+  const el = document.getElementById('kakaoList');
+  if (!data || !data.length) { el.innerHTML = '<div class="empty-list">등록된 이미지가 없습니다</div>'; return; }
+  el.innerHTML = data.map(k => `
+    <div class="list-item" style="grid-template-columns:80px 1fr 120px 60px 60px">
+      <img src="${k.image_url}" style="width:60px;height:78px;object-fit:cover;border-radius:6px;background:#eee">
+      <span style="font-size:14px;font-weight:600">${k.year_month}</span>
+      <span style="font-size:12px;color:var(--mute)">${new Date(k.created_at).toLocaleDateString('ko-KR')}</span>
+      <span style="font-size:13px;text-align:center">${k.sort_order}</span>
+      <button class="del-btn" onclick="delKakao('${k.id}','${k.image_url}')">삭제</button>
+    </div>`).join('');
+}
+
+async function delKakao(id, imgUrl) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  const path = imgUrl.split('/thebox-assets/')[1];
+  if (path) await sb.storage.from('thebox-assets').remove([path]);
+  await sb.from('kakao_reviews').delete().eq('id', id);
+  toast('🗑️ 삭제되었습니다');
+  loadKakao();
 }
 
 // 세션 확인
