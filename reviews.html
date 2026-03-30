@@ -263,6 +263,22 @@ footer{background:#111;padding:28px var(--px);display:flex;
   .hero-stats{gap:20px}
   .tab-btn{padding:12px 14px;font-size:12px}
 }
+
+@media(max-width:768px){
+  .tab-nav{top:58px}
+  .tab-btn{padding:13px 14px!important;font-size:12px!important}
+  .kakao-album-grid{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
+  .naver-grid{grid-template-columns:1fr!important}
+  .cafe-review-grid{grid-template-columns:1fr!important}
+  .video-grid{grid-template-columns:1fr!important}
+  .hero-stats{gap:16px!important}
+  .page-hero h1{font-size:clamp(28px,6vw,46px)!important}
+  .kakao-modal-img-wrap{width:min(340px,92vw)!important}
+}
+@media(max-width:480px){
+  .kakao-album-grid{grid-template-columns:repeat(2,1fr)!important}
+  .tab-btn{padding:11px 10px!important;font-size:11px!important}
+}
 </style>
 </head>
 <body>
@@ -312,7 +328,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 <!-- TAB NAV -->
 <div class="tab-nav">
   <div class="tab-nav-inner">
-    <button class="tab-btn active" onclick="switchTab('kakao', this)">💬 카톡 후기</button>
+    <button class="tab-btn active" onclick="switchTab('kakao', this)"><span style="display:inline-block;background:#FAE100;color:#3A1D1D;font-size:10px;font-weight:900;padding:1px 6px;border-radius:3px;margin-right:4px">KAKAO</span>카톡 후기</button>
     <button class="tab-btn" onclick="switchTab('naver', this)"><span style="color:#03C75A;font-weight:900;font-size:12px">N</span> 네이버 후기</button>
     <button class="tab-btn" onclick="switchTab('cafe', this)">☕ 카페 후기</button>
     <button class="tab-btn" onclick="switchTab('video', this)">🎬 영상 후기</button>
@@ -321,7 +337,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <!-- KAKAO -->
 <div class="tab-panel active" id="panel-kakao">
-  <div class="panel-title">💬 카톡 후기</div>
+  <div class="panel-title"><span style="display:inline-block;background:#FAE100;color:#3A1D1D;font-size:12px;font-weight:900;padding:2px 10px;border-radius:5px;margin-right:8px">KAKAO</span>카톡 후기</div>
   <p class="panel-sub">월별 카톡 후기 — 앨범을 클릭하면 슬라이드로 볼 수 있어요</p>
   <!-- 월별 앨범 그리드 -->
   <div class="kakao-album-grid" id="kakaoAlbumGrid">
