@@ -159,7 +159,7 @@ section{padding:64px var(--px)}
 .sch-placeholder strong{display:block;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
 
 /* KAKAO ALBUM PREVIEW (메인) */
-.kakao-album-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:860px}
+.kakao-album-preview{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .kap-card{border-radius:var(--radius);overflow:hidden;cursor:pointer;position:relative;border:1px solid var(--border);background:var(--bg);transition:all .2s;text-decoration:none;display:block}
 .kap-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.12);border-color:var(--orange)}
 .kap-thumb{width:100%;aspect-ratio:1080/1320;overflow:hidden;position:relative;background:var(--bg)}
@@ -169,7 +169,9 @@ section{padding:64px var(--px)}
 .kap-body{padding:11px 13px}
 .kap-month{font-size:13px;font-weight:700;color:var(--ink)}
 .kap-sub{font-size:11px;color:var(--ink-mute);margin-top:2px}
+@media(max-width:900px){.kakao-album-preview{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.kakao-album-preview{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.kakao-album-preview{grid-template-columns:1fr}}
 .reviews-section{background:var(--white)}
 .rv-tabs{display:flex;gap:0;margin-top:36px;border-bottom:2px solid var(--border)}
 .rv-tab{background:transparent;border:none;padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s}
@@ -179,7 +181,7 @@ section{padding:64px var(--px)}
 .rv-panels{margin-top:28px}
 .rv-panel{display:none}
 .rv-panel.active{display:block}
-.kakao-album-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;min-height:240px}
+.kakao-album-preview{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;min-height:240px}
 @keyframes shimmer{0%,100%{opacity:.5}50%{opacity:1}}
 
 /* KAKAO STYLE - card grid */
