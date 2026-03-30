@@ -41,12 +41,6 @@ body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif
 .page-hero h1 em{color:#7BB3FF;font-style:normal}
 .page-hero p{font-size:16px;color:rgba(255,255,255,.55);font-weight:300;max-width:480px}
 
-/* FILTER */
-.filter-bar{background:var(--white);padding:20px 6%;border-bottom:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center;position:sticky;top:64px;z-index:90}
-.filter-label{font-size:12px;font-weight:700;color:var(--ink-mute);margin-right:4px}
-.filter-btn{background:transparent;border:1.5px solid var(--border);border-radius:50px;padding:7px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);transition:all .2s}
-.filter-btn:hover{border-color:var(--blue);color:var(--blue)}
-.filter-btn.active{background:var(--blue);border-color:var(--blue);color:var(--white);font-weight:700}
 
 /* INTRO GRID */
 .intro-section{padding:48px var(--px) 64px}
@@ -243,16 +237,6 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <p>왕기초부터 고급까지, 내 목표와 스타일에 맞는 수업을 골라보세요</p>
 </div>
 
-<div class="filter-bar">
-  <span class="filter-label">필터</span>
-  <button class="filter-btn active" onclick="filterCards('all', this)">전체</button>
-  <button class="filter-btn" onclick="filterCards('기초', this)">기초</button>
-  <button class="filter-btn" onclick="filterCards('트렌디', this)">트렌디</button>
-  <button class="filter-btn" onclick="filterCards('미디어', this)">미디어</button>
-  <button class="filter-btn" onclick="filterCards('주말', this)">주말</button>
-  <button class="filter-btn" onclick="filterCards('비즈니스', this)">비즈니스</button>
-  <button class="filter-btn" onclick="filterCards('중국어', this)">중국어</button>
-</div>
 
 <section class="intro-section">
   <div class="intro-grid" id="introGrid">
@@ -386,6 +370,17 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </div>
 </section>
 
+<!-- 수강 규정 안내 버튼 -->
+<div style="padding:32px var(--px);text-align:center;background:var(--bg);border-top:1px solid var(--border)">
+  <p style="font-size:13px;color:var(--ink-mute);margin-bottom:14px">수업 등록 전 꼭 확인해주세요</p>
+  <button onclick="document.getElementById('regModal').classList.add('open')"
+    style="display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1.5px solid var(--border);border-radius:50px;padding:12px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink);transition:all .2s"
+    onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'"
+    onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink)'">
+    📋 더박스 아카데미 이용 규정 확인하기
+  </button>
+</div>
+
 <div class="cta-band fade-up">
   <div class="cta-band-title">어떤 수업이 맞는지<br><em>모르겠다면?</em></div>
   <p class="cta-band-sub">클래스 찾기 퀴즈로 딱 맞는 강사를 추천받아보세요</p>
@@ -511,16 +506,6 @@ document.addEventListener('keydown', function(e){
 </footer>
 
 <script>
-// FILTER
-function filterCards(tag, btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.tcard').forEach(card=>{
-    if(tag==='all'||card.dataset.tags===tag){
-      card.classList.remove('hidden');
-    } else {
-      card.classList.add('hidden');
-    }
   });
 }
 
