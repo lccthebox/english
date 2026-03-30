@@ -438,49 +438,81 @@ footer{background:#111;padding:28px var(--px);display:flex;
 <section class="quiz-section fade-up" id="quiz">
   <div class="section-eyebrow">나에게 맞는 클래스 찾기</div>
   <div class="section-title">어떤 수업이 맞을까요?</div>
-  <p class="section-sub">4가지 질문에 답하면 딱 맞는 강사를 추천해드립니다</p>
+  <p class="section-sub">5가지 질문에 답하면 딱 맞는 강사를 추천해드립니다</p>
   <div class="quiz-wrap">
-    <div class="quiz-progress"><div class="quiz-progress-bar" id="pb0"></div><div class="quiz-progress-bar" id="pb1"></div><div class="quiz-progress-bar" id="pb2"></div><div class="quiz-progress-bar" id="pb3"></div></div>
+    <div class="quiz-progress">
+      <div class="quiz-progress-bar" id="pb0"></div>
+      <div class="quiz-progress-bar" id="pb1"></div>
+      <div class="quiz-progress-bar" id="pb2"></div>
+      <div class="quiz-progress-bar" id="pb3"></div>
+      <div class="quiz-progress-bar" id="pb4"></div>
+    </div>
+
+    <!-- Q1 레벨 -->
     <div class="quiz-step active" id="step0">
-      <div class="quiz-q-num">Q1 / 4</div><div class="quiz-q-text">현재 영어 레벨은 어느 정도인가요?</div>
+      <div class="quiz-q-num">Q1 / 5</div>
+      <div class="quiz-q-text">스스로 체크해보는 나의 영어 실력은?</div>
       <div class="quiz-options">
-        <button class="quiz-opt" data-val="왕기초"><div>왕기초</div><div class="quiz-opt-sub">알파벳은 알지만 문장이 안 나와요</div></button>
-        <button class="quiz-opt" data-val="기초"><div>기초</div><div class="quiz-opt-sub">간단한 문장은 되는데 자신이 없어요</div></button>
-        <button class="quiz-opt" data-val="중급"><div>중급</div><div class="quiz-opt-sub">일상 대화는 가능하지만 더 늘고 싶어요</div></button>
-        <button class="quiz-opt" data-val="고급"><div>고급</div><div class="quiz-opt-sub">자연스럽고 세련된 표현을 배우고 싶어요</div></button>
+        <button class="quiz-opt" data-val="왕기초"><div>왕기초</div><div class="quiz-opt-sub">알파벳과 간단한 단어 정도만 알아요 (입문)</div></button>
+        <button class="quiz-opt" data-val="기초"><div>기초</div><div class="quiz-opt-sub">아는 단어는 있지만 문장으로 말하기 힘들어요 (초보)</div></button>
+        <button class="quiz-opt" data-val="중급"><div>중급</div><div class="quiz-opt-sub">일상적인 대화는 가능하지만 표현이 한정적이에요 (중급)</div></button>
+        <button class="quiz-opt" data-val="고급"><div>고급</div><div class="quiz-opt-sub">자유로운 토론이 가능하고 더 세련된 표현을 원해요 (심화)</div></button>
       </div>
       <div class="quiz-nav"><span></span><button class="quiz-btn-next" id="next0" onclick="nextStep(0)">다음 →</button></div>
     </div>
+
+    <!-- Q2 목적 -->
     <div class="quiz-step" id="step1">
-      <div class="quiz-q-num">Q2 / 4</div><div class="quiz-q-text">영어 공부의 목표가 무엇인가요?</div>
+      <div class="quiz-q-num">Q2 / 5</div>
+      <div class="quiz-q-text">영어를 배우는 목적은 무엇인가요?</div>
       <div class="quiz-options">
-        <button class="quiz-opt" data-val="여행·일상"><div>여행 · 일상 회화</div><div class="quiz-opt-sub">해외여행, 워홀, 일상 대화</div></button>
-        <button class="quiz-opt" data-val="트렌디"><div>트렌디 · MZ 영어</div><div class="quiz-opt-sub">최신 표현, 밈, 영미권 문화</div></button>
-        <button class="quiz-opt" data-val="비즈니스"><div>비즈니스 · 전문</div><div class="quiz-opt-sub">업무, 미팅, 고급 표현</div></button>
-        <button class="quiz-opt" data-val="미디어"><div>미디어 · 컨텐츠</div><div class="quiz-opt-sub">미드, 영드, 영화, 유튜브</div></button>
+        <button class="quiz-opt" data-val="생존영어"><div>생존 영어</div><div class="quiz-opt-sub">해외여행, 이민, 한 달 살기 준비</div></button>
+        <button class="quiz-opt" data-val="소셜영어"><div>소셜 영어</div><div class="quiz-opt-sub">외국인 친구 사귀기, 파티, 덕질, 트렌디한 슬랭</div></button>
+        <button class="quiz-opt" data-val="커리어영어"><div>커리어 영어</div><div class="quiz-opt-sub">면접, 회의, 이메일, PT 등 비즈니스 실전</div></button>
+        <button class="quiz-opt" data-val="콘텐츠영어"><div>콘텐츠 영어</div><div class="quiz-opt-sub">뉴스, TED, 영화·드라마 원어 그대로 이해하기</div></button>
       </div>
       <div class="quiz-nav"><button class="quiz-btn-back" onclick="prevStep(1)">← 이전</button><button class="quiz-btn-next" id="next1" onclick="nextStep(1)">다음 →</button></div>
     </div>
+
+    <!-- Q3 스타일 -->
     <div class="quiz-step" id="step2">
-      <div class="quiz-q-num">Q3 / 4</div><div class="quiz-q-text">수업 가능한 시간대는 언제인가요?</div>
+      <div class="quiz-q-num">Q3 / 5</div>
+      <div class="quiz-q-text">선호하는 수업 스타일은?</div>
       <div class="quiz-options">
-        <button class="quiz-opt" data-val="평일오전"><div>평일 오전</div><div class="quiz-opt-sub">주중 오전 시간 여유 있어요</div></button>
-        <button class="quiz-opt" data-val="평일저녁"><div>평일 저녁</div><div class="quiz-opt-sub">퇴근 후 저녁에 들을게요</div></button>
-        <button class="quiz-opt" data-val="주말"><div>주말</div><div class="quiz-opt-sub">주말만 가능해요</div></button>
-        <button class="quiz-opt" data-val="자유"><div>상관없어요</div><div class="quiz-opt-sub">시간 조율 가능해요</div></button>
+        <button class="quiz-opt" data-val="에너지뿜뿜"><div>에너지 뿜뿜 🔥</div><div class="quiz-opt-sub">칭찬 많이 받고 웃으면서 즐겁게 하고 싶어요</div></button>
+        <button class="quiz-opt" data-val="차분꼼꼼"><div>차분하고 꼼꼼하게 📝</div><div class="quiz-opt-sub">틀린 부분을 정확히 짚어주는 게 좋아요</div></button>
+        <button class="quiz-opt" data-val="친구편하게"><div>친구처럼 편하게 😊</div><div class="quiz-opt-sub">격식 없이 수다 떨 듯 자연스러운 분위기가 좋아요</div></button>
+        <button class="quiz-opt" data-val="스파르타"><div>압박 있는 스파르타 💪</div><div class="quiz-opt-sub">숙제도 많고 빡세게 굴려주면 좋겠어요</div></button>
       </div>
       <div class="quiz-nav"><button class="quiz-btn-back" onclick="prevStep(2)">← 이전</button><button class="quiz-btn-next" id="next2" onclick="nextStep(2)">다음 →</button></div>
     </div>
+
+    <!-- Q4 시간대 -->
     <div class="quiz-step" id="step3">
-      <div class="quiz-q-num">Q4 / 4</div><div class="quiz-q-text">선호하는 수업 스타일은?</div>
+      <div class="quiz-q-num">Q4 / 5</div>
+      <div class="quiz-q-text">수업 가능한 시간대는 언제인가요?</div>
       <div class="quiz-options">
-        <button class="quiz-opt" data-val="체계적"><div>체계적으로 기초부터</div><div class="quiz-opt-sub">탄탄한 기초와 문법을 원해요</div></button>
-        <button class="quiz-opt" data-val="재미있게"><div>재미있고 활발하게</div><div class="quiz-opt-sub">액티비티, 게임, 다양한 활동</div></button>
-        <button class="quiz-opt" data-val="트렌디"><div>트렌디하게</div><div class="quiz-opt-sub">최신 표현과 문화 중심</div></button>
-        <button class="quiz-opt" data-val="실전"><div>실전 중심으로</div><div class="quiz-opt-sub">오늘 배워서 바로 써먹고 싶어요</div></button>
+        <button class="quiz-opt" data-val="평일오전"><div>평일 오전</div><div class="quiz-opt-sub">주중 오전 시간이 여유 있어요</div></button>
+        <button class="quiz-opt" data-val="평일오후"><div>평일 오후·저녁</div><div class="quiz-opt-sub">퇴근 후나 오후 시간에 들을게요</div></button>
+        <button class="quiz-opt" data-val="주말"><div>주말</div><div class="quiz-opt-sub">주말만 가능해요</div></button>
+        <button class="quiz-opt" data-val="교차수강"><div>교차수강 필요</div><div class="quiz-opt-sub">평일·주말 번갈아 들을 수 있어요</div></button>
       </div>
-      <div class="quiz-nav"><button class="quiz-btn-back" onclick="prevStep(3)">← 이전</button><button class="quiz-btn-next" id="next3" onclick="showResult()">결과 보기 →</button></div>
+      <div class="quiz-nav"><button class="quiz-btn-back" onclick="prevStep(3)">← 이전</button><button class="quiz-btn-next" id="next3" onclick="nextStep(3)">다음 →</button></div>
     </div>
+
+    <!-- Q5 집중 -->
+    <div class="quiz-step" id="step4">
+      <div class="quiz-q-num">Q5 / 5</div>
+      <div class="quiz-q-text">가장 개선하고 싶은 부분은?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" data-val="발음억양"><div>발음과 억양 🎵</div><div class="quiz-opt-sub">원어민 같은 굴림과 인토네이션</div></button>
+        <button class="quiz-opt" data-val="문법정확성"><div>문법과 정확성 ✏️</div><div class="quiz-opt-sub">비문 없는 깔끔한 문장 만들기</div></button>
+        <button class="quiz-opt" data-val="풍부어휘"><div>풍부한 어휘 📚</div><div class="quiz-opt-sub">맨날 쓰는 단어 말고 다채로운 표현력</div></button>
+        <button class="quiz-opt" data-val="뉘앙스자연스러움"><div>뉘앙스와 자연스러움 💬</div><div class="quiz-opt-sub">교과서엔 없는 자연스러운 표현</div></button>
+      </div>
+      <div class="quiz-nav"><button class="quiz-btn-back" onclick="prevStep(4)">← 이전</button><button class="quiz-btn-next" id="next4" onclick="showResult()">결과 보기 →</button></div>
+    </div>
+
     <div class="quiz-result" id="quiz-result">
       <div class="result-badge">추천 강사</div>
       <div class="result-title">딱 맞는 강사를 찾았어요!</div>
@@ -842,45 +874,105 @@ document.querySelectorAll('.quiz-opt').forEach(btn=>{
   btn.addEventListener('click',function(){
     const s=+this.closest('.quiz-step').id.replace('step','');
     document.querySelectorAll('#step'+s+' .quiz-opt').forEach(b=>b.classList.remove('selected'));
-    this.classList.add('selected');ans[s]=this.dataset.val;
+    this.classList.add('selected');
+    ans[s]=this.dataset.val;
     document.getElementById('next'+s).classList.add('on');
   });
 });
-function nextStep(f){if(!ans[f])return;document.getElementById('step'+f).classList.remove('active');document.getElementById('pb'+f).classList.add('done');document.getElementById('step'+(f+1)).classList.add('active')}
-function prevStep(t){document.getElementById('step'+t).classList.remove('active');document.getElementById('step'+(t-1)).classList.add('active')}
-const T={
-  james:{name:'제임스',cls:'진짜영어',f:'academy/james.html',p:'academy/profile/james.jpg'},
-  chris:{name:'크리스',cls:'미디어영어',f:'academy/chris.html',p:'academy/profile/chris.jpg'},
-  cerline:{name:'설린',cls:'도전영어',f:'academy/cerline.html',p:'academy/profile/cerline.jpg'},
-  riley:{name:'라일리',cls:'Right 영어',f:'academy/riley.html',p:'academy/profile/riley.jpg'},
-  tina:{name:'티나',cls:'트렌디영어',f:'academy/tina.html',p:'academy/profile/tina.jpg'},
-  jane:{name:'제인',cls:'제일영어',f:'academy/jane.html',p:'academy/profile/jane.jpg'},
-  courtney:{name:'코트니',cls:'Go-To 영어',f:'academy/courtney.html',p:'academy/profile/courtney.jpg'},
-  diana:{name:'다이애나',cls:'바로영어',f:'academy/diana.html',p:'academy/profile/diana.jpg'},
-  chinese:{name:'짜이뤼',cls:'미親중국어',f:'academy/chinese.html',p:'academy/profile/짜이뤼.jpg'},
-};
-function getRec(){
-  const g=ans[1],t=ans[2],s=ans[3];
-  if(g==='미디어')return['chris','james'];
-  if(g==='트렌디')return['tina','jane'];
-  if(g==='비즈니스')return['courtney','diana'];
-  if(t==='주말')return['diana','riley'];
-  if(s==='체계적')return['riley','james'];
-  if(s==='재미있게')return['diana','tina'];
-  if(s==='트렌디')return['tina','jane'];
-  return['cerline','james'];
+function nextStep(f){
+  if(!ans[f])return;
+  document.getElementById('step'+f).classList.remove('active');
+  document.getElementById('pb'+f).classList.add('done');
+  document.getElementById('step'+(f+1)).classList.add('active');
 }
+function prevStep(t){
+  document.getElementById('step'+t).classList.remove('active');
+  document.getElementById('step'+(t-1)).classList.add('active');
+}
+
+const T={
+  james:   {name:'제임스',  cls:'진짜영어',    f:'academy/james.html',    p:'academy/profile/james.jpg'},
+  chris:   {name:'크리스',  cls:'미디어영어',   f:'academy/chris.html',    p:'academy/profile/chris.jpg'},
+  cerline: {name:'설린',    cls:'도전영어',    f:'academy/cerline.html',   p:'academy/profile/cerline.jpg'},
+  riley:   {name:'라일리',  cls:'Right 영어',  f:'academy/riley.html',    p:'academy/profile/riley.jpg'},
+  tina:    {name:'티나',    cls:'트렌디영어',   f:'academy/tina.html',     p:'academy/profile/tina.jpg'},
+  jane:    {name:'제인',    cls:'제일영어',    f:'academy/jane.html',     p:'academy/profile/jane.jpg'},
+  courtney:{name:'코트니',  cls:'Go-To 영어',  f:'academy/courtney.html', p:'academy/profile/courtney.jpg'},
+  diana:   {name:'다이애나',cls:'바로영어',    f:'academy/diana.html',    p:'academy/profile/diana.jpg'},
+  chinese: {name:'짜이뤼',  cls:'미親중국어',   f:'academy/chinese.html',  p:'academy/profile/짜이뤼.jpg'},
+};
+
+// 점수 테이블 - 각 답변별 점수
+const SCORE_MAP = {
+  // Q1 레벨
+  '왕기초':        {james:2, chris:2, diana:2, tina:1, jane:1, riley:1, cerline:1},
+  '기초':          {james:2, chris:2, diana:2, tina:2, jane:2, riley:2, cerline:2, courtney:1},
+  '중급':          {james:2, chris:2, diana:2, tina:2, jane:2, riley:2, cerline:2, courtney:2},
+  '고급':          {james:2, chris:2, diana:2, courtney:2},
+  // Q2 목적
+  '생존영어':      {cerline:3, riley:3, chris:2, james:2},
+  '소셜영어':      {tina:3, courtney:3, jane:3, riley:2},
+  '커리어영어':    {chris:3, james:3, diana:3},
+  '콘텐츠영어':   {chris:3, riley:3, diana:2, courtney:2},
+  // Q3 스타일
+  '에너지뿜뿜':   {tina:3, diana:3, courtney:3, cerline:2},
+  '차분꼼꼼':     {chris:3, riley:3, james:3, diana:2},
+  '친구편하게':   {tina:3, jane:3, cerline:3, courtney:2},
+  '스파르타':     {chris:3, james:3, diana:3},
+  // Q4 시간대
+  '평일오전':     {tina:2, cerline:2, james:2, jane:2, courtney:2, chris:2},
+  '평일오후':     {chris:2, tina:2, cerline:2, james:2, jane:2, courtney:2, riley:2},
+  '주말':         {diana:3, riley:3},
+  '교차수강':     {chris:2, tina:2, cerline:2, james:2, jane:2, courtney:2, riley:2},
+  // Q5 집중
+  '발음억양':         {chris:3, courtney:3},
+  '문법정확성':       {chris:2, james:2, riley:2, cerline:2, jane:2, diana:2},
+  '풍부어휘':         {courtney:3, chris:2, tina:2, jane:2, diana:2},
+  '뉘앙스자연스러움': {courtney:3, cerline:2, tina:2, james:2},
+};
+
+function getRec(){
+  // 점수 초기화
+  const scores={james:0,chris:0,cerline:0,riley:0,tina:0,jane:0,courtney:0,diana:0,chinese:0};
+  // 각 답변 점수 합산
+  Object.values(ans).forEach(val=>{
+    const map=SCORE_MAP[val];
+    if(map) Object.entries(map).forEach(([k,v])=>{scores[k]+=v;});
+  });
+  // 점수 순 정렬
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  // 동점 처리: 1위와 2위 중 서로 다른 선생님
+  const first=sorted[0][0];
+  let second=sorted[1][0];
+  // 만약 1위와 2위가 동점이면 그대로, 아니면 그냥 2위
+  return [first, second];
+}
+
 function showResult(){
-  if(!ans[3])return;
-  document.getElementById('step3').classList.remove('active');
-  document.getElementById('pb3').classList.add('done');
-  const[p,s]=getRec();const pt=T[p],st=T[s];
+  if(!ans[4])return;
+  document.getElementById('step4').classList.remove('active');
+  document.getElementById('pb4').classList.add('done');
+  const[p,s]=getRec();
+  const pt=T[p], st=T[s];
   document.getElementById('result-sub').textContent=`"${pt.name}" 선생님 수업이 가장 잘 맞을 것 같아요!`;
   document.getElementById('result-cards').innerHTML=`
-    <a href="${pt.f}" class="rtc main"><span class="rtc-badge">⭐ 가장 추천</span><div class="rtc-photo"><img src="${pt.p}" onerror="this.parentElement.innerHTML='👤'"></div><div class="rtc-name">${pt.name}</div><div class="rtc-class">${pt.cls}</div><div class="rtc-link">수업 자세히 보기 →</div></a>
-    <a href="${st.f}" class="rtc"><span class="rtc-badge">이런 수업도 어때요?</span><div class="rtc-photo"><img src="${st.p}" onerror="this.parentElement.innerHTML='👤'"></div><div class="rtc-name">${st.name}</div><div class="rtc-class">${st.cls}</div><div class="rtc-link">수업 자세히 보기 →</div></a>`;
+    <a href="${pt.f}" class="rtc main">
+      <span class="rtc-badge">⭐ 가장 추천</span>
+      <div class="rtc-photo"><img src="${pt.p}" onerror="this.parentElement.innerHTML='👤'"></div>
+      <div class="rtc-name">${pt.name}</div>
+      <div class="rtc-class">${pt.cls}</div>
+      <div class="rtc-link">수업 자세히 보기 →</div>
+    </a>
+    <a href="${st.f}" class="rtc">
+      <span class="rtc-badge">이런 수업도 어때요?</span>
+      <div class="rtc-photo"><img src="${st.p}" onerror="this.parentElement.innerHTML='👤'"></div>
+      <div class="rtc-name">${st.name}</div>
+      <div class="rtc-class">${st.cls}</div>
+      <div class="rtc-link">수업 자세히 보기 →</div>
+    </a>`;
   document.getElementById('quiz-result').classList.add('active');
 }
+
 function resetQuiz(){
   Object.keys(ans).forEach(k=>delete ans[k]);
   document.querySelectorAll('.quiz-opt').forEach(b=>b.classList.remove('selected'));
