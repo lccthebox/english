@@ -1066,4 +1066,12 @@ function showRv(btn,type){
   btn.classList.add('active');
 }
 
-// ── FADE ─
+// ── FADE UP ──
+const fadeObs = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); fadeObs.unobserve(e.target); }});
+}, {threshold: 0.07});
+document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+
+</script>
+</body>
+</html>
