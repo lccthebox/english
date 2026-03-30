@@ -724,7 +724,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <div class="rv-tabs">
     <button class="rv-tab active" onclick="showRv(this,'kakao')"><img src="academy/icons/kakao.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 카톡 후기</button>
     <button class="rv-tab" onclick="showRv(this,'naver')"><img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 네이버 후기</button>
-    <button class="rv-tab" onclick="showRv(this,'cafe')"><img src="academy/icons/cafe.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 카페 후기</button>
+    <button class="rv-tab" onclick="showRv(this,'cafe')"><img src="academy/icons/cafe.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:0;vertical-align:middle;margin-right:5px;display:inline-block"> 카페 후기</button>
   </div>
   <div class="rv-panels">
 
@@ -831,10 +831,6 @@ dots.forEach((d,i)=>d.addEventListener('click',()=>{clearInterval(auto);goSlide(
 function countUp(el){const t=+el.dataset.target;let c=0;const r=setInterval(()=>{c=Math.min(c+t/60,t);el.textContent=Math.floor(c).toLocaleString();if(c>=t)clearInterval(r)},30)}
 new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.count-num').forEach(countUp)}})},{threshold:.3}).observe(document.querySelector('.stats-band'));
 
-// ── TEACHER CAROUSEL ──
-const track=document.getElementById('tcTrack');
-const cards=track.querySelectorAll('.tc');
-const total=cards.length;
 // ── TEACHER SLIDER ──
 let tcIdx = 0;
 const tcTotal = 3;
@@ -1039,7 +1035,7 @@ async function loadCafePreview() {
       <a href="${c.link_url}" target="_blank" class="kap-card">
         <div class="kap-thumb">
           <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy">
-          <div class="kap-count" style="background:#03C75A"><img src="academy/icons/cafe.png" style="width:11px;height:11px;border-radius:50%;vertical-align:middle;margin-right:2px"> N카페</div>
+          <div class="kap-count" style="background:#03C75A"><img src="academy/icons/cafe.png" style="width:11px;height:11px;border-radius:0;vertical-align:middle;margin-right:2px"> N카페</div>
         </div>
         <div class="kap-body">
           <div class="kap-month" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px">${c.title}</div>

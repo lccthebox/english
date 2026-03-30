@@ -330,7 +330,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <div class="tab-nav-inner">
     <button class="tab-btn active" onclick="switchTab('kakao', this)"><img src="academy/icons/kakao.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;display:inline-block">카톡 후기</button>
     <button class="tab-btn" onclick="switchTab('naver', this)"><img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;display:inline-block"> 네이버 후기</button>
-    <button class="tab-btn" onclick="switchTab('cafe', this)"><img src="academy/icons/cafe.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;display:inline-block"> 카페 후기</button>
+    <button class="tab-btn" onclick="switchTab('cafe', this)"><img src="academy/icons/cafe.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:0;vertical-align:middle;margin-right:6px;display:inline-block"> 카페 후기</button>
     <button class="tab-btn" onclick="switchTab('video', this)">🎬 영상 후기</button>
   </div>
 </div>
@@ -634,7 +634,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <!-- CAFE -->
 <div class="tab-panel" id="panel-cafe">
-  <div class="panel-title"><img src="academy/icons/cafe.png" style="width:22px;height:22px;border-radius:50%;vertical-align:middle;margin-right:8px">카페 후기</div>
+  <div class="panel-title"><img src="academy/icons/cafe.png" style="width:22px;height:22px;border-radius:0;vertical-align:middle;margin-right:8px">카페 후기</div>
   <p class="panel-sub">더박스 공식 네이버 카페에 올라온 수강 후기 — 클릭하면 원문으로 이동해요</p>
   <div class="cafe-review-grid" id="cafeGrid">
     <div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--ink-mute);font-size:13px">로딩 중...</div>
@@ -754,7 +754,7 @@ function renderCafe(){
     const card=document.createElement('a');
     card.href=c.link_url;card.target='_blank';card.className='cafe-review-card';
     const date=new Date(c.created_at).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1);
-    card.innerHTML=`<div class="cafe-review-thumb"><img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy" onerror="this.parentElement.style.background='#f5ede8'"><div class="cafe-review-badge"><img src="academy/icons/cafe.png" style="width:13px;height:13px;border-radius:50%;vertical-align:middle;margin-right:3px"> 카페</div></div><div class="cafe-review-body"><div class="cafe-review-title">${c.title}</div><div class="cafe-review-meta">${date} · 더박스 공식카페</div></div>`;
+    card.innerHTML=`<div class="cafe-review-thumb"><img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy" onerror="this.parentElement.style.background='#f5ede8'"><div class="cafe-review-badge"><img src="academy/icons/cafe.png" style="width:13px;height:13px;border-radius:0;vertical-align:middle;margin-right:3px"> 카페</div></div><div class="cafe-review-body"><div class="cafe-review-title">${c.title}</div><div class="cafe-review-meta">${date} · 더박스 공식카페</div></div>`;
     el.appendChild(card);
   });
   cafeShown+=slice.length;
