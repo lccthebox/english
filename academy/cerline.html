@@ -125,8 +125,10 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
 .nav-review{color:#FF6B00!important;font-weight:700!important;font-size:14px!important;transition:all .2s!important}
 .nav-review:hover{color:#FFB800!important}
 /* 원어민스터디 버튼 */
-.nav-study{background:transparent;color:#10B981!important;border:1.5px solid #10B981;border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important;white-space:nowrap}
-.nav-study:hover{background:#10B981;color:#fff!important}
+.nav-live{color:#7C3AED;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-live:hover{color:#5B21B6}
+.nav-study{color:#10B981!important;font-size:13px!important;font-weight:600!important;text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-study:hover{color:#059669!important}
 
 /* SCHEDULE BANNER */
 .schedule-link-banner{background:var(--blue-light);border-top:2px solid var(--blue);border-bottom:2px solid var(--blue);padding:24px 6%}
@@ -158,9 +160,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
 .nav-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--blue)}
 .nav-review{color:var(--orange)!important;font-weight:700!important}
-.nav-study{color:var(--green)!important;border:1.5px solid var(--green);border-radius:50px;
-  padding:5px 14px;font-size:12px!important;font-weight:600!important;white-space:nowrap}
-.nav-study:hover{background:var(--green);color:#fff!important}
+.nav-study{color:#10B981!important;font-size:13px!important;font-weight:600!important;text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-study:hover{color:#059669!important}
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .nav-cta{background:var(--blue);color:#fff;border:none;border-radius:50px;
   padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
@@ -236,6 +237,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </ul>
   <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
     <a href="../study.html" class="nav-study">원어민스터디</a>
+    <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="메뉴">
       <span></span><span></span><span></span>
@@ -250,6 +252,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <a href="../more.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 플러스</a>
   <a href="../reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
   <a href="../study.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
+  <a href="https://theboxlive.kr/" target="_blank" style="color:#7C3AED;font-weight:700">더박스라이브</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
 </div>
 
