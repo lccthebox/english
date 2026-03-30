@@ -452,8 +452,21 @@ document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 <script>
 const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-const{createClient}=supabase;
-const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+let sb;
+function initSupabase() {
+  if (window.supabase && window.supabase.createClient) {
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    loadKakaoAlbum();
+    return true;
+  }
+  return false;
+}
+// SDK 로드 완료 후 초기화
+if (!initSupabase()) {
+  document.querySelector('script[src*="supabase"]').addEventListener('load', initSupabase);
+  setTimeout(initSupabase, 1000); // fallback
+}
 
 // ── 카톡 후기 앨범 ──
 let kakaoData = {}; // { '2026년 4월': [img1, img2...] }
