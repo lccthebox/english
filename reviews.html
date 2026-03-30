@@ -64,8 +64,8 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 .panel-sub{font-size:14px;color:var(--ink-mute);margin-bottom:40px}
 
 /* KAKAO ALBUM */
-.kakao-album-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.kakao-album-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .22s;position:relative}
+.kakao-album-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:960px}
+.kakao-album-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .22s;position:relative;max-width:260px}
 .kakao-album-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.12);border-color:var(--orange)}
 .kakao-album-thumb{width:100%;aspect-ratio:1080/1320;overflow:hidden;position:relative;background:var(--bg)}
 .kakao-album-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;display:block}
@@ -615,12 +615,8 @@ function loadMoreCafe(){renderCafe();}
 document.querySelector('[onclick*="cafe"]')?.addEventListener('click',()=>{
   if(!cafeAll.length) loadCafe();
 });
-</script>
-const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
-const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-const{createClient}=supabase;
-const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
+// ── 영상 후기 ──
 let videoAll=[],videoShown=0;
 const PAGE=6;
 
