@@ -8,191 +8,158 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--white:#fff;--bg:#F3F6FB;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#777;--blue:#1A5FCC;--blue-dark:#1448A8;--blue-light:#EEF4FF;--border:#D8E4F5;--radius:14px;--orange:#FF6B00;--green:#10B981}
-html{scroll-behavior:smooth}
-body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.6;overflow-x:hidden}
-
-.nav-logo{font-size:17px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0}
-.nav-logo span{color:var(--blue)}
-.nav-links{display:flex;gap:20px;list-style:none;align-items:center}
-.nav-links a{font-size:14px;color:var(--ink-mute);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--blue)}
-.nav-review{color:#FF6B00!important;font-weight:700!important}
-.nav-study{color:var(--green)!important;border:1.5px solid var(--green);border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important}
-.nav-study:hover{background:var(--green);color:#fff!important}
-.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
-.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
-.mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
-.page-hero{padding:56px var(--px) 48px;position:relative;overflow:hidden;background-color:var(--ink);background-image:url("academy/hero/more.jpg");background-size:cover;background-position:center}
-.page-hero::after{content:"";position:absolute;inset:0;background:rgba(8,14,40,.55);z-index:0;pointer-events:none}
-.page-hero>*{position:relative;z-index:1}
-.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(123,179,255,.8);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.hero-eyebrow::before{content:'';width:20px;height:2px;background:#7BB3FF}
-.page-hero h1{font-size:clamp(32px,5vw,58px);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:14px}
-.page-hero h1 em{color:#7BB3FF;font-style:normal}
-.page-hero p{font-size:16px;color:rgba(255,255,255,.6);font-weight:300;max-width:500px}
-.tab-nav{background:var(--white);border-bottom:2px solid var(--border);padding:0 6%;position:sticky;top:64px;z-index:90}
-.tab-nav-inner{display:flex;overflow-x:auto}
-.tab-btn{background:transparent;border:none;padding:18px 24px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s;white-space:nowrap}
-.tab-btn::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .25s}
-.tab-btn.active{color:var(--blue);font-weight:700}
-.tab-btn.active::after{transform:scaleX(1)}
-.tab-panel{display:none;padding:48px var(--px) 64px;min-height:50vh}
-.tab-panel.active{display:block}
-.panel-title{font-size:clamp(24px,3vw,36px);font-weight:900;color:var(--ink);margin-bottom:8px}
-.panel-sub{font-size:15px;color:var(--ink-mute);font-weight:300;margin-bottom:36px}
-/* 공지사항 */
-.notice-list{display:flex;flex-direction:column;max-width:800px}
-.notice-item{display:flex;align-items:center;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:color .2s}
-.notice-item:first-child{border-top:1px solid var(--border)}
-.notice-item:hover .notice-title{color:var(--blue)}
-.notice-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:50px;white-space:nowrap;flex-shrink:0}
-.badge-new{background:#FF6B00;color:#fff}
-.badge-event{background:var(--blue-light);color:var(--blue)}
-.badge-general{background:var(--bg);color:var(--ink-mute);border:1px solid var(--border)}
-.notice-title{font-size:15px;font-weight:500;flex:1;transition:color .2s}
-.notice-date{font-size:12px;color:var(--ink-mute);flex-shrink:0}
-/* 월간 */
-.monthly-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.monthly-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s;text-decoration:none;color:inherit;display:block}
-.monthly-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(26,95,204,.1);border-color:var(--blue)}
-.monthly-thumb{width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:32px}
-.monthly-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
-.monthly-card:hover .monthly-thumb img{transform:scale(1.04)}
-.monthly-body{padding:16px}
-.monthly-date{font-size:11px;color:var(--ink-mute);margin-bottom:4px}
-.monthly-title{font-size:15px;font-weight:700;color:var(--ink)}
-/* 제휴 */
-.partner-intro{font-size:15px;color:var(--ink-soft);line-height:1.9;max-width:600px;margin-bottom:28px}
-.partner-btn{display:inline-block;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-radius:50px;padding:12px 28px;font-size:14px;font-weight:700;text-decoration:none;margin-bottom:28px;display:inline-block}
-.insta-embed-box{max-width:540px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-/* 영상 */
-.video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px}
-.video-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.video-embed{width:100%;aspect-ratio:16/9}
-.video-embed iframe{width:100%;height:100%;border:none;display:block}
-.video-placeholder{width:100%;aspect-ratio:16/9;background:#1a1a2e;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:rgba(255,255,255,.5);font-size:13px}
-.video-placeholder-icon{font-size:36px}
-.video-card-body{padding:14px}
-.video-card-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.video-card-meta{font-size:12px;color:var(--ink-mute)}
-.hint{margin-top:16px;font-size:13px;color:var(--ink-mute)}
-.cta-band{background:var(--ink);padding:64px 6%;text-align:center}
-.cta-band-title{font-size:clamp(24px,3.5vw,40px);font-weight:900;color:var(--white);margin-bottom:12px}
-.cta-band-title em{color:#7BB3FF;font-style:normal}
-.cta-band-sub{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:28px}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-blue{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:14px 34px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s}
-.btn-blue:hover{background:var(--blue-dark)}
-.btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:14px 34px;font-size:15px;text-decoration:none}
-footer{background:#111;padding:32px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.footer-logo{font-size:15px;font-weight:900;color:rgba(255,255,255,.7)}
-.footer-logo span{color:#7BB3FF}
-.footer-info{font-size:12px;color:rgba(255,255,255,.3);line-height:1.8}
-.footer-links{display:flex;gap:16px}
-.footer-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none}
-.footer-links a:hover{color:rgba(255,255,255,.7)}
-.fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.fade-up.visible{opacity:1;transform:translateY(0)}
-@media(max-width:900px){.monthly-grid{grid-template-columns:1fr 1fr}.video-grid{grid-template-columns:1fr}nav .nav-links{display:none}.hamburger{display:flex}}
-@media(max-width:600px){.monthly-grid{grid-template-columns:1fr}.tab-btn{padding:14px 12px;font-size:12px}}
-
-/* ── RESPONSIVE SYSTEM ── */
 :root{
-  --white:#fff;--bg:#F3F6FB;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#888;
+  --white:#fff;--bg:#F3F6FB;--ink:#1a1a1a;--ink-mute:#888;
   --blue:#1A5FCC;--blue-dark:#1448A8;--blue-light:#EEF4FF;--border:#D8E4F5;
-  --radius:12px;--green:#10B981;--orange:#FF6B00;
-  --px:5%;--max:1120px;
+  --radius:12px;--green:#10B981;--orange:#FF6B00;--px:5%;--max:1100px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;
-  line-height:1.65;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.65;overflow-x:hidden;-webkit-text-size-adjust:100%}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
-  backdrop-filter:blur(12px);border-bottom:1.5px solid var(--border);
-  padding:0 var(--px);height:58px;display:flex;align-items:center;
-  justify-content:space-between;gap:8px;max-width:100%}
-.nav-logo{font-size:16px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0;letter-spacing:-.3px}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1.5px solid var(--border);padding:0 var(--px);height:58px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nav-logo{font-size:16px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0}
 .nav-logo span{color:var(--blue)}
-.nav-links{display:flex;gap:20px;list-style:none;align-items:center}
+.nav-links{display:flex;gap:18px;list-style:none;align-items:center}
 .nav-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--blue)}
 .nav-review{color:var(--orange)!important;font-weight:700!important}
-.nav-study{color:var(--green)!important;border:1.5px solid var(--green);border-radius:50px;
-  padding:5px 14px;font-size:12px!important;font-weight:600!important;white-space:nowrap}
+.nav-study{color:var(--green)!important;border:1.5px solid var(--green);border-radius:50px;padding:5px 14px;font-size:12px!important;font-weight:600!important;white-space:nowrap;transition:all .2s}
 .nav-study:hover{background:var(--green);color:#fff!important}
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.nav-cta{background:var(--blue);color:#fff;border:none;border-radius:50px;
-  padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
-  font-family:inherit;text-decoration:none;white-space:nowrap}
+.nav-cta{background:var(--blue);color:#fff;border:none;border-radius:50px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;
-  background:none;border:none;padding:4px;flex-shrink:0}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;padding:4px;flex-shrink:0}
 .hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
-.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);
-  z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:18px;font-weight:700;color:var(--ink);text-decoration:none}
-.mobile-menu-close{position:absolute;top:18px;right:20px;font-size:22px;
-  background:none;border:none;cursor:pointer;color:var(--ink-mute)}
+.mobile-menu-close{position:absolute;top:18px;right:20px;font-size:22px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
 
-/* SECTIONS */
-section{padding:64px var(--px)}
-.section-inner{max-width:var(--max);margin:0 auto}
-.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--blue);
-  text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.section-eyebrow::before{content:'';width:16px;height:2px;background:var(--blue)}
-.section-title{font-size:clamp(22px,3vw,38px);font-weight:900;line-height:1.2;
-  margin-bottom:10px;color:var(--ink)}
-.section-sub{font-size:14px;color:var(--ink-mute);font-weight:300;
-  line-height:1.85;max-width:520px}
+/* HERO */
+.page-hero{padding:52px var(--px) 44px;position:relative;overflow:hidden;background:#0d1a3a;background-image:url("academy/hero/more.jpg");background-size:cover;background-position:center}
+.page-hero::after{content:"";position:absolute;inset:0;background:rgba(8,14,40,.6);z-index:0}
+.page-hero>*{position:relative;z-index:1}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(123,179,255,.8);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.hero-eyebrow::before{content:'';width:16px;height:2px;background:#7BB3FF}
+.page-hero h1{font-size:clamp(26px,4vw,48px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:10px}
+.page-hero h1 em{color:#7BB3FF;font-style:normal}
+.page-hero p{font-size:14px;color:rgba(255,255,255,.6);max-width:440px}
 
-/* FOOTER */
-footer{background:#111;padding:28px var(--px);display:flex;
-  justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+/* TAB */
+.tab-nav{background:var(--white);border-bottom:1.5px solid var(--border);padding:0 var(--px);position:sticky;top:58px;z-index:90;overflow-x:auto}
+.tab-nav-inner{display:flex;min-width:max-content}
+.tab-btn{background:transparent;border:none;padding:16px 22px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;white-space:nowrap;transition:color .2s}
+.tab-btn::after{content:'';position:absolute;bottom:-1.5px;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .22s}
+.tab-btn.active{color:var(--blue);font-weight:700}
+.tab-btn.active::after{transform:scaleX(1)}
+
+/* PANELS */
+.tab-panel{display:none;padding:44px var(--px) 64px;max-width:var(--max);margin:0 auto;width:100%}
+.tab-panel.active{display:block}
+.panel-wrap{max-width:var(--max)}
+.panel-head{margin-bottom:28px}
+.panel-title{font-size:clamp(18px,2.5vw,26px);font-weight:900;color:var(--ink);margin-bottom:6px}
+.panel-sub{font-size:13px;color:var(--ink-mute)}
+
+/* ── 공지사항 ── */
+.notice-list{display:flex;flex-direction:column}
+.notice-item{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:background .15s}
+.notice-item:first-child{border-top:1px solid var(--border)}
+.notice-item:hover .notice-title{color:var(--blue)}
+.notice-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:50px;white-space:nowrap;flex-shrink:0}
+.badge-new{background:var(--orange);color:#fff}
+.badge-event{background:var(--blue-light);color:var(--blue);border:1px solid #c3d8f8}
+.badge-general{background:var(--bg);color:var(--ink-mute);border:1px solid var(--border)}
+.notice-title{font-size:14px;font-weight:500;flex:1;transition:color .2s}
+.notice-date{font-size:11px;color:var(--ink-mute);flex-shrink:0}
+
+/* ── 월간더박스 ── */
+.monthly-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.monthly-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:all .2s}
+.monthly-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(26,95,204,.1);border-color:var(--blue)}
+.monthly-thumb{width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px}
+.monthly-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;display:block}
+.monthly-card:hover .monthly-thumb img{transform:scale(1.04)}
+.monthly-body{padding:12px 14px}
+.monthly-ym{font-size:10px;color:var(--ink-mute);margin-bottom:3px}
+.monthly-title{font-size:13px;font-weight:700;color:var(--ink)}
+
+/* ── 더보기 버튼 ── */
+.more-row{display:flex;justify-content:center;margin-top:24px}
+.load-more-btn{background:transparent;border:1.5px solid var(--border);border-radius:50px;padding:10px 28px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);transition:all .2s}
+.load-more-btn:hover{border-color:var(--blue);color:var(--blue)}
+.load-more-btn:disabled{opacity:.4;cursor:default}
+
+/* ── 제휴업체 ── */
+.partner-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.partner-info{}
+.partner-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.partner-name{font-size:22px;font-weight:900;color:var(--ink);margin-bottom:8px}
+.partner-desc{font-size:13px;color:var(--ink-mute);line-height:1.85;margin-bottom:20px}
+.partner-cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-radius:50px;padding:11px 24px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity .2s}
+.partner-cta:hover{opacity:.88}
+.partner-embed-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--bg);min-height:400px;display:flex;align-items:center;justify-content:center}
+.partner-embed-wrap blockquote{margin:0!important;width:100%!important;max-width:100%!important}
+
+/* ── 영상후기 ── */
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.video-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:all .2s}
+.video-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.video-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;background:#111}
+.video-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.video-card:hover .video-thumb img{transform:scale(1.04)}
+.video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.video-play-btn{width:44px;height:44px;background:rgba(200,0,0,.88);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;transition:transform .2s}
+.video-card:hover .video-play-btn{transform:scale(1.1)}
+.video-body{padding:12px 14px}
+.video-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.45}
+.video-meta{font-size:11px;color:var(--ink-mute)}
+
+/* empty */
+.empty-state{padding:48px;text-align:center;color:var(--ink-mute);font-size:13px;grid-column:1/-1}
+.loading-state{padding:48px;text-align:center;color:var(--ink-mute);font-size:13px}
+.loading-dot{display:inline-block;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* CTA */
+.cta-band{background:var(--ink);padding:56px var(--px);text-align:center}
+.cta-band-title{font-size:clamp(20px,3vw,36px);font-weight:900;color:#fff;margin-bottom:10px}
+.cta-band-title em{color:#7BB3FF;font-style:normal}
+.cta-band-sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:24px}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-blue{background:var(--blue);color:#fff;border:none;border-radius:50px;padding:12px 30px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s}
+.btn-blue:hover{background:var(--blue-dark)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:12px 30px;font-size:14px;text-decoration:none;transition:border .2s}
+.btn-ghost:hover{border-color:#fff}
+footer{background:#111;padding:28px var(--px);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
 .footer-logo{font-size:14px;font-weight:900;color:rgba(255,255,255,.7)}
 .footer-logo span{color:#7BB3FF}
 .footer-info{font-size:11px;color:rgba(255,255,255,.3);line-height:1.9}
 .footer-links{display:flex;gap:14px;flex-wrap:wrap}
 .footer-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none}
 .footer-links a:hover{color:rgba(255,255,255,.6)}
-
-/* FADE */
-.fade-up{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fade-up{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 
-/* MOBILE */
 @media(max-width:768px){
   :root{--px:4%}
   nav .nav-links{display:none}
   .hamburger{display:flex}
-  section{padding:48px var(--px)}
+  .partner-layout{grid-template-columns:1fr}
+  .video-grid{grid-template-columns:repeat(2,1fr)}
+  .monthly-grid{grid-template-columns:repeat(2,1fr)}
   footer{flex-direction:column;gap:12px}
-  .footer-links{gap:12px}
 }
 @media(max-width:480px){
-  :root{--px:4%}
-  .section-title{font-size:clamp(20px,6vw,28px)}
-}
-
-
-@media(max-width:768px){
-  .monthly-grid{grid-template-columns:1fr 1fr}
   .video-grid{grid-template-columns:1fr}
-  .tab-btn{padding:12px 12px;font-size:12px}
-}
-@media(max-width:480px){
-  .monthly-grid{grid-template-columns:1fr}
+  .monthly-grid{grid-template-columns:repeat(2,1fr)}
+  .tab-btn{padding:14px 14px;font-size:12px}
 }
 </style>
 </head>
 <body>
+
 <nav>
   <a href="academy.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
@@ -204,7 +171,9 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <div class="nav-right">
     <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
-    <button class="hamburger" onclick="document.getElementById('mM').classList.toggle('open')" aria-label="메뉴"><span></span><span></span><span></span></button>
+    <button class="hamburger" onclick="document.getElementById('mM').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 <div class="mobile-menu" id="mM">
@@ -212,15 +181,15 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <a href="introduce.html">더박스 소개</a>
   <a href="classes.html">수업 안내</a>
   <a href="more.html">더박스 플러스</a>
-  <a href="reviews.html" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
-  <a href="study.html" style="color:#10B981;font-weight:700">원어민스터디</a>
-  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
+  <a href="reviews.html" style="color:var(--orange);font-weight:700">⭐ 후기</a>
+  <a href="study.html" style="color:var(--green);font-weight:700">원어민스터디</a>
+  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:var(--blue);color:#fff;padding:11px 28px;border-radius:50px">상담 예약</a>
 </div>
 
 <div class="page-hero fade-up">
   <div class="hero-eyebrow">더박스 플러스</div>
   <h1>더박스의<br><em>모든 소식</em></h1>
-  <p>공지사항, 월간 더박스, 제휴 혜택, 영상 후기까지 한 곳에서 확인하세요.</p>
+  <p>공지사항, 월간 더박스, 제휴 혜택, 영상 후기를 한 곳에서 확인하세요.</p>
 </div>
 
 <div class="tab-nav">
@@ -234,39 +203,49 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <!-- 공지사항 -->
 <div class="tab-panel active" id="panel-notice">
-  <div class="panel-title">📢 공지사항</div>
-  <p class="panel-sub">더박스의 중요한 소식을 전해드립니다</p>
-  <div class="notice-list" id="noticeList"><div style="padding:40px;text-align:center;color:var(--ink-mute)">로딩 중...</div></div>
+  <div class="panel-head"><div class="panel-title">공지사항</div><p class="panel-sub">더박스의 중요한 소식을 전해드립니다</p></div>
+  <div class="notice-list" id="noticeList"><div class="loading-state"><span class="loading-dot">●</span> 로딩 중...</div></div>
 </div>
 
 <!-- 월간 더박스 -->
 <div class="tab-panel" id="panel-monthly">
-  <div class="panel-title">📰 월간 더박스</div>
-  <p class="panel-sub">매달 업데이트되는 더박스 뉴스레터</p>
-  <div class="monthly-grid" id="monthlyGrid"><div style="padding:40px;text-align:center;color:var(--ink-mute)">로딩 중...</div></div>
+  <div class="panel-head"><div class="panel-title">월간 더박스</div><p class="panel-sub">매달 업데이트되는 더박스 뉴스레터</p></div>
+  <div class="monthly-grid" id="monthlyGrid"><div class="loading-state" style="grid-column:1/-1"><span class="loading-dot">●</span> 로딩 중...</div></div>
+  <div class="more-row" id="monthlyMoreRow" style="display:none">
+    <button class="load-more-btn" id="monthlyMoreBtn" onclick="loadMoreMonthly()">더보기 ↓</button>
+  </div>
 </div>
 
 <!-- 제휴업체 -->
 <div class="tab-panel" id="panel-partner">
-  <div class="panel-title">🤝 더박스 제휴업체</div>
-  <p class="panel-sub">더박스 수강생을 위한 특별 혜택 파트너사</p>
-  <p class="partner-intro">더박스와 함께하는 제휴업체에서 수강생 특별 혜택을 받아보세요. 최신 혜택 정보는 아래 인스타그램에서 확인하세요.</p>
-  <a href="https://www.instagram.com/thebox_partnership/" target="_blank" class="partner-btn">📸 제휴 인스타그램 바로가기</a>
-  <div class="insta-embed-box">
-    <blockquote class="instagram-media"
-      data-instgrm-permalink="https://www.instagram.com/thebox_partnership/"
-      data-instgrm-version="14"
-      style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,.5),0 1px 10px 0 rgba(0,0,0,.15);margin:1px;max-width:540px;padding:0;width:99%">
-    </blockquote>
+  <div class="panel-head"><div class="panel-title">더박스 제휴업체</div><p class="panel-sub">수강생을 위한 특별 혜택 파트너</p></div>
+  <div class="partner-layout">
+    <div class="partner-info">
+      <div class="partner-label">Partnership</div>
+      <div class="partner-name">더박스<br>제휴업체</div>
+      <p class="partner-desc">더박스와 함께하는 제휴업체에서 수강생 특별 혜택을 받아보세요. 최신 혜택과 이벤트 정보는 공식 제휴 인스타그램에서 확인할 수 있어요.</p>
+      <a href="https://www.instagram.com/thebox_partnership/" target="_blank" class="partner-cta">
+        📸 제휴 인스타그램 바로가기
+      </a>
+    </div>
+    <div class="partner-embed-wrap">
+      <blockquote class="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/thebox_partnership/"
+        data-instgrm-version="14"
+        style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:100%;padding:0;width:100%">
+      </blockquote>
+    </div>
   </div>
   <script async src="//www.instagram.com/embed.js"></script>
 </div>
 
 <!-- 영상 후기 -->
 <div class="tab-panel" id="panel-video">
-  <div class="panel-title">🎬 영상 후기</div>
-  <p class="panel-sub">수강생들이 직접 말하는 더박스 영상 후기</p>
-  <div class="video-grid" id="videoGrid"><div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--ink-mute)">로딩 중...</div></div>
+  <div class="panel-head"><div class="panel-title">영상 후기</div><p class="panel-sub">수강생들이 직접 말하는 더박스 영상 후기</p></div>
+  <div class="video-grid" id="videoGrid"><div class="loading-state" style="grid-column:1/-1"><span class="loading-dot">●</span> 로딩 중...</div></div>
+  <div class="more-row" id="videoMoreRow" style="display:none">
+    <button class="load-more-btn" id="videoMoreBtn" onclick="loadMoreVideos()">더보기 ↓</button>
+  </div>
 </div>
 
 <div class="cta-band fade-up">
@@ -290,6 +269,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
     <a href="https://www.instagram.com/thebox_daegu/" target="_blank">인스타그램</a>
   </div>
 </footer>
+
 <script>
 function switchTab(name,btn){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
@@ -304,63 +284,75 @@ document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ── Supabase 설정 (admin.html과 동일하게 입력) ──
-const SUPABASE_URL = 'https://oualwikibctxvlscpuyn.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
+const{createClient}=supabase;
+const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
-// 공지사항 로드
-async function loadNotices() {
-  const el = document.getElementById('noticeList');
-  const { data } = await sb.from('notices')
-    .select('*')
-    .eq('is_published', true)
-    .order('created_at', { ascending: false })
-    .limit(20);
+const PAGE=6; // 1행 3열 x 2행
+const badgeMap={new:'<span class="notice-badge badge-new">NEW</span>',event:'<span class="notice-badge badge-event">이벤트</span>',general:'<span class="notice-badge badge-general">공지</span>'};
+function fmtDate(d){return new Date(d).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1)}
 
-  if (!data || data.length === 0) {
-    el.innerHTML = '<div style="padding:40px;text-align:center;color:var(--ink-mute)">등록된 공지가 없습니다</div>';
-    return;
-  }
-  const badgeMap = { new: '<span class="notice-badge badge-new">NEW</span>', event: '<span class="notice-badge badge-event">이벤트</span>', general: '<span class="notice-badge badge-general">공지</span>' };
-  el.innerHTML = data.map(n => `
-    <a href="#" class="notice-item">
-      ${badgeMap[n.badge] || badgeMap.general}
-      <span class="notice-title">${n.title}</span>
-      <span class="notice-date">${new Date(n.created_at).toLocaleDateString('ko-KR').replace(/\. /g,'.').replace('.','')}</span>
-    </a>`).join('');
+// 공지
+async function loadNotices(){
+  const el=document.getElementById('noticeList');
+  const{data}=await sb.from('notices').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(30);
+  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 공지가 없습니다</div>';return;}
+  el.innerHTML=data.map(n=>`<a href="#" class="notice-item">${badgeMap[n.badge]||badgeMap.general}<span class="notice-title">${n.title}</span><span class="notice-date">${fmtDate(n.created_at)}</span></a>`).join('');
 }
 
-// 월간더박스 로드
-async function loadMonthly() {
-  const el = document.getElementById('monthlyGrid');
-  const { data } = await sb.from('monthly')
-    .select('*')
-    .eq('is_published', true)
-    .order('created_at', { ascending: false })
-    .limit(12);
-
-  if (!data || data.length === 0) {
-    el.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--ink-mute)">등록된 월간 더박스가 없습니다</div>';
-    return;
-  }
-  el.innerHTML = data.map(m => `
-    <a href="${m.link_url || m.cover_url}" target="_blank" class="monthly-card">
-      <div class="monthly-thumb"><img src="${m.cover_url}" alt="${m.title}" onerror="this.parentElement.innerHTML='📰'" style="width:100%;height:100%;object-fit:cover"></div>
-      <div class="monthly-body">
-        <div class="monthly-date">${m.year_month}</div>
-        <div class="monthly-title">${m.title}</div>
-      </div>
-    </a>`).join('');
+// 월간 - 6개씩 더보기
+let monthlyAll=[],monthlyShown=0;
+async function loadMonthly(){
+  const el=document.getElementById('monthlyGrid');
+  const{data}=await sb.from('monthly').select('*').eq('is_published',true).order('created_at',{ascending:false});
+  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 월간 더박스가 없습니다</div>';return;}
+  monthlyAll=data; monthlyShown=0;
+  el.innerHTML='';
+  renderMonthly();
 }
+function renderMonthly(){
+  const el=document.getElementById('monthlyGrid');
+  const slice=monthlyAll.slice(monthlyShown,monthlyShown+PAGE);
+  slice.forEach(m=>{
+    const card=document.createElement('a');
+    card.href=m.link_url||m.cover_url; card.target='_blank'; card.className='monthly-card';
+    card.innerHTML=`<div class="monthly-thumb"><img src="${m.cover_url}" alt="${m.title}" loading="lazy" onerror="this.parentElement.innerHTML='📰'"></div><div class="monthly-body"><div class="monthly-ym">${m.year_month}</div><div class="monthly-title">${m.title}</div></div>`;
+    el.appendChild(card);
+  });
+  monthlyShown+=slice.length;
+  const row=document.getElementById('monthlyMoreRow');
+  row.style.display=monthlyShown<monthlyAll.length?'flex':'none';
+}
+function loadMoreMonthly(){renderMonthly();}
 
-// monthly-thumb 정사각형으로
-document.head.insertAdjacentHTML('beforeend', '<style>.monthly-thumb{aspect-ratio:1/1!important}.monthly-thumb img{object-fit:cover;width:100%;height:100%}</style>');
+// 영상 - 6개씩 더보기
+let videoAll=[],videoShown=0;
+async function loadVideos(){
+  const el=document.getElementById('videoGrid');
+  const{data}=await sb.from('videos').select('*').eq('is_published',true).order('created_at',{ascending:false});
+  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 영상 후기가 없습니다</div>';return;}
+  videoAll=data; videoShown=0;
+  el.innerHTML='';
+  renderVideos();
+}
+function renderVideos(){
+  const el=document.getElementById('videoGrid');
+  const slice=videoAll.slice(videoShown,videoShown+PAGE);
+  slice.forEach(v=>{
+    const card=document.createElement('a');
+    card.href=v.youtube_url; card.target='_blank'; card.className='video-card';
+    card.innerHTML=`<div class="video-thumb"><img src="${v.thumbnail_url}" alt="${v.title}" loading="lazy" onerror="this.style.background='#222'"><div class="video-play"><div class="video-play-btn">▶</div></div></div><div class="video-body"><div class="video-title">${v.title}</div><div class="video-meta">YouTube · 더박스</div></div>`;
+    el.appendChild(card);
+  });
+  videoShown+=slice.length;
+  const row=document.getElementById('videoMoreRow');
+  row.style.display=videoShown<videoAll.length?'flex':'none';
+}
+function loadMoreVideos(){renderVideos();}
 
-loadNotices();
-loadMonthly();
-loadVideos();
+// 병렬 로드
+Promise.all([loadNotices(),loadMonthly(),loadVideos()]);
 </script>
 </body>
 </html>
