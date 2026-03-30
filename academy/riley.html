@@ -24,8 +24,10 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 .nav-back:hover{border-color:var(--blue);color:var(--blue)}
 .nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.hamburger{display:none;align-items:center;gap:5px;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:5px 10px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--blue);color:var(--blue)}
+.hamburger span{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+.ham-lines{display:flex;flex-direction:column;gap:4px}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
@@ -167,9 +169,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
   padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
   font-family:inherit;text-decoration:none;white-space:nowrap}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;
-  background:none;border:none;padding:4px;flex-shrink:0}
-.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
+.hamburger{display:none;align-items:center;gap:5px;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:5px 10px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--blue);color:var(--blue)}
+.hamburger span{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+.ham-lines{display:flex;flex-direction:column;gap:4px}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);
   z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
 .mobile-menu.open{display:flex}
@@ -206,6 +209,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 @media(max-width:768px){
   :root{--px:4%}
   nav .nav-links{display:none}
+  .nav-live,.nav-study{display:none}
   .hamburger{display:flex}
   section{padding:48px var(--px)}
   footer{flex-direction:column;gap:12px}
@@ -228,19 +232,20 @@ footer{background:#111;padding:28px var(--px);display:flex;
 <body>
 
 <nav>
-  <a href="academy.html" class="nav-logo">THE<span>BOX</span></a>
+  <a href="../academy.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
     <li><a href="../introduce.html">더박스 소개</a></li>
     <li><a href="../classes.html">수업 안내</a></li>
     <li><a href="../more.html">더박스 플러스</a></li>
-    <li><a href="../reviews.html" class="nav-review">⭐ 후기</a></li>
+    <li><a href="../reviews.html" class="nav-review">더박스후기</a></li>
   </ul>
   <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
     <a href="../study.html" class="nav-study">원어민스터디</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="메뉴">
-      <span></span><span></span><span></span>
+      <div class="ham-lines"><span></span><span></span><span></span></div>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.3px">메뉴</span>
     </button>
   </div>
 </nav>
@@ -250,7 +255,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <a href="../introduce.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 소개</a>
   <a href="../classes.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">수업 안내</a>
   <a href="../more.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 플러스</a>
-  <a href="../reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
+  <a href="../reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">더박스후기</a>
   <a href="../study.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
   <a href="https://theboxlive.kr/" target="_blank" style="color:#7C3AED;font-weight:700">더박스라이브</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
@@ -327,9 +332,9 @@ footer{background:#111;padding:28px var(--px);display:flex;
 </div>
 
 <div class="teacher-nav">
-  <a href="cerline.html" class="t-nav-btn">← 설린</a>
+  <a href="../cerline.html" class="t-nav-btn">← 설린</a>
   <a href="../classes.html" class="t-nav-back">강사 전체 보기</a>
-  <a href="tina.html" class="t-nav-btn">티나 →</a>
+  <a href="../tina.html" class="t-nav-btn">티나 →</a>
 </div>
 
 <section class="cta-section fade-up">
@@ -343,7 +348,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="19757a7a6d717c7b7661597e74787075377a7674">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="../academy.html">홈</a>
     <a href="../introduce.html">소개</a>
@@ -354,9 +359,4 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </div>
 </footer>
 
-<script>
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});},{threshold:.07});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-</script>
-</body>
-</html>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><sc
