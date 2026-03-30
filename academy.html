@@ -722,9 +722,9 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <div class="section-eyebrow">수강 후기</div>
   <div class="section-title">수강생들이 직접 말해요</div>
   <div class="rv-tabs">
-    <button class="rv-tab active" onclick="showRv(this,'kakao')"><span style="display:inline-block;background:#FAE100;color:#3A1D1D;font-size:10px;font-weight:900;padding:1px 6px;border-radius:3px;margin-right:4px">KAKAO</span>카톡 후기</button>
-    <button class="rv-tab" onclick="showRv(this,'naver')"><span style="color:#03C75A;font-weight:900;font-size:12px">N</span> 네이버 후기</button>
-    <button class="rv-tab" onclick="showRv(this,'cafe')"><span style="color:#03C75A;font-weight:900;font-size:12px">N</span> 카페 후기</button>
+    <button class="rv-tab active" onclick="showRv(this,'kakao')"><img src="academy/icons/kakao.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 카톡 후기</button>
+    <button class="rv-tab" onclick="showRv(this,'naver')"><img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 네이버 후기</button>
+    <button class="rv-tab" onclick="showRv(this,'cafe')"><img src="academy/icons/cafe.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 카페 후기</button>
   </div>
   <div class="rv-panels">
 
@@ -763,8 +763,10 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
     <!-- CAFE - Supabase 동적 로드 -->
     <div class="rv-panel" id="rv-cafe">
-      <div class="cafe-review-grid" id="rvCafeGrid" style="grid-template-columns:repeat(2,1fr);gap:14px">
-        <div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--ink-mute);font-size:13px">로딩 중...</div>
+      <div class="kakao-album-preview" id="rvCafeGrid">
+        <div class="kap-card" style="pointer-events:none"><div class="kap-thumb" style="background:var(--bg);animation:shimmer 1.4s infinite"></div><div class="kap-body"><div style="height:13px;background:var(--bg);border-radius:4px;width:70%;animation:shimmer 1.4s infinite"></div></div></div>
+        <div class="kap-card" style="pointer-events:none"><div class="kap-thumb" style="background:var(--bg);animation:shimmer 1.4s infinite .2s"></div><div class="kap-body"><div style="height:13px;background:var(--bg);border-radius:4px;width:60%;animation:shimmer 1.4s infinite .2s"></div></div></div>
+        <div class="kap-card" style="pointer-events:none"><div class="kap-thumb" style="background:var(--bg);animation:shimmer 1.4s infinite .4s"></div><div class="kap-body"><div style="height:13px;background:var(--bg);border-radius:4px;width:65%;animation:shimmer 1.4s infinite .4s"></div></div></div>
       </div>
       <div style="text-align:center;margin-top:20px">
         <a href="reviews.html#panel-cafe" class="btn-out-blue" style="font-size:13px;padding:9px 24px">카페 후기 더 보기 →</a>
@@ -807,7 +809,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ea8689899e828f888592aa8d878b8386c4898587">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="academy.html">홈</a>
     <a href="introduce.html">소개</a>
@@ -818,7 +820,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 let cur=0;const slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.dot'),counter=document.getElementById('cur');
 function goSlide(n){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dots[cur].classList.add('active');counter.textContent=cur+1}
@@ -1007,7 +1009,7 @@ async function loadKakaoPreview() {
       <a href="reviews.html" class="kap-card">
         <div class="kap-thumb">
           <img src="${imgs[0]}" alt="${month}" loading="lazy">
-          ${imgs.length > 1 ? `<div class="kap-count">⧉ ${imgs.length}</div>` : ''}
+          ${imgs.length > 1 ? `<div class="kap-count"><img src="academy/icons/kakao.png" style="width:11px;height:11px;border-radius:50%;vertical-align:middle;margin-right:2px"> ${imgs.length}</div>` : ''}
         </div>
         <div class="kap-body">
           <div class="kap-month">${month}</div>
@@ -1034,14 +1036,14 @@ async function loadCafePreview() {
     if (!el) return;
     if (!data || !data.length) { el.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--ink-mute);font-size:13px">등록된 카페 후기가 없습니다</div>'; return; }
     el.innerHTML = data.map(c=>`
-      <a href="${c.link_url}" target="_blank" class="cafe-review-card" style="text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s">
-        <div style="width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--bg);position:relative">
-          <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-          <div style="position:absolute;top:7px;left:7px;background:#03C75A;color:#fff;font-size:9px;font-weight:900;padding:2px 6px;border-radius:3px">N카페</div>
+      <a href="${c.link_url}" target="_blank" class="kap-card">
+        <div class="kap-thumb">
+          <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy">
+          <div class="kap-count" style="background:#03C75A"><img src="academy/icons/cafe.png" style="width:11px;height:11px;border-radius:50%;vertical-align:middle;margin-right:2px"> N카페</div>
         </div>
-        <div style="padding:10px 12px">
-          <div style="font-size:12px;font-weight:700;color:var(--ink);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${c.title}</div>
-          <div style="font-size:10px;color:var(--ink-mute);margin-top:4px">더박스 공식카페</div>
+        <div class="kap-body">
+          <div class="kap-month" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px">${c.title}</div>
+          <div class="kap-sub">더박스 공식카페</div>
         </div>
       </a>`).join('');
   } catch(e) { setTimeout(loadCafePreview, 300); }
@@ -1068,9 +1070,4 @@ function showRv(btn,type){
   btn.classList.add('active');
 }
 
-// ── FADE ──
-const fObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.07});
-document.querySelectorAll('.fade-up').forEach(el=>fObs.observe(el));
-</script>
-</body>
-</html>
+// ── FADE ─
