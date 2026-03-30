@@ -159,7 +159,8 @@ section{padding:64px var(--px)}
 .sch-placeholder strong{display:block;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
 
 /* KAKAO ALBUM PREVIEW (메인) */
-.kakao-album-preview{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kakao-album-preview{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;justify-items:center}
+.kap-card{border-radius:var(--radius);overflow:hidden;cursor:pointer;position:relative;border:1px solid var(--border);background:var(--bg);transition:all .2s;text-decoration:none;display:block;width:100%;max-width:220px}
 .kap-card{border-radius:var(--radius);overflow:hidden;cursor:pointer;position:relative;border:1px solid var(--border);background:var(--bg);transition:all .2s;text-decoration:none;display:block}
 .kap-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.12);border-color:var(--orange)}
 .kap-thumb{width:100%;aspect-ratio:1080/1320;overflow:hidden;position:relative;background:var(--bg)}
@@ -979,8 +980,8 @@ async function loadKakaoPreview() {
     if (!window.supabase || !window.supabase.createClient) return;
     const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
     const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const {data} = await sb.from('kakao_reviews').select('*')
+    const sb2 = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const {data} = await sb2.from('kakao_reviews').select('*')
       .eq('is_published', true)
       .order('year_month', {ascending: false})
       .order('sort_order');
@@ -995,7 +996,7 @@ async function loadKakaoPreview() {
       groups[r.year_month].push(r.image_url);
     });
     const el = document.getElementById('rvKakaoPreview');
-    const entries = Object.entries(groups).slice(0, 3);
+    const entries = Object.entries(groups).slice(0, 4);
     el.innerHTML = entries.map(([month, imgs]) => `
       <a href="reviews.html" class="kap-card">
         <div class="kap-thumb">
@@ -1007,11 +1008,13 @@ async function loadKakaoPreview() {
           <div class="kap-sub">후기 ${imgs.length}장 · 클릭해서 보기</div>
         </div>
       </a>`).join('');
-  } catch(e) { /* 조용히 실패 */ }
+  } catch(e) { setTimeout(loadKakaoPreview, 300); }
 }
-// SDK 로드 후 실행
-document.querySelector('script[src*="supabase"]').addEventListener('load', loadKakaoPreview);
-setTimeout(loadKakaoPreview, 800);
+function tryKakaoPreview() {
+  if (window.supabase && window.supabase.createClient) loadKakaoPreview();
+  else setTimeout(tryKakaoPreview, 200);
+}
+tryKakaoPreview();
 
 // ── SCHEDULE ──
 function showSch(btn,name){

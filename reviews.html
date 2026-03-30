@@ -452,18 +452,16 @@ const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 
 let sb, sbInited = false;
 function initSupabase() {
-  if (sbInited) return true;
+  if (sbInited) return;
   if (window.supabase && window.supabase.createClient) {
     sbInited = true;
     sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     loadKakaoAlbum();
-    return true;
+  } else {
+    setTimeout(initSupabase, 200);
   }
-  return false;
 }
-window.addEventListener('load', () => {
-  if (!initSupabase()) setTimeout(initSupabase, 500);
-});
+initSupabase();
 
 // ── 카톡 후기 앨범 ──
 let kakaoData = {}; // { '2026년 4월': [img1, img2...] }
