@@ -24,8 +24,10 @@ body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif
 .nav-links a:hover{color:var(--blue);font-weight:500}
 .nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.hamburger{display:none;align-items:center;gap:5px;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:5px 10px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--blue);color:var(--blue)}
+.hamburger span{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+.ham-lines{display:flex;flex-direction:column;gap:4px}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
@@ -99,7 +101,7 @@ footer{background:#111;padding:36px 6%;display:flex;justify-content:space-betwee
 .fade-up{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 
-@media(max-width:900px){.intro-grid{grid-template-columns:1fr 1fr}nav .nav-links{display:none}.hamburger{display:flex}}
+@media(max-width:900px){.intro-grid{grid-template-columns:1fr 1fr}nav .nav-links{display:none}.hamburger{display:flex!important}}
 @media(max-width:600px){.intro-grid{grid-template-columns:1fr}}
 @media(max-width:600px){.intro-grid{grid-template-columns:1fr}}
 
@@ -141,9 +143,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
   padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
   font-family:inherit;text-decoration:none;white-space:nowrap}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;
-  background:none;border:none;padding:4px;flex-shrink:0}
-.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
+.hamburger{display:none;align-items:center;gap:5px;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:5px 10px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--blue);color:var(--blue)}
+.hamburger span{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+.ham-lines{display:flex;flex-direction:column;gap:4px}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);
   z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
 .mobile-menu.open{display:flex}
@@ -180,7 +183,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 @media(max-width:768px){
   :root{--px:4%}
   nav .nav-links{display:none}
-  .hamburger{display:flex}
+  .hamburger{display:flex!important}
   section{padding:48px var(--px)}
   footer{flex-direction:column;gap:12px}
   .footer-links{gap:12px}
@@ -207,14 +210,15 @@ footer{background:#111;padding:28px var(--px);display:flex;
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
     <li><a href="more.html">더박스 플러스</a></li>
-    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
+    <li><a href="reviews.html">더박스후기</a></li>
   </ul>
   <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
     <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="메뉴">
-      <span></span><span></span><span></span>
+      <div class="ham-lines"><span></span><span></span><span></span></div>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.3px">메뉴</span>
     </button>
   </div>
 </nav>
@@ -224,7 +228,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <a href="introduce.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 소개</a>
   <a href="classes.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">수업 안내</a>
   <a href="more.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 플러스</a>
-  <a href="reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
+  <a href="reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스후기</a>
   <a href="study.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
   <a href="https://theboxlive.kr/" target="_blank" style="color:#7C3AED;font-weight:700">더박스라이브</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
@@ -335,7 +339,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
         <div class="lcard-kr">코트니</div>
         <div class="lcard-class">Go-To 영어</div>
         <div class="lcard-quote">Where confidence meets conversation.</div>
-        <div class="lcard-chips"><span class="lcard-chip">초중급~</span><span class="lcard-chip">주2회</span><span class="lcard-chip">10년경력</span></div>
+        <div class="lcard-chips"><span class="lcard-chip">초중급~</span><span class="lcard-chip">주2회</span><span class="lcard-chip">원어민</span></div>
       </div>
       <div class="lcard-arrow">→</div>
     </a>

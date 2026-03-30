@@ -31,8 +31,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .nav-cta{background:var(--blue);color:#fff;border:none;border-radius:50px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;padding:4px;flex-shrink:0}
-.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
+.hamburger{display:none;align-items:center;gap:5px;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:5px 10px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--blue);color:var(--blue)}
+.hamburger span{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px}
+.ham-lines{display:flex;flex-direction:column;gap:4px}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:18px;font-weight:700;color:var(--ink);text-decoration:none}
@@ -147,7 +149,8 @@ footer{background:#111;padding:28px var(--px);display:flex;justify-content:space
 @media(max-width:768px){
   :root{--px:4%}
   nav .nav-links{display:none}
-  .hamburger{display:flex}
+  .nav-live,.nav-study{display:none}
+  .hamburger{display:flex!important}
   .partner-layout{grid-template-columns:1fr}
   .video-grid{grid-template-columns:repeat(2,1fr)}
   .monthly-grid{grid-template-columns:repeat(2,1fr)}
@@ -168,14 +171,15 @@ footer{background:#111;padding:28px var(--px);display:flex;justify-content:space
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
     <li><a href="more.html">더박스 플러스</a></li>
-    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
+    <li><a href="reviews.html" >더박스후기</a></li>
   </ul>
   <div class="nav-right">
     <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mM').classList.toggle('open')" aria-label="메뉴">
-      <span></span><span></span><span></span>
+      <div class="ham-lines"><span></span><span></span><span></span></div>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.3px">메뉴</span>
     </button>
   </div>
 </nav>
@@ -259,7 +263,7 @@ footer{background:#111;padding:28px var(--px);display:flex;justify-content:space
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87ebe4e4f3efe2e5e8ffc7e0eae6eeeba9e4e8ea">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="academy.html">홈</a>
     <a href="introduce.html">소개</a>
@@ -270,7 +274,7 @@ footer{background:#111;padding:28px var(--px);display:flex;justify-content:space
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function switchTab(name,btn){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -321,14 +325,4 @@ function renderMonthly(){
     el.appendChild(card);
   });
   monthlyShown+=slice.length;
-  const row=document.getElementById('monthlyMoreRow');
-  row.style.display=monthlyShown<monthlyAll.length?'flex':'none';
-}
-function loadMoreMonthly(){renderMonthly();}
-
-
-// 병렬 로드
-Promise.all([loadNotices(),loadMonthly()]);
-</script>
-</body>
-</html>
+  const row=document.getEle
