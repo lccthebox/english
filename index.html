@@ -39,11 +39,11 @@ nav{
 
 /* HERO */
 .hero{
-  min-height:72vh;
+  min-height:52vh;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   text-align:center;
-  padding:80px 6% 60px;
+  padding:56px 6% 32px;
   position:relative;overflow:hidden;
 }
 .hero::before{
@@ -71,7 +71,7 @@ nav{
 .hero-desc strong{color:var(--ink);font-weight:500}
 
 /* CARDS SECTION */
-.cards-section{padding:0 6% 100px}
+.cards-section{padding:0 6% 60px}
 .cards-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:24px;max-width:1200px;margin:0 auto;
@@ -124,7 +124,7 @@ nav{
 /* divider */
 .section-divider{
   text-align:center;
-  padding:20px 0 56px;
+  padding:8px 0 32px;
   color:var(--ink-mute);font-size:13px;
 }
 .section-divider::before,.section-divider::after{
@@ -176,6 +176,24 @@ footer{
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
 .mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:#777}
+
+/* ── 모바일 ── */
+@media(max-width:768px){
+  .hero{padding:36px 5% 20px!important;min-height:auto!important}
+  .hero-title{font-size:clamp(38px,10vw,60px)!important;letter-spacing:-1px!important;margin-bottom:18px}
+  .hero-desc{font-size:14px!important;line-height:1.8!important}
+  .hero-sub-label{font-size:11px!important;margin-bottom:14px}
+  .cards-section{padding:0 5% 40px!important}
+  .cards-grid{grid-template-columns:1fr!important;gap:16px!important}
+  .card-body{padding:20px 20px 24px!important}
+  .card-title{font-size:18px!important}
+  .card-desc{font-size:13px!important}
+  .section-divider{padding:6px 0 20px!important;font-size:12px!important}
+  .bottom-strip{padding:32px 5%!important}
+  .bottom-strip-title{font-size:20px!important}
+  .bottom-strip p{font-size:12px!important;line-height:1.9}
+  footer{flex-direction:column;gap:8px!important;padding:20px 5%!important}
+}
 </style>
 </head>
 <body>
@@ -196,8 +214,9 @@ footer{
     <span class="red">더박스!</span>
   </h1>
   <p class="hero-desc fade-up">
-    더박스는 <strong>원어민회화스터디 / 어학원 회화수업</strong>으로 시스템이 나누어져 있습니다.<br>
-    아래에서 각 시스템에 대하여 더 자세히 확인해보세요.
+    더박스는 <strong>원어민회화스터디</strong>와<br>
+    <strong>어학원 회화수업</strong>으로 운영됩니다.<br>
+    아래에서 원하는 시스템을 선택하세요.
   </p>
 </section>
 
@@ -208,7 +227,7 @@ footer{
     <!-- 원어민회화스터디 -->
     <a href="study.html" class="card fade-up">
       <div class="card-img">
-        <div class="card-img-placeholder">👥</div>
+        <img src="intro/thebox1.jpg" alt="원어민회화스터디" onerror="this.parentElement.innerHTML='<div class=card-img-placeholder>👥</div>'">
       </div>
       <div class="card-body">
         <div class="card-eyebrow">더박스</div>
@@ -221,7 +240,7 @@ footer{
     <!-- 어학원 회화수업 -->
     <a href="academy.html" class="card fade-up" style="transition-delay:.1s">
       <div class="card-img">
-        <div class="card-img-placeholder">🏫</div>
+        <img src="intro/thebox2.jpg" alt="어학원 회화수업" onerror="this.parentElement.innerHTML='<div class=card-img-placeholder>🏫</div>'">
       </div>
       <div class="card-body">
         <div class="card-eyebrow">더박스</div>
@@ -234,7 +253,7 @@ footer{
     <!-- 온라인강의 -->
     <a href="https://theboxlive.kr/" target="_blank" class="card fade-up" style="transition-delay:.2s">
       <div class="card-img">
-        <div class="card-img-placeholder">💻</div>
+        <img src="intro/thebox3.jpg" alt="온라인강의" onerror="this.parentElement.innerHTML='<div class=card-img-placeholder>💻</div>'">
       </div>
       <div class="card-body">
         <div class="card-eyebrow">더박스</div>
@@ -249,7 +268,7 @@ footer{
 
 <div class="bottom-strip fade-up">
   <div class="bottom-strip-title">영어회화는 <span>더박스</span></div>
-  <p>대구광역시 중구 동성로2 (동성로3가 90-1) 6층&nbsp;&nbsp;|&nbsp;&nbsp;010-8673-9664&nbsp;&nbsp;|&nbsp;&nbsp;lccthebox@gmail.com</p>
+  <p>대구광역시 중구 동성로2 (동성로3가 90-1) 6층&nbsp;&nbsp;|&nbsp;&nbsp;010-8673-9664&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89e5eaeafde1ecebe6f1c9eee4e8e0e5a7eae6e4">[email&#160;protected]</a></p>
 </div>
 
 <footer>
@@ -257,11 +276,5 @@ footer{
   <div class="footer-info">사업자등록번호 755-86-01909 &nbsp;|&nbsp; 대표자 정원철 &nbsp;|&nbsp; © 2025 THE BOX</div>
 </footer>
 
-<script>
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
-},{threshold:.08});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-</script>
-</body>
-</html>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const ob
