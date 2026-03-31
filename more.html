@@ -325,4 +325,14 @@ function renderMonthly(){
     el.appendChild(card);
   });
   monthlyShown+=slice.length;
-  const row=document.getEle
+  monthlyShown += slice.length;
+  const row = document.getElementById('monthlyMoreRow');
+  if(row) row.style.display = monthlyShown < monthlyAll.length ? 'flex' : 'none';
+}
+window.loadMoreMonthly = () => renderMonthly();
+
+
+
+</script>
+</body>
+</html>
