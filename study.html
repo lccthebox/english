@@ -64,11 +64,11 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
   background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.1) 60%,transparent 100%);
 }
 /* Placeholder colors for slides */
-.slide-bg.s1{background-color:#2a1a1a;background-image:url('study/mainhero/study1.jpg')}
-.slide-bg.s2{background-color:#1a2a1a;background-image:url('study/mainhero/study2.jpg')}
-.slide-bg.s3{background-color:#1a1a2a;background-image:url('study/mainhero/study3.jpg')}
-.slide-bg.s4{background-color:#2a2a1a;background-image:url('study/mainhero/study4.jpg')}
-.slide-bg.s5{background-color:#1a2a2a;background-image:url('study/mainhero/study5.jpg')}
+.slide-bg.s1{background-image:url('study/mainhero/main1.jpg');background-color:#2a1a1a;background-image:url('study/mainhero/study1.jpg')}
+.slide-bg.s2{background-image:url('study/mainhero/main2.jpg');background-color:#1a2a1a;background-image:url('study/mainhero/study2.jpg')}
+.slide-bg.s3{background-image:url('study/mainhero/main3.jpg');background-color:#1a1a2a;background-image:url('study/mainhero/study3.jpg')}
+.slide-bg.s4{background-image:url('study/mainhero/main4.jpg');background-color:#2a2a1a;background-image:url('study/mainhero/study4.jpg')}
+.slide-bg.s5{background-image:url('study/mainhero/main5.jpg');background-color:#1a2a2a;background-image:url('study/mainhero/study5.jpg')}
 
 .slide-content{
   position:relative;z-index:2;
@@ -433,6 +433,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
 .nav-links a:hover{color:var(--red)}
 .nav-study{color:var(--red)!important;font-size:13px!important;font-weight:700!important;text-decoration:none;white-space:nowrap}
 .nav-live{color:#7C3AED;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+.nav-academy{color:#1A5FCC!important;font-size:10px!important;font-weight:700!important;text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-academy:hover{color:#1448A8!important}
 .nav-cta{background:var(--red);color:#fff;border:none;border-radius:50px;
   padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
   font-family:inherit;text-decoration:none;white-space:nowrap;transition:all .2s}
@@ -456,7 +458,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
   nav{height:auto!important;flex-wrap:wrap;padding:8px 4% 0!important;gap:0!important}
   .nav-logo{font-size:14px!important;order:1}
   .nav-right{order:2;flex-shrink:0;gap:6px!important}
-  .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
+  .nav-live,.nav-academy{display:flex!important;font-size:10px!important;white-space:nowrap}
   .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
   .hamburger{display:none!important}
   .nav-links{
@@ -503,38 +505,38 @@ section{padding:64px 5%}
 .fade-up{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 :root{--px:5%}
+
+/* ── BRANCHES ── */
+.branches-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px}
+.branch-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;transition:all .25s;display:block}
+.branch-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(204,34,34,.12);border-color:var(--red)}
+.branch-photo{width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--red-light)}
+.branch-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.branch-card:hover .branch-photo img{transform:scale(1.05)}
+.branch-body{padding:18px}
+.branch-city{font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;margin-bottom:6px}
+.branch-name{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.branch-addr{font-size:12px;color:var(--ink-mute);line-height:1.6}
+@media(max-width:900px){.branches-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.branches-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="academy.html" class="nav-logo">THE<span>BOX</span></a>
+  <a href="study.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
-    <li><a href="introduce.html">더박스 소개</a></li>
-    <li><a href="classes.html">수업 안내</a></li>
+    <li><a href="study-introduce.html">더박스 소개</a></li>
+    <li><a href="study.html" class="active">스터디 안내</a></li>
     <li><a href="more.html">더박스 플러스</a></li>
     <li><a href="reviews.html">더박스후기</a></li>
   </ul>
   <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <a href="study.html" class="nav-study">원어민스터디</a>
+    <a href="https://lccthebox.github.io/english/academy.html" class="nav-academy">기초회화수업</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
-    <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
-    <button class="hamburger" onclick="document.getElementById('mobMenuStudy').classList.toggle('open')" aria-label="메뉴">
-      <div class="ham-lines"><span></span><span></span><span></span></div>
-      <span style="font-size:11px;font-weight:700;letter-spacing:.3px;white-space:nowrap">MENU</span>
-    </button>
+    <a href="https://naver.me/F88gQjHk" target="_blank" class="nav-cta">상담 예약</a>
   </div>
 </nav>
-<div class="mobile-menu" id="mobMenuStudy">
-  <button class="mobile-menu-close" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">✕</button>
-  <a href="introduce.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">더박스 소개</a>
-  <a href="classes.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">수업 안내</a>
-  <a href="more.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">더박스 플러스</a>
-  <a href="reviews.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">더박스후기</a>
-  <a href="study.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')" style="color:#CC2222;font-weight:700">원어민스터디</a>
-  <a href="https://theboxlive.kr/" target="_blank" style="color:#7C3AED;font-weight:700">더박스라이브</a>
-  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#CC2222;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
-</div>
 
 
 <!-- HERO SLIDESHOW -->
@@ -593,20 +595,20 @@ section{padding:64px 5%}
 <!-- STATS BAND -->
 <div class="stats-band">
   <div class="stat-item">
-    <div class="stat-num"><span class="count-num" data-target="3000">0</span><span class="stat-unit">+</span></div>
-    <div class="stat-label">누적 스터디 멤버</div>
+    <div class="stat-num"><span class="count-num" data-target="12325">0</span><span class="stat-unit">+</span></div>
+    <div class="stat-label">누적 더박스 멤버</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num"><span class="count-num" data-target="10">0</span><span class="stat-unit">+</span></div>
-    <div class="stat-label">원어민 파트너</div>
+    <div class="stat-num"><span class="count-num" data-target="100">0</span><span class="stat-unit">+</span></div>
+    <div class="stat-label">매년 새로운 원어민 친구들</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num"><span class="count-num" data-target="12">0</span><span class="stat-unit">년+</span></div>
+    <div class="stat-label">운영 연혁</div>
   </div>
   <div class="stat-item">
     <div class="stat-num"><span class="count-num" data-target="4">0</span><span class="stat-unit">개</span></div>
     <div class="stat-label">운영 지점</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num"><span class="count-num" data-target="5">0</span><span class="stat-unit">년+</span></div>
-    <div class="stat-label">운영 연혁</div>
   </div>
 </div>
 
@@ -641,9 +643,9 @@ section{padding:64px 5%}
     </div>
     <div class="about-right">
       <div class="about-photo-grid">
-        <div class="about-photo"><img src="study/photos/study-main.jpg" alt="스터디 사진" onerror="this.parentElement.innerHTML='📸'"></div>
-        <div class="about-photo"><img src="study/photos/party1.jpg" alt="파티" onerror="this.parentElement.innerHTML='🎉'"></div>
-        <div class="about-photo"><img src="study/photos/outing1.jpg" alt="아웃팅" onerror="this.parentElement.innerHTML='🌏'"></div>
+        <div class="about-photo"><img src="study/mainstudyph/study1.jpg" alt="스터디 사진" onerror="this.parentElement.innerHTML='📸'"></div>
+        <div class="about-photo"><img src="study/mainstudyph/study2.jpg" alt="스터디" onerror="this.parentElement.innerHTML='🎉'"></div>
+        <div class="about-photo"><img src="study/mainstudyph/study3.jpg" alt="아웃팅" onerror="this.parentElement.innerHTML='🌏'"></div>
       </div>
     </div>
   </div>
@@ -652,57 +654,75 @@ section{padding:64px 5%}
 <!-- PROGRAM -->
 <section class="program-section fade-up" id="program">
   <div class="section-eyebrow">프로그램</div>
-  <div class="section-title">스터디 종류</div>
+  <div class="section-title">더박스에서는 영어가 재밌다!</div>
   <p class="section-sub">다양한 테마의 스터디 중 나에게 맞는 것을 선택하세요</p>
   <div class="program-grid">
     <div class="program-card">
       <div class="program-icon">🗣️</div>
       <div class="program-name">그룹 회화스터디</div>
-      <div class="program-desc">원어민 진행자와 함께 자유 주제로 대화하는 소규모 그룹 스터디. 말하는 시간을 최대화합니다.</div>
+      <div class="program-desc">원어민 진행자와 함께 자유 주제로 대화하는 소규모 그룹 스터디. 말하는 시간을 최대화하고 실전 감각을 키웁니다.</div>
       <span class="program-tag">BEGINNER ~ ADVANCED</span>
     </div>
     <div class="program-card">
       <div class="program-icon">🎉</div>
       <div class="program-name">파티 & 이벤트</div>
-      <div class="program-desc">할로윈, 크리스마스, 계절별 파티를 통해 외국 문화를 체험하고 영어로 소통합니다.</div>
+      <div class="program-desc">할로윈, 크리스마스, 연말 파티 등 계절별 이벤트를 통해 외국 문화를 체험하고 자연스럽게 영어로 소통합니다.</div>
       <span class="program-tag">ALL MEMBERS</span>
     </div>
     <div class="program-card">
-      <div class="program-icon">🏃</div>
-      <div class="program-name">러닝크루 TRACK</div>
-      <div class="program-desc">매주 일요일 원어민 친구들과 함께 달리며 자연스럽게 영어로 대화하는 러닝 모임.</div>
-      <span class="program-tag">EVERY SUNDAY</span>
-    </div>
-    <div class="program-card">
-      <div class="program-icon">🗺️</div>
-      <div class="program-name">대구 투어 & 아웃팅</div>
-      <div class="program-desc">팀 미션, 빙고 게임 등 활동을 통해 멤버들과 친해지고 영어를 자연스럽게 씁니다.</div>
+      <div class="program-icon">🎒</div>
+      <div class="program-name">아웃팅</div>
+      <div class="program-desc">팀 미션, 빙고 게임 등 다양한 활동을 통해 원어민 친구들과 함께 대구 곳곳을 탐방하며 영어를 일상으로 만듭니다.</div>
       <span class="program-tag">MONTHLY</span>
-    </div>
-    <div class="program-card">
-      <div class="program-icon">🌍</div>
-      <div class="program-name">Language Exchange</div>
-      <div class="program-desc">영어와 한국어를 교환하며 배우는 언어교환 프로그램. 외국인 친구를 사귀는 기회.</div>
-      <span class="program-tag">OPEN TO ALL</span>
     </div>
     <div class="program-card">
       <div class="program-icon">✈️</div>
       <div class="program-name">워홀 · 해외 준비</div>
-      <div class="program-desc">워킹홀리데이 간담회, 해외 취업·유학 정보 공유. 준비된 멤버들의 커뮤니티.</div>
+      <div class="program-desc">워킹홀리데이 간담회, 해외 취업·유학 정보 공유. 먼저 다녀온 멤버들의 생생한 경험을 들을 수 있습니다.</div>
       <span class="program-tag">MEMBERS ONLY</span>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">🎲</div>
+      <div class="program-name">보드게임 클럽</div>
+      <div class="program-desc">매주 한국인·외국인 멤버들이 함께 보드게임을 즐기며 교과서에 없는 표현을 자연스럽게 익힙니다.</div>
+      <span class="program-tag">EVERY WEEK</span>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">🏃</div>
+      <div class="program-name">러닝 & 하이킹</div>
+      <div class="program-desc">원어민 친구들과 함께 달리고 산을 오르며 움직임 속에서 대화하는 액티비티 클럽. 몸과 영어 실력을 동시에 키웁니다.</div>
+      <span class="program-tag">EVERY WEEKEND</span>
     </div>
   </div>
 </section>
 
 <!-- REVIEWS -->
 <section class="reviews-section fade-up" id="reviews">
-  <div class="reviews-header">
-    <div>
-      <div class="section-eyebrow">스터디 후기</div>
-      <div class="section-title">멤버들이 직접 말해요</div>
-    </div>
+  <div class="section-eyebrow">스터디 후기</div>
+  <div class="section-title">멤버들이 직접 말해요</div>
+  <div class="rv-tabs" style="display:flex;gap:0;margin-top:28px;border-bottom:2px solid var(--border)">
+    <button class="rv-tab active" onclick="showRv(this,'naver')" style="background:transparent;border:none;padding:12px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:#888;position:relative;transition:color .2s;white-space:nowrap">
+      <img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:15px;height:15px;border-radius:50%;vertical-align:middle;margin-right:4px"> 네이버플레이스 후기</button>
+    <button class="rv-tab" onclick="showRv(this,'kakao')" style="background:transparent;border:none;padding:12px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:#888;position:relative;transition:color .2s;white-space:nowrap">
+      <img src="academy/icons/kakao.png" onerror="this.style.display='none'" style="width:15px;height:15px;border-radius:50%;vertical-align:middle;margin-right:4px"> 카톡 후기</button>
+    <button class="rv-tab" onclick="showRv(this,'cafe')" style="background:transparent;border:none;padding:12px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:#888;position:relative;transition:color .2s;white-space:nowrap">
+      <img src="academy/icons/cafe.png" onerror="this.style.display='none'" style="width:15px;height:15px;border-radius:0;vertical-align:middle;margin-right:4px"> 카페 후기</button>
   </div>
-  <div class="reviews-grid">
+  <style>
+    .rv-tab{background:transparent;border:none;padding:12px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:#888;position:relative;transition:color .2s}
+    .rv-tab::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .2s}
+    .rv-tab.active{color:var(--red);font-weight:700}
+    .rv-tab.active::after{transform:scaleX(1)}
+    .rv-panel{display:none;margin-top:28px}
+    .rv-panel.active{display:block}
+    .rv-panel-more{text-align:right;margin-top:14px}
+    .btn-rv-more{background:transparent;color:var(--red);border:1px solid var(--red);padding:6px 16px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none;display:inline-block}
+    .btn-rv-more:hover{background:var(--red);color:#fff}
+  </style>
+  <div class="rv-panels">
+    <!-- 네이버플레이스 -->
+    <div class="rv-panel active" id="rv-naver">
+      <div class="reviews-grid">
     <div class="review-card red-card">
       <div class="review-stars">★★★★★</div>
       <div class="review-text">스터디를 통해서 자신감을 많이 얻게 되었습니다. 처음에는 말 한마디 못 했는데 이제는 외국인 앞에서도 편하게 말할 수 있어요!</div>
@@ -769,6 +789,31 @@ section{padding:64px 5%}
         </div>
       </div>
     </div>
+      </div>
+      <div class="rv-panel-more"><a href="reviews.html#panel-naver" class="btn-rv-more">네이버플레이스 후기 더 보기 →</a></div>
+    </div>
+    <!-- 카톡 후기 -->
+    <div class="rv-panel" id="rv-kakao">
+      <div class="kakao-album-preview" id="rvKakaoPreviewStudy" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-height:200px">
+        <div style="pointer-events:none;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg)"><div style="width:100%;aspect-ratio:1080/1320;background:#eee;animation:shimmer 1.4s infinite"></div><div style="padding:11px 13px"><div style="height:13px;background:#eee;border-radius:4px;width:70%;animation:shimmer 1.4s infinite"></div></div></div>
+        <div style="pointer-events:none;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg)"><div style="width:100%;aspect-ratio:1080/1320;background:#eee;animation:shimmer 1.4s infinite .2s"></div><div style="padding:11px 13px"><div style="height:13px;background:#eee;border-radius:4px;width:60%;animation:shimmer 1.4s infinite .2s"></div></div></div>
+        <div style="pointer-events:none;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg)"><div style="width:100%;aspect-ratio:1080/1320;background:#eee;animation:shimmer 1.4s infinite .4s"></div><div style="padding:11px 13px"><div style="height:13px;background:#eee;border-radius:4px;width:65%;animation:shimmer 1.4s infinite .4s"></div></div></div>
+      </div>
+      <div class="rv-panel-more"><a href="reviews.html#panel-kakao" class="btn-rv-more">카톡 후기 더 보기 →</a></div>
+    </div>
+    <!-- 카페 후기 -->
+    <div class="rv-panel" id="rv-cafe">
+      <div class="kakao-album-preview" id="rvCafePreviewStudy" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-height:200px">
+        <div style="pointer-events:none;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg)"><div style="width:100%;aspect-ratio:1080/1320;background:#eee;animation:shimmer 1.4s infinite"></div><div style="padding:11px 13px"><div style="height:13px;background:#eee;border-radius:4px;width:70%"></div></div></div>
+        <div style="pointer-events:none;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg)"><div style="width:100%;aspect-ratio:1080/1320;background:#eee;animation:shimmer 1.4s infinite .2s"></div><div style="padding:11px 13px"><div style="height:13px;background:#eee;border-radius:4px;width:60%"></div></div></div>
+        <div style="pointer-events:none;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg)"><div style="width:100%;aspect-ratio:1080/1320;background:#eee;animation:shimmer 1.4s infinite .4s"></div><div style="padding:11px 13px"><div style="height:13px;background:#eee;border-radius:4px;width:65%"></div></div></div>
+      </div>
+      <div style="text-align:center;margin-top:16px">
+        <a href="https://cafe.naver.com/f-e/cafes/29533704/menus/7?viewType=L" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:#03C75A;border:1.5px solid #03C75A;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#03C75A';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#03C75A'">
+          <img src="academy/icons/cafe.png" style="height:16px;width:auto;vertical-align:middle"> 네이버카페에서 더보기 →
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -786,37 +831,25 @@ section{padding:64px 5%}
   </div>
 </section>
 
-<!-- LOCATIONS -->
-<section class="locations-section fade-up" id="locations">
-  <div class="section-eyebrow">지점 안내</div>
-  <div class="section-title">가장 가까운 곳에서 시작하세요</div>
-  <div class="locations-grid">
-    <a href="https://map.naver.com/p/entry/place/1742045734" target="_blank" class="location-card">
-      <div class="location-city">DAEGU</div>
-      <div class="location-name">더박스 대구 본점</div>
-      <div class="location-addr">대구광역시 중구 동성로2<br>(동성로3가 90-1) 6층</div>
-      <span class="location-arrow">→</span>
-    </a>
-    <a href="https://map.naver.com/p/entry/place/1388157012" target="_blank" class="location-card">
-      <div class="location-city">BUSAN</div>
-      <div class="location-name">더박스 서면점</div>
-      <div class="location-addr">부산광역시 부산진구<br>서면 일대</div>
-      <span class="location-arrow">→</span>
-    </a>
-    <a href="https://map.naver.com/p/entry/place/1304571829" target="_blank" class="location-card">
-      <div class="location-city">CHANGWON</div>
-      <div class="location-name">더박스 중앙점</div>
-      <div class="location-addr">경상남도 창원시<br>중앙동 일대</div>
-      <span class="location-arrow">→</span>
-    </a>
-    <a href="https://map.naver.com/p/entry/place/1214572475" target="_blank" class="location-card">
-      <div class="location-city">ULSAN</div>
-      <div class="location-name">더박스 삼산점</div>
-      <div class="location-addr">울산광역시 남구<br>삼산동 일대</div>
-      <span class="location-arrow">→</span>
+<!-- MAP -->
+<section class="map-section fade-up" id="map" style="background:var(--bg);padding:64px 5%">
+  <div class="section-eyebrow" style="color:var(--red)">오시는 길</div>
+  <div class="section-title">더박스 대구 본점</div>
+  <div style="margin-top:24px;border-radius:14px;overflow:hidden;border:1px solid var(--border)">
+    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=%2Fhome" title="더박스 지도" allowfullscreen loading="lazy" style="width:100%;height:380px;border:none;display:block"></iframe>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px">
+    <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">주소</div><div style="font-size:14px;color:var(--ink);font-weight:500;line-height:1.6">대구광역시 중구 동성로2<br>(동성로3가 90-1) 6층</div></div>
+    <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">지하철</div><div style="font-size:14px;color:var(--ink);font-weight:500;line-height:1.6">반월당역 13·14번 출구<br>도보 5분</div></div>
+    <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">전화</div><div style="font-size:14px;font-weight:500;line-height:1.6"><a href="tel:01086739664" style="color:var(--red);text-decoration:none">010-8673-9664</a></div></div>
+    <a href="https://naver.me/F88gQjHk" target="_blank" style="background:var(--red);border-radius:14px;padding:16px;border:1px solid var(--red);text-decoration:none;display:block;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#A81818'" onmouseout="this.style.background='var(--red)'">
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">상담 예약</div>
+      <div style="color:#fff;font-size:18px;font-weight:700;margin-top:4px">🗺️ 예약하기</div>
     </a>
   </div>
 </section>
+
+<!-- LOCATIONS -->
 
 <!-- CTA -->
 <section class="cta-section fade-up">
@@ -824,7 +857,7 @@ section{padding:64px 5%}
   <div class="cta-title">시작을 어디서 하느냐에 따라<br><em>말문이 트이는 속도</em>가 달라요</div>
   <p class="cta-desc">더박스에서 시작하세요.</p>
   <div class="cta-btns">
-    <a href="https://naver.me/5BcjX84R" target="_blank" class="btn-red">네이버로 상담 예약</a>
+    <a href="https://naver.me/F88gQjHk" target="_blank" class="btn-red">네이버로 상담 예약</a>
     <a href="tel:01086739664" class="btn-white">📞 전화로 문의하기</a>
   </div>
 </section>
@@ -881,6 +914,50 @@ const countObs=new IntersectionObserver(entries=>{
   });
 },{threshold:.3});
 document.querySelectorAll('.stats-band').forEach(el=>countObs.observe(el));
+
+// ── REVIEW TABS ──
+function showRv(btn,type){
+  document.querySelectorAll('.rv-panel').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.rv-tab').forEach(e=>e.classList.remove('active'));
+  document.getElementById('rv-'+type).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── SUPABASE 후기 로드 ──
+(async () => {
+  try {
+    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+    const sb = createClient('https://oualwikibctxvlscpuyn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM');
+    // 카톡 후기
+    const { data: kakaoData } = await sb.from('kakao_reviews').select('*').eq('is_published',true).order('year_month',{ascending:false}).order('sort_order');
+    const kakaoEl = document.getElementById('rvKakaoPreviewStudy');
+    if(kakaoEl && kakaoData && kakaoData.length){
+      const groups={};
+      kakaoData.forEach(r=>{ if(!groups[r.year_month]) groups[r.year_month]=[]; groups[r.year_month].push(r.image_url); });
+      kakaoEl.innerHTML=Object.entries(groups).slice(0,4).map(([month,imgs])=>`
+        <a href="reviews.html#panel-kakao" style="border-radius:14px;overflow:hidden;cursor:pointer;border:1px solid var(--border);background:var(--bg);transition:all .2s;text-decoration:none;display:block">
+          <div style="width:100%;aspect-ratio:1080/1320;overflow:hidden;position:relative;background:var(--bg)">
+            <img src="${imgs[0]}" alt="${month}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+            ${imgs.length>1?`<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:50px">⧉ ${imgs.length}</div>`:''}
+          </div>
+          <div style="padding:11px 13px"><div style="font-size:13px;font-weight:700;color:var(--ink)">${month}</div><div style="font-size:11px;color:#888;margin-top:2px">후기 ${imgs.length}장</div></div>
+        </a>`).join('');
+    }
+    // 카페 후기
+    const { data: cafeData } = await sb.from('cafe_reviews').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(4);
+    const cafeEl = document.getElementById('rvCafePreviewStudy');
+    if(cafeEl && cafeData && cafeData.length){
+      cafeEl.innerHTML=cafeData.map(c=>`
+        <a href="${c.link_url}" target="_blank" style="border-radius:14px;overflow:hidden;cursor:pointer;border:1px solid var(--border);background:var(--bg);transition:all .2s;text-decoration:none;display:block">
+          <div style="width:100%;aspect-ratio:1080/1320;overflow:hidden;position:relative;background:var(--bg)">
+            <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+            <div style="position:absolute;top:8px;left:8px;background:#03C75A;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px">N카페</div>
+          </div>
+          <div style="padding:11px 13px"><div style="font-size:12px;font-weight:700;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${c.title}</div><div style="font-size:10px;color:#888;margin-top:2px">더박스 공식카페</div></div>
+        </a>`).join('');
+    }
+  } catch(e){ console.error(e); }
+})();
 
 // ── FADE IN ──
 const fadeObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fadeObs.unobserve(e.target)}})},{threshold:.07});
