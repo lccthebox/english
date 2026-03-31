@@ -396,7 +396,7 @@ section{padding:64px var(--px)}
 footer{background:#111;padding:28px var(--px);display:flex;
   justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
 .footer-logo{font-size:14px;font-weight:900;color:rgba(255,255,255,.7)}
-.footer-logo span{color:#7BB3FF}
+.footer-logo span{color:var(--red)}
 .footer-info{font-size:11px;color:rgba(255,255,255,.3);line-height:1.9}
 .footer-links{display:flex;gap:14px;flex-wrap:wrap}
 .footer-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none}
@@ -420,6 +420,89 @@ footer{background:#111;padding:28px var(--px);display:flex;
   .section-title{font-size:clamp(20px,6vw,28px)}
 }
 
+
+/* ── NAV 통합 (red 테마) ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);border-bottom:1.5px solid var(--border);
+  padding:0 5%;height:58px;display:flex;align-items:center;
+  justify-content:space-between;gap:8px;max-width:100%}
+.nav-logo{font-size:16px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:20px;list-style:none;align-items:center}
+.nav-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--red)}
+.nav-study{color:var(--red)!important;font-size:13px!important;font-weight:700!important;text-decoration:none;white-space:nowrap}
+.nav-live{color:#7C3AED;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+.nav-cta{background:var(--red);color:#fff;border:none;border-radius:50px;
+  padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:inherit;text-decoration:none;white-space:nowrap;transition:all .2s}
+.nav-cta:hover{background:var(--red-dark)}
+.hamburger{display:none;flex-direction:row;align-items:center;cursor:pointer;
+  background:none;border:1.5px solid var(--border);border-radius:8px;
+  padding:5px 10px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;
+  font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--red);color:var(--red)}
+.hamburger span{display:block;width:14px;height:1.5px;background:currentColor;border-radius:2px}
+.ham-lines{display:flex;flex-direction:column;gap:3.5px;justify-content:center}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);
+  z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:18px;font-weight:700;color:var(--ink);text-decoration:none}
+.mobile-menu-close{position:absolute;top:18px;right:20px;font-size:22px;
+  background:none;border:none;cursor:pointer;color:var(--ink-mute)}
+
+/* ── 모바일 2줄 네비 (red 테마) ── */
+@media(max-width:768px){
+  nav{height:auto!important;flex-wrap:wrap;padding:8px 4% 0!important;gap:0!important}
+  .nav-logo{font-size:14px!important;order:1}
+  .nav-right{order:2;flex-shrink:0;gap:6px!important}
+  .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
+  .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
+  .hamburger{display:none!important}
+  .nav-links{
+    order:3;display:flex!important;flex-basis:100%;gap:0!important;
+    justify-content:space-between;border-top:1px solid var(--border);
+    margin-top:8px;padding:7px 0 8px;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links li{flex:1;text-align:center}
+  .nav-links a{font-size:11px!important;white-space:nowrap;color:var(--ink-mute)!important;font-weight:500;padding:2px 4px;display:block}
+  .nav-links a:hover{color:var(--red)!important}
+  /* 콘텐츠 */
+  .slide-title{font-size:clamp(20px,5.5vw,32px)!important}
+  .slide-sub{font-size:13px!important}
+  .stats-band{flex-wrap:wrap;gap:0;padding:20px 4%!important}
+  .stat-item{flex-basis:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,.2);padding:12px 0}
+  .stat-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.2)}
+  .stat-item:nth-last-child(-n+2){border-bottom:none}
+  .stat-num{font-size:28px!important}
+  section{padding:36px 4%!important}
+  .section-title{font-size:clamp(18px,5vw,24px)!important}
+  .section-sub{font-size:13px!important}
+  .about-grid{grid-template-columns:1fr!important;gap:32px}
+  .program-grid{grid-template-columns:1fr!important}
+  .reviews-grid{grid-template-columns:1fr!important}
+  .gallery-grid{grid-template-columns:1fr 1fr!important;grid-template-rows:auto!important}
+  .gallery-item:nth-child(1){grid-column:span 2!important;aspect-ratio:16/9!important}
+  .locations-grid{grid-template-columns:1fr!important}
+  .cta-title{font-size:clamp(20px,5.5vw,28px)!important}
+  .btn-red,.btn-white{width:100%;max-width:280px;text-align:center;padding:12px 24px!important;font-size:14px!important}
+  .cta-btns{flex-direction:column;align-items:center}
+  footer{flex-direction:column;gap:12px!important;padding:20px 4%!important}
+}
+@media(max-width:400px){
+  .nav-live,.nav-study{font-size:9px!important}
+  .nav-cta{font-size:9px!important;padding:5px 8px!important}
+  .nav-links a{font-size:10px!important}
+}
+
+/* section base */
+section{padding:64px 5%}
+.section-eyebrow::before{background:var(--red)}
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+:root{--px:5%}
 </style>
 </head>
 <body>
@@ -430,14 +513,15 @@ footer{background:#111;padding:28px var(--px);display:flex;
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
     <li><a href="more.html">더박스 플러스</a></li>
-    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
+    <li><a href="reviews.html">더박스후기</a></li>
   </ul>
-    <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+  <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
     <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobMenuStudy').classList.toggle('open')" aria-label="메뉴">
-      <span></span><span></span><span></span>
+      <div class="ham-lines"><span></span><span></span><span></span></div>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.3px;white-space:nowrap">MENU</span>
     </button>
   </div>
 </nav>
@@ -446,10 +530,10 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <a href="introduce.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">더박스 소개</a>
   <a href="classes.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">수업 안내</a>
   <a href="more.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">더박스 플러스</a>
-  <a href="reviews.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
-  <a href="study.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
+  <a href="reviews.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')">더박스후기</a>
+  <a href="study.html" onclick="document.getElementById('mobMenuStudy').classList.remove('open')" style="color:#CC2222;font-weight:700">원어민스터디</a>
   <a href="https://theboxlive.kr/" target="_blank" style="color:#7C3AED;font-weight:700">더박스라이브</a>
-  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
+  <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#CC2222;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
 </div>
 
 
@@ -747,7 +831,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82eee1e1f6eae7e0edfac2e5efe3ebeeace1edef">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="academy.html">홈</a>
     <a href="introduce.html">소개</a>
@@ -758,7 +842,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── SLIDESHOW ──
 let cur=0;
 const slides=document.querySelectorAll('.slide');
@@ -799,10 +883,28 @@ const countObs=new IntersectionObserver(entries=>{
 document.querySelectorAll('.stats-band').forEach(el=>countObs.observe(el));
 
 // ── FADE IN ──
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
-},{threshold:.07});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+const fadeObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fadeObs.unobserve(e.target)}})},{threshold:.07});
+document.querySelectorAll('.fade-up').forEach(el=>fadeObs.observe(el));
 </script>
+
+<!-- ── 플로팅 상담 버튼 ── -->
+<div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+  <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
+    <div class="float-label-s" style="background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none">카카오톡 상담</div>
+    <div style="width:52px;height:52px;border-radius:50%;background:#FAE100;box-shadow:0 4px 16px rgba(250,225,0,.5);display:flex;align-items:center;justify-content:center;transition:transform .2s;cursor:pointer">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.4 4.37 6.97L5.5 21l3.5-1.8C10.27 19.72 11.12 19.9 12 19.9c5.52 0 10-3.69 10-8.65S17.52 3 12 3z"/></svg>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.location.href='tel:01086739664'">
+    <div class="float-label-s" style="background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none">전화 문의</div>
+    <div style="width:52px;height:52px;border-radius:50%;background:#CC2222;box-shadow:0 4px 16px rgba(204,34,34,.45);display:flex;align-items:center;justify-content:center;transition:transform .2s;cursor:pointer">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.32.57 3.55.57a1 1 0 011 1V20a1 1 0 01-1 1C10.26 21 3 13.74 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.44.57 3.55a1 1 0 01-.24 1.01l-2.21 2.23z"/></svg>
+    </div>
+  </div>
+</div>
+<style>
+div:hover .float-label-s{opacity:1!important;transform:translateX(0)!important}
+@media(max-width:768px){#floatBtns{bottom:20px;right:14px;gap:8px}}
+</style>
 </body>
 </html>
