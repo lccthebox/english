@@ -331,11 +331,10 @@ const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.tar
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-const{createClient}=supabase;
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
 const PAGE=6; // 1행 3열 x 2행
@@ -369,16 +368,34 @@ function renderMonthly(){
     card.innerHTML=`<div class="monthly-thumb"><img src="${m.cover_url}" alt="${m.title}" loading="lazy" onerror="this.parentElement.innerHTML='📰'"></div><div class="monthly-body"><div class="monthly-ym">${m.year_month}</div><div class="monthly-title">${m.title}</div></div>`;
     el.appendChild(card);
   });
-  monthlyShown+=slice.length;
   monthlyShown += slice.length;
   const row = document.getElementById('monthlyMoreRow');
   if(row) row.style.display = monthlyShown < monthlyAll.length ? 'flex' : 'none';
 }
 window.loadMoreMonthly = () => renderMonthly();
 
+// 제휴업체
+async function loadPartners(){
+  const el=document.getElementById('partnerGrid');
+  if(!el) return;
+  const{data}=await sb.from('partners').select('*').eq('is_published',true).order('sort_order',{ascending:true});
+  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 제휴업체가 없습니다</div>';return;}
+  el.innerHTML=data.map(p=>`
+    <a href="${p.link_url||'#'}" target="_blank" class="partner-card" style="text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s">
+      <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg)">
+        <img src="${p.image_url}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentElement.style.background='#f0f0f0'">
+      </div>
+      <div style="padding:12px 14px">
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px">${p.name}</div>
+        <div style="font-size:11px;color:var(--ink-mute)">${p.desc||''}</div>
+      </div>
+    </a>`).join('');
+}
 
-
-</script>
+// ── 페이지 로드 시 모두 병렬 로드 ──
+loadNotices();
+loadMonthly();
+loadPartners();</script>
 
 <!-- ── 플로팅 상담 버튼 ── -->
 <div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
