@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>더박스 플러스 | 원어민스터디 더박스 플러스 | 더박스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#fff;--bg:#F5F4F2;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#777;
+  --red:#CC2222;--red-dark:#A81818;--red-light:#FFF0F0;--border:#E2E0DE;
+  --blue:#CC2222;--blue-dark:#A81818;--blue-light:#FFF0F0;
+  --radius:14px;--px:5%;--green:#10B981;--orange:#FF6B00;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.65;overflow-x:hidden;-webkit-text-size-adjust:100%}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1.5px solid var(--border);padding:0 var(--px);height:58px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nav-logo{font-size:16px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:18px;list-style:none;align-items:center}
+.nav-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--red)}
+.nav-review{color:var(--orange)!important;font-weight:700!important}
+.nav-live{color:#7C3AED;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-live:hover{color:#5B21B6}
+.nav-study{color:#10B981!important;font-size:13px!important;font-weight:600!important;text-decoration:none;white-space:nowrap;transition:color .2s}
+.nav-study:hover{color:#059669!important}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-cta{background:var(--red);color:#fff;border:none;border-radius:50px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap}
+.nav-cta:hover{background:var(--blue-dark)}
+.hamburger{display:none;flex-direction:row;align-items:center;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--red);color:var(--red)}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:18px;font-weight:700;color:var(--ink);text-decoration:none}
+.mobile-menu-close{position:absolute;top:18px;right:20px;font-size:22px;background:none;border:none;cursor:pointer;color:var(--ink-mute)}
+
+/* HERO */
+.page-hero{padding:52px var(--px) 44px;position:relative;overflow:hidden;background:#1a0808;background-image:url("academy/hero/more.jpg");background-size:cover;background-position:center}
+.page-hero::after{content:"";position:absolute;inset:0;background:rgba(20,4,4,.65);z-index:0}
+.page-hero>*{position:relative;z-index:1}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,150,150,.8);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.hero-eyebrow::before{content:'';width:16px;height:2px;background:rgba(255,150,150,.8)}
+.page-hero h1{font-size:clamp(26px,4vw,48px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:10px}
+.page-hero h1 em{color:#FF9999;font-style:normal}
+.page-hero p{font-size:14px;color:rgba(255,255,255,.6);max-width:440px}
+
+/* TAB */
+.tab-nav{background:var(--white);border-bottom:1.5px solid var(--border);padding:0 var(--px);position:sticky;top:58px;z-index:90;overflow-x:auto}
+.tab-nav-inner{display:flex;min-width:max-content}
+.tab-btn{background:transparent;border:none;padding:16px 22px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;white-space:nowrap;transition:color .2s}
+.tab-btn::after{content:'';position:absolute;bottom:-1.5px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .22s}
+.tab-btn.active{color:var(--red);font-weight:700}
+.tab-btn.active::after{transform:scaleX(1)}
+
+/* PANELS */
+.tab-panel{display:none;padding:44px var(--px) 64px;max-width:var(--max);margin:0 auto;width:100%}
+.tab-panel.active{display:block}
+.panel-wrap{max-width:var(--max)}
+.panel-head{margin-bottom:28px}
+.panel-title{font-size:clamp(18px,2.5vw,26px);font-weight:900;color:var(--ink);margin-bottom:6px}
+.panel-sub{font-size:13px;color:var(--ink-mute)}
+
+/* ── 공지사항 ── */
+.notice-list{display:flex;flex-direction:column}
+.notice-item{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:background .15s}
+.notice-item:first-child{border-top:1px solid var(--border)}
+.notice-item:hover .notice-title{color:var(--red)}
+.notice-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:50px;white-space:nowrap;flex-shrink:0}
+.badge-new{background:var(--orange);color:#fff}
+.badge-event{background:var(--red-light);color:var(--red);border:1px solid rgba(204,34,34,.2)}
+.badge-general{background:var(--bg);color:var(--ink-mute);border:1px solid var(--border)}
+.notice-title{font-size:14px;font-weight:500;flex:1;transition:color .2s}
+.notice-date{font-size:11px;color:var(--ink-mute);flex-shrink:0}
+
+/* ── 월간더박스 ── */
+.monthly-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.monthly-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:all .2s}
+.monthly-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(204,34,34,.1);border-color:var(--red)}
+.monthly-thumb{width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px}
+.monthly-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;display:block}
+.monthly-card:hover .monthly-thumb img{transform:scale(1.04)}
+.monthly-body{padding:12px 14px}
+.monthly-ym{font-size:10px;color:var(--ink-mute);margin-bottom:3px}
+.monthly-title{font-size:13px;font-weight:700;color:var(--ink)}
+
+/* ── 더보기 버튼 ── */
+.more-row{display:flex;justify-content:center;margin-top:24px}
+.load-more-btn{background:transparent;border:1.5px solid var(--border);border-radius:50px;padding:10px 28px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);transition:all .2s}
+.load-more-btn:hover{border-color:var(--red);color:var(--red)}
+.load-more-btn:disabled{opacity:.4;cursor:default}
+
+/* ── 제휴업체 ── */
+.partner-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.partner-info{}
+.partner-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.partner-name{font-size:22px;font-weight:900;color:var(--ink);margin-bottom:8px}
+.partner-desc{font-size:13px;color:var(--ink-mute);line-height:1.85;margin-bottom:20px}
+.partner-cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-radius:50px;padding:11px 24px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity .2s}
+.partner-cta:hover{opacity:.88}
+.partner-embed-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:var(--bg);min-height:400px;display:flex;align-items:center;justify-content:center}
+.partner-embed-wrap blockquote{margin:0!important;width:100%!important;max-width:100%!important}
+
+/* ── 영상후기 ── */
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.video-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:all .2s}
+.video-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.video-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;background:#111}
+.video-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.video-card:hover .video-thumb img{transform:scale(1.04)}
+.video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.video-play-btn{width:44px;height:44px;background:rgba(200,0,0,.88);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;transition:transform .2s}
+.video-card:hover .video-play-btn{transform:scale(1.1)}
+.video-body{padding:12px 14px}
+.video-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.45}
+.video-meta{font-size:11px;color:var(--ink-mute)}
+
+/* empty */
+.empty-state{padding:48px;text-align:center;color:var(--ink-mute);font-size:13px;grid-column:1/-1}
+.loading-state{padding:48px;text-align:center;color:var(--ink-mute);font-size:13px}
+.loading-dot{display:inline-block;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* CTA */
+.cta-band{background:var(--ink);padding:56px var(--px);text-align:center}
+.cta-band-title{font-size:clamp(20px,3vw,36px);font-weight:900;color:#fff;margin-bottom:10px}
+.cta-band-title em{color:#FF9999;font-style:normal}
+.cta-band-sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:24px}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-blue{background:var(--red);background:var(--red);color:#fff;border:none;border-radius:50px;padding:12px 30px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s}
+.btn-blue:hover{background:var(--red-dark)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:50px;padding:12px 30px;font-size:14px;text-decoration:none;transition:border .2s}
+.btn-ghost:hover{border-color:#fff}
+footer{background:#111;padding:28px var(--px);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:14px;font-weight:900;color:rgba(255,255,255,.7)}
+.footer-logo span{color:var(--red)}
+.footer-info{font-size:11px;color:rgba(255,255,255,.3);line-height:1.9}
+.footer-links{display:flex;gap:14px;flex-wrap:wrap}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none}
+.footer-links a:hover{color:rgba(255,255,255,.6)}
+.fade-up{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  :root{--px:4%}
+  nav .nav-links{display:none}
+  .nav-live,.nav-study{display:none}
+  .hamburger{display:flex!important}
+  .partner-layout{grid-template-columns:1fr}
+  .video-grid{grid-template-columns:repeat(2,1fr)}
+  .monthly-grid{grid-template-columns:repeat(2,1fr)}
+  footer{flex-direction:column;gap:12px}
+}
+@media(max-width:480px){
+  .video-grid{grid-template-columns:1fr}
+  .monthly-grid{grid-template-columns:repeat(2,1fr)}
+  .tab-btn{padding:14px 14px;font-size:12px}
+}
+
+/* ── 모바일 2줄 네비 ── */
+@media(max-width:768px){
+  nav{
+    height:auto!important;
+    flex-wrap:wrap;
+    padding:8px var(--px) 0!important;
+    gap:0!important;
+    align-items:center;
+  }
+  /* 1줄: 로고(order:1) + nav-right(order:2) → 같은 줄 */
+  .nav-logo{font-size:14px!important;order:1}
+  .nav-right{order:2;flex-shrink:0;gap:6px!important}
+  .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
+  .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
+  .hamburger{display:none!important}
+  /* 2줄: nav-links(order:3) → 다음 줄 전체 */
+  .nav-links{
+    order:3;
+    display:flex!important;
+    flex-basis:100%;
+    gap:0!important;
+    justify-content:space-between;
+    border-top:1px solid var(--border);
+    margin-top:8px;
+    padding:7px 0 8px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links li{flex:1;text-align:center}
+  .nav-links a{
+    font-size:11px!important;
+    white-space:nowrap;
+    color:var(--ink-mute)!important;
+    font-weight:500;
+    padding:2px 4px;
+    display:block;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--red)!important;font-weight:700}
+  .nav-review{color:var(--ink-mute)!important}
+}
+@media(max-width:400px){
+  .nav-live,.nav-study{font-size:9px!important}
+  .nav-cta{font-size:9px!important;padding:5px 8px!important}
+  .nav-links a{font-size:10px!important}
+}
+
+/* study red 네비 */
+nav{background:rgba(255,255,255,.97)!important;border-bottom:1.5px solid #E2E0DE!important}
+.nav-logo span{color:#CC2222!important}
+.nav-links a:hover,.nav-links a.active{color:#CC2222!important;font-weight:700}
+.nav-academy{color:#1A5FCC!important;font-size:13px!important;font-weight:600!important;text-decoration:none;white-space:nowrap}
+.nav-live{color:#7C3AED!important;font-size:13px!important;font-weight:600!important;text-decoration:none;white-space:nowrap}
+.nav-cta{background:#CC2222!important}
+.nav-cta:hover{background:#A81818!important}
+@media(max-width:768px){
+  .nav-academy,.nav-live{display:flex!important;font-size:10px!important;font-weight:600!important;white-space:nowrap}
+  .nav-links a:hover,.nav-links a.active{color:#CC2222!important;font-weight:700}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="study.html" class="nav-logo">THE<span>BOX</span></a>
+  <ul class="nav-links">
+    <li><a href="study-introduce.html">더박스 소개</a></li>
+    <li><a href="study.html">스터디 안내</a></li>
+    <li><a href="study-more.html" class="active">더박스 플러스</a></li>
+    <li><a href="study-reviews.html">더박스후기</a></li>
+  </ul>
+  <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="https://lccthebox.github.io/english/academy.html" class="nav-academy">기초회화수업</a>
+    <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
+    <a href="https://naver.me/F88gQjHk" target="_blank" class="nav-cta">상담 예약</a>
+  </div>
+</nav>
+
+<div class="page-hero fade-up">
+  <div class="hero-eyebrow">더박스 플러스</div>
+  <h1>더박스의<br><em>모든 소식</em></h1>
+  <p>공지사항, 월간 더박스, 제휴 혜택, 영상 후기를 한 곳에서 확인하세요.</p>
+</div>
+
+<div class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" onclick="switchTab('notice',this)">📢 공지사항</button>
+    <button class="tab-btn" onclick="switchTab('monthly',this)">📰 월간 더박스</button>
+    <button class="tab-btn" onclick="switchTab('partner',this)">🤝 제휴업체</button>
+  </div>
+</div>
+
+<!-- 공지사항 -->
+<div class="tab-panel active" id="panel-notice">
+  <div class="panel-head"><div class="panel-title">공지사항</div><p class="panel-sub">더박스의 중요한 소식을 전해드립니다</p></div>
+  <div class="notice-list" id="noticeList"><div class="loading-state"><span class="loading-dot">●</span> 로딩 중...</div></div>
+</div>
+
+<!-- 월간 더박스 -->
+<div class="tab-panel" id="panel-monthly">
+  <div class="panel-head"><div class="panel-title">월간 더박스</div><p class="panel-sub">매달 업데이트되는 더박스 뉴스레터</p></div>
+  <div class="monthly-grid" id="monthlyGrid"><div class="loading-state" style="grid-column:1/-1"><span class="loading-dot">●</span> 로딩 중...</div></div>
+  <div class="more-row" id="monthlyMoreRow" style="display:none">
+    <button class="load-more-btn" id="monthlyMoreBtn" onclick="loadMoreMonthly()">더보기 ↓</button>
+  </div>
+</div>
+
+<!-- 제휴업체 -->
+<div class="tab-panel" id="panel-partner">
+  <div class="panel-head"><div class="panel-title">더박스 제휴업체</div><p class="panel-sub">수강생을 위한 특별 혜택 파트너</p></div>
+  <div class="partner-layout">
+    <div class="partner-info">
+      <div class="partner-label">Partnership</div>
+      <div class="partner-name">더박스<br>제휴업체</div>
+      <p class="partner-desc">더박스와 함께하는 제휴업체에서 수강생 특별 혜택을 받아보세요. 최신 혜택과 이벤트 정보는 공식 제휴 인스타그램에서 확인할 수 있어요.</p>
+      <a href="https://www.instagram.com/thebox_partnership/" target="_blank" class="partner-cta">
+        📸 제휴 인스타그램 바로가기
+      </a>
+    </div>
+    <div class="partner-embed-wrap">
+      <blockquote class="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/thebox_partnership/"
+        data-instgrm-version="14"
+        style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:100%;padding:0;width:100%">
+      </blockquote>
+    </div>
+  </div>
+  <script async src="//www.instagram.com/embed.js"></script>
+</div>
+
+  <div class="video-grid" id="videoGrid"><div class="loading-state" style="grid-column:1/-1"><span class="loading-dot">●</span> 로딩 중...</div></div>
+  <div class="more-row" id="videoMoreRow" style="display:none">
+    <button class="load-more-btn" id="videoMoreBtn" onclick="loadMoreVideos()">더보기 ↓</button>
+  </div>
+</div>
+
+<div class="cta-band fade-up">
+  <div class="cta-band-title">더박스와 함께<br><em>영어가 즐거워지는</em> 경험</div>
+  <p class="cta-band-sub">지금 바로 무료 상담으로 첫 수업을 경험해보세요.</p>
+  <div class="cta-btns">
+    <a href="https://naver.me/5BcjX84R" target="_blank" class="btn-blue">무료 상담 예약</a>
+    <a href="classes.html" class="btn-ghost">수업 알아보기</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">THE<span>BOX</span></div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87ebe4e4f3efe2e5e8ffc7e0eae6eeeba9e4e8ea">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-links">
+    <a href="academy.html">홈</a>
+    <a href="introduce.html">소개</a>
+    <a href="classes.html">수업 안내</a>
+    <a href="study.html">원어민스터디</a>
+    <a href="https://theboxlive.kr/" target="_blank">온라인강의</a>
+    <a href="https://www.instagram.com/thebox_daegu/" target="_blank">인스타그램</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='partner'&&window.instgrm)window.instgrm.Embeds.process();
+}
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});},{threshold:.07});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
+const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+const PAGE=6; // 1행 3열 x 2행
+const badgeMap={new:'<span class="notice-badge badge-new">NEW</span>',event:'<span class="notice-badge badge-event">이벤트</span>',general:'<span class="notice-badge badge-general">공지</span>'};
+function fmtDate(d){return new Date(d).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1)}
+
+// 공지
+async function loadNotices(){
+  const el=document.getElementById('noticeList');
+  const{data}=await sb.from('notices').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(30);
+  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 공지가 없습니다</div>';return;}
+  el.innerHTML=data.map(n=>`<a href="#" class="notice-item">${badgeMap[n.badge]||badgeMap.general}<span class="notice-title">${n.title}</span><span class="notice-date">${fmtDate(n.created_at)}</span></a>`).join('');
+}
+
+// 월간 - 6개씩 더보기
+let monthlyAll=[],monthlyShown=0;
+async function loadMonthly(){
+  const el=document.getElementById('monthlyGrid');
+  const{data}=await sb.from('monthly').select('*').eq('is_published',true).order('created_at',{ascending:false});
+  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 월간 더박스가 없습니다</div>';return;}
+  monthlyAll=data; monthlyShown=0;
+  el.innerHTML='';
+  renderMonthly();
+}
+function renderMonthly(){
+  const el=document.getElementById('monthlyGrid');
+  const slice=monthlyAll.slice(monthlyShown,monthlyShown+PAGE);
+  slice.forEach(m=>{
+    const card=document.createElement('a');
+    card.href=m.link_url||m.cover_url; card.target='_blank'; card.className='monthly-card';
+    card.innerHTML=`<div class="monthly-thumb"><img src="${m.cover_url}" alt="${m.title}" loading="lazy" onerror="this.parentElement.innerHTML='📰'"></div><div class="monthly-body"><div class="monthly-ym">${m.year_month}</div><div class="monthly-title">${m.title}</div></div>`;
+    el.appendChild(card);
+  });
+  monthlyShown += slice.length;
+  const row = document.getElementById('monthlyMoreRow');
+  if(row) row.style.display = monthlyShown < monthlyAll.length ? 'flex' : 'none';
+}
+window.loadMoreMonthly = () => renderMonthly();
+
+// 제휴업체
+async function loadPartners(){
+  const el=document.getElementById('partnerGrid');
+  if(!el) return;
+  const{data}=await sb.from('partners').select('*').eq('is_published',true).order('sort_order',{ascending:true});
+  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 제휴업체가 없습니다</div>';return;}
+  el.innerHTML=data.map(p=>`
+    <a href="${p.link_url||'#'}" target="_blank" class="partner-card" style="text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s">
+      <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg)">
+        <img src="${p.image_url}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentElement.style.background='#f0f0f0'">
+      </div>
+      <div style="padding:12px 14px">
+        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px">${p.name}</div>
+        <div style="font-size:11px;color:var(--ink-mute)">${p.desc||''}</div>
+      </div>
+    </a>`).join('');
+}
+
+// ── 페이지 로드 시 모두 병렬 로드 ──
+loadNotices();
+loadMonthly();
+loadPartners();</script>
+
+<!-- ── 플로팅 상담 버튼 ── -->
+<div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+
+  <!-- 카카오톡 -->
+  <div class="float-item" id="floatKakao" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
+    <div class="float-label" id="labelKakao">카카오톡 상담</div>
+    <div class="float-btn" style="background:#FAE100;box-shadow:0 4px 16px rgba(250,225,0,.5)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.4 4.37 6.97L5.5 21l3.5-1.8C10.27 19.72 11.12 19.9 12 19.9c5.52 0 10-3.69 10-8.65S17.52 3 12 3z"/></svg>
+    </div>
+  </div>
+
+  <!-- 전화 -->
+  <div class="float-item" id="floatCall" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.location.href='tel:01086739664'">
+    <div class="float-label" id="labelCall">전화 문의</div>
+    <div class="float-btn" style="background:#CC2222;box-shadow:0 4px 16px rgba(204,34,34,.45)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.32.57 3.55.57a1 1 0 011 1V20a1 1 0 01-1 1C10.26 21 3 13.74 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.44.57 3.55a1 1 0 01-.24 1.01l-2.21 2.23z"/></svg>
+    </div>
+  </div>
+
+</div>
+
+<style>
+.float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;flex-shrink:0}
+.float-btn:hover{transform:scale(1.1)}
+.float-label{background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+.float-item:hover .float-label{opacity:1;transform:translateX(0)}
+@media(max-width:768px){
+  .float-label{display:none}
+  .float-btn{width:46px;height:46px}
+  #floatBtns{bottom:20px;right:14px;gap:8px}
+}
+</style>
+</body>
+</html>

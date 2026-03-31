@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>더박스 갤러리 | 원어민회화스터디</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#fff;--bg:#F5F4F2;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#777;
+  --red:#CC2222;--red-dark:#A81818;--red-light:#FFF0F0;--border:#E2E0DE;--radius:14px;--px:5%;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1.5px solid var(--border);padding:0 var(--px);height:58px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nav-logo{font-size:16px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:20px;list-style:none;align-items:center}
+.nav-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--red);font-weight:700}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-academy{color:#1A5FCC!important;font-size:10px!important;font-weight:700!important;text-decoration:none;white-space:nowrap}
+.nav-live{color:#7C3AED;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+.nav-cta{background:var(--red);color:#fff;border:none;border-radius:50px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap;transition:all .2s}
+.nav-cta:hover{background:var(--red-dark)}
+
+/* HERO */
+.page-hero{padding:52px var(--px) 44px;background:var(--ink);position:relative;overflow:hidden;text-align:center}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(204,34,34,.2) 0%,transparent 70%);pointer-events:none}
+.page-hero>*{position:relative;z-index:1}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,150,150,.8);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:16px;height:2px;background:rgba(255,150,150,.6)}
+.page-hero h1{font-size:clamp(28px,4.5vw,52px);font-weight:900;color:#fff;margin-bottom:12px;line-height:1.15}
+.page-hero h1 em{color:var(--red);font-style:normal}
+.page-hero p{font-size:14px;color:rgba(255,255,255,.55);font-weight:300;max-width:480px;margin:0 auto}
+
+/* FILTER TABS */
+.filter-wrap{background:var(--white);border-bottom:2px solid var(--border);position:sticky;top:58px;z-index:90}
+.filter-inner{max-width:1200px;margin:0 auto;padding:0 var(--px);display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.filter-inner::-webkit-scrollbar{display:none}
+.filter-btn{background:transparent;border:none;padding:14px 22px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);white-space:nowrap;position:relative;transition:color .2s;flex-shrink:0}
+.filter-btn::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .25s}
+.filter-btn.active{color:var(--red);font-weight:700}
+.filter-btn.active::after{transform:scaleX(1)}
+.filter-count{display:inline-block;background:var(--red-light);color:var(--red);font-size:10px;font-weight:700;padding:1px 6px;border-radius:50px;margin-left:5px;transition:background .2s}
+.filter-btn.active .filter-count{background:var(--red);color:#fff}
+
+/* GALLERY GRID */
+.gallery-section{padding:32px var(--px) 60px;max-width:1200px;margin:0 auto}
+.gallery-grid{
+  columns:4;column-gap:10px;
+}
+@media(max-width:1024px){.gallery-grid{columns:3}}
+@media(max-width:640px){.gallery-grid{columns:2}}
+@media(max-width:380px){.gallery-grid{columns:2}}
+
+.gal-item{
+  break-inside:avoid;margin-bottom:10px;
+  border-radius:10px;overflow:hidden;
+  background:var(--border);position:relative;
+  cursor:pointer;display:block;
+}
+.gal-item img{width:100%;display:block;transition:transform .4s}
+.gal-item:hover img{transform:scale(1.04)}
+.gal-item-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+  display:flex;align-items:flex-end;padding:12px;
+}
+.gal-item:hover .gal-item-overlay{opacity:1}
+.gal-item-cat{font-size:10px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;background:var(--red);padding:2px 8px;border-radius:50px}
+
+/* 빈 상태 */
+.gallery-empty{text-align:center;padding:60px 20px;color:var(--ink-mute)}
+.gallery-empty .empty-icon{font-size:48px;margin-bottom:16px}
+.gallery-empty p{font-size:14px}
+
+/* 로딩 스켈레톤 */
+.skeleton-grid{columns:4;column-gap:10px}
+@media(max-width:1024px){.skeleton-grid{columns:3}}
+@media(max-width:640px){.skeleton-grid{columns:2}}
+.skeleton-item{break-inside:avoid;margin-bottom:10px;border-radius:10px;background:#e8e5e0;animation:shimmer 1.4s ease-in-out infinite}
+@keyframes shimmer{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* MORE 버튼 */
+.load-more-wrap{text-align:center;margin-top:24px}
+.btn-load-more{background:transparent;color:var(--red);border:1.5px solid var(--red);padding:10px 28px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-load-more:hover{background:var(--red);color:#fff}
+
+/* INSTAGRAM 섹션 */
+.insta-section{background:var(--white);padding:48px var(--px) 60px;border-top:2px solid var(--border)}
+.insta-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px;max-width:1200px;margin-left:auto;margin-right:auto}
+.insta-title{font-size:20px;font-weight:900;color:var(--ink)}
+.insta-title span{color:var(--red)}
+.insta-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--red);text-decoration:none;background:var(--red-light);padding:7px 16px;border-radius:50px;transition:all .2s}
+.insta-link:hover{background:var(--red);color:#fff}
+.insta-embed-wrap{max-width:1200px;margin:0 auto;min-height:400px;background:var(--bg);border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lightbox-img{max-width:90vw;max-height:88vh;border-radius:8px;object-fit:contain}
+.lightbox-close{position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;z-index:10;line-height:1;opacity:.8;transition:opacity .2s}
+.lightbox-close:hover{opacity:1}
+.lightbox-prev,.lightbox-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;font-size:28px;cursor:pointer;z-index:10;width:44px;height:64px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background .2s}
+.lightbox-prev{left:12px}
+.lightbox-next{right:12px}
+.lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,.3)}
+.lightbox-cat{position:absolute;top:16px;left:20px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:50px;letter-spacing:1px}
+.lightbox-counter{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:12px;letter-spacing:1px}
+
+/* CTA */
+.cta-bar{background:var(--red);padding:32px var(--px);text-align:center}
+.cta-bar p{color:rgba(255,255,255,.8);font-size:14px;margin-bottom:12px}
+.cta-bar a{display:inline-block;background:#fff;color:var(--red);border:none;border-radius:50px;padding:11px 28px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s}
+.cta-bar a:hover{background:var(--red-light)}
+
+/* FOOTER */
+footer{background:#111;padding:24px var(--px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-logo{font-size:14px;font-weight:900;color:rgba(255,255,255,.7)}
+.footer-logo span{color:var(--red)}
+.footer-info{font-size:11px;color:rgba(255,255,255,.3);line-height:1.8}
+
+/* FADE */
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* ── 모바일 2줄 네비 ── */
+@media(max-width:768px){
+  nav{height:auto!important;flex-wrap:wrap;padding:8px var(--px) 0!important;gap:0!important}
+  .nav-logo{font-size:14px!important;order:1}
+  .nav-right{order:2;flex-shrink:0;gap:6px!important}
+  .nav-academy,.nav-live{display:flex!important;font-size:10px!important;white-space:nowrap;font-weight:600!important}
+  .nav-cta{font-size:10px!important;padding:6px 10px!important}
+  .nav-links{order:3;display:flex!important;flex-basis:100%;gap:0!important;justify-content:space-between;border-top:1px solid var(--border);margin-top:8px;padding:7px 0 8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links li{flex:1;text-align:center}
+  .nav-links a{font-size:11px!important;white-space:nowrap;color:var(--ink-mute)!important;font-weight:500;padding:2px 4px;display:block}
+  .nav-links a.active{color:var(--red)!important;font-weight:700}
+  .filter-wrap{top:auto;position:relative}
+  .page-hero{padding:32px var(--px) 28px}
+  .page-hero h1{font-size:clamp(22px,6vw,32px)!important}
+  .insta-header{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="study.html" class="nav-logo">THE<span>BOX</span></a>
+  <ul class="nav-links">
+    <li><a href="study-introduce.html">더박스 소개</a></li>
+    <li><a href="study.html">스터디 안내</a></li>
+    <li><a href="study-more.html">더박스 플러스</a></li>
+    <li><a href="study-reviews.html">더박스후기</a></li>
+  </ul>
+  <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="https://lccthebox.github.io/english/academy.html" class="nav-academy">기초회화수업</a>
+    <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
+    <a href="https://naver.me/F88gQjHk" target="_blank" class="nav-cta">상담 예약</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-eyebrow">갤러리</div>
+  <h1>더박스의 <em>진짜 순간들</em></h1>
+  <p>스터디, 파티, 아웃팅, 이벤트 — 매주 더박스에서 일어나는 이야기</p>
+</div>
+
+<!-- FILTER -->
+<div class="filter-wrap">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterGallery('all',this)">전체 <span class="filter-count" id="cnt-all">0</span></button>
+    <button class="filter-btn" onclick="filterGallery('study',this)">🗣️ 스터디 <span class="filter-count" id="cnt-study">0</span></button>
+    <button class="filter-btn" onclick="filterGallery('party',this)">🎉 파티 <span class="filter-count" id="cnt-party">0</span></button>
+    <button class="filter-btn" onclick="filterGallery('outing',this)">🎒 아웃팅 <span class="filter-count" id="cnt-outing">0</span></button>
+    <button class="filter-btn" onclick="filterGallery('event',this)">🎊 이벤트 <span class="filter-count" id="cnt-event">0</span></button>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section fade-up">
+  <div id="galleryGrid" class="gallery-grid"></div>
+  <div id="galleryEmpty" class="gallery-empty" style="display:none">
+    <div class="empty-icon">📷</div>
+    <p>아직 사진이 없어요. 곧 업로드될 예정이에요!</p>
+  </div>
+  <div id="galleryLoading" class="skeleton-grid">
+    <div class="skeleton-item" style="height:220px"></div>
+    <div class="skeleton-item" style="height:160px"></div>
+    <div class="skeleton-item" style="height:200px"></div>
+    <div class="skeleton-item" style="height:180px"></div>
+    <div class="skeleton-item" style="height:240px"></div>
+    <div class="skeleton-item" style="height:170px"></div>
+    <div class="skeleton-item" style="height:210px"></div>
+    <div class="skeleton-item" style="height:190px"></div>
+  </div>
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+    <button class="btn-load-more" onclick="renderMore()">더 보기 +</button>
+  </div>
+</div>
+
+<!-- INSTAGRAM -->
+<div class="insta-section fade-up">
+  <div class="insta-header">
+    <div>
+      <div class="insta-title">📸 인스타그램 <span>@thebox_daegu</span></div>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:4px">더박스의 매일 이야기를 인스타에서도 만나보세요</p>
+    </div>
+    <a href="https://www.instagram.com/thebox_daegu/" target="_blank" class="insta-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      인스타 팔로우
+    </a>
+  </div>
+  <div class="insta-embed-wrap" id="instaEmbed">
+    <!-- Instagram embed -->
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/thebox_daegu/" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,.5),0 1px 10px 0 rgba(0,0,0,.15);margin:1px;max-width:540px;min-width:326px;padding:0;width:99.375%;">
+      <div style="padding:16px">
+        <a href="https://www.instagram.com/thebox_daegu/" target="_blank" style="background:#FFFFFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%;display:block">
+          <div style="display:flex;flex-direction:row;align-items:center">
+            <div style="background-color:#F4F4F4;border-radius:50%;flex-grow:0;height:40px;margin-right:14px;width:40px"></div>
+            <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center">
+              <div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;margin-bottom:6px;width:100px"></div>
+              <div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;width:60px"></div>
+            </div>
+          </div>
+          <div style="padding:19% 0"></div>
+          <div style="display:block;height:50px;margin:0 auto 12px;width:50px">
+            <svg width="50px" height="50px" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#000"><path d="M28.9 1.314C13.762 1.314 1.5 13.576 1.5 28.714s12.262 27.4 27.4 27.4 27.4-12.262 27.4-27.4-12.262-27.4-27.4-27.4zm7.354 43.11c-1.89.39-3.835.58-5.796.58-10.69 0-19.404-8.714-19.404-19.404 0-10.69 8.714-19.404 19.404-19.404 1.961 0 3.906.19 5.796.58l-3.29 11.474a8.04 8.04 0 00-2.506-.4 8.118 8.118 0 100 16.236c.878 0 1.725-.14 2.516-.4l3.28 11.738z"/></g></g></svg>
+          </div>
+          <div style="padding-top:8px;color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-style:normal;font-weight:550;line-height:18px">@thebox_daegu 팔로우하기</div>
+        </a>
+      </div>
+    </blockquote>
+    <script async src="//www.instagram.com/embed.js"></script>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-bar">
+  <p>더박스의 분위기가 마음에 드셨나요?</p>
+  <a href="https://naver.me/F88gQjHk" target="_blank">무료 체험 신청 →</a>
+</div>
+
+<footer>
+  <div class="footer-logo">THE<span>BOX</span></div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightboxBtn()">✕</button>
+  <div class="lightbox-cat" id="lbCat"></div>
+  <button class="lightbox-prev" onclick="lbNav(-1);event.stopPropagation()">‹</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <button class="lightbox-next" onclick="lbNav(1);event.stopPropagation()">›</button>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<!-- 플로팅 버튼 -->
+<div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+  <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
+    <div class="float-label-g">카카오톡 상담</div>
+    <div style="width:52px;height:52px;border-radius:50%;background:#FAE100;box-shadow:0 4px 16px rgba(250,225,0,.5);display:flex;align-items:center;justify-content:center;transition:transform .2s">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.4 4.37 6.97L5.5 21l3.5-1.8C10.27 19.72 11.12 19.9 12 19.9c5.52 0 10-3.69 10-8.65S17.52 3 12 3z"/></svg>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.location.href='tel:01086739664'">
+    <div class="float-label-g">전화 문의</div>
+    <div style="width:52px;height:52px;border-radius:50%;background:#CC2222;box-shadow:0 4px 16px rgba(204,34,34,.45);display:flex;align-items:center;justify-content:center;transition:transform .2s">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.32.57 3.55.57a1 1 0 011 1V20a1 1 0 01-1 1C10.26 21 3 13.74 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.44.57 3.55a1 1 0 01-.24 1.01l-2.21 2.23z"/></svg>
+    </div>
+  </div>
+</div>
+<style>
+.float-label-g{background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+div:hover .float-label-g{opacity:1;transform:translateX(0)}
+@media(max-width:768px){#floatBtns{bottom:20px;right:14px;gap:8px}.float-label-g{display:none}}
+</style>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const sb = createClient(
+  'https://oualwikibctxvlscpuyn.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM'
+);
+
+const CAT_LABELS = { study:'스터디', party:'파티', outing:'아웃팅', event:'이벤트' };
+const PAGE = 20;
+let allPhotos = [];      // Supabase에서 로드된 전체
+let staticPhotos = [];   // fallback 정적 사진
+let currentFilter = 'all';
+let currentPage = 0;
+let filtered = [];
+let lbIndex = 0;
+
+// ── community 폴더 기반 정적 fallback 사진 ──
+staticPhotos = [
+  { url:'https://lccthebox.github.io/community/community1.jpg',      category:'study',  caption:'스터디' },
+  { url:'https://lccthebox.github.io/community/community2.jpg',      category:'study',  caption:'스터디' },
+  { url:'https://lccthebox.github.io/community/community3.jpg',      category:'study',  caption:'스터디' },
+  { url:'https://lccthebox.github.io/community/party.jpg',           category:'party',  caption:'파티' },
+  { url:'https://lccthebox.github.io/community/outing.jpg',          category:'outing', caption:'아웃팅' },
+  { url:'https://lccthebox.github.io/community/boardgame.jpg',       category:'event',  caption:'보드게임' },
+  { url:'https://lccthebox.github.io/community/RealMoment6.jpg',     category:'event',  caption:'이벤트' },
+  { url:'https://lccthebox.github.io/community/RealMoment7.jpg',     category:'event',  caption:'이벤트' },
+  { url:'https://lccthebox.github.io/community/RealMoment8.jpg',     category:'outing', caption:'아웃팅' },
+  { url:'https://lccthebox.github.io/community/RealMoment9.jpg',     category:'party',  caption:'파티' },
+  { url:'https://lccthebox.github.io/community/beswt_community.jpg', category:'study',  caption:'커뮤니티' },
+  { url:'https://lccthebox.github.io/community/activity_classes.jpg',category:'event',  caption:'액티비티' },
+];
+
+async function init() {
+  try {
+    const { data } = await sb
+      .from('gallery')
+      .select('*')
+      .eq('is_published', true)
+      .order('taken_at', { ascending: false });
+
+    allPhotos = (data && data.length)
+      ? data.map(d => ({ url: d.image_url, category: d.category, caption: d.caption || '' }))
+      : staticPhotos;
+  } catch(e) {
+    allPhotos = staticPhotos;
+  }
+
+  document.getElementById('galleryLoading').style.display = 'none';
+  updateCounts();
+  applyFilter('all');
+}
+
+function updateCounts() {
+  const cats = ['study','party','outing','event'];
+  document.getElementById('cnt-all').textContent = allPhotos.length;
+  cats.forEach(c => {
+    const el = document.getElementById('cnt-'+c);
+    if(el) el.textContent = allPhotos.filter(p => p.category === c).length;
+  });
+}
+
+function applyFilter(cat) {
+  currentFilter = cat;
+  currentPage = 0;
+  filtered = cat === 'all' ? allPhotos : allPhotos.filter(p => p.category === cat);
+  document.getElementById('galleryGrid').innerHTML = '';
+  document.getElementById('galleryEmpty').style.display = filtered.length ? 'none' : 'block';
+  renderMore();
+}
+
+window.renderMore = function() {
+  const grid = document.getElementById('galleryGrid');
+  const slice = filtered.slice(currentPage * PAGE, (currentPage + 1) * PAGE);
+  slice.forEach((photo, i) => {
+    const idx = currentPage * PAGE + i;
+    const a = document.createElement('a');
+    a.className = 'gal-item';
+    a.href = '#';
+    a.onclick = (e) => { e.preventDefault(); openLightbox(idx); };
+    a.innerHTML = `
+      <img src="${photo.url}" alt="${photo.caption}" loading="lazy" onerror="this.parentElement.style.display='none'">
+      <div class="gal-item-overlay"><span class="gal-item-cat">${CAT_LABELS[photo.category]||photo.category}</span></div>`;
+    grid.appendChild(a);
+  });
+  currentPage++;
+  const wrap = document.getElementById('loadMoreWrap');
+  wrap.style.display = currentPage * PAGE < filtered.length ? 'block' : 'none';
+};
+
+window.filterGallery = function(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilter(cat);
+};
+
+// ── Lightbox ──
+function openLightbox(idx) {
+  lbIndex = idx;
+  const lb = document.getElementById('lightbox');
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateLightbox();
+}
+
+function updateLightbox() {
+  const p = filtered[lbIndex];
+  if(!p) return;
+  document.getElementById('lbImg').src = p.url;
+  document.getElementById('lbCat').textContent = CAT_LABELS[p.category] || p.category;
+  document.getElementById('lbCounter').textContent = `${lbIndex + 1} / ${filtered.length}`;
+}
+
+window.lbNav = function(dir) {
+  lbIndex = (lbIndex + dir + filtered.length) % filtered.length;
+  updateLightbox();
+};
+
+window.closeLightbox = function(e) {
+  if(e.target === document.getElementById('lightbox')) closeLightboxBtn();
+};
+window.closeLightboxBtn = function() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+// 키보드
+document.addEventListener('keydown', e => {
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key === 'ArrowRight') lbNav(1);
+  if(e.key === 'ArrowLeft') lbNav(-1);
+  if(e.key === 'Escape') closeLightboxBtn();
+});
+
+// fade-up
+const fadeObs = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); fadeObs.unobserve(e.target); }});
+}, { threshold: 0.07 });
+document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+
+init();
+</script>
+</body>
+</html>
