@@ -64,11 +64,12 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
   background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.1) 60%,transparent 100%);
 }
 /* Placeholder colors for slides */
-.slide-bg.s1{background-image:url('study/mainhero/main1.jpg');background-color:#2a1a1a;background-image:url('study/mainhero/study1.jpg')}
-.slide-bg.s2{background-image:url('study/mainhero/main2.jpg');background-color:#1a2a1a;background-image:url('study/mainhero/study2.jpg')}
-.slide-bg.s3{background-image:url('study/mainhero/main3.jpg');background-color:#1a1a2a;background-image:url('study/mainhero/study3.jpg')}
-.slide-bg.s4{background-image:url('study/mainhero/main4.jpg');background-color:#2a2a1a;background-image:url('study/mainhero/study4.jpg')}
-.slide-bg.s5{background-image:url('study/mainhero/main5.jpg');background-color:#1a2a2a;background-image:url('study/mainhero/study5.jpg')}
+.slide-bg.s1{background-color:#2a1a1a;background-image:url('study/mainhero/main1.jpg')}
+.slide-bg.s2{background-color:#1a2a1a;background-image:url('study/mainhero/main2.jpg')}
+.slide-bg.s3{background-color:#1a1a2a;background-image:url('study/mainhero/main3.jpg')}
+.slide-bg.s4{background-color:#2a2a1a;background-image:url('study/mainhero/main4.jpg')}
+.slide-bg.s5{background-color:#1a2a2a;background-image:url('study/mainhero/main5.jpg')}
+.slide-bg.s6{background-color:#2a1a2a;background-image:url('study/mainhero/main6.jpg')}
 
 .slide-content{
   position:relative;z-index:2;
@@ -582,13 +583,23 @@ section{padding:64px 5%}
     </div>
   </div>
 
-  <div class="slide-counter"><strong id="current-slide">1</strong> / 5</div>
+  <div class="slide">
+    <div class="slide-bg s6"></div>
+    <div class="slide-content">
+      <div class="slide-tag">더박스 스터디</div>
+      <div class="slide-title">함께 성장하는<br><em>더박스 커뮤니티</em></div>
+      <div class="slide-sub">12년의 역사, 100+ 원어민 파트너와 함께</div>
+    </div>
+  </div>
+
+  <div class="slide-counter"><strong id="current-slide">1</strong> / 6</div>
   <div class="slide-dots">
     <button class="dot active" onclick="goSlide(0)"></button>
     <button class="dot" onclick="goSlide(1)"></button>
     <button class="dot" onclick="goSlide(2)"></button>
     <button class="dot" onclick="goSlide(3)"></button>
     <button class="dot" onclick="goSlide(4)"></button>
+    <button class="dot" onclick="goSlide(5)"></button>
   </div>
 </div>
 
@@ -822,24 +833,95 @@ section{padding:64px 5%}
 <section class="gallery-section fade-up">
   <div class="section-eyebrow">갤러리</div>
   <div class="section-title">더박스 분위기</div>
-  <p class="section-sub">인스타그램 <strong>@thebox_daegu</strong> 에서 매일 업로드되는 더박스 이야기!</p>
-  <div style="margin-top:12px;margin-bottom:28px"><a href="study-gallery.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--red);border:1.5px solid var(--red);padding:8px 20px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s">전체 갤러리 보기 →</a></div>
-  <div class="gallery-grid">
-    <!-- 첫번째 큰칸 -->
-    <div class="gallery-item"><img src="study/vibe/1.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='📸'"></div>
-    <div class="gallery-item"><img src="study/vibe/x.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='🎉'"></div>
-    <div class="gallery-item"><img src="study/vibe/2.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='🏃'"></div>
-    <div class="gallery-item"><img src="study/vibe/3.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='🌏'"></div>
-    <div class="gallery-item"><img src="study/vibe/4.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='📸'"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:20px;margin-top:4px">
+    <p class="section-sub" style="margin:0">더박스의 진짜 순간들을 확인해보세요</p>
+    <a href="study-gallery.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--red);border:1.5px solid var(--red);padding:7px 18px;border-radius:50px;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0">전체 갤러리 보기 →</a>
+  </div>
+
+  <!-- 슬라이드 탭 -->
+  <div style="display:flex;border-bottom:2px solid var(--border);margin-bottom:24px">
+    <button class="vibe-tab active" onclick="showVibe(0,this)" style="background:transparent;border:none;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s">
+      📸 인스타그램
+      <span style="position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(1);transition:transform .25s;display:block" class="vt-line"></span>
+    </button>
+    <button class="vibe-tab" onclick="showVibe(1,this)" style="background:transparent;border:none;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s">
+      🖼️ 갤러리
+      <span style="position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .25s;display:block" class="vt-line"></span>
+    </button>
+  </div>
+  <style>
+    .vibe-tab.active{color:var(--red)!important}
+    .vibe-tab.active .vt-line{transform:scaleX(1)!important}
+    .vibe-tab .vt-line{transform:scaleX(0)}
+    .vibe-panel{display:none}.vibe-panel.active{display:block}
+  </style>
+
+  <!-- 패널 1: 인스타그램 -->
+  <div class="vibe-panel active" id="vibe-0">
+    <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;min-height:480px;display:flex;align-items:center;justify-content:center;padding:20px">
+      <blockquote class="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/thebox_daegu/"
+        data-instgrm-version="14"
+        style="background:#FFF;border:0;border-radius:3px;margin:0 auto;max-width:540px;width:100%">
+        <div style="padding:16px;text-align:center;color:#888;font-size:14px">
+          📸 @thebox_daegu 로딩 중...
+        </div>
+      </blockquote>
+      <script async src="//www.instagram.com/embed.js"></script>
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <a href="https://www.instagram.com/thebox_daegu/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;color:var(--red);font-size:13px;font-weight:600;text-decoration:none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        @thebox_daegu 팔로우
+      </a>
+    </div>
+  </div>
+
+  <!-- 패널 2: 갤러리 게시판 -->
+  <div class="vibe-panel" id="vibe-1">
+    <div id="vibeGalGrid" style="columns:4;column-gap:8px;min-height:200px">
+      <!-- Supabase에서 로드 -->
+      <div style="break-inside:avoid;margin-bottom:8px;border-radius:8px;background:#e0ddd9;height:180px;animation:sk 1.4s infinite"></div>
+      <div style="break-inside:avoid;margin-bottom:8px;border-radius:8px;background:#e0ddd9;height:140px;animation:sk 1.4s infinite .2s"></div>
+      <div style="break-inside:avoid;margin-bottom:8px;border-radius:8px;background:#e0ddd9;height:160px;animation:sk 1.4s infinite .4s"></div>
+      <div style="break-inside:avoid;margin-bottom:8px;border-radius:8px;background:#e0ddd9;height:150px;animation:sk 1.4s infinite .6s"></div>
+    </div>
+    <div style="text-align:right;margin-top:12px">
+      <a href="study-gallery.html" style="font-size:13px;font-weight:600;color:var(--red);text-decoration:none">전체 갤러리 보기 →</a>
+    </div>
   </div>
 </section>
+
+<script>
+function showVibe(idx, btn){
+  document.querySelectorAll('.vibe-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.vibe-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('vibe-'+idx).classList.add('active');
+  if(idx===1 && !window._vibeLoaded) loadVibeGallery();
+}
+window._vibeLoaded=false;
+async function loadVibeGallery(){
+  window._vibeLoaded=true;
+  try{
+    const {createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+    const sb=createClient('https://oualwikibctxvlscpuyn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM');
+    const {data}=await sb.from('gallery').select('image_url,category').eq('is_published',true).order('created_at',{ascending:false}).limit(8);
+    const g=document.getElementById('vibeGalGrid');
+    if(!data||!data.length){g.innerHTML='<div style="text-align:center;padding:40px;color:#888;font-size:13px">아직 갤러리 사진이 없어요</div>';return;}
+    g.innerHTML=data.map(p=>`<div style="break-inside:avoid;margin-bottom:8px;border-radius:8px;overflow:hidden;cursor:pointer" onclick="window.location.href='study-gallery.html'"><img src="${p.image_url}" loading="lazy" style="width:100%;display:block" onerror="this.parentElement.style.display='none'"></div>`).join('');
+  }catch(e){
+    document.getElementById('vibeGalGrid').innerHTML='<div style="text-align:center;padding:40px;color:#888;font-size:13px">갤러리를 불러오지 못했어요</div>';
+  }
+}
+</script>
 
 <!-- MAP -->
 <section class="map-section fade-up" id="map" style="background:var(--bg);padding:64px 5%">
   <div class="section-eyebrow" style="color:var(--red)">오시는 길</div>
   <div class="section-title">더박스 대구영어회화</div>
   <div style="margin-top:24px;border-radius:14px;overflow:hidden;border:1px solid var(--border)">
-    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=%2Fhome" title="더박스 대구영어회화" allowfullscreen loading="lazy" style="width:100%;height:380px;border:none;display:block"></iframe>
+    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=/home&amp;entry=pll" title="더박스 대구영어회화" allowfullscreen loading="lazy" style="width:100%;height:380px;border:none;display:block"></iframe>
   </div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px" class="map-info-grid">
     <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">주소</div><div style="font-size:14px;color:var(--ink);font-weight:500;line-height:1.6">대구광역시 중구 동성로2<br>(동성로3가 90-1) 6층</div></div>
