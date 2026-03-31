@@ -491,20 +491,22 @@ footer{background:#111;padding:28px var(--px);display:flex;
     gap:0!important;
     align-items:center;
   }
-  /* 1줄: 로고 + 원어민스터디 + 더박스라이브 + 상담예약 */
-  .nav-logo{font-size:14px!important}
+  /* 1줄: 로고(order:1) + nav-right(order:2) → 같은 줄 */
+  .nav-logo{font-size:14px!important;order:1}
+  .nav-right{order:2;flex-shrink:0;gap:6px!important}
   .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
   .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
   .hamburger{display:none!important}
-  /* 2줄: 메뉴 항목들 */
+  /* 2줄: nav-links(order:3) → 다음 줄 전체 */
   .nav-links{
+    order:3;
     display:flex!important;
     flex-basis:100%;
     gap:0!important;
     justify-content:space-between;
     border-top:1px solid var(--border);
     margin-top:8px;
-    padding:6px 0 8px;
+    padding:7px 0 8px;
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;

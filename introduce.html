@@ -250,6 +250,42 @@ footer{background:#111;padding:28px var(--px);display:flex;
   .cert-grid{grid-template-columns:1fr 1fr}
 }
 
+/* ── 모바일 글자 최적화 ── */
+@media(max-width:768px){
+  /* 히어로 */
+  .page-hero{padding:36px var(--px) 32px!important}
+  .page-hero h1{font-size:clamp(22px,6.5vw,32px)!important;line-height:1.2!important;margin-bottom:14px}
+  .page-hero p{font-size:13px!important;line-height:1.7!important}
+  .hero-eyebrow{font-size:10px!important;margin-bottom:12px}
+  /* 섹션 */
+  .section-title{font-size:clamp(18px,5.5vw,24px)!important;margin-bottom:10px}
+  .section-sub{font-size:13px!important;line-height:1.75!important}
+  .section-eyebrow{font-size:9px!important;margin-bottom:8px}
+  /* 철학 */
+  .philosophy-quote{font-size:16px!important;line-height:1.55!important;margin-bottom:16px}
+  .philosophy-body{font-size:13px!important;line-height:1.8!important}
+  .phil-title{font-size:13px!important}
+  .phil-desc{font-size:12px!important}
+  /* Why */
+  .why-title{font-size:14px!important}
+  .why-desc{font-size:12px!important}
+  .why-num{font-size:28px!important}
+  /* 지점 */
+  .branch-name{font-size:15px!important}
+  .branch-addr{font-size:12px!important}
+  /* CTA */
+  .cta-title{font-size:clamp(20px,5.5vw,28px)!important}
+  .cta-desc{font-size:13px!important}
+  .btn-blue,.btn-ghost{font-size:13px!important;padding:12px 24px!important}
+  /* 섹션 패딩 */
+  section{padding:36px var(--px)!important}
+}
+@media(max-width:480px){
+  .page-hero h1{font-size:clamp(20px,6vw,28px)!important}
+  .section-title{font-size:clamp(17px,5vw,22px)!important}
+  .philosophy-quote{font-size:15px!important}
+}
+
 /* ── 모바일 2줄 네비 ── */
 @media(max-width:768px){
   nav{
@@ -259,20 +295,22 @@ footer{background:#111;padding:28px var(--px);display:flex;
     gap:0!important;
     align-items:center;
   }
-  /* 1줄: 로고 + 원어민스터디 + 더박스라이브 + 상담예약 */
-  .nav-logo{font-size:14px!important}
+  /* 1줄: 로고(order:1) + nav-right(order:2) → 같은 줄 */
+  .nav-logo{font-size:14px!important;order:1}
+  .nav-right{order:2;flex-shrink:0;gap:6px!important}
   .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
   .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
   .hamburger{display:none!important}
-  /* 2줄: 메뉴 항목들 */
+  /* 2줄: nav-links(order:3) → 다음 줄 전체 */
   .nav-links{
+    order:3;
     display:flex!important;
     flex-basis:100%;
     gap:0!important;
     justify-content:space-between;
     border-top:1px solid var(--border);
     margin-top:8px;
-    padding:6px 0 8px;
+    padding:7px 0 8px;
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;

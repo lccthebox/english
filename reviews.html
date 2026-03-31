@@ -265,15 +265,32 @@ footer{background:#111;padding:28px var(--px);display:flex;
 }
 
 @media(max-width:768px){
-  .tab-nav{top:58px}
-  .tab-btn{padding:13px 14px!important;font-size:12px!important}
+  .tab-nav{top:auto}
+  /* 히어로 */
+  .page-hero{padding:36px var(--px) 32px!important}
+  .page-hero h1{font-size:clamp(24px,7vw,36px)!important;margin-bottom:10px}
+  .page-hero p{font-size:13px!important;margin-bottom:20px}
+  .hero-badge{font-size:10px!important;padding:4px 12px!important;margin-bottom:14px}
+  .hero-stat-num{font-size:22px!important}
+  .hero-stat-label{font-size:10px!important}
+  .hero-stats{gap:20px!important}
+  /* 탭 */
+  .tab-btn{padding:12px 10px!important;font-size:11px!important;gap:4px!important}
+  /* 패널 */
+  .panel-title{font-size:18px!important;margin-bottom:4px}
+  .panel-sub{font-size:12px!important;margin-bottom:24px}
+  /* 카드 */
+  .kakao-album-month{font-size:12px!important}
+  .kakao-album-sub{font-size:10px!important}
+  .naver-body{font-size:12px!important}
+  .naver-meta{font-size:10px!important}
+  .cafe-review-title{font-size:12px!important}
+  .cafe-review-meta{font-size:10px!important}
+  /* 그리드 */
   .kakao-album-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
   .naver-grid{grid-template-columns:1fr!important}
   .cafe-review-grid{grid-template-columns:repeat(2,1fr)!important}
   .video-grid{grid-template-columns:1fr!important}
-  .hero-stats{gap:16px!important}
-  .page-hero h1{font-size:clamp(28px,6vw,46px)!important}
-  .kakao-modal-img-wrap{width:min(340px,92vw)!important}
 }
 @media(max-width:480px){
   .kakao-album-grid{grid-template-columns:1fr!important}
@@ -289,20 +306,22 @@ footer{background:#111;padding:28px var(--px);display:flex;
     gap:0!important;
     align-items:center;
   }
-  /* 1줄: 로고 + 원어민스터디 + 더박스라이브 + 상담예약 */
-  .nav-logo{font-size:14px!important}
+  /* 1줄: 로고(order:1) + nav-right(order:2) → 같은 줄 */
+  .nav-logo{font-size:14px!important;order:1}
+  .nav-right{order:2;flex-shrink:0;gap:6px!important}
   .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
   .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
   .hamburger{display:none!important}
-  /* 2줄: 메뉴 항목들 */
+  /* 2줄: nav-links(order:3) → 다음 줄 전체 */
   .nav-links{
+    order:3;
     display:flex!important;
     flex-basis:100%;
     gap:0!important;
     justify-content:space-between;
     border-top:1px solid var(--border);
     margin-top:8px;
-    padding:6px 0 8px;
+    padding:7px 0 8px;
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
