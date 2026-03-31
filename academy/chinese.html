@@ -117,7 +117,7 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
   .hero-photo-col{flex-direction:row;align-items:center;gap:20px}
   .class-photos-grid{grid-template-columns:1fr 1fr}
   .nav-links{display:none}
-  .hamburger{display:flex}
+  .hamburger{display:flex!important}
 }
 @media(max-width:480px){
   .hero-photo-col{flex-direction:column}
@@ -210,7 +210,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   :root{--px:4%}
   nav .nav-links{display:none}
   .nav-live,.nav-study{display:none}
-  .hamburger{display:flex}
+  .hamburger{display:flex!important}
   section{padding:48px var(--px)}
   footer{flex-direction:column;gap:12px}
   .footer-links{gap:12px}
@@ -339,7 +339,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dcb0bfbfa8b4b9beb3a49cbbb1bdb5b0f2bfb3b1">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="../academy.html">홈</a>
     <a href="../introduce.html">소개</a>
@@ -350,4 +350,9 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><sc
+<script>
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});},{threshold:.07});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
