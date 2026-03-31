@@ -232,6 +232,9 @@ section{padding:64px var(--px)}
 .cafe-card-class{font-size:11px;color:#03C75A;font-weight:600;margin-left:auto}
 
 .rv-more{text-align:center;margin-top:28px}
+.rv-panel-more{text-align:right;margin-top:14px}
+.btn-rv-more{background:transparent;color:var(--blue);border:1px solid var(--blue);padding:6px 16px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none;display:inline-block}
+.btn-rv-more:hover{background:var(--blue);color:var(--white)}
 .btn-out-blue{background:transparent;color:var(--blue);border:1.5px solid var(--blue);padding:12px 32px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none;display:inline-block}
 .btn-out-blue:hover{background:var(--blue);color:var(--white)}
 
@@ -728,7 +731,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <div class="section-title">수강생들이 직접 말해요</div>
   <div class="rv-tabs">
     <button class="rv-tab active" onclick="showRv(this,'kakao')"><img src="academy/icons/kakao.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 카톡 후기</button>
-    <button class="rv-tab" onclick="showRv(this,'naver')"><img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 네이버 후기</button>
+    <button class="rv-tab" onclick="showRv(this,'naver')"><img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:5px;display:inline-block"> 네이버플레이스 후기</button>
     <button class="rv-tab" onclick="showRv(this,'cafe')"><img src="academy/icons/cafe.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:0;vertical-align:middle;margin-right:5px;display:inline-block"> 카페 후기</button>
   </div>
   <div class="rv-panels">
@@ -740,6 +743,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
         <div class="kap-card" style="pointer-events:none"><div class="kap-thumb" style="background:var(--bg);animation:shimmer 1.4s infinite .2s"></div><div class="kap-body"><div style="height:13px;background:var(--bg);border-radius:4px;width:60%;animation:shimmer 1.4s infinite .2s"></div></div></div>
         <div class="kap-card" style="pointer-events:none"><div class="kap-thumb" style="background:var(--bg);animation:shimmer 1.4s infinite .4s"></div><div class="kap-body"><div style="height:13px;background:var(--bg);border-radius:4px;width:65%;animation:shimmer 1.4s infinite .4s"></div></div></div>
       </div>
+      <div class="rv-panel-more"><a href="reviews.html#panel-kakao" class="btn-rv-more">카톡 후기 더 보기 →</a></div>
     </div>
 
     <!-- NAVER -->
@@ -764,6 +768,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
           <div class="naver-class-tag">라일리 반</div>
         </div>
       </div>
+      <div class="rv-panel-more"><a href="reviews.html#panel-naver" class="btn-rv-more">네이버플레이스 후기 더 보기 →</a></div>
     </div>
 
     <!-- CAFE - Supabase 동적 로드 -->
@@ -774,6 +779,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
         <div class="kap-card" style="pointer-events:none"><div class="kap-thumb" style="background:var(--bg);animation:shimmer 1.4s infinite .4s"></div><div class="kap-body"><div style="height:13px;background:var(--bg);border-radius:4px;width:65%;animation:shimmer 1.4s infinite .4s"></div></div></div>
       </div>
 
+      <div class="rv-panel-more"><a href="reviews.html#panel-cafe" class="btn-rv-more">카페 후기 더 보기 →</a></div>
     </div>
 
   </div>

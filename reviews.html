@@ -328,7 +328,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 <div class="tab-nav">
   <div class="tab-nav-inner">
     <button class="tab-btn active" onclick="switchTab('kakao', this)"><img src="academy/icons/kakao.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;display:inline-block">카톡 후기</button>
-    <button class="tab-btn" onclick="switchTab('naver', this)"><img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;display:inline-block"> 네이버 후기</button>
+    <button class="tab-btn" onclick="switchTab('naver', this)"><img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;display:inline-block"> 네이버플레이스 후기</button>
     <button class="tab-btn" onclick="switchTab('cafe', this)"><img src="academy/icons/cafe.png" style="height:18px;width:auto;vertical-align:middle;margin-right:5px;display:inline-block"> 카페 후기</button>
     <button class="tab-btn" onclick="switchTab('video', this)">🎬 영상 후기</button>
   </div>
@@ -360,7 +360,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <!-- NAVER -->
 <div class="tab-panel" id="panel-naver">
-  <div class="panel-title"><img src="academy/icons/naver.png" style="width:22px;height:22px;border-radius:50%;vertical-align:middle;margin-right:8px">네이버 후기</div>
+  <div class="panel-title"><img src="academy/icons/naver.png" style="width:22px;height:22px;border-radius:50%;vertical-align:middle;margin-right:8px">네이버플레이스 후기</div>
   <p class="panel-sub">네이버 플레이스에 남겨주신 수강생 후기</p>
   <div class="naver-grid" id="naverGrid">
 
@@ -641,6 +641,14 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <div class="more-row" id="cafeMoreRow" style="display:none;justify-content:center;margin-top:24px">
     <button onclick="loadMoreCafe()" style="background:transparent;border:1.5px solid var(--border);border-radius:50px;padding:10px 28px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);transition:all .2s" onmouseover="this.style.borderColor='#9B4521';this.style.color='#9B4521'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink-mute)'">더보기 ↓</button>
   </div>
+  <div style="text-align:center;margin-top:20px">
+    <a href="https://cafe.naver.com/f-e/cafes/29533704/menus/7?viewType=L" target="_blank"
+       style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:#03C75A;border:1.5px solid #03C75A;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s"
+       onmouseover="this.style.background='#03C75A';this.style.color='#fff'"
+       onmouseout="this.style.background='transparent';this.style.color='#03C75A'">
+      <img src="academy/icons/cafe.png" style="height:16px;width:auto;vertical-align:middle"> 네이버카페에서 더보기 →
+    </a>
+  </div>
 </div>
 
 <!-- VIDEO -->
@@ -685,6 +693,17 @@ function switchTab(name, btn) {
   document.getElementById('panel-' + name).classList.add('active');
   btn.classList.add('active');
 }
+
+// URL 해시로 탭 자동 이동 (academy.html에서 #panel-kakao 등으로 올 때)
+function initTabFromHash() {
+  const hash = location.hash; // e.g. #panel-kakao
+  if (hash) {
+    const name = hash.replace('#panel-', '');
+    const btn = document.querySelector(`[onclick*="switchTab('${name}'"]`);
+    if (btn) { switchTab(name, btn); btn.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+  }
+}
+window.addEventListener('DOMContentLoaded', initTabFromHash);
 function toggleNaverExtra(btn) {
   const el = document.getElementById('naverExtra');
   const isHidden = el.style.display === 'none';
