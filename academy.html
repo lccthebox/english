@@ -481,6 +481,52 @@ footer{background:#111;padding:28px var(--px);display:flex;
   /* 카페 후기 더보기 숨김 */
   .rv-cafe-more{display:none!important}
 }
+
+/* ── 모바일 2줄 네비 ── */
+@media(max-width:768px){
+  nav{
+    height:auto!important;
+    flex-wrap:wrap;
+    padding:8px var(--px) 0!important;
+    gap:0!important;
+    align-items:center;
+  }
+  /* 1줄: 로고 + 원어민스터디 + 더박스라이브 + 상담예약 */
+  .nav-logo{font-size:14px!important}
+  .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
+  .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
+  .hamburger{display:none!important}
+  /* 2줄: 메뉴 항목들 */
+  .nav-links{
+    display:flex!important;
+    flex-basis:100%;
+    gap:0!important;
+    justify-content:space-between;
+    border-top:1px solid var(--border);
+    margin-top:8px;
+    padding:6px 0 8px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links li{flex:1;text-align:center}
+  .nav-links a{
+    font-size:11px!important;
+    white-space:nowrap;
+    color:var(--ink-mute)!important;
+    font-weight:500;
+    padding:2px 4px;
+    display:block;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--blue)!important;font-weight:700}
+  .nav-review{color:var(--ink-mute)!important}
+}
+@media(max-width:400px){
+  .nav-live,.nav-study{font-size:9px!important}
+  .nav-cta{font-size:9px!important;padding:5px 8px!important}
+  .nav-links a{font-size:10px!important}
+}
 </style>
 </head>
 <body>
