@@ -928,13 +928,25 @@ section{padding:64px 5%}
   <div class="section-eyebrow">갤러리</div>
   <div class="section-title">더박스 분위기</div>
   <p class="section-sub">인스타그램 <strong>@thebox_daegu</strong> 에서 매일 업로드되는 더박스 이야기!</p>
-  <div style="margin-top:12px"><a href="study-gallery.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--red);border:1.5px solid var(--red);padding:8px 20px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s">전체 갤러리 보기 →</a></div>
+  <div style="margin-top:12px;margin-bottom:28px"><a href="study-gallery.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--red);border:1.5px solid var(--red);padding:8px 20px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s">전체 갤러리 보기 →</a></div>
   <div class="gallery-grid">
-    <div class="gallery-item"><img src="study/photos/gallery1.jpg" alt="" onerror="this.parentElement.innerHTML='📸'"></div>
-    <div class="gallery-item"><img src="study/photos/gallery2.jpg" alt="" onerror="this.parentElement.innerHTML='🎉'"></div>
-    <div class="gallery-item"><img src="study/photos/gallery3.jpg" alt="" onerror="this.parentElement.innerHTML='🏃'"></div>
-    <div class="gallery-item"><img src="study/photos/gallery4.jpg" alt="" onerror="this.parentElement.innerHTML='🌏'"></div>
-    <div class="gallery-item"><img src="study/photos/gallery5.jpg" alt="" onerror="this.parentElement.innerHTML='📚'"></div>
+    <!-- 첫번째 큰칸: 인스타그램 임베딩 -->
+    <div class="gallery-item" style="background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden">
+      <blockquote class="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/thebox_daegu/"
+        data-instgrm-version="14"
+        style="background:#FFF;border:0;border-radius:3px;margin:0;max-width:100%;min-width:100%;width:100%;height:100%">
+        <div style="padding:16px;text-align:center">
+          <a href="https://www.instagram.com/thebox_daegu/" target="_blank" style="color:#000;font-family:Arial,sans-serif;font-size:14px;font-weight:550;text-decoration:none">@thebox_daegu</a>
+        </div>
+      </blockquote>
+      <script async src="//www.instagram.com/embed.js"></script>
+    </div>
+    <!-- 나머지 4칸: vibe 사진 -->
+    <div class="gallery-item"><img src="study/vibe/1.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='🎉'"></div>
+    <div class="gallery-item"><img src="study/vibe/2.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='🏃'"></div>
+    <div class="gallery-item"><img src="study/vibe/3.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='🌏'"></div>
+    <div class="gallery-item"><img src="study/vibe/4.jpg" alt="더박스 분위기" onerror="this.parentElement.innerHTML='📸'"></div>
   </div>
 </section>
 
@@ -943,15 +955,15 @@ section{padding:64px 5%}
   <div class="section-eyebrow" style="color:var(--red)">오시는 길</div>
   <div class="section-title">더박스 대구 본점</div>
   <div style="margin-top:24px;border-radius:14px;overflow:hidden;border:1px solid var(--border)">
-    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=%2Fhome" title="더박스 지도" allowfullscreen loading="lazy" style="width:100%;height:380px;border:none;display:block"></iframe>
+    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=%2Fhome&entry=pll" title="더박스 지도" allowfullscreen loading="lazy" style="width:100%;height:380px;border:none;display:block"></iframe>
   </div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px">
     <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">주소</div><div style="font-size:14px;color:var(--ink);font-weight:500;line-height:1.6">대구광역시 중구 동성로2<br>(동성로3가 90-1) 6층</div></div>
     <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">지하철</div><div style="font-size:14px;color:var(--ink);font-weight:500;line-height:1.6">반월당역 13·14번 출구<br>도보 5분</div></div>
     <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">전화</div><div style="font-size:14px;font-weight:500;line-height:1.6"><a href="tel:01086739664" style="color:var(--red);text-decoration:none">010-8673-9664</a></div></div>
-    <a href="https://naver.me/F88gQjHk" target="_blank" style="background:var(--red);border-radius:14px;padding:16px;border:1px solid var(--red);text-decoration:none;display:block;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#A81818'" onmouseout="this.style.background='var(--red)'">
-      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">상담 예약</div>
-      <div style="color:#fff;font-size:18px;font-weight:700;margin-top:4px">🗺️ 예약하기</div>
+    <a href="https://lccthebox.github.io/thebox/direction/" target="_blank" style="background:var(--red);border-radius:14px;padding:16px;border:1px solid var(--red);text-decoration:none;display:block;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#A81818'" onmouseout="this.style.background='var(--red)'">
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">찾아오시는 길</div>
+      <div style="color:#fff;font-size:18px;font-weight:700;margin-top:4px">🗺️ 오시는 길</div>
     </a>
   </div>
 </section>
