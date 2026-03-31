@@ -266,7 +266,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobMenu').classList.toggle('open')" aria-label="메뉴">
-      <span style="font-size:11px;font-weight:700;letter-spacing:.3px">메뉴</span>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.5px;white-space:nowrap">MENU</span>
     </button>
   </div>
 </nav>
@@ -473,5 +473,38 @@ const fadeObs = new IntersectionObserver(es => {
 }, {threshold: 0.07});
 document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
 </script>
+
+<!-- ── 플로팅 상담 버튼 ── -->
+<div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+
+  <!-- 카카오톡 -->
+  <div class="float-item" id="floatKakao" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
+    <div class="float-label" id="labelKakao">카카오톡 상담</div>
+    <div class="float-btn" style="background:#FAE100;box-shadow:0 4px 16px rgba(250,225,0,.5)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.4 4.37 6.97L5.5 21l3.5-1.8C10.27 19.72 11.12 19.9 12 19.9c5.52 0 10-3.69 10-8.65S17.52 3 12 3z"/></svg>
+    </div>
+  </div>
+
+  <!-- 전화 -->
+  <div class="float-item" id="floatCall" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.location.href='tel:01086739664'">
+    <div class="float-label" id="labelCall">전화 문의</div>
+    <div class="float-btn" style="background:#1A5FCC;box-shadow:0 4px 16px rgba(26,95,204,.45)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.32.57 3.55.57a1 1 0 011 1V20a1 1 0 01-1 1C10.26 21 3 13.74 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.44.57 3.55a1 1 0 01-.24 1.01l-2.21 2.23z"/></svg>
+    </div>
+  </div>
+
+</div>
+
+<style>
+.float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;flex-shrink:0}
+.float-btn:hover{transform:scale(1.1)}
+.float-label{background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+.float-item:hover .float-label{opacity:1;transform:translateX(0)}
+@media(max-width:768px){
+  .float-label{display:none}
+  .float-btn{width:46px;height:46px}
+  #floatBtns{bottom:20px;right:14px;gap:8px}
+}
+</style>
 </body>
 </html>
