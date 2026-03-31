@@ -837,11 +837,11 @@ section{padding:64px 5%}
 <!-- MAP -->
 <section class="map-section fade-up" id="map" style="background:var(--bg);padding:64px 5%">
   <div class="section-eyebrow" style="color:var(--red)">오시는 길</div>
-  <div class="section-title">더박스 대구 본점</div>
+  <div class="section-title">더박스 대구영어회화</div>
   <div style="margin-top:24px;border-radius:14px;overflow:hidden;border:1px solid var(--border)">
-    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=%2Fhome&entry=pll" title="더박스 지도" allowfullscreen loading="lazy" style="width:100%;height:380px;border:none;display:block"></iframe>
+    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=%2Fhome" title="더박스 대구영어회화" allowfullscreen loading="lazy" style="width:100%;height:380px;border:none;display:block"></iframe>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px" class="map-info-grid">
     <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">주소</div><div style="font-size:14px;color:var(--ink);font-weight:500;line-height:1.6">대구광역시 중구 동성로2<br>(동성로3가 90-1) 6층</div></div>
     <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">지하철</div><div style="font-size:14px;color:var(--ink);font-weight:500;line-height:1.6">반월당역 13·14번 출구<br>도보 5분</div></div>
     <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">전화</div><div style="font-size:14px;font-weight:500;line-height:1.6"><a href="tel:01086739664" style="color:var(--red);text-decoration:none">010-8673-9664</a></div></div>
@@ -850,6 +850,7 @@ section{padding:64px 5%}
       <div style="color:#fff;font-size:18px;font-weight:700;margin-top:4px">🗺️ 오시는 길</div>
     </a>
   </div>
+  <style>@media(max-width:768px){.map-info-grid{grid-template-columns:1fr 1fr!important}}</style>
 </section>
 
 <!-- LOCATIONS -->
