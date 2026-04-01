@@ -45,8 +45,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-
 .fb.active::after{transform:scaleX(1)}
 .fc{display:inline-block;background:var(--red-light);color:var(--red);font-size:10px;font-weight:700;padding:1px 6px;border-radius:50px;margin-left:4px}
 .fb.active .fc{background:var(--red);color:#fff}
-.up-btn{background:var(--red);color:#fff;border:none;border-radius:50px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s;flex-shrink:0;margin-left:12px}
-.up-btn:hover{background:var(--red-dark)}
+
 /* GALLERY */
 .gal-wrap{padding:28px var(--px) 56px;max-width:1400px;margin:0 auto}
 .gal-grid{columns:4;column-gap:10px}
@@ -58,8 +57,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-
 .gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;justify-content:space-between;padding:10px 12px}
 .gi:hover .gi-ov{opacity:1}
 .gi-cat{font-size:10px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;background:var(--red);padding:2px 8px;border-radius:50px}
-.gi-del{background:rgba(0,0,0,.4);border:none;color:#fff;font-size:15px;cursor:pointer;width:28px;height:28px;border-radius:50%;display:none;align-items:center;justify-content:center}
-body.adm .gi-del{display:flex}
+
+
 .sk{break-inside:avoid;margin-bottom:10px;border-radius:10px;background:#e0ddd9;animation:sk 1.4s ease-in-out infinite}
 .sk-grid{columns:4;column-gap:10px}
 @media(max-width:1024px){.sk-grid{columns:3}}
@@ -115,7 +114,7 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
 .fl-logo{font-size:14px;font-weight:900;color:rgba(255,255,255,.7)}
 .fl-logo span{color:var(--red)}
 .fl-info{font-size:11px;color:rgba(255,255,255,.3);line-height:1.8}
-.adm-btn{position:fixed;bottom:104px;right:20px;z-index:200;background:rgba(20,20,20,.6);color:#fff;border:none;border-radius:50px;padding:7px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+
 .fade-up{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
 @media(max-width:768px){
@@ -148,14 +147,14 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
   <a href="study.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
     <li><a href="study-introduce.html">더박스 소개</a></li>
-    <li><a href="study.html">스터디 안내</a></li>
+    <li><a href="study-info.html">스터디 안내</a></li>
     <li><a href="study-more.html">더박스 플러스</a></li>
     <li><a href="study-reviews.html">더박스후기</a></li>
   </ul>
   <div class="nav-right">
     <a href="https://lccthebox.github.io/english/academy.html" class="nav-academy">기초회화수업</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
-    <a href="https://naver.me/F88gQjHk" target="_blank" class="nav-cta">상담 예약</a>
+    <a href="https://naver.me/GdyGWbSC" target="_blank" class="nav-cta">상담 예약</a>
   </div>
 </nav>
 
@@ -174,7 +173,6 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
       <button class="fb" data-cat="outing" onclick="setFilter('outing',this)">🎒 아웃팅 <span class="fc" id="cnt-outing">0</span></button>
       <button class="fb" data-cat="event" onclick="setFilter('event',this)">🎊 이벤트 <span class="fc" id="cnt-event">0</span></button>
     </div>
-    <button class="up-btn" onclick="openModal()">+ 사진 올리기</button>
   </div>
 </div>
 
@@ -183,7 +181,6 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
   <div id="galEmpty" class="empty-box" style="display:none">
     <div class="ei">📷</div>
     <p style="font-size:14px;margin-bottom:16px">아직 사진이 없어요. 첫 번째 사진을 올려보세요!</p>
-    <button class="btn-more" onclick="openModal()">사진 올리기</button>
   </div>
   <div id="galSkel" class="sk-grid">
     <div class="sk" style="height:220px"></div><div class="sk" style="height:160px"></div>
@@ -198,47 +195,13 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
 
 <div class="cta-bar">
   <p>더박스의 분위기가 마음에 드셨나요?</p>
-  <a href="https://naver.me/F88gQjHk" target="_blank">무료 체험 신청 →</a>
+  <a href="https://naver.me/GdyGWbSC" target="_blank">무료 체험 신청 →</a>
 </div>
 
 <footer>
   <div class="fl-logo">THE<span>BOX</span></div>
   <div class="fl-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
 </footer>
-
-<!-- 업로드 모달 -->
-<div class="mbg" id="modal">
-  <div class="mbox">
-    <button class="mx" onclick="closeModal()">✕</button>
-    <h2>📸 사진 올리기</h2>
-    <div class="fr">
-      <label>카테고리</label>
-      <select id="upCat">
-        <option value="study">🗣️ 스터디</option>
-        <option value="party">🎉 파티</option>
-        <option value="outing">🎒 아웃팅</option>
-        <option value="event">🎊 이벤트</option>
-      </select>
-    </div>
-    <div class="fr">
-      <label>설명 (선택)</label>
-      <input type="text" id="upCaption" placeholder="사진 설명">
-    </div>
-    <div class="fr">
-      <label>사진 선택 (여러 장 가능)</label>
-      <div class="dz" id="dz">
-        <input type="file" id="fi" accept="image/*" multiple>
-        <div class="dz-icon">🖼️</div>
-        <p>클릭하거나 <strong>드래그</strong>하세요</p>
-        <p style="font-size:11px;color:#bbb;margin-top:4px">JPG · PNG · WEBP · 최대 10MB/장</p>
-      </div>
-      <div class="pv-grid" id="pvGrid"></div>
-    </div>
-    <div class="up-prog" id="upProg"></div>
-    <div class="pb-wrap" id="pbWrap"><div class="pb" id="pb"></div></div>
-    <button class="sub-btn" id="subBtn" onclick="doUpload()">올리기</button>
-  </div>
-</div>
 
 <!-- Lightbox -->
 <div class="lb" id="lb" onclick="lbBg(event)">
@@ -249,8 +212,6 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
   <button class="lb-nx" onclick="lbMove(1);event.stopPropagation()">›</button>
   <div class="lb-num" id="lbNum"></div>
 </div>
-
-<button class="adm-btn" onclick="toggleAdm()" title="관리자 모드">⚙</button>
 
 <div class="fl-btns">
   <div class="fl-row" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
@@ -312,10 +273,10 @@ window.renderMore=function(){
     d.innerHTML=`<img src="${p.url}" alt="${p.cap}" loading="lazy" onerror="this.parentElement.style.display='none'">
       <div class="gi-ov">
         <span class="gi-cat">${CATS[p.cat]||p.cat}</span>
-        <button class="gi-del" data-id="${p.id}" title="삭제">🗑</button>
+        
       </div>`;
     d.querySelector('img').onclick=()=>openLb(idx);
-    d.querySelector('.gi-del').onclick=(e)=>{e.stopPropagation();delPhoto(p.id);};
+    
     g.appendChild(d);
   });
   curPage++;
@@ -328,50 +289,8 @@ window.setFilter=function(cat,btn){
   applyFilter(cat);
 };
 
-// 모달
-window.openModal=function(){
-  files=[];
-  document.getElementById('pvGrid').innerHTML='';
-  document.getElementById('upProg').textContent='';
-  document.getElementById('pbWrap').style.display='none';
-  document.getElementById('pb').style.width='0';
-  document.getElementById('upCaption').value='';
-  document.getElementById('subBtn').disabled=false;
-  document.getElementById('modal').classList.add('open');
-};
-window.closeModal=function(){ document.getElementById('modal').classList.remove('open'); };
 
-// 파일 선택
-const fi=document.getElementById('fi');
-fi.onchange=()=>{ files=Array.from(fi.files); renderPrev(); };
 
-function renderPrev(){
-  const g=document.getElementById('pvGrid');
-  g.innerHTML='';
-  files.forEach((f,i)=>{
-    const r=new FileReader();
-    r.onload=e=>{
-      const d=document.createElement('div');
-      d.className='pv-item';
-      d.innerHTML=`<img src="${e.target.result}"><button class="pv-rm" onclick="rmFile(${i})">✕</button>`;
-      g.appendChild(d);
-    };
-    r.readAsDataURL(f);
-  });
-}
-
-window.rmFile=function(i){ files.splice(i,1); renderPrev(); };
-
-// 드래그앤드롭
-const dz=document.getElementById('dz');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag'));
-dz.addEventListener('drop',e=>{
-  e.preventDefault();dz.classList.remove('drag');
-  files=Array.from(e.dataTransfer.files); renderPrev();
-});
-
-// 업로드
 window.doUpload=async function(){
   if(!files.length){alert('사진을 선택해주세요!');return;}
   const cat=document.getElementById('upCat').value;
@@ -408,17 +327,12 @@ window.doUpload=async function(){
   setTimeout(()=>{closeModal();btn.disabled=false;},1000);
 };
 
-// 삭제
-async function delPhoto(id){
-  if(!confirm('삭제할까요?'))return;
-  await sb.from('gallery').update({is_published:false}).eq('id',id);
+).eq('id',id);
   all=all.filter(p=>p.id!==id);
   setCounts();
   applyFilter(document.querySelector('.fb.active').dataset.cat||'all');
 }
 
-// 관리자
-window.toggleAdm=function(){document.body.classList.toggle('adm');};
 
 // Lightbox
 function openLb(i){ lbI=i; document.getElementById('lb').classList.add('open'); document.body.style.overflow='hidden'; updLb(); }

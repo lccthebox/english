@@ -528,14 +528,14 @@ section{padding:64px 5%}
   <a href="study.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
     <li><a href="study-introduce.html">더박스 소개</a></li>
-    <li><a href="study.html" class="active">스터디 안내</a></li>
+    <li><a href="study-info.html">스터디 안내</a></li>
     <li><a href="study-more.html">더박스 플러스</a></li>
     <li><a href="study-reviews.html">더박스후기</a></li>
   </ul>
   <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
     <a href="https://lccthebox.github.io/english/academy.html" class="nav-academy">기초회화수업</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
-    <a href="https://naver.me/F88gQjHk" target="_blank" class="nav-cta">상담 예약</a>
+    <a href="https://naver.me/GdyGWbSC" target="_blank" class="nav-cta">상담 예약</a>
   </div>
 </nav>
 
@@ -840,11 +840,11 @@ section{padding:64px 5%}
 
   <!-- 슬라이드 탭 -->
   <div style="display:flex;border-bottom:2px solid var(--border);margin-bottom:24px">
-    <button class="vibe-tab active" onclick="showVibe(0,this)" style="background:transparent;border:none;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s">
+    <button class="vibe-tab" onclick="showVibe(0,this)" style="background:transparent;border:none;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s">
       📸 인스타그램
-      <span style="position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(1);transition:transform .25s;display:block" class="vt-line"></span>
+      <span style="position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .25s;display:block" class="vt-line"></span>
     </button>
-    <button class="vibe-tab" onclick="showVibe(1,this)" style="background:transparent;border:none;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s">
+    <button class="vibe-tab active" onclick="showVibe(1,this)" style="background:transparent;border:none;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s">
       🖼️ 갤러리
       <span style="position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .25s;display:block" class="vt-line"></span>
     </button>
@@ -857,7 +857,7 @@ section{padding:64px 5%}
   </style>
 
   <!-- 패널 1: 인스타그램 -->
-  <div class="vibe-panel active" id="vibe-0">
+  <div class="vibe-panel" id="vibe-0">
     <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;min-height:480px;display:flex;align-items:center;justify-content:center;padding:20px">
       <blockquote class="instagram-media"
         data-instgrm-permalink="https://www.instagram.com/thebox_daegu/"
@@ -878,7 +878,7 @@ section{padding:64px 5%}
   </div>
 
   <!-- 패널 2: 갤러리 게시판 -->
-  <div class="vibe-panel" id="vibe-1">
+  <div class="vibe-panel active" id="vibe-1">
     <div id="vibeGalGrid" style="columns:4;column-gap:8px;min-height:200px">
       <!-- Supabase에서 로드 -->
       <div style="break-inside:avoid;margin-bottom:8px;border-radius:8px;background:#e0ddd9;height:180px;animation:sk 1.4s infinite"></div>
@@ -901,6 +901,8 @@ function showVibe(idx, btn){
   if(idx===1 && !window._vibeLoaded) loadVibeGallery();
 }
 window._vibeLoaded=false;
+// 기본 갤러리 탭 로드
+loadVibeGallery();
 async function loadVibeGallery(){
   window._vibeLoaded=true;
   try{
@@ -943,7 +945,7 @@ async function loadVibeGallery(){
   <div class="cta-title">시작을 어디서 하느냐에 따라<br><em>말문이 트이는 속도</em>가 달라요</div>
   <p class="cta-desc">더박스에서 시작하세요.</p>
   <div class="cta-btns">
-    <a href="https://naver.me/F88gQjHk" target="_blank" class="btn-red">네이버로 상담 예약</a>
+    <a href="https://naver.me/GdyGWbSC" target="_blank" class="btn-red">네이버로 상담 예약</a>
     <a href="tel:01086739664" class="btn-white">📞 전화로 문의하기</a>
   </div>
 </section>
