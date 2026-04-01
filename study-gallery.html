@@ -26,8 +26,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-
 .nav-cta{background:var(--red);color:#fff;border:none;border-radius:50px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap;transition:all .2s}
 .nav-cta:hover{background:var(--red-dark)}
 /* HERO */
-.page-hero{padding:48px var(--px) 36px;background:var(--ink);position:relative;overflow:hidden;text-align:center}
-.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(204,34,34,.18) 0%,transparent 70%);pointer-events:none}
+.page-hero{padding:48px var(--px) 36px;background:var(--ink);background-image:url('study/hero/gallery.jpg');background-size:cover;background-position:center;position:relative;overflow:hidden;text-align:center}
+.page-hero::before{content:'';position:absolute;inset:0;background:rgba(10,4,4,.65);pointer-events:none}
 .page-hero>*{position:relative;z-index:1}
 .hero-ey{font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,150,150,.8);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px}
 .hero-ey::before,.hero-ey::after{content:'';width:14px;height:2px;background:rgba(255,150,150,.6)}
@@ -320,9 +320,9 @@ window.doUpload=async function(){
       const f=files[i];
       const ext=f.name.split('.').pop().toLowerCase();
       const path=`gallery/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-      const {error:sErr}=await sb.storage.from('gallery-images').upload(path,f,{cacheControl:'3600',upsert:false});
+      const {error:sErr}=await sb.storage.from('thebox-assets').upload(path,f,{cacheControl:'3600',upsert:false});
       if(sErr) throw sErr;
-      const {data:{publicUrl}}=sb.storage.from('gallery-images').getPublicUrl(path);
+      const {data:{publicUrl}}=sb.storage.from('thebox-assets').getPublicUrl(path);
       const {data:row,error:dErr}=await sb.from('gallery').insert({image_url:publicUrl,category:cat,caption:cap,is_published:true}).select().single();
       if(dErr) throw dErr;
       added.push({id:row.id,url:publicUrl,cat,cap});
