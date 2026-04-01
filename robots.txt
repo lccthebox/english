@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lccthebox.github.io/english/sitemap.xml
