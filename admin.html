@@ -323,6 +323,13 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
           <div style="width:100%;height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;display:none" id="galPbWrap">
             <div id="galPb" style="height:100%;background:var(--blue);border-radius:2px;transition:width .3s;width:0"></div>
           </div>
+          <!-- Supabase 설정 안내 -->
+          <div style="margin-top:12px;padding:12px 16px;background:#fffbf0;border:1px solid #f0d080;border-radius:8px;font-size:12px;color:#7a6000;line-height:1.7">
+            ⚠️ <strong>등록이 안 될 경우</strong> Supabase에서 확인하세요:<br>
+            1. <strong>gallery</strong> 테이블 존재 여부 (Table Editor)<br>
+            2. <strong>thebox-assets</strong> 버킷의 <strong>gallery/</strong> 폴더 권한 (Storage → Policies)<br>
+            3. RLS 정책: authenticated 사용자 INSERT 허용 필요
+          </div>
           <button class="submit-btn" id="galSubmitBtn" onclick="addGallery()" style="margin-top:14px">등록</button>
         </div>
 
@@ -837,31 +844,59 @@ async function addGallery() {
   const pbWrap = document.getElementById('galPbWrap');
 
   btn.disabled = true; pbWrap.style.display = 'block';
+  let successCount = 0;
 
   for (let i = 0; i < galFileList.length; i++) {
     const f = galFileList[i];
-    prog.textContent = `업로드 중... (${i + 1}/${galFileList.length})`;
-    pb.style.width = `${((i + 1) / galFileList.length) * 90}%`;
+    prog.textContent = `업로드 중... (${i + 1}/${galFileList.length}) — ${f.name}`;
+    pb.style.width = `${((i + 1) / galFileList.length) * 85}%`;
 
-    const ext = f.name.split('.').pop().toLowerCase();
-    const fileName = `gallery/${Date.now()}_${i}.${ext}`;
-    const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, f, { upsert: true });
-    if (upErr) { toast('❌ 업로드 실패: ' + upErr.message); btn.disabled = false; return; }
+    try {
+      // 1. Storage 업로드
+      const ext = f.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+      const fileName = `gallery/${Date.now()}_${Math.random().toString(36).slice(2,7)}.${ext}`;
+      const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, f, { upsert: true });
+      if (upErr) throw new Error('Storage 오류: ' + upErr.message);
 
-    const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
-    await sb.from('gallery').insert({ image_url: urlData.publicUrl, category: cat, caption: cap, is_published: true });
+      // 2. Public URL 가져오기
+      const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+      const imageUrl = urlData.publicUrl;
+
+      // 3. DB 저장
+      const { error: dbErr } = await sb.from('gallery').insert({
+        image_url: imageUrl,
+        category: cat,
+        caption: cap || '',
+        is_published: true,
+        created_at: new Date().toISOString()
+      });
+      if (dbErr) throw new Error('DB 오류: ' + dbErr.message);
+
+      successCount++;
+    } catch (err) {
+      console.error(err);
+      prog.textContent = `❌ ${f.name} 실패 — ${err.message}`;
+      // 실패해도 나머지 계속 진행
+      await new Promise(r => setTimeout(r, 1500));
+    }
   }
 
   pb.style.width = '100%';
-  prog.textContent = `✅ ${galFileList.length}장 등록 완료!`;
-  galFileList = [];
-  document.getElementById('galPreviewGrid').innerHTML = '';
-  document.getElementById('galUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
-  document.getElementById('galCaption').value = '';
+  if (successCount > 0) {
+    prog.textContent = `✅ ${successCount}/${galFileList.length}장 등록 완료!`;
+    toast(`✅ ${successCount}장 갤러리에 등록되었습니다`);
+    galFileList = [];
+    document.getElementById('galPreviewGrid').innerHTML = '';
+    document.getElementById('galUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+    document.getElementById('galCaption').value = '';
+    loadGallery();
+  } else {
+    prog.textContent = '❌ 등록 실패 — 아래 안내를 확인해주세요';
+    toast('❌ 등록 실패: 콘솔(F12)에서 오류 확인');
+  }
+
   btn.disabled = false;
-  setTimeout(() => { prog.textContent = ''; pbWrap.style.display = 'none'; pb.style.width = '0'; }, 2000);
-  toast('✅ 갤러리에 등록되었습니다');
-  loadGallery();
+  setTimeout(() => { if(successCount > 0){ pbWrap.style.display = 'none'; pb.style.width = '0'; prog.textContent=''; }}, 3000);
 }
 
 async function loadGallery() {
