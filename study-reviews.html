@@ -366,6 +366,33 @@ nav{background:rgba(255,255,255,.97)!important;border-bottom:1.5px solid #E2E0DE
 .naver-photo-card img{width:100%;height:100%;object-fit:cover;display:block}
 @media(max-width:768px){.naver-photo-grid{grid-template-columns:repeat(2,1fr)!important}}
 @media(max-width:480px){.naver-photo-grid{grid-template-columns:repeat(2,1fr)!important}}
+
+/* 네이버 후기 카드 */
+.naver-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.naver-card{background:var(--white);border:1px solid #e8e8e8;border-radius:10px;padding:20px;position:relative}
+.naver-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#03C75A;border-radius:10px 10px 0 0}
+.naver-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.naver-logo{width:46px;height:20px;background:#03C75A;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.naver-logo::after{content:"NAVER";font-size:9px;font-weight:900;color:#fff;letter-spacing:.5px}
+.naver-stars{color:#FFB800;font-size:12px;letter-spacing:1px}
+.naver-body{font-size:13px;color:#333;line-height:1.8;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.naver-meta{font-size:11px;color:#999}
+.naver-tag{display:inline-block;background:#f0f0f0;border-radius:4px;padding:2px 8px;font-size:11px;color:#666;margin-top:6px}
+@media(max-width:768px){.naver-grid{grid-template-columns:1fr!important}}
+@media(max-width:900px){.naver-grid{grid-template-columns:1fr 1fr}}
+.naver-photo-grid,.naver-photo-card{display:none!important}
+
+/* ── 전체 모바일 최적화 ── */
+@media(max-width:768px){
+  .page-hero h1{font-size:clamp(20px,5.5vw,28px)!important;line-height:1.25!important;margin-bottom:10px!important}
+  .page-hero p{font-size:13px!important;line-height:1.75!important}
+  .hero-eyebrow{font-size:10px!important;margin-bottom:10px!important}
+  .section-title{font-size:clamp(17px,5vw,22px)!important;margin-bottom:8px!important}
+  .section-sub{font-size:12px!important;line-height:1.75!important}
+  .section-eyebrow{font-size:9px!important;margin-bottom:8px!important}
+  section{padding:32px 4%!important}
+  .page-hero{padding:32px 4% 24px!important}
+}
 </style>
 </head>
 <body>
@@ -434,40 +461,73 @@ nav{background:rgba(255,255,255,.97)!important;border-bottom:1.5px solid #E2E0DE
 
 <!-- NAVER -->
 <div class="tab-panel" id="panel-naver">
-  <div class="panel-title"><img src="academy/icons/naver.png" style="width:22px;height:22px;border-radius:50%;vertical-align:middle;margin-right:8px">네이버플레이스 후기</div>
+  <div class="panel-title"><img src="academy/icons/naver.png" style="width:22px;height:22px;border-radius:50%;vertical-align:middle;margin-right:8px" onerror="this.style.display='none'">네이버플레이스 후기</div>
   <p class="panel-sub">더박스 원어민스터디 네이버플레이스에 남겨주신 생생한 후기</p>
 
-  <!-- 사진 그리드 -->
-  <div class="naver-photo-grid">
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/0213.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250122.png" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250127.png" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250208.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250209.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250212.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250219.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250225.png" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250228.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250301.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250302.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250303.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250304.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250304_#.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250304_2.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250306.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250307.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250307_2.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250307_3.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="naver-photo-card"><img src="study/naver_reviews/250308.jpg" alt="네이버플레이스 후기" loading="lazy" onerror="this.parentElement.style.display='none'"></a>
+  <div class="naver-grid">
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">영어스터디를 시작한 지 어느덧 6개월이 됐는데, 원어민 친구들과 이야기하는 게 이제 전혀 무섭지 않아요. 매주 나오는 주제도 재밌고, 파티나 아웃팅 같은 활동도 너무 좋습니다. 영어 실력보다 자신감이 먼저 생긴 것 같아요!</div>
+      <div class="naver-meta">sun**** · 2025.03.04</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">처음엔 외국인이랑 대화하는 게 두려워서 거의 듣기만 했는데, 3달 지나니까 이제 제가 먼저 말을 걸게 됐어요. 강압적이지 않고 자연스럽게 참여하게 만드는 분위기가 정말 최고예요. 원어민 친구들도 너무 친절해요.</div>
+      <div class="naver-meta">lov**** · 2025.03.07</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">더박스는 그냥 영어학원이 아니에요. 진짜 친구를 사귀는 곳이에요. 파티에서 만난 외국인 친구랑 지금도 연락하고 있어요. 대구에서 이런 환경을 만날 수 있다는 게 너무 신기하고 감사해요.</div>
+      <div class="naver-meta">hap**** · 2025.02.28</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">직장인인데 퇴근 후 저녁 타임에 다닐 수 있어서 너무 좋아요. 100분 동안 정말 집중해서 영어를 쓰게 되더라고요. 수업 끝나고도 원어민 친구들이랑 얘기하다 보면 시간 가는 줄 모르고, 매주 나오는 게 기다려져요.</div>
+      <div class="naver-meta">mir**** · 2025.02.25</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">워홀 준비하면서 다녔는데 실전 감각이 확실히 달라졌어요. 멘토분들 경험담도 들을 수 있고, 실제로 외국인과 부딪혀보는 환경 자체가 너무 값지다고 생각해요. 워홀 다녀와서도 계속 다니고 싶을 것 같아요.</div>
+      <div class="naver-meta">woh**** · 2025.02.08</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">러닝크루랑 보드게임 클럽도 같이 참여하고 있는데, 영어를 배운다는 느낌보다 그냥 재밌게 노는 느낌이에요. 그런데 어느 순간 보면 외국인이랑 수다를 떨고 있는 제 자신을 발견하게 돼요. 이게 더박스의 마법인 것 같아요.</div>
+      <div class="naver-meta">run**** · 2025.02.19</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">주말반 다니고 있어요. 평일에 못 오는 직장인들한테 너무 좋은 옵션이에요. 글로벌한 분위기 속에서 자연스럽게 영어가 늘고 있는 게 느껴지고, 새로운 사람들 만나는 것도 너무 좋아요. 강추합니다!</div>
+      <div class="naver-meta">wkd**** · 2025.01.27</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">영어가 두렵다고 느끼시는 분들한테 정말 강력 추천해요. 처음엔 아무것도 못 말하다가 지금은 원어민이랑 한 시간 넘게 수다 떠는 수준이 됐어요. 환경이 사람을 바꾼다는 말이 무슨 뜻인지 더박스 다니면서 알게 됐어요.</div>
+      <div class="naver-meta">eng**** · 2025.01.22</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
+    <div class="naver-card">
+      <div class="naver-top"><div class="naver-logo"></div><div class="naver-stars">★★★★★</div></div>
+      <div class="naver-body">대구에서 이렇게 다양한 국적의 원어민을 만날 수 있는 곳이 있다는 게 신기해요. 파티, 아웃팅, 러닝 등 다양한 활동도 있고 정말 글로벌한 커뮤니티예요. 영어 실력 향상은 물론 새로운 세계가 열리는 느낌입니다.</div>
+      <div class="naver-meta">glb**** · 2025.01.27</div>
+      <div class="naver-tag">원어민스터디</div>
+    </div>
   </div>
 
   <div style="text-align:center;margin-top:28px">
-    <a href="https://naver.me/GdyGWbSC" target="_blank" class="btn-out" style="display:inline-flex;align-items:center;gap:6px">
-      <span style="background:#03C75A;color:#fff;font-size:10px;font-weight:900;padding:1px 6px;border-radius:3px">N</span>
-      네이버플레이스에서 더보기 →
+    <a href="https://naver.me/GdyGWbSC" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:#03C75A;border:1.5px solid #03C75A;padding:10px 24px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#03C75A';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#03C75A'">
+      <span style="background:#03C75A;color:#fff;font-size:10px;font-weight:900;padding:1px 6px;border-radius:3px">N</span> 네이버플레이스에서 더보기 →
     </a>
   </div>
 </div>
+
 
 
 <!-- CAFE -->

@@ -167,6 +167,18 @@ footer{background:#111;padding:28px var(--px);display:flex;justify-content:space
   .moments-grid{grid-template-columns:1fr!important}
   .moment-item:nth-child(1),.moment-item:nth-child(5){grid-column:span 1!important}
 }
+
+/* ── 전체 모바일 최적화 ── */
+@media(max-width:768px){
+  .page-hero h1{font-size:clamp(20px,5.5vw,28px)!important;line-height:1.25!important;margin-bottom:10px!important}
+  .page-hero p{font-size:13px!important;line-height:1.75!important}
+  .hero-eyebrow{font-size:10px!important;margin-bottom:10px!important}
+  .section-title{font-size:clamp(17px,5vw,22px)!important;margin-bottom:8px!important}
+  .section-sub{font-size:12px!important;line-height:1.75!important}
+  .section-eyebrow{font-size:9px!important;margin-bottom:8px!important}
+  section{padding:32px 4%!important}
+  .page-hero{padding:32px 4% 24px!important}
+}
 </style>
 </head>
 <body>

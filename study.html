@@ -520,6 +520,18 @@ section{padding:64px 5%}
 .branch-addr{font-size:12px;color:var(--ink-mute);line-height:1.6}
 @media(max-width:900px){.branches-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.branches-grid{grid-template-columns:1fr}}
+
+/* ── 전체 모바일 최적화 ── */
+@media(max-width:768px){
+  .page-hero h1{font-size:clamp(20px,5.5vw,28px)!important;line-height:1.25!important;margin-bottom:10px!important}
+  .page-hero p{font-size:13px!important;line-height:1.75!important}
+  .hero-eyebrow{font-size:10px!important;margin-bottom:10px!important}
+  .section-title{font-size:clamp(17px,5vw,22px)!important;margin-bottom:8px!important}
+  .section-sub{font-size:12px!important;line-height:1.75!important}
+  .section-eyebrow{font-size:9px!important;margin-bottom:8px!important}
+  section{padding:32px 4%!important}
+  .page-hero{padding:32px 4% 24px!important}
+}
 </style>
 </head>
 <body>
