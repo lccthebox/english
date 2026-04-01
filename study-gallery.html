@@ -361,28 +361,40 @@ const CATS = {study:'스터디',party:'파티',outing:'아웃팅',event:'이벤�
 const PAGE = 24;
 let all=[], filtered=[], curPage=0, lbI=0, files=[];
 
+const FALLBACK = [
+  {id:'f1',url:'https://lccthebox.github.io/community/community1.jpg',cat:'study',cap:'스터디'},
+  {id:'f2',url:'https://lccthebox.github.io/community/party.jpg',cat:'party',cap:'파티'},
+  {id:'f3',url:'https://lccthebox.github.io/community/outing.jpg',cat:'outing',cap:'아웃팅'},
+  {id:'f4',url:'https://lccthebox.github.io/community/boardgame.jpg',cat:'event',cap:'이벤트'},
+  {id:'f5',url:'https://lccthebox.github.io/community/RealMoment6.jpg',cat:'event',cap:'이벤트'},
+  {id:'f6',url:'https://lccthebox.github.io/community/RealMoment7.jpg',cat:'outing',cap:'아웃팅'},
+  {id:'f7',url:'https://lccthebox.github.io/community/community2.jpg',cat:'study',cap:'스터디'},
+  {id:'f8',url:'https://lccthebox.github.io/community/community3.jpg',cat:'study',cap:'스터디'},
+  {id:'f9',url:'https://lccthebox.github.io/community/RealMoment8.jpg',cat:'outing',cap:'아웃팅'},
+  {id:'f10',url:'https://lccthebox.github.io/community/RealMoment9.jpg',cat:'party',cap:'파티'},
+  {id:'f11',url:'https://lccthebox.github.io/community/beswt_community.jpg',cat:'study',cap:'커뮤니티'},
+  {id:'f12',url:'https://lccthebox.github.io/community/activity_classes.jpg',cat:'event',cap:'액티비티'},
+];
+
 // 로드
 async function load(){
+  // 먼저 fallback 표시 (빠른 로딩)
+  all = FALLBACK;
+  document.getElementById('galSkel').style.display='none';
+  setCounts(); applyFilter('all');
+
+  // DB에서 실제 데이터 시도
   try{
     const {data,error:loadErr}=await sb.from('gallery').select('*').order('created_at',{ascending:false});
     if(loadErr) throw loadErr;
-    all=(data&&data.length)?data.map(d=>({id:d.id,url:d.image_url,cat:d.category,cap:d.caption||''})):[];
+    if(data && data.length > 0){
+      all = data.map(d=>({id:d.id,url:d.image_url,cat:d.category,cap:d.caption||''}));
+      setCounts(); applyFilter('all');
+    }
   }catch(e){
-    console.error('갤러리 로드 실패:', e);
-    // fallback: community 사진
-    all=[
-      {id:'f1',url:'https://lccthebox.github.io/community/community1.jpg',cat:'study',cap:'스터디'},
-      {id:'f2',url:'https://lccthebox.github.io/community/party.jpg',cat:'party',cap:'파티'},
-      {id:'f3',url:'https://lccthebox.github.io/community/outing.jpg',cat:'outing',cap:'아웃팅'},
-      {id:'f4',url:'https://lccthebox.github.io/community/boardgame.jpg',cat:'event',cap:'이벤트'},
-      {id:'f5',url:'https://lccthebox.github.io/community/RealMoment6.jpg',cat:'event',cap:'이벤트'},
-      {id:'f6',url:'https://lccthebox.github.io/community/RealMoment7.jpg',cat:'outing',cap:'아웃팅'},
-      {id:'f7',url:'https://lccthebox.github.io/community/community2.jpg',cat:'study',cap:'스터디'},
-      {id:'f8',url:'https://lccthebox.github.io/community/community3.jpg',cat:'study',cap:'스터디'},
-    ];
+    console.error('DB 연결 실패, fallback 사용:', e);
+    // fallback 유지
   }
-  document.getElementById('galSkel').style.display='none';
-  setCounts(); applyFilter('all');
 }
 
 function setCounts(){
