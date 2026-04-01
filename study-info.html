@@ -261,6 +261,20 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
   .cta-title{font-size:16px!important}
 }
 
+
+/* ── 가로 스크롤 완전 차단 ── */
+html, body { overflow-x: hidden; max-width: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+img { max-width: 100%; }
+@media(max-width:768px){
+  section, div, nav, footer { max-width: 100%; }
+  .stats-band, .hero-stats { overflow-x: hidden; }
+  .tab-nav, .filter-inner, .nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* 슬라이더 삐져나옴 방지 */
+  .tc-slider, .hero-slideshow, .slide { overflow: hidden; }
+  /* 테이블/그리드 삐져나옴 방지 */
+  .sch-header-grid, .sch-row-grid, .fee-header-grid, .fee-row-grid { overflow-x: auto; }
+}
 </style>
 </head>
 <body>
