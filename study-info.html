@@ -163,6 +163,8 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
   section{padding:32px 4%!important}
   .page-hero{padding:32px 4% 24px!important}
 }
+@keyframes sk{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:768px){#infoGalGrid{grid-template-columns:repeat(2,1fr)!important}}
 </style>
 </head>
 <body>
@@ -385,6 +387,37 @@ footer{background:#111;padding:24px var(--px);display:flex;justify-content:space
   </style>
 </section>
 
+<!-- GALLERY PREVIEW -->
+<section class="fade-up" style="background:var(--ink);padding:64px var(--px);position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(204,34,34,.15) 0%,transparent 70%);pointer-events:none"></div>
+  <div style="position:relative;z-index:1">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px">
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,150,150,.8);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px">
+          <span style="display:block;width:16px;height:2px;background:rgba(255,150,150,.7)"></span>
+          Real Moments
+        </div>
+        <div style="font-size:clamp(20px,3vw,32px);font-weight:900;color:#fff;line-height:1.2">더박스 스터디 현장</div>
+        <p style="font-size:13px;color:rgba(255,255,255,.5);margin-top:8px">매주 원어민 친구들과 함께하는 더박스의 진짜 순간들</p>
+      </div>
+      <a href="study-gallery.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.25);padding:9px 20px;border-radius:50px;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;flex-shrink:0" onmouseover="this.style.borderColor='#fff';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.25)';this.style.color='rgba(255,255,255,.7)'">전체 갤러리 →</a>
+    </div>
+
+    <!-- 사진 그리드 -->
+    <div id="infoGalGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;min-height:180px">
+      <!-- 스켈레톤 -->
+      <div style="aspect-ratio:4/3;border-radius:10px;background:rgba(255,255,255,.06);animation:sk 1.4s infinite"></div>
+      <div style="aspect-ratio:4/3;border-radius:10px;background:rgba(255,255,255,.06);animation:sk 1.4s infinite .2s"></div>
+      <div style="aspect-ratio:4/3;border-radius:10px;background:rgba(255,255,255,.06);animation:sk 1.4s infinite .4s"></div>
+      <div style="aspect-ratio:4/3;border-radius:10px;background:rgba(255,255,255,.06);animation:sk 1.4s infinite .6s"></div>
+    </div>
+
+    <div style="text-align:center;margin-top:24px">
+      <a href="study-gallery.html?cat=study" style="display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;border:none;padding:11px 28px;border-radius:50px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#A81818'" onmouseout="this.style.background='var(--red)'">📸 스터디 갤러리 더보기 →</a>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section fade-up">
   <div class="cta-title">지금 바로 시작하세요<br><em>첫 상담은 무료예요</em></div>
@@ -422,6 +455,27 @@ function toggleFaq(el){
 }
 const fo=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fo.unobserve(e.target);}});},{threshold:.07});
 document.querySelectorAll('.fade-up').forEach(el=>fo.observe(el));
+
+// 갤러리 로드 (스터디 카테고리 디폴트)
+(async()=>{
+  try{
+    const {createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+    const sb=createClient('https://oualwikibctxvlscpuyn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM');
+    const {data}=await sb.from('gallery').select('image_url,category').eq('category','study').order('created_at',{ascending:false}).limit(8);
+    const g=document.getElementById('infoGalGrid');
+    if(!data||!data.length){
+      g.innerHTML='<div style="grid-column:span 4;text-align:center;padding:40px;color:rgba(255,255,255,.4);font-size:13px">아직 스터디 사진이 없어요</div>';
+      return;
+    }
+    g.innerHTML=data.map(p=>`
+      <a href="study-gallery.html" style="display:block;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:rgba(255,255,255,.06)">
+        <img src="${p.image_url}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" onerror="this.parentElement.style.display='none'">
+      </a>`).join('');
+  }catch(e){
+    const g=document.getElementById('infoGalGrid');
+    if(g) g.innerHTML='';
+  }
+})();
 </script>
 </body>
 </html>
