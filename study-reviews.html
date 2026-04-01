@@ -96,8 +96,8 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 
 /* 스와이프 힌트 */
 @media(max-width:900px){.kakao-album-grid{grid-template-columns:repeat(2,1fr)}.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.kakao-album-grid{grid-template-columns:repeat(2,1fr)}.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:400px){.kakao-album-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.kakao-album-grid{grid-template-columns:repeat(2,1fr);gap:8px}.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.kakao-album-grid{grid-template-columns:repeat(2,1fr);gap:8px}}
 @media(max-width:768px){.kakao-modal-prev{left:6px}.kakao-modal-next{right:6px}.kakao-modal-prev,.kakao-modal-next{width:36px;height:52px;font-size:28px}}
 
 /* NAVER */
@@ -294,7 +294,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   .video-grid{grid-template-columns:1fr!important}
 }
 @media(max-width:480px){
-  .kakao-album-grid{grid-template-columns:1fr!important}
+  .kakao-album-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
   .tab-btn{padding:11px 10px!important;font-size:11px!important}
 }
 

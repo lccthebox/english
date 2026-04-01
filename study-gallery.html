@@ -36,9 +36,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-
 .page-hero p{font-size:13px;color:rgba(255,255,255,.5);max-width:400px;margin:0 auto}
 /* FILTER BAR */
 .filter-wrap{background:var(--white);border-bottom:2px solid var(--border);position:sticky;top:58px;z-index:90}
-.filter-inner{max-width:1400px;margin:0 auto;padding:0 var(--px);display:flex;align-items:center;justify-content:space-between;overflow-x:auto;scrollbar-width:none}
+.filter-inner{max-width:1400px;margin:0 auto;padding:0 var(--px);display:flex;align-items:center;justify-content:space-between;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .filter-inner::-webkit-scrollbar{display:none}
-.filter-left{display:flex;flex-shrink:0}
+.filter-left{display:flex;flex-shrink:0;gap:0}
 .fb{background:transparent;border:none;padding:14px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;color:var(--ink-mute);white-space:nowrap;position:relative;transition:color .2s}
 .fb::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .25s}
 .fb.active{color:var(--red);font-weight:700}
@@ -262,6 +262,13 @@ img { max-width: 100%; }
   /* 테이블/그리드 삐져나옴 방지 */
   .sch-header-grid, .sch-row-grid, .fee-header-grid, .fee-row-grid { overflow-x: auto; }
 }
+
+@media(max-width:768px){
+  .filter-wrap{top:auto!important;position:sticky;top:90px}
+  .fb{padding:10px 12px!important;font-size:11px!important}
+  .fc{font-size:9px!important;padding:1px 5px!important}
+  .filter-inner{padding:0 3%!important}
+}
 </style>
 </head>
 <body>
@@ -351,8 +358,9 @@ img { max-width: 100%; }
   </div>
 </div>
 
-<script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+<script>
+(async () => {
+const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
 const sb = createClient(
   'https://oualwikibctxvlscpuyn.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM'
@@ -512,6 +520,7 @@ const fo=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.tar
 document.querySelectorAll('.fade-up').forEach(el=>fo.observe(el));
 
 load();
+})();
 </script>
 </body>
 </html>
