@@ -102,6 +102,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
       <div class="sidebar-item" onclick="showSection('video',this)"><span class="sidebar-icon">🎬</span>영상 후기</div>
       <div class="sidebar-item" onclick="showSection('kakao',this)"><span class="sidebar-icon">💬</span>카톡 후기</div>
       <div class="sidebar-item" onclick="showSection('cafe',this)"><span class="sidebar-icon">☕</span>카페 후기</div>
+      <div class="sidebar-item" onclick="showSection('gallery',this)"><span class="sidebar-icon">📸</span>갤러리</div>
     </div>
     <div class="admin-main">
 
@@ -286,6 +287,64 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
           <div id="cafeList"><div class="empty-list">로딩 중...</div></div>
         </div>
       </div>
+
+      <!-- 갤러리 -->
+      <div class="section" id="sec-gallery">
+        <div class="section-title">📸 갤러리</div>
+        <div class="form-card">
+          <div class="form-title">사진 등록 (여러 장 동시 업로드 가능)</div>
+          <div class="form-row-2">
+            <div class="form-row" style="margin:0">
+              <label class="form-label">카테고리</label>
+              <select class="form-input" id="galCat">
+                <option value="study">🗣️ 스터디</option>
+                <option value="party">🎉 파티</option>
+                <option value="outing">🎒 아웃팅</option>
+                <option value="event">🎊 이벤트</option>
+              </select>
+            </div>
+            <div class="form-row" style="margin:0">
+              <label class="form-label">설명 (선택)</label>
+              <input class="form-input" id="galCaption" placeholder="사진 설명">
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">사진 선택 (여러 장 가능)</label>
+            <div class="upload-area" id="galUploadArea" onclick="document.getElementById('galFiles').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')"
+              ondrop="handleGalDrop(event)">
+              <div id="galUploadText">📁 클릭하거나 이미지를 드래그해서 업로드</div>
+              <div id="galPreviewGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px"></div>
+            </div>
+            <input type="file" id="galFiles" accept="image/*" multiple style="display:none" onchange="previewGalFiles(this.files)">
+          </div>
+          <div id="galProgress" style="font-size:13px;color:var(--mute);min-height:18px;margin-top:4px"></div>
+          <div style="width:100%;height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;display:none" id="galPbWrap">
+            <div id="galPb" style="height:100%;background:var(--blue);border-radius:2px;transition:width .3s;width:0"></div>
+          </div>
+          <button class="submit-btn" id="galSubmitBtn" onclick="addGallery()" style="margin-top:14px">등록</button>
+        </div>
+
+        <div class="list-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+            <div class="form-title" style="margin:0">등록된 사진</div>
+            <div style="display:flex;gap:8px">
+              <select class="form-input" id="galFilter" onchange="loadGallery()" style="width:auto;padding:6px 12px;font-size:13px">
+                <option value="">전체</option>
+                <option value="study">스터디</option>
+                <option value="party">파티</option>
+                <option value="outing">아웃팅</option>
+                <option value="event">이벤트</option>
+              </select>
+            </div>
+          </div>
+          <div id="galList" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+            <div class="empty-list" style="grid-column:span 4">로딩 중...</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -339,6 +398,7 @@ function showSection(name, el) {
   document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
   document.getElementById('sec-' + name).classList.add('active');
   el.classList.add('active');
+  if (name === 'gallery') loadGallery();
 }
 
 // ── 토스트 ──
@@ -728,6 +788,118 @@ async function delCafe(id, thumbUrl) {
   await sb.from('cafe_reviews').delete().eq('id', id);
   toast('🗑️ 삭제되었습니다');
   loadCafeAdmin();
+}
+
+// ── 갤러리 ──
+let galFileList = [];
+
+function previewGalFiles(files) {
+  galFileList = Array.from(files);
+  renderGalPreview();
+}
+
+function handleGalDrop(e) {
+  e.preventDefault();
+  document.getElementById('galUploadArea').classList.remove('dragover');
+  galFileList = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  renderGalPreview();
+}
+
+function renderGalPreview() {
+  const grid = document.getElementById('galPreviewGrid');
+  grid.innerHTML = '';
+  galFileList.forEach((f, i) => {
+    const r = new FileReader();
+    r.onload = e => {
+      const div = document.createElement('div');
+      div.style.cssText = 'position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;background:#eee';
+      div.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">
+        <button onclick="removeGalFile(${i})" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>`;
+      grid.appendChild(div);
+    };
+    r.readAsDataURL(f);
+  });
+  document.getElementById('galUploadText').textContent = galFileList.length ? `${galFileList.length}장 선택됨` : '📁 클릭하거나 이미지를 드래그해서 업로드';
+}
+
+function removeGalFile(i) {
+  galFileList.splice(i, 1);
+  renderGalPreview();
+}
+
+async function addGallery() {
+  if (!galFileList.length) { toast('사진을 선택해주세요'); return; }
+  const cat = document.getElementById('galCat').value;
+  const cap = document.getElementById('galCaption').value.trim();
+  const btn = document.getElementById('galSubmitBtn');
+  const prog = document.getElementById('galProgress');
+  const pb = document.getElementById('galPb');
+  const pbWrap = document.getElementById('galPbWrap');
+
+  btn.disabled = true; pbWrap.style.display = 'block';
+
+  for (let i = 0; i < galFileList.length; i++) {
+    const f = galFileList[i];
+    prog.textContent = `업로드 중... (${i + 1}/${galFileList.length})`;
+    pb.style.width = `${((i + 1) / galFileList.length) * 90}%`;
+
+    const ext = f.name.split('.').pop().toLowerCase();
+    const fileName = `gallery/${Date.now()}_${i}.${ext}`;
+    const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, f, { upsert: true });
+    if (upErr) { toast('❌ 업로드 실패: ' + upErr.message); btn.disabled = false; return; }
+
+    const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+    await sb.from('gallery').insert({ image_url: urlData.publicUrl, category: cat, caption: cap, is_published: true });
+  }
+
+  pb.style.width = '100%';
+  prog.textContent = `✅ ${galFileList.length}장 등록 완료!`;
+  galFileList = [];
+  document.getElementById('galPreviewGrid').innerHTML = '';
+  document.getElementById('galUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+  document.getElementById('galCaption').value = '';
+  btn.disabled = false;
+  setTimeout(() => { prog.textContent = ''; pbWrap.style.display = 'none'; pb.style.width = '0'; }, 2000);
+  toast('✅ 갤러리에 등록되었습니다');
+  loadGallery();
+}
+
+async function loadGallery() {
+  const cat = document.getElementById('galFilter').value;
+  let q = sb.from('gallery').select('*').eq('is_published', true).order('created_at', { ascending: false });
+  if (cat) q = q.eq('category', cat);
+  const { data } = await q;
+
+  const el = document.getElementById('galList');
+  const CATS = { study:'스터디', party:'파티', outing:'아웃팅', event:'이벤트' };
+
+  if (!data || !data.length) {
+    el.innerHTML = '<div class="empty-list" style="grid-column:span 4">등록된 사진이 없습니다</div>';
+    return;
+  }
+  el.innerHTML = data.map(g => `
+    <div style="position:relative;border-radius:10px;overflow:hidden;background:#eee;aspect-ratio:1">
+      <img src="${g.image_url}" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;justify-content:space-between;padding:8px" class="gal-hover">
+        <span style="font-size:10px;font-weight:700;color:#fff;background:var(--blue);padding:2px 7px;border-radius:50px">${CATS[g.category] || g.category}</span>
+        <button onclick="delGallery('${g.id}','${g.image_url}')" style="background:rgba(204,34,34,.85);color:#fff;border:none;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;font-weight:700">삭제</button>
+      </div>
+    </div>`).join('');
+
+  // hover 효과
+  el.querySelectorAll('.gal-hover').forEach(h => {
+    h.parentElement.onmouseenter = () => h.style.opacity = '1';
+    h.parentElement.onmouseleave = () => h.style.opacity = '0';
+  });
+}
+
+async function delGallery(id, imgUrl) {
+  if (!confirm('이 사진을 삭제하시겠습니까?')) return;
+  const path = imgUrl.split('/thebox-assets/')[1];
+  if (path) await sb.storage.from('thebox-assets').remove([path]);
+  await sb.from('gallery').delete().eq('id', id);
+  toast('🗑️ 삭제되었습니다');
+  loadGallery();
 }
 
 // 세션 확인
