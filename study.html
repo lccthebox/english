@@ -46,6 +46,11 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
   height:100vh;max-height:700px;
   overflow:hidden;background:#1a1a1a;
 }
+@media(max-width:768px){
+  .hero-slideshow{height:56vw;min-height:280px;max-height:420px}
+  .slide-bg{background-position:center top}
+  .slide-content{padding:0 5% 32px}
+}
 .slide{
   position:absolute;inset:0;
   opacity:0;transition:opacity 1.2s ease;
