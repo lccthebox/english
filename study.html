@@ -647,6 +647,7 @@ img { max-width: 100%; }
   /* 테이블/그리드 삐져나옴 방지 */
   .sch-header-grid, .sch-row-grid, .fee-header-grid, .fee-row-grid { overflow-x: auto; }
 }
+@media(max-width:768px){.map-section iframe{height:240px!important;min-height:200px!important}}
 </style>
 </head>
 <body>
@@ -967,12 +968,7 @@ img { max-width: 100%; }
 <section class="gallery-section fade-up">
   <div class="section-eyebrow">갤러리</div>
   <div class="section-title">더박스 분위기</div>
-  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:20px;margin-top:4px">
-    <p class="section-sub" style="margin:0">더박스의 진짜 순간들을 확인해보세요</p>
-    <a href="study-gallery.html" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--red);border:1.5px solid var(--red);padding:7px 18px;border-radius:50px;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap;flex-shrink:0">전체 갤러리 보기 →</a>
-  </div>
-
-  <!-- 슬라이드 탭 -->
+    <!-- 슬라이드 탭 -->
   <div style="display:flex;border-bottom:2px solid var(--border);margin-bottom:24px">
     <button class="vibe-tab" onclick="showVibe(0,this)" style="background:transparent;border:none;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);position:relative;transition:color .2s">
       📸 인스타그램
@@ -1013,7 +1009,7 @@ img { max-width: 100%; }
 
   <!-- 패널 2: 갤러리 게시판 -->
   <div class="vibe-panel active" id="vibe-1">
-    <div id="vibeGalGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+    <div id="vibeGalGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
       <!-- Supabase에서 로드 -->
       <div style="aspect-ratio:4/3;border-radius:8px;background:#e0ddd9;animation:sk 1.4s infinite"></div>
       <div style="aspect-ratio:4/3;border-radius:8px;background:#e0ddd9;animation:sk 1.4s infinite .2s"></div>
@@ -1042,7 +1038,7 @@ async function loadVibeGallery(){
   try{
     const {createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
     const sb=createClient('https://oualwikibctxvlscpuyn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM');
-    const {data}=await sb.from('gallery').select('image_url,category').eq('is_published',true).order('created_at',{ascending:false}).limit(8);
+    const {data}=await sb.from('gallery').select('image_url,category').eq('is_published',true).order('created_at',{ascending:false}).limit(4);
     const g=document.getElementById('vibeGalGrid');
     if(!data||!data.length){g.innerHTML='<div style="text-align:center;padding:40px;color:#888;font-size:13px">아직 갤러리 사진이 없어요</div>';return;}
     g.innerHTML=data.map(p=>`<a href="study-gallery.html" style="display:block;border-radius:8px;overflow:hidden;aspect-ratio:4/3;background:#e0ddd9"><img src="${p.image_url}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentElement.style.background='#e8e5e0'"></a>`).join('');
@@ -1057,7 +1053,7 @@ async function loadVibeGallery(){
   <div class="section-eyebrow" style="color:var(--red)">오시는 길</div>
   <div class="section-title">더박스 대구영어회화</div>
   <div style="margin-top:24px;border-radius:14px;overflow:hidden;border:1px solid var(--border)">
-    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=/home&amp;entry=pll" title="더박스 대구영어회화" allowfullscreen loading="lazy" style="width:100%;height:380px;border:none;display:block"></iframe>
+    <iframe src="https://map.naver.com/p/entry/place/1742045734?placePath=/home&amp;entry=pll" title="더박스 대구영어회화" allowfullscreen loading="lazy" style="width:100%;height:380px;min-height:280px;border:none;display:block"></iframe>
   </div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px" class="map-info-grid">
     <div style="background:#fff;border-radius:14px;padding:16px;border:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">주소</div><div style="font-size:14px;color:var(--ink);font-weight:500;line-height:1.6">대구광역시 중구 동성로2<br>(동성로3가 90-1) 6층</div></div>

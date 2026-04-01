@@ -367,7 +367,20 @@ async function load(){
     const {data,error:loadErr}=await sb.from('gallery').select('*').order('created_at',{ascending:false});
     if(loadErr) throw loadErr;
     all=(data&&data.length)?data.map(d=>({id:d.id,url:d.image_url,cat:d.category,cap:d.caption||''})):[];
-  }catch(e){console.error('갤러리 로드 실패:', e); all=[];}
+  }catch(e){
+    console.error('갤러리 로드 실패:', e);
+    // fallback: community 사진
+    all=[
+      {id:'f1',url:'https://lccthebox.github.io/community/community1.jpg',cat:'study',cap:'스터디'},
+      {id:'f2',url:'https://lccthebox.github.io/community/party.jpg',cat:'party',cap:'파티'},
+      {id:'f3',url:'https://lccthebox.github.io/community/outing.jpg',cat:'outing',cap:'아웃팅'},
+      {id:'f4',url:'https://lccthebox.github.io/community/boardgame.jpg',cat:'event',cap:'이벤트'},
+      {id:'f5',url:'https://lccthebox.github.io/community/RealMoment6.jpg',cat:'event',cap:'이벤트'},
+      {id:'f6',url:'https://lccthebox.github.io/community/RealMoment7.jpg',cat:'outing',cap:'아웃팅'},
+      {id:'f7',url:'https://lccthebox.github.io/community/community2.jpg',cat:'study',cap:'스터디'},
+      {id:'f8',url:'https://lccthebox.github.io/community/community3.jpg',cat:'study',cap:'스터디'},
+    ];
+  }
   document.getElementById('galSkel').style.display='none';
   setCounts(); applyFilter('all');
 }
