@@ -51,6 +51,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-
 .gal-grid{columns:4;column-gap:10px}
 @media(max-width:1024px){.gal-grid{columns:3}}
 @media(max-width:640px){.gal-grid{columns:2}}
+@media(max-width:768px){#vibeGalGrid{grid-template-columns:repeat(2,1fr)!important}}
 .gi{break-inside:avoid;margin-bottom:10px;border-radius:10px;overflow:hidden;background:var(--border);position:relative;cursor:pointer;display:block}
 .gi img{width:100%;display:block;transition:transform .4s}
 .gi:hover img{transform:scale(1.04)}
@@ -253,9 +254,10 @@ let all=[], filtered=[], curPage=0, lbI=0, files=[];
 // 로드
 async function load(){
   try{
-    const {data}=await sb.from('gallery').select('*').eq('is_published',true).order('created_at',{ascending:false});
+    const {data,error:loadErr}=await sb.from('gallery').select('*').order('created_at',{ascending:false});
+    if(loadErr) throw loadErr;
     all=(data&&data.length)?data.map(d=>({id:d.id,url:d.image_url,cat:d.category,cap:d.caption||''})):[];
-  }catch(e){all=[];}
+  }catch(e){console.error('갤러리 로드 실패:', e); all=[];}
   document.getElementById('galSkel').style.display='none';
   setCounts(); applyFilter('all');
 }
@@ -272,7 +274,13 @@ function applyFilter(cat){
   curPage=0;
   filtered=cat==='all'?all:all.filter(p=>p.cat===cat);
   document.getElementById('galGrid').innerHTML='';
-  document.getElementById('galEmpty').style.display=filtered.length?'none':'block';
+  const emptyEl=document.getElementById('galEmpty');
+    if(emptyEl){
+      emptyEl.style.display=filtered.length?'none':'block';
+      if(!filtered.length && all.length===0){
+        emptyEl.innerHTML='<div class="ei">📷</div><p style="font-size:14px;color:#888">갤러리에 사진이 없어요.<br>관리자 페이지에서 사진을 올려주세요!</p>';
+      }
+    }
   renderMore();
 }
 
