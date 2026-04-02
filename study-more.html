@@ -462,6 +462,7 @@ img { max-width: 100%; }
   </div>
   <script async src="//www.instagram.com/embed.js"></script>
 </div>
+
 </div>
 
 <div class="cta-band fade-up">
@@ -500,8 +501,8 @@ document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
-const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
+const SUPABASE_URL = 'https://oualwikibctxvlscpuyn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const PAGE = 6;
@@ -510,20 +511,24 @@ const badgeMap = {
   event: '<span class="notice-badge badge-event">이벤트</span>',
   general: '<span class="notice-badge badge-general">공지</span>'
 };
-function fmtDate(d){
-  return new Date(d).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1);
+
+function fmtDate(d) {
+  return new Date(d).toLocaleDateString('ko-KR', {year:'numeric', month:'2-digit', day:'2-digit'}).replace(/\. /g, '.').slice(0, -1);
 }
 
-// ── 공지사항 ──
 var noticesData = [];
 
 function openNoticeModal(i) {
   var n = noticesData[i];
   if (!n) return;
-  var bm = {new:'🔴 NEW', event:'🔵 이벤트', general:'⚪ 공지'};
-  var bc = {new:'background:#fff0f0;color:#cc2222', event:'background:#f0f4ff;color:#1A5FCC', general:'background:#f5f5f5;color:#555'};
-  document.getElementById('nmBadge').textContent = bm[n.badge] || '⚪ 공지';
-  document.getElementById('nmBadge').style.cssText = bc[n.badge] || bc.general;
+  var badges = {new:'새 공지', event:'이벤트', general:'공지'};
+  var colors = {
+    new:  'background:#fff0f0;color:#cc2222',
+    event:'background:#f0f4ff;color:#1A5FCC',
+    general:'background:#f5f5f5;color:#555'
+  };
+  document.getElementById('nmBadge').textContent = badges[n.badge] || badges.general;
+  document.getElementById('nmBadge').style.cssText = colors[n.badge] || colors.general;
   document.getElementById('nmTitle').textContent = n.title;
   document.getElementById('nmDate').textContent = fmtDate(n.created_at);
   var cont = document.getElementById('nmContent');
@@ -550,39 +555,37 @@ async function loadNotices() {
   try {
     var res = await sb.from('notices').select('*').eq('is_published', true).order('created_at', {ascending: false}).limit(30);
     if (res.error) throw res.error;
-    var data = res.data;
-    if (!data || !data.length) { el.innerHTML = '<div class="empty-state">등록된 공지가 없습니다</div>'; return; }
-    noticesData = data;
-    el.innerHTML = data.map(function(n, i) {
+    if (!res.data || !res.data.length) { el.innerHTML = '<div class="empty-state">등록된 공지가 없습니다</div>'; return; }
+    noticesData = res.data;
+    el.innerHTML = res.data.map(function(n, i) {
+      var badge = badgeMap[n.badge] || badgeMap.general;
+      var arrow = (n.content || n.image_url) ? '<span style="font-size:10px;color:#aaa;flex-shrink:0">&#9654; 자세히</span>' : '';
       return '<a href="#" class="notice-item" onclick="openNoticeModal(' + i + ');return false;">'
-        + (badgeMap[n.badge] || badgeMap.general)
-        + '<span class="notice-title">' + n.title + '</span>'
-        + '<span class="notice-date">' + fmtDate(n.created_at) + '</span>'
-        + ((n.content || n.image_url) ? '<span style="font-size:10px;color:#aaa;flex-shrink:0">▶ 자세히</span>' : '')
-        + '</a>';
+           + badge + '<span class="notice-title">' + n.title + '</span>'
+           + '<span class="notice-date">' + fmtDate(n.created_at) + '</span>' + arrow + '</a>';
     }).join('');
   } catch(e) {
-    console.error('notices 로드 실패:', e);
-    el.innerHTML = '<div class="empty-state">공지사항을 불러오지 못했습니다.<br><small style="color:#aaa">' + e.message + '</small></div>';
+    console.error('notices error:', e);
+    el.innerHTML = '<div class="empty-state">공지사항 로드 실패<br><small>' + e.message + '</small></div>';
   }
 }
 
-// ── 월간 더박스 ──
-var monthlyAll = [], monthlyShown = 0;
+var monthlyAll = [];
+var monthlyShown = 0;
 
 async function loadMonthly() {
   var el = document.getElementById('monthlyGrid');
   try {
     var res = await sb.from('monthly').select('*').eq('is_published', true).order('created_at', {ascending: false});
     if (res.error) throw res.error;
-    var data = res.data;
-    if (!data || !data.length) { el.innerHTML = '<div class="empty-state">등록된 월간 더박스가 없습니다</div>'; return; }
-    monthlyAll = data; monthlyShown = 0;
+    if (!res.data || !res.data.length) { el.innerHTML = '<div class="empty-state">등록된 월간 더박스가 없습니다</div>'; return; }
+    monthlyAll = res.data;
+    monthlyShown = 0;
     el.innerHTML = '';
     renderMonthly();
   } catch(e) {
-    console.error('monthly 로드 실패:', e);
-    el.innerHTML = '<div class="empty-state">월간 더박스를 불러오지 못했습니다.<br><small style="color:#aaa">' + e.message + '</small></div>';
+    console.error('monthly error:', e);
+    el.innerHTML = '<div class="empty-state">월간 더박스 로드 실패<br><small>' + e.message + '</small></div>';
   }
 }
 
@@ -591,11 +594,32 @@ function renderMonthly() {
   var slice = monthlyAll.slice(monthlyShown, monthlyShown + PAGE);
   slice.forEach(function(m) {
     var card = document.createElement('a');
-    card.href = m.link_url || m.cover_url;
+    card.href = m.link_url || m.cover_url || '#';
     card.target = '_blank';
     card.className = 'monthly-card';
-    card.innerHTML = '<div class="monthly-thumb"><img src="' + m.cover_url + '" alt="' + m.title + '" loading="lazy" onerror="this.parentElement.innerHTML=&apos;📰&apos;"></div>'
-      + '<div class="monthly-body"><div class="monthly-ym">' + m.year_month + '</div><div class="monthly-title">' + m.title + '</div></div>';
+
+    var thumb = document.createElement('div');
+    thumb.className = 'monthly-thumb';
+    var img = document.createElement('img');
+    img.src = m.cover_url || '';
+    img.alt = m.title || '';
+    img.loading = 'lazy';
+    img.onerror = function() { this.parentElement.textContent = ''; };
+    thumb.appendChild(img);
+
+    var body = document.createElement('div');
+    body.className = 'monthly-body';
+    var ym = document.createElement('div');
+    ym.className = 'monthly-ym';
+    ym.textContent = m.year_month || '';
+    var title = document.createElement('div');
+    title.className = 'monthly-title';
+    title.textContent = m.title || '';
+    body.appendChild(ym);
+    body.appendChild(title);
+
+    card.appendChild(thumb);
+    card.appendChild(body);
     el.appendChild(card);
   });
   monthlyShown += slice.length;
@@ -605,36 +629,58 @@ function renderMonthly() {
 
 function loadMoreMonthly() { renderMonthly(); }
 
-// ── 제휴업체 ──
 async function loadPartners() {
   var el = document.getElementById('partnerGrid');
   if (!el) return;
   try {
     var res = await sb.from('partners').select('*').eq('is_published', true).order('sort_order', {ascending: true});
     if (res.error) throw res.error;
-    var data = res.data;
-    if (!data || !data.length) { el.innerHTML = '<div class="empty-state">등록된 제휴업체가 없습니다</div>'; return; }
-    el.innerHTML = data.map(function(p) {
-      return '<a href="' + (p.link_url || '#') + '" target="_blank" class="partner-card" style="text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s">'
-        + '<div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg)">'
-        + '<img src="' + p.image_url + '" alt="' + p.name + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentElement.style.background='#f0f0f0'">'
-        + '</div><div style="padding:12px 14px">'
-        + '<div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px">' + p.name + '</div>'
-        + '<div style="font-size:11px;color:var(--ink-mute)">' + (p.desc || '') + '</div>'
-        + '</div></a>';
-    }).join('');
+    if (!res.data || !res.data.length) { el.innerHTML = '<div class="empty-state">등록된 제휴업체가 없습니다</div>'; return; }
+    el.innerHTML = '';
+    res.data.forEach(function(p) {
+      var a = document.createElement('a');
+      a.href = p.link_url || '#';
+      a.target = '_blank';
+      a.style.cssText = 'text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s';
+
+      var imgWrap = document.createElement('div');
+      imgWrap.style.cssText = 'width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg)';
+      var img = document.createElement('img');
+      img.src = p.image_url || '';
+      img.alt = p.name || '';
+      img.loading = 'lazy';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
+      img.onerror = function() { this.parentElement.style.background = '#f0f0f0'; };
+      imgWrap.appendChild(img);
+
+      var info = document.createElement('div');
+      info.style.cssText = 'padding:12px 14px';
+      var nameEl = document.createElement('div');
+      nameEl.style.cssText = 'font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px';
+      nameEl.textContent = p.name || '';
+      var descEl = document.createElement('div');
+      descEl.style.cssText = 'font-size:11px;color:var(--ink-mute)';
+      descEl.textContent = p.desc || '';
+      info.appendChild(nameEl);
+      info.appendChild(descEl);
+
+      a.appendChild(imgWrap);
+      a.appendChild(info);
+      el.appendChild(a);
+    });
   } catch(e) {
-    console.error('partners 로드 실패:', e);
-    el.innerHTML = '<div class="empty-state">제휴업체 정보를 불러오지 못했습니다.<br><small style="color:#aaa">' + e.message + '</small></div>';
+    console.error('partners error:', e);
+    el.innerHTML = '<div class="empty-state">제휴업체 로드 실패<br><small>' + e.message + '</small></div>';
   }
 }
 
-// ── 페이지 로드 ──
 document.addEventListener('DOMContentLoaded', function() {
-  // 모달 바깥 클릭 닫기
   var modal = document.getElementById('noticeModal');
-  if (modal) modal.addEventListener('click', function(e) { if (e.target === this) closeNoticeModal(); });
-
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) closeNoticeModal();
+    });
+  }
   loadNotices();
   loadMonthly();
   loadPartners();
