@@ -450,6 +450,7 @@ img { max-width: 100%; }
   </div>
   <script async src="//www.instagram.com/embed.js"></script>
 </div>
+</div>
 
 <div class="cta-band fade-up">
   <div class="cta-band-title">더박스와 함께<br><em>영어가 즐거워지는</em> 경험</div>
@@ -487,129 +488,145 @@ document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-
 const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-const { createClient } = supabase;
-const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const PAGE=6; // 1행 3열 x 2행
-const badgeMap={new:'<span class="notice-badge badge-new">NEW</span>',event:'<span class="notice-badge badge-event">이벤트</span>',general:'<span class="notice-badge badge-general">공지</span>'};
-function fmtDate(d){return new Date(d).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1)}
-
-// 공지
-let noticesData=[];
-async function loadNotices(){
-  const el=document.getElementById('noticeList');
-  try{
-    const{data,error}=await sb.from('notices').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(30);
-    if(error) throw error;
-    if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 공지가 없습니다</div>';return;}
-    noticesData=data;
-    el.innerHTML=data.map((n,i)=>`
-    <a href="#" class="notice-item" onclick="openNoticeModal(${i});return false;">
-      ${badgeMap[n.badge]||badgeMap.general}
-      <span class="notice-title">${n.title}</span>
-      <span class="notice-date">${fmtDate(n.created_at)}</span>
-      ${(n.content||n.image_url)?'<span style="font-size:10px;color:#aaa;flex-shrink:0">▶ 자세히</span>':''}
-    </a>`).join('');
-  }catch(e){
-    console.error('notices 로드 실패:',e);
-    el.innerHTML='<div class="empty-state">공지사항을 불러오지 못했습니다.<br><small style="color:#aaa">'+e.message+'</small></div>';
-  }
+const PAGE = 6;
+const badgeMap = {
+  new: '<span class="notice-badge badge-new">NEW</span>',
+  event: '<span class="notice-badge badge-event">이벤트</span>',
+  general: '<span class="notice-badge badge-general">공지</span>'
+};
+function fmtDate(d){
+  return new Date(d).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1);
 }
 
-window.openNoticeModal=function(i){
-  const n=noticesData[i]; if(!n) return;
-  const bm={'new':'🔴 NEW','event':'🔵 이벤트','general':'⚪ 공지'};
-  const bc={'new':'background:#fff0f0;color:#cc2222','event':'background:#f0f4ff;color:#1A5FCC','general':'background:#f5f5f5;color:#555'};
-  document.getElementById('nmBadge').textContent=bm[n.badge]||'⚪ 공지';
-  document.getElementById('nmBadge').style.cssText=bc[n.badge]||bc.general;
-  document.getElementById('nmTitle').textContent=n.title;
-  document.getElementById('nmDate').textContent=fmtDate(n.created_at);
-  const cont=document.getElementById('nmContent');
-  cont.textContent=n.content||'';
-  cont.style.display=n.content?'block':'none';
-  const imgWrap=document.getElementById('nmImg');
-  if(n.image_url){
-    document.getElementById('nmImgEl').src=n.image_url;
-    imgWrap.style.display='block';
+// ── 공지사항 ──
+var noticesData = [];
+
+function openNoticeModal(i) {
+  var n = noticesData[i];
+  if (!n) return;
+  var bm = {new:'🔴 NEW', event:'🔵 이벤트', general:'⚪ 공지'};
+  var bc = {new:'background:#fff0f0;color:#cc2222', event:'background:#f0f4ff;color:#1A5FCC', general:'background:#f5f5f5;color:#555'};
+  document.getElementById('nmBadge').textContent = bm[n.badge] || '⚪ 공지';
+  document.getElementById('nmBadge').style.cssText = bc[n.badge] || bc.general;
+  document.getElementById('nmTitle').textContent = n.title;
+  document.getElementById('nmDate').textContent = fmtDate(n.created_at);
+  var cont = document.getElementById('nmContent');
+  cont.textContent = n.content || '';
+  cont.style.display = n.content ? 'block' : 'none';
+  var imgWrap = document.getElementById('nmImg');
+  if (n.image_url) {
+    document.getElementById('nmImgEl').src = n.image_url;
+    imgWrap.style.display = 'block';
   } else {
-    imgWrap.style.display='none';
+    imgWrap.style.display = 'none';
   }
-  const modal=document.getElementById('noticeModal');
-  modal.style.display='block';
-  document.body.style.overflow='hidden';
+  document.getElementById('noticeModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
-window.closeNoticeModal=function(){
-  document.getElementById('noticeModal').style.display='none';
-  document.body.style.overflow='';
-}
-const _nm=document.getElementById('noticeModal');
-if(_nm) _nm.addEventListener('click',function(e){if(e.target===this)closeNoticeModal();});
 
-// 월간 - 6개씩 더보기
-let monthlyAll=[],monthlyShown=0;
-async function loadMonthly(){
-  const el=document.getElementById('monthlyGrid');
-  try{
-    const{data,error}=await sb.from('monthly').select('*').eq('is_published',true).order('created_at',{ascending:false});
-    if(error) throw error;
-    if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 월간 더박스가 없습니다</div>';return;}
-    monthlyAll=data; monthlyShown=0;
-    el.innerHTML='';
-    renderMonthly();
-  }catch(e){
-    console.error('monthly 로드 실패:',e);
-    el.innerHTML='<div class="empty-state">월간 더박스를 불러오지 못했습니다.<br><small style="color:#aaa">'+e.message+'</small></div>';
+function closeNoticeModal() {
+  document.getElementById('noticeModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+async function loadNotices() {
+  var el = document.getElementById('noticeList');
+  try {
+    var res = await sb.from('notices').select('*').eq('is_published', true).order('created_at', {ascending: false}).limit(30);
+    if (res.error) throw res.error;
+    var data = res.data;
+    if (!data || !data.length) { el.innerHTML = '<div class="empty-state">등록된 공지가 없습니다</div>'; return; }
+    noticesData = data;
+    el.innerHTML = data.map(function(n, i) {
+      return '<a href="#" class="notice-item" onclick="openNoticeModal(' + i + ');return false;">'
+        + (badgeMap[n.badge] || badgeMap.general)
+        + '<span class="notice-title">' + n.title + '</span>'
+        + '<span class="notice-date">' + fmtDate(n.created_at) + '</span>'
+        + ((n.content || n.image_url) ? '<span style="font-size:10px;color:#aaa;flex-shrink:0">▶ 자세히</span>' : '')
+        + '</a>';
+    }).join('');
+  } catch(e) {
+    console.error('notices 로드 실패:', e);
+    el.innerHTML = '<div class="empty-state">공지사항을 불러오지 못했습니다.<br><small style="color:#aaa">' + e.message + '</small></div>';
   }
 }
-function renderMonthly(){
-  const el=document.getElementById('monthlyGrid');
-  const slice=monthlyAll.slice(monthlyShown,monthlyShown+PAGE);
-  slice.forEach(m=>{
-    const card=document.createElement('a');
-    card.href=m.link_url||m.cover_url; card.target='_blank'; card.className='monthly-card';
-    card.innerHTML=`<div class="monthly-thumb"><img src="${m.cover_url}" alt="${m.title}" loading="lazy" onerror="this.parentElement.innerHTML='📰'"></div><div class="monthly-body"><div class="monthly-ym">${m.year_month}</div><div class="monthly-title">${m.title}</div></div>`;
+
+// ── 월간 더박스 ──
+var monthlyAll = [], monthlyShown = 0;
+
+async function loadMonthly() {
+  var el = document.getElementById('monthlyGrid');
+  try {
+    var res = await sb.from('monthly').select('*').eq('is_published', true).order('created_at', {ascending: false});
+    if (res.error) throw res.error;
+    var data = res.data;
+    if (!data || !data.length) { el.innerHTML = '<div class="empty-state">등록된 월간 더박스가 없습니다</div>'; return; }
+    monthlyAll = data; monthlyShown = 0;
+    el.innerHTML = '';
+    renderMonthly();
+  } catch(e) {
+    console.error('monthly 로드 실패:', e);
+    el.innerHTML = '<div class="empty-state">월간 더박스를 불러오지 못했습니다.<br><small style="color:#aaa">' + e.message + '</small></div>';
+  }
+}
+
+function renderMonthly() {
+  var el = document.getElementById('monthlyGrid');
+  var slice = monthlyAll.slice(monthlyShown, monthlyShown + PAGE);
+  slice.forEach(function(m) {
+    var card = document.createElement('a');
+    card.href = m.link_url || m.cover_url;
+    card.target = '_blank';
+    card.className = 'monthly-card';
+    card.innerHTML = '<div class="monthly-thumb"><img src="' + m.cover_url + '" alt="' + m.title + '" loading="lazy" onerror="this.parentElement.innerHTML='📰'"></div>'
+      + '<div class="monthly-body"><div class="monthly-ym">' + m.year_month + '</div><div class="monthly-title">' + m.title + '</div></div>';
     el.appendChild(card);
   });
   monthlyShown += slice.length;
-  const row = document.getElementById('monthlyMoreRow');
-  if(row) row.style.display = monthlyShown < monthlyAll.length ? 'flex' : 'none';
+  var row = document.getElementById('monthlyMoreRow');
+  if (row) row.style.display = monthlyShown < monthlyAll.length ? 'flex' : 'none';
 }
-window.loadMoreMonthly = () => renderMonthly();
 
-// 제휴업체
-async function loadPartners(){
-  const el=document.getElementById('partnerGrid');
-  if(!el) return;
-  try{
-    const{data,error}=await sb.from('partners').select('*').eq('is_published',true).order('sort_order',{ascending:true});
-    if(error) throw error;
-    if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 제휴업체가 없습니다</div>';return;}
-    el.innerHTML=data.map(p=>`
-    <a href="${p.link_url||'#'}" target="_blank" class="partner-card" style="text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s">
-      <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg)">
-        <img src="${p.image_url}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentElement.style.background='#f0f0f0'">
-      </div>
-      <div style="padding:12px 14px">
-        <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px">${p.name}</div>
-        <div style="font-size:11px;color:var(--ink-mute)">${p.desc||''}</div>
-      </div>
-    </a>`).join('');
-  }catch(e){
-    console.error('partners 로드 실패:',e);
-    el.innerHTML='<div class="empty-state">제휴업체 정보를 불러오지 못했습니다.<br><small style="color:#aaa">'+e.message+'</small></div>';
+function loadMoreMonthly() { renderMonthly(); }
+
+// ── 제휴업체 ──
+async function loadPartners() {
+  var el = document.getElementById('partnerGrid');
+  if (!el) return;
+  try {
+    var res = await sb.from('partners').select('*').eq('is_published', true).order('sort_order', {ascending: true});
+    if (res.error) throw res.error;
+    var data = res.data;
+    if (!data || !data.length) { el.innerHTML = '<div class="empty-state">등록된 제휴업체가 없습니다</div>'; return; }
+    el.innerHTML = data.map(function(p) {
+      return '<a href="' + (p.link_url || '#') + '" target="_blank" class="partner-card" style="text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s">'
+        + '<div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg)">'
+        + '<img src="' + p.image_url + '" alt="' + p.name + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentElement.style.background='#f0f0f0'">'
+        + '</div><div style="padding:12px 14px">'
+        + '<div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px">' + p.name + '</div>'
+        + '<div style="font-size:11px;color:var(--ink-mute)">' + (p.desc || '') + '</div>'
+        + '</div></a>';
+    }).join('');
+  } catch(e) {
+    console.error('partners 로드 실패:', e);
+    el.innerHTML = '<div class="empty-state">제휴업체 정보를 불러오지 못했습니다.<br><small style="color:#aaa">' + e.message + '</small></div>';
   }
 }
 
-// ── 페이지 로드 시 모두 병렬 로드 ──
-document.addEventListener('DOMContentLoaded',function(){
+// ── 페이지 로드 ──
+document.addEventListener('DOMContentLoaded', function() {
+  // 모달 바깥 클릭 닫기
+  var modal = document.getElementById('noticeModal');
+  if (modal) modal.addEventListener('click', function(e) { if (e.target === this) closeNoticeModal(); });
+
   loadNotices();
   loadMonthly();
   loadPartners();
 });
-
 </script>
 
 <!-- 공지사항 상세 모달 -->
