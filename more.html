@@ -502,12 +502,50 @@ const badgeMap={new:'<span class="notice-badge badge-new">NEW</span>',event:'<sp
 function fmtDate(d){return new Date(d).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1)}
 
 // 공지
+let noticesData=[];
 async function loadNotices(){
   const el=document.getElementById('noticeList');
   const{data}=await sb.from('notices').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(30);
   if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 공지가 없습니다</div>';return;}
-  el.innerHTML=data.map(n=>`<a href="#" class="notice-item">${badgeMap[n.badge]||badgeMap.general}<span class="notice-title">${n.title}</span><span class="notice-date">${fmtDate(n.created_at)}</span></a>`).join('');
+  noticesData=data;
+  el.innerHTML=data.map((n,i)=>`
+    <a href="#" class="notice-item" onclick="openNoticeModal(${i});return false;">
+      ${badgeMap[n.badge]||badgeMap.general}
+      <span class="notice-title">${n.title}</span>
+      <span class="notice-date">${fmtDate(n.created_at)}</span>
+      ${(n.content||n.image_url)?'<span style="font-size:10px;color:#aaa;flex-shrink:0">▶ 자세히</span>':''}
+    </a>`).join('');
 }
+
+function openNoticeModal(i){
+  const n=noticesData[i]; if(!n) return;
+  const bm={'new':'🔴 NEW','event':'🔵 이벤트','general':'⚪ 공지'};
+  const bc={'new':'background:#fff0f0;color:#cc2222','event':'background:#f0f4ff;color:#1A5FCC','general':'background:#f5f5f5;color:#555'};
+  document.getElementById('nmBadge').textContent=bm[n.badge]||'⚪ 공지';
+  document.getElementById('nmBadge').style.cssText=bc[n.badge]||bc.general;
+  document.getElementById('nmTitle').textContent=n.title;
+  document.getElementById('nmDate').textContent=fmtDate(n.created_at);
+  const cont=document.getElementById('nmContent');
+  cont.textContent=n.content||'';
+  cont.style.display=n.content?'block':'none';
+  const imgWrap=document.getElementById('nmImg');
+  if(n.image_url){
+    document.getElementById('nmImgEl').src=n.image_url;
+    imgWrap.style.display='block';
+  } else {
+    imgWrap.style.display='none';
+  }
+  const modal=document.getElementById('noticeModal');
+  modal.style.display='block';
+  document.body.style.overflow='hidden';
+}
+function closeNoticeModal(){
+  document.getElementById('noticeModal').style.display='none';
+  document.body.style.overflow='';
+}
+document.getElementById('noticeModal').addEventListener('click',function(e){
+  if(e.target===this) closeNoticeModal();
+});
 
 // 월간 - 6개씩 더보기
 let monthlyAll=[],monthlyShown=0;
@@ -556,6 +594,22 @@ async function loadPartners(){
 loadNotices();
 loadMonthly();
 loadPartners();</script>
+
+<!-- 공지사항 상세 모달 -->
+<div id="noticeModal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);overflow-y:auto;padding:20px">
+  <div style="background:#fff;border-radius:16px;max-width:620px;margin:0 auto;overflow:hidden;position:relative">
+    <div style="padding:20px 24px 16px;border-bottom:1px solid #eee;display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+      <div>
+        <div id="nmBadge" style="display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:50px;margin-bottom:8px"></div>
+        <div id="nmTitle" style="font-size:17px;font-weight:700;color:#1a1a1a;line-height:1.4"></div>
+        <div id="nmDate" style="font-size:12px;color:#888;margin-top:4px"></div>
+      </div>
+      <button onclick="closeNoticeModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#888;flex-shrink:0;padding:0;line-height:1">✕</button>
+    </div>
+    <div id="nmImg" style="display:none"><img id="nmImgEl" src="" alt="" style="width:100%;display:block;max-height:400px;object-fit:contain;background:#f8f8f8"></div>
+    <div id="nmContent" style="padding:20px 24px;font-size:14px;color:#333;line-height:1.9;white-space:pre-wrap"></div>
+  </div>
+</div>
 
 <!-- ── 플로팅 상담 버튼 ── -->
 <div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">

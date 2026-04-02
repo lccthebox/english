@@ -125,8 +125,23 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
               <input class="form-input" id="noticeTitle" placeholder="공지 제목을 입력하세요">
             </div>
           </div>
+          <div class="form-row">
+            <label class="form-label">내용 (선택)</label>
+            <textarea class="form-input" id="noticeContent" placeholder="공지 내용을 입력하세요 (클릭 시 팝업으로 표시됩니다)" style="min-height:100px;resize:vertical;line-height:1.7"></textarea>
+          </div>
+          <div class="form-row">
+            <label class="form-label">이미지 (선택)</label>
+            <div class="upload-area" id="noticeUploadArea" onclick="document.getElementById('noticeFile').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')"
+              ondrop="handleNoticeDrop(event)">
+              <div id="noticeUploadText">📁 클릭하거나 이미지를 드래그해서 업로드</div>
+              <img id="noticeUploadPreview" class="upload-preview">
+            </div>
+            <input type="file" id="noticeFile" accept="image/*" style="display:none" onchange="previewNoticeFile(this)">
+          </div>
           <div style="margin-top:16px">
-            <button class="submit-btn" onclick="addNotice()">공지 등록</button>
+            <button class="submit-btn" id="noticeSubmitBtn" onclick="addNotice()">공지 등록</button>
           </div>
         </div>
         <div class="list-card">
@@ -430,12 +445,64 @@ async function loadNotices() {
     </div>`).join('');
 }
 
+let uploadedNoticeFile = null;
+
+function previewNoticeFile(input) {
+  const file = input.files[0]; if (!file) return;
+  uploadedNoticeFile = file;
+  const r = new FileReader();
+  r.onload = e => {
+    document.getElementById('noticeUploadPreview').src = e.target.result;
+    document.getElementById('noticeUploadPreview').style.display = 'block';
+    document.getElementById('noticeUploadText').textContent = '✅ ' + file.name;
+  };
+  r.readAsDataURL(file);
+}
+function handleNoticeDrop(e) {
+  e.preventDefault();
+  document.getElementById('noticeUploadArea').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    uploadedNoticeFile = file;
+    const r = new FileReader();
+    r.onload = ev => {
+      document.getElementById('noticeUploadPreview').src = ev.target.result;
+      document.getElementById('noticeUploadPreview').style.display = 'block';
+      document.getElementById('noticeUploadText').textContent = '✅ ' + file.name;
+    };
+    r.readAsDataURL(file);
+  }
+}
+
 async function addNotice() {
   const title = document.getElementById('noticeTitle').value.trim();
   const badge = document.getElementById('noticeBadge').value;
+  const content = document.getElementById('noticeContent').value.trim();
+  const btn = document.getElementById('noticeSubmitBtn');
   if (!title) { toast('제목을 입력해주세요'); return; }
-  await sb.from('notices').insert({ title, badge });
+
+  btn.disabled = true; btn.textContent = '등록 중...';
+  let image_url = null;
+
+  // 이미지 업로드 (있는 경우)
+  if (uploadedNoticeFile) {
+    const ext = uploadedNoticeFile.name.split('.').pop().toLowerCase();
+    const fileName = `notices/${Date.now()}.${ext}`;
+    const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, uploadedNoticeFile, { upsert: true });
+    if (upErr) { toast('❌ 이미지 업로드 실패: ' + upErr.message); btn.disabled = false; btn.textContent = '공지 등록'; return; }
+    const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+    image_url = urlData.publicUrl;
+  }
+
+  await sb.from('notices').insert({ title, badge, content: content || null, image_url });
+
+  // 초기화
   document.getElementById('noticeTitle').value = '';
+  document.getElementById('noticeContent').value = '';
+  document.getElementById('noticeUploadPreview').style.display = 'none';
+  document.getElementById('noticeUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+  uploadedNoticeFile = null;
+  btn.disabled = false; btn.textContent = '공지 등록';
   toast('✅ 공지가 등록되었습니다');
   loadNotices();
 }
