@@ -506,16 +506,22 @@ function fmtDate(d){return new Date(d).toLocaleDateString('ko-KR',{year:'numeric
 let noticesData=[];
 async function loadNotices(){
   const el=document.getElementById('noticeList');
-  const{data}=await sb.from('notices').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(30);
-  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 공지가 없습니다</div>';return;}
-  noticesData=data;
-  el.innerHTML=data.map((n,i)=>`
+  try{
+    const{data,error}=await sb.from('notices').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(30);
+    if(error) throw error;
+    if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 공지가 없습니다</div>';return;}
+    noticesData=data;
+    el.innerHTML=data.map((n,i)=>`
     <a href="#" class="notice-item" onclick="openNoticeModal(${i});return false;">
       ${badgeMap[n.badge]||badgeMap.general}
       <span class="notice-title">${n.title}</span>
       <span class="notice-date">${fmtDate(n.created_at)}</span>
       ${(n.content||n.image_url)?'<span style="font-size:10px;color:#aaa;flex-shrink:0">▶ 자세히</span>':''}
     </a>`).join('');
+  }catch(e){
+    console.error('notices 로드 실패:',e);
+    el.innerHTML='<div class="empty-state">공지사항을 불러오지 못했습니다.<br><small style="color:#aaa">'+e.message+'</small></div>';
+  }
 }
 
 function openNoticeModal(i){
@@ -552,11 +558,17 @@ document.getElementById('noticeModal').addEventListener('click',function(e){
 let monthlyAll=[],monthlyShown=0;
 async function loadMonthly(){
   const el=document.getElementById('monthlyGrid');
-  const{data}=await sb.from('monthly').select('*').eq('is_published',true).order('created_at',{ascending:false});
-  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 월간 더박스가 없습니다</div>';return;}
-  monthlyAll=data; monthlyShown=0;
-  el.innerHTML='';
-  renderMonthly();
+  try{
+    const{data,error}=await sb.from('monthly').select('*').eq('is_published',true).order('created_at',{ascending:false});
+    if(error) throw error;
+    if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 월간 더박스가 없습니다</div>';return;}
+    monthlyAll=data; monthlyShown=0;
+    el.innerHTML='';
+    renderMonthly();
+  }catch(e){
+    console.error('monthly 로드 실패:',e);
+    el.innerHTML='<div class="empty-state">월간 더박스를 불러오지 못했습니다.<br><small style="color:#aaa">'+e.message+'</small></div>';
+  }
 }
 function renderMonthly(){
   const el=document.getElementById('monthlyGrid');
@@ -577,9 +589,11 @@ window.loadMoreMonthly = () => renderMonthly();
 async function loadPartners(){
   const el=document.getElementById('partnerGrid');
   if(!el) return;
-  const{data}=await sb.from('partners').select('*').eq('is_published',true).order('sort_order',{ascending:true});
-  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 제휴업체가 없습니다</div>';return;}
-  el.innerHTML=data.map(p=>`
+  try{
+    const{data,error}=await sb.from('partners').select('*').eq('is_published',true).order('sort_order',{ascending:true});
+    if(error) throw error;
+    if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 제휴업체가 없습니다</div>';return;}
+    el.innerHTML=data.map(p=>`
     <a href="${p.link_url||'#'}" target="_blank" class="partner-card" style="text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s">
       <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg)">
         <img src="${p.image_url}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentElement.style.background='#f0f0f0'">
@@ -589,6 +603,10 @@ async function loadPartners(){
         <div style="font-size:11px;color:var(--ink-mute)">${p.desc||''}</div>
       </div>
     </a>`).join('');
+  }catch(e){
+    console.error('partners 로드 실패:',e);
+    el.innerHTML='<div class="empty-state">제휴업체 정보를 불러오지 못했습니다.<br><small style="color:#aaa">'+e.message+'</small></div>';
+  }
 }
 
 // ── 페이지 로드 시 모두 병렬 로드 ──
