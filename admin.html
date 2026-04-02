@@ -433,13 +433,18 @@ function toast(msg) {
 
 // ── 공지사항 ──
 async function loadNotices() {
-  const { data } = await sb.from('notices').select('*').order('created_at', { ascending: false });
+  const { data, error } = await sb.from('notices').select('*').order('created_at', { ascending: false });
   const el = document.getElementById('noticeList');
+  if (error) { el.innerHTML = `<div class="empty-list" style="color:red">오류: ${error.message}</div>`; return; }
   if (!data || data.length === 0) { el.innerHTML = '<div class="empty-list">등록된 공지가 없습니다</div>'; return; }
   el.innerHTML = data.map(n => `
-    <div class="list-item" style="grid-template-columns:60px 1fr 100px 60px">
+    <div class="list-item" style="grid-template-columns:60px 1fr 80px 80px 60px">
       <span class="list-badge badge-${n.badge}">${n.badge === 'new' ? 'NEW' : n.badge === 'event' ? '이벤트' : '공지'}</span>
-      <span style="font-size:14px;font-weight:500">${n.title}</span>
+      <div>
+        <div style="font-size:14px;font-weight:500">${n.title}</div>
+        ${n.content ? `<div style="font-size:11px;color:var(--mute);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:300px">${n.content.slice(0,40)}${n.content.length>40?'...':''}</div>` : ''}
+      </div>
+      <span style="font-size:11px;color:var(--mute)">${n.image_url ? '🖼️ 이미지' : ''}</span>
       <span style="font-size:12px;color:var(--mute)">${new Date(n.created_at).toLocaleDateString('ko-KR')}</span>
       <button class="del-btn" onclick="delNotice('${n.id}')">삭제</button>
     </div>`).join('');
@@ -494,7 +499,13 @@ async function addNotice() {
     image_url = urlData.publicUrl;
   }
 
-  await sb.from('notices').insert({ title, badge, content: content || null, image_url });
+  const { error: dbErr } = await sb.from('notices').insert({ title, badge, content: content || null, image_url });
+  if (dbErr) {
+    toast('❌ DB 오류: ' + dbErr.message);
+    console.error('공지 등록 실패:', dbErr);
+    btn.disabled = false; btn.textContent = '공지 등록';
+    return;
+  }
 
   // 초기화
   document.getElementById('noticeTitle').value = '';
