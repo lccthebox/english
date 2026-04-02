@@ -550,9 +550,8 @@ function closeNoticeModal(){
   document.getElementById('noticeModal').style.display='none';
   document.body.style.overflow='';
 }
-document.getElementById('noticeModal').addEventListener('click',function(e){
-  if(e.target===this) closeNoticeModal();
-});
+const _nm=document.getElementById('noticeModal');
+if(_nm) _nm.addEventListener('click',function(e){if(e.target===this)closeNoticeModal();});
 
 // 월간 - 6개씩 더보기
 let monthlyAll=[],monthlyShown=0;
