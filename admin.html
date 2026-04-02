@@ -84,7 +84,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
     <div class="login-sub">관리자 페이지</div>
     <input class="login-input" type="email" id="loginEmail" placeholder="이메일" value="">
     <input class="login-input" type="password" id="loginPw" placeholder="비밀번호">
-    <button class="login-btn" onclick="doLogin()">로그인</button>
+    <button type="button" class="login-btn" onclick="doLogin()">로그인</button>
     <div class="login-err" id="loginErr"></div>
   </div>
 </div>
@@ -93,7 +93,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
 <div class="admin-wrap" id="adminWrap">
   <div class="admin-header">
     <div class="admin-logo">THE<span>BOX</span> 관리자</div>
-    <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+    <button type="button" class="logout-btn" onclick="doLogout()">로그아웃</button>
   </div>
   <div class="admin-body">
     <div class="sidebar">
@@ -141,7 +141,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
             <input type="file" id="noticeFile" accept="image/*" style="display:none" onchange="previewNoticeFile(this)">
           </div>
           <div style="margin-top:16px">
-            <button class="submit-btn" id="noticeSubmitBtn" onclick="addNotice()">공지 등록</button>
+            <button type="button" class="submit-btn" id="noticeSubmitBtn" onclick="addNotice()">공지 등록</button>
           </div>
         </div>
         <div class="list-card">
@@ -182,7 +182,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
             <label class="form-label">클릭 시 이동할 링크 (선택)</label>
             <input class="form-input" id="monthlyLink" placeholder="https://...">
           </div>
-          <button class="submit-btn" id="monthlySubmitBtn" onclick="addMonthly()">등록</button>
+          <button type="button" class="submit-btn" id="monthlySubmitBtn" onclick="addMonthly()">등록</button>
         </div>
         <div class="list-card">
           <div class="list-header" style="grid-template-columns:60px 1fr 140px 100px 60px">
@@ -217,7 +217,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
             </div>
             <input type="file" id="videoFile" accept="image/*" style="display:none" onchange="previewVideoFile(this)">
           </div>
-          <button class="submit-btn" id="videoSubmitBtn" onclick="addVideo()">등록</button>
+          <button type="button" class="submit-btn" id="videoSubmitBtn" onclick="addVideo()">등록</button>
         </div>
         <div class="list-card">
           <div class="list-header" style="grid-template-columns:60px 1fr 120px 60px">
@@ -253,7 +253,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
             </div>
             <input type="file" id="kakaoFile" accept="image/*" style="display:none" onchange="previewKakaoFile(this)">
           </div>
-          <button class="submit-btn" id="kakaoSubmitBtn" onclick="addKakao()">등록</button>
+          <button type="button" class="submit-btn" id="kakaoSubmitBtn" onclick="addKakao()">등록</button>
         </div>
         <div class="form-card" style="margin-top:0">
           <div class="form-title" style="margin-bottom:12px">월별 필터</div>
@@ -293,7 +293,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
             </div>
             <input type="file" id="cafeFile" accept="image/*" style="display:none" onchange="previewCafeFile(this)">
           </div>
-          <button class="submit-btn" id="cafeSubmitBtn" onclick="addCafe()">등록</button>
+          <button type="button" class="submit-btn" id="cafeSubmitBtn" onclick="addCafe()">등록</button>
         </div>
         <div class="list-card">
           <div class="list-header" style="grid-template-columns:80px 1fr 120px 60px">
@@ -345,7 +345,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
             2. <strong>thebox-assets</strong> 버킷의 <strong>gallery/</strong> 폴더 권한 (Storage → Policies)<br>
             3. RLS 정책: authenticated 사용자 INSERT 허용 필요
           </div>
-          <button class="submit-btn" id="galSubmitBtn" onclick="addGallery()" style="margin-top:14px">등록</button>
+          <button type="button" class="submit-btn" id="galSubmitBtn" onclick="addGallery()" style="margin-top:14px">등록</button>
         </div>
 
         <div class="list-card">
@@ -446,7 +446,7 @@ async function loadNotices() {
       </div>
       <span style="font-size:11px;color:var(--mute)">${n.image_url ? '🖼️ 이미지' : ''}</span>
       <span style="font-size:12px;color:var(--mute)">${new Date(n.created_at).toLocaleDateString('ko-KR')}</span>
-      <button class="del-btn" onclick="delNotice('${n.id}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delNotice('${n.id}')">삭제</button>
     </div>`).join('');
 }
 
@@ -604,7 +604,7 @@ async function loadMonthly() {
       <span style="font-size:14px;font-weight:500">${m.title}</span>
       <span style="font-size:12px;color:var(--mute)">${m.year_month}</span>
       <span style="font-size:12px;color:var(--blue);overflow:hidden;text-overflow:ellipsis">${m.link_url ? '링크 있음' : '-'}</span>
-      <button class="del-btn" onclick="delMonthly('${m.id}', '${m.cover_url}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delMonthly('${m.id}', '${m.cover_url}')">삭제</button>
     </div>`).join('');
 }
 
@@ -688,7 +688,7 @@ async function loadVideos() {
       <img src="${v.thumbnail_url}" class="monthly-thumb">
       <span style="font-size:14px;font-weight:500">${v.title}</span>
       <a href="${v.youtube_url}" target="_blank" style="font-size:12px;color:var(--blue)">유튜브 →</a>
-      <button class="del-btn" onclick="delVideo('${v.id}','${v.thumbnail_url}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delVideo('${v.id}','${v.thumbnail_url}')">삭제</button>
     </div>`).join('');
 }
 
@@ -780,7 +780,7 @@ async function loadKakao() {
       <span style="font-size:14px;font-weight:600">${k.year_month}</span>
       <span style="font-size:12px;color:var(--mute)">${new Date(k.created_at).toLocaleDateString('ko-KR')}</span>
       <span style="font-size:13px;text-align:center">${k.sort_order}</span>
-      <button class="del-btn" onclick="delKakao('${k.id}','${k.image_url}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delKakao('${k.id}','${k.image_url}')">삭제</button>
     </div>`).join('');
 }
 
@@ -862,7 +862,7 @@ async function loadCafeAdmin() {
       <img src="${c.thumbnail_url}" style="width:60px;height:40px;object-fit:cover;border-radius:6px;background:#eee">
       <span style="font-size:14px;font-weight:500">${c.title}</span>
       <span style="font-size:12px;color:var(--mute)">${new Date(c.created_at).toLocaleDateString('ko-KR')}</span>
-      <button class="del-btn" onclick="delCafe('${c.id}','${c.thumbnail_url}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delCafe('${c.id}','${c.thumbnail_url}')">삭제</button>
     </div>`).join('');
 }
 
@@ -899,7 +899,7 @@ function renderGalPreview() {
       const div = document.createElement('div');
       div.style.cssText = 'position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;background:#eee';
       div.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">
-        <button onclick="removeGalFile(${i})" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>`;
+        <button type="button" onclick="removeGalFile(${i})" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>`;
       grid.appendChild(div);
     };
     r.readAsDataURL(f);
@@ -995,7 +995,7 @@ async function loadGallery() {
       <img src="${g.image_url}" style="width:100%;height:100%;object-fit:cover;display:block">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;justify-content:space-between;padding:8px" class="gal-hover">
         <span style="font-size:10px;font-weight:700;color:#fff;background:var(--blue);padding:2px 7px;border-radius:50px">${CATS[g.category] || g.category}</span>
-        <button onclick="delGallery('${g.id}','${g.image_url}')" style="background:rgba(204,34,34,.85);color:#fff;border:none;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;font-weight:700">삭제</button>
+        <button type="button" onclick="delGallery('${g.id}','${g.image_url}')" style="background:rgba(204,34,34,.85);color:#fff;border:none;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;font-weight:700">삭제</button>
       </div>
     </div>`).join('');
 
