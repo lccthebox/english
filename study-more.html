@@ -594,7 +594,7 @@ function renderMonthly() {
     card.href = m.link_url || m.cover_url;
     card.target = '_blank';
     card.className = 'monthly-card';
-    card.innerHTML = '<div class="monthly-thumb"><img src="' + m.cover_url + '" alt="' + m.title + '" loading="lazy" onerror="this.parentElement.innerHTML='📰'"></div>'
+    card.innerHTML = '<div class="monthly-thumb"><img src="' + m.cover_url + '" alt="' + m.title + '" loading="lazy" onerror="this.parentElement.innerHTML=&apos;📰&apos;"></div>'
       + '<div class="monthly-body"><div class="monthly-ym">' + m.year_month + '</div><div class="monthly-title">' + m.title + '</div></div>';
     el.appendChild(card);
   });
