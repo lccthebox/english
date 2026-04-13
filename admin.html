@@ -74,14 +74,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink)
 .upload-area.dragover{border-color:var(--blue);background:#f0f6ff}
 .upload-preview{width:100%;max-height:200px;object-fit:contain;margin-top:12px;border-radius:8px;display:none}
 </style>
-<script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
-<script type="text/javascript">
-if(!wcs_add) var wcs_add = {};
-wcs_add["wa"] = "29094729988b98";
-if(window.wcs) {
-wcs_do();
-}
-</script>
 </head>
 <body>
 
@@ -92,7 +84,7 @@ wcs_do();
     <div class="login-sub">관리자 페이지</div>
     <input class="login-input" type="email" id="loginEmail" placeholder="이메일" value="">
     <input class="login-input" type="password" id="loginPw" placeholder="비밀번호">
-    <button class="login-btn" onclick="doLogin()">로그인</button>
+    <button type="button" class="login-btn" onclick="doLogin()">로그인</button>
     <div class="login-err" id="loginErr"></div>
   </div>
 </div>
@@ -101,7 +93,7 @@ wcs_do();
 <div class="admin-wrap" id="adminWrap">
   <div class="admin-header">
     <div class="admin-logo">THE<span>BOX</span> 관리자</div>
-    <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+    <button type="button" class="logout-btn" onclick="doLogout()">로그아웃</button>
   </div>
   <div class="admin-body">
     <div class="sidebar">
@@ -110,6 +102,7 @@ wcs_do();
       <div class="sidebar-item" onclick="showSection('video',this)"><span class="sidebar-icon">🎬</span>영상 후기</div>
       <div class="sidebar-item" onclick="showSection('kakao',this)"><span class="sidebar-icon">💬</span>카톡 후기</div>
       <div class="sidebar-item" onclick="showSection('cafe',this)"><span class="sidebar-icon">☕</span>카페 후기</div>
+      <div class="sidebar-item" onclick="showSection('gallery',this)"><span class="sidebar-icon">📸</span>갤러리</div>
     </div>
     <div class="admin-main">
 
@@ -132,8 +125,23 @@ wcs_do();
               <input class="form-input" id="noticeTitle" placeholder="공지 제목을 입력하세요">
             </div>
           </div>
+          <div class="form-row">
+            <label class="form-label">내용 (선택)</label>
+            <textarea class="form-input" id="noticeContent" placeholder="공지 내용을 입력하세요 (클릭 시 팝업으로 표시됩니다)" style="min-height:100px;resize:vertical;line-height:1.7"></textarea>
+          </div>
+          <div class="form-row">
+            <label class="form-label">이미지 (선택)</label>
+            <div class="upload-area" id="noticeUploadArea" onclick="document.getElementById('noticeFile').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')"
+              ondrop="handleNoticeDrop(event)">
+              <div id="noticeUploadText">📁 클릭하거나 이미지를 드래그해서 업로드</div>
+              <img id="noticeUploadPreview" class="upload-preview">
+            </div>
+            <input type="file" id="noticeFile" accept="image/*" style="display:none" onchange="previewNoticeFile(this)">
+          </div>
           <div style="margin-top:16px">
-            <button class="submit-btn" onclick="addNotice()">공지 등록</button>
+            <button type="button" class="submit-btn" id="noticeSubmitBtn" onclick="addNotice()">공지 등록</button>
           </div>
         </div>
         <div class="list-card">
@@ -174,7 +182,7 @@ wcs_do();
             <label class="form-label">클릭 시 이동할 링크 (선택)</label>
             <input class="form-input" id="monthlyLink" placeholder="https://...">
           </div>
-          <button class="submit-btn" id="monthlySubmitBtn" onclick="addMonthly()">등록</button>
+          <button type="button" class="submit-btn" id="monthlySubmitBtn" onclick="addMonthly()">등록</button>
         </div>
         <div class="list-card">
           <div class="list-header" style="grid-template-columns:60px 1fr 140px 100px 60px">
@@ -209,7 +217,7 @@ wcs_do();
             </div>
             <input type="file" id="videoFile" accept="image/*" style="display:none" onchange="previewVideoFile(this)">
           </div>
-          <button class="submit-btn" id="videoSubmitBtn" onclick="addVideo()">등록</button>
+          <button type="button" class="submit-btn" id="videoSubmitBtn" onclick="addVideo()">등록</button>
         </div>
         <div class="list-card">
           <div class="list-header" style="grid-template-columns:60px 1fr 120px 60px">
@@ -245,7 +253,7 @@ wcs_do();
             </div>
             <input type="file" id="kakaoFile" accept="image/*" style="display:none" onchange="previewKakaoFile(this)">
           </div>
-          <button class="submit-btn" id="kakaoSubmitBtn" onclick="addKakao()">등록</button>
+          <button type="button" class="submit-btn" id="kakaoSubmitBtn" onclick="addKakao()">등록</button>
         </div>
         <div class="form-card" style="margin-top:0">
           <div class="form-title" style="margin-bottom:12px">월별 필터</div>
@@ -285,7 +293,7 @@ wcs_do();
             </div>
             <input type="file" id="cafeFile" accept="image/*" style="display:none" onchange="previewCafeFile(this)">
           </div>
-          <button class="submit-btn" id="cafeSubmitBtn" onclick="addCafe()">등록</button>
+          <button type="button" class="submit-btn" id="cafeSubmitBtn" onclick="addCafe()">등록</button>
         </div>
         <div class="list-card">
           <div class="list-header" style="grid-template-columns:80px 1fr 120px 60px">
@@ -294,6 +302,71 @@ wcs_do();
           <div id="cafeList"><div class="empty-list">로딩 중...</div></div>
         </div>
       </div>
+
+      <!-- 갤러리 -->
+      <div class="section" id="sec-gallery">
+        <div class="section-title">📸 갤러리</div>
+        <div class="form-card">
+          <div class="form-title">사진 등록 (여러 장 동시 업로드 가능)</div>
+          <div class="form-row-2">
+            <div class="form-row" style="margin:0">
+              <label class="form-label">카테고리</label>
+              <select class="form-input" id="galCat">
+                <option value="study">🗣️ 스터디</option>
+                <option value="party">🎉 파티</option>
+                <option value="outing">🎒 아웃팅</option>
+                <option value="event">🎊 이벤트</option>
+              </select>
+            </div>
+            <div class="form-row" style="margin:0">
+              <label class="form-label">설명 (선택)</label>
+              <input class="form-input" id="galCaption" placeholder="사진 설명">
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">사진 선택 (여러 장 가능)</label>
+            <div class="upload-area" id="galUploadArea" onclick="document.getElementById('galFiles').click()"
+              ondragover="event.preventDefault();this.classList.add('dragover')"
+              ondragleave="this.classList.remove('dragover')"
+              ondrop="handleGalDrop(event)">
+              <div id="galUploadText">📁 클릭하거나 이미지를 드래그해서 업로드</div>
+              <div id="galPreviewGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px"></div>
+            </div>
+            <input type="file" id="galFiles" accept="image/*" multiple style="display:none" onchange="previewGalFiles(this.files)">
+          </div>
+          <div id="galProgress" style="font-size:13px;color:var(--mute);min-height:18px;margin-top:4px"></div>
+          <div style="width:100%;height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;display:none" id="galPbWrap">
+            <div id="galPb" style="height:100%;background:var(--blue);border-radius:2px;transition:width .3s;width:0"></div>
+          </div>
+          <!-- Supabase 설정 안내 -->
+          <div style="margin-top:12px;padding:12px 16px;background:#fffbf0;border:1px solid #f0d080;border-radius:8px;font-size:12px;color:#7a6000;line-height:1.7">
+            ⚠️ <strong>등록이 안 될 경우</strong> Supabase에서 확인하세요:<br>
+            1. <strong>gallery</strong> 테이블 존재 여부 (Table Editor)<br>
+            2. <strong>thebox-assets</strong> 버킷의 <strong>gallery/</strong> 폴더 권한 (Storage → Policies)<br>
+            3. RLS 정책: authenticated 사용자 INSERT 허용 필요
+          </div>
+          <button type="button" class="submit-btn" id="galSubmitBtn" onclick="addGallery()" style="margin-top:14px">등록</button>
+        </div>
+
+        <div class="list-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+            <div class="form-title" style="margin:0">등록된 사진</div>
+            <div style="display:flex;gap:8px">
+              <select class="form-input" id="galFilter" onchange="loadGallery()" style="width:auto;padding:6px 12px;font-size:13px">
+                <option value="">전체</option>
+                <option value="study">스터디</option>
+                <option value="party">파티</option>
+                <option value="outing">아웃팅</option>
+                <option value="event">이벤트</option>
+              </select>
+            </div>
+          </div>
+          <div id="galList" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+            <div class="empty-list" style="grid-column:span 4">로딩 중...</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -347,6 +420,7 @@ function showSection(name, el) {
   document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
   document.getElementById('sec-' + name).classList.add('active');
   el.classList.add('active');
+  if (name === 'gallery') loadGallery();
 }
 
 // ── 토스트 ──
@@ -359,24 +433,87 @@ function toast(msg) {
 
 // ── 공지사항 ──
 async function loadNotices() {
-  const { data } = await sb.from('notices').select('*').order('created_at', { ascending: false });
+  const { data, error } = await sb.from('notices').select('*').order('created_at', { ascending: false });
   const el = document.getElementById('noticeList');
+  if (error) { el.innerHTML = `<div class="empty-list" style="color:red">오류: ${error.message}</div>`; return; }
   if (!data || data.length === 0) { el.innerHTML = '<div class="empty-list">등록된 공지가 없습니다</div>'; return; }
   el.innerHTML = data.map(n => `
-    <div class="list-item" style="grid-template-columns:60px 1fr 100px 60px">
+    <div class="list-item" style="grid-template-columns:60px 1fr 80px 80px 60px">
       <span class="list-badge badge-${n.badge}">${n.badge === 'new' ? 'NEW' : n.badge === 'event' ? '이벤트' : '공지'}</span>
-      <span style="font-size:14px;font-weight:500">${n.title}</span>
+      <div>
+        <div style="font-size:14px;font-weight:500">${n.title}</div>
+        ${n.content ? `<div style="font-size:11px;color:var(--mute);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:300px">${n.content.slice(0,40)}${n.content.length>40?'...':''}</div>` : ''}
+      </div>
+      <span style="font-size:11px;color:var(--mute)">${n.image_url ? '🖼️ 이미지' : ''}</span>
       <span style="font-size:12px;color:var(--mute)">${new Date(n.created_at).toLocaleDateString('ko-KR')}</span>
-      <button class="del-btn" onclick="delNotice('${n.id}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delNotice('${n.id}')">삭제</button>
     </div>`).join('');
+}
+
+let uploadedNoticeFile = null;
+
+function previewNoticeFile(input) {
+  const file = input.files[0]; if (!file) return;
+  uploadedNoticeFile = file;
+  const r = new FileReader();
+  r.onload = e => {
+    document.getElementById('noticeUploadPreview').src = e.target.result;
+    document.getElementById('noticeUploadPreview').style.display = 'block';
+    document.getElementById('noticeUploadText').textContent = '✅ ' + file.name;
+  };
+  r.readAsDataURL(file);
+}
+function handleNoticeDrop(e) {
+  e.preventDefault();
+  document.getElementById('noticeUploadArea').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    uploadedNoticeFile = file;
+    const r = new FileReader();
+    r.onload = ev => {
+      document.getElementById('noticeUploadPreview').src = ev.target.result;
+      document.getElementById('noticeUploadPreview').style.display = 'block';
+      document.getElementById('noticeUploadText').textContent = '✅ ' + file.name;
+    };
+    r.readAsDataURL(file);
+  }
 }
 
 async function addNotice() {
   const title = document.getElementById('noticeTitle').value.trim();
   const badge = document.getElementById('noticeBadge').value;
+  const content = document.getElementById('noticeContent').value.trim();
+  const btn = document.getElementById('noticeSubmitBtn');
   if (!title) { toast('제목을 입력해주세요'); return; }
-  await sb.from('notices').insert({ title, badge });
+
+  btn.disabled = true; btn.textContent = '등록 중...';
+  let image_url = null;
+
+  // 이미지 업로드 (있는 경우)
+  if (uploadedNoticeFile) {
+    const ext = uploadedNoticeFile.name.split('.').pop().toLowerCase();
+    const fileName = `notices/${Date.now()}.${ext}`;
+    const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, uploadedNoticeFile, { upsert: true });
+    if (upErr) { toast('❌ 이미지 업로드 실패: ' + upErr.message); btn.disabled = false; btn.textContent = '공지 등록'; return; }
+    const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+    image_url = urlData.publicUrl;
+  }
+
+  const { error: dbErr } = await sb.from('notices').insert({ title, badge, content: content || null, image_url });
+  if (dbErr) {
+    toast('❌ DB 오류: ' + dbErr.message);
+    console.error('공지 등록 실패:', dbErr);
+    btn.disabled = false; btn.textContent = '공지 등록';
+    return;
+  }
+
+  // 초기화
   document.getElementById('noticeTitle').value = '';
+  document.getElementById('noticeContent').value = '';
+  document.getElementById('noticeUploadPreview').style.display = 'none';
+  document.getElementById('noticeUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+  uploadedNoticeFile = null;
+  btn.disabled = false; btn.textContent = '공지 등록';
   toast('✅ 공지가 등록되었습니다');
   loadNotices();
 }
@@ -467,7 +604,7 @@ async function loadMonthly() {
       <span style="font-size:14px;font-weight:500">${m.title}</span>
       <span style="font-size:12px;color:var(--mute)">${m.year_month}</span>
       <span style="font-size:12px;color:var(--blue);overflow:hidden;text-overflow:ellipsis">${m.link_url ? '링크 있음' : '-'}</span>
-      <button class="del-btn" onclick="delMonthly('${m.id}', '${m.cover_url}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delMonthly('${m.id}', '${m.cover_url}')">삭제</button>
     </div>`).join('');
 }
 
@@ -551,7 +688,7 @@ async function loadVideos() {
       <img src="${v.thumbnail_url}" class="monthly-thumb">
       <span style="font-size:14px;font-weight:500">${v.title}</span>
       <a href="${v.youtube_url}" target="_blank" style="font-size:12px;color:var(--blue)">유튜브 →</a>
-      <button class="del-btn" onclick="delVideo('${v.id}','${v.thumbnail_url}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delVideo('${v.id}','${v.thumbnail_url}')">삭제</button>
     </div>`).join('');
 }
 
@@ -643,7 +780,7 @@ async function loadKakao() {
       <span style="font-size:14px;font-weight:600">${k.year_month}</span>
       <span style="font-size:12px;color:var(--mute)">${new Date(k.created_at).toLocaleDateString('ko-KR')}</span>
       <span style="font-size:13px;text-align:center">${k.sort_order}</span>
-      <button class="del-btn" onclick="delKakao('${k.id}','${k.image_url}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delKakao('${k.id}','${k.image_url}')">삭제</button>
     </div>`).join('');
 }
 
@@ -725,7 +862,7 @@ async function loadCafeAdmin() {
       <img src="${c.thumbnail_url}" style="width:60px;height:40px;object-fit:cover;border-radius:6px;background:#eee">
       <span style="font-size:14px;font-weight:500">${c.title}</span>
       <span style="font-size:12px;color:var(--mute)">${new Date(c.created_at).toLocaleDateString('ko-KR')}</span>
-      <button class="del-btn" onclick="delCafe('${c.id}','${c.thumbnail_url}')">삭제</button>
+      <button type="button" class="del-btn" onclick="delCafe('${c.id}','${c.thumbnail_url}')">삭제</button>
     </div>`).join('');
 }
 
@@ -736,6 +873,146 @@ async function delCafe(id, thumbUrl) {
   await sb.from('cafe_reviews').delete().eq('id', id);
   toast('🗑️ 삭제되었습니다');
   loadCafeAdmin();
+}
+
+// ── 갤러리 ──
+let galFileList = [];
+
+function previewGalFiles(files) {
+  galFileList = Array.from(files);
+  renderGalPreview();
+}
+
+function handleGalDrop(e) {
+  e.preventDefault();
+  document.getElementById('galUploadArea').classList.remove('dragover');
+  galFileList = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  renderGalPreview();
+}
+
+function renderGalPreview() {
+  const grid = document.getElementById('galPreviewGrid');
+  grid.innerHTML = '';
+  galFileList.forEach((f, i) => {
+    const r = new FileReader();
+    r.onload = e => {
+      const div = document.createElement('div');
+      div.style.cssText = 'position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;background:#eee';
+      div.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">
+        <button type="button" onclick="removeGalFile(${i})" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>`;
+      grid.appendChild(div);
+    };
+    r.readAsDataURL(f);
+  });
+  document.getElementById('galUploadText').textContent = galFileList.length ? `${galFileList.length}장 선택됨` : '📁 클릭하거나 이미지를 드래그해서 업로드';
+}
+
+function removeGalFile(i) {
+  galFileList.splice(i, 1);
+  renderGalPreview();
+}
+
+async function addGallery() {
+  if (!galFileList.length) { toast('사진을 선택해주세요'); return; }
+  const cat = document.getElementById('galCat').value;
+  const cap = document.getElementById('galCaption').value.trim();
+  const btn = document.getElementById('galSubmitBtn');
+  const prog = document.getElementById('galProgress');
+  const pb = document.getElementById('galPb');
+  const pbWrap = document.getElementById('galPbWrap');
+
+  btn.disabled = true; pbWrap.style.display = 'block';
+  let successCount = 0;
+
+  for (let i = 0; i < galFileList.length; i++) {
+    const f = galFileList[i];
+    prog.textContent = `업로드 중... (${i + 1}/${galFileList.length}) — ${f.name}`;
+    pb.style.width = `${((i + 1) / galFileList.length) * 85}%`;
+
+    try {
+      // 1. Storage 업로드
+      const ext = f.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+      const fileName = `gallery/${Date.now()}_${Math.random().toString(36).slice(2,7)}.${ext}`;
+      const { error: upErr } = await sb.storage.from('thebox-assets').upload(fileName, f, { upsert: true });
+      if (upErr) throw new Error('Storage 오류: ' + upErr.message);
+
+      // 2. Public URL 가져오기
+      const { data: urlData } = sb.storage.from('thebox-assets').getPublicUrl(fileName);
+      const imageUrl = urlData.publicUrl;
+
+      // 3. DB 저장
+      const { error: dbErr } = await sb.from('gallery').insert({
+        image_url: imageUrl,
+        category: cat,
+        caption: cap || '',
+        is_published: true,
+        created_at: new Date().toISOString()
+      });
+      if (dbErr) throw new Error('DB 오류: ' + dbErr.message);
+
+      successCount++;
+    } catch (err) {
+      console.error(err);
+      prog.textContent = `❌ ${f.name} 실패 — ${err.message}`;
+      // 실패해도 나머지 계속 진행
+      await new Promise(r => setTimeout(r, 1500));
+    }
+  }
+
+  pb.style.width = '100%';
+  if (successCount > 0) {
+    prog.textContent = `✅ ${successCount}/${galFileList.length}장 등록 완료!`;
+    toast(`✅ ${successCount}장 갤러리에 등록되었습니다`);
+    galFileList = [];
+    document.getElementById('galPreviewGrid').innerHTML = '';
+    document.getElementById('galUploadText').textContent = '📁 클릭하거나 이미지를 드래그해서 업로드';
+    document.getElementById('galCaption').value = '';
+    loadGallery();
+  } else {
+    prog.textContent = '❌ 등록 실패 — 아래 안내를 확인해주세요';
+    toast('❌ 등록 실패: 콘솔(F12)에서 오류 확인');
+  }
+
+  btn.disabled = false;
+  setTimeout(() => { if(successCount > 0){ pbWrap.style.display = 'none'; pb.style.width = '0'; prog.textContent=''; }}, 3000);
+}
+
+async function loadGallery() {
+  const cat = document.getElementById('galFilter').value;
+  let q = sb.from('gallery').select('*').eq('is_published', true).order('created_at', { ascending: false });
+  if (cat) q = q.eq('category', cat);
+  const { data } = await q;
+
+  const el = document.getElementById('galList');
+  const CATS = { study:'스터디', party:'파티', outing:'아웃팅', event:'이벤트' };
+
+  if (!data || !data.length) {
+    el.innerHTML = '<div class="empty-list" style="grid-column:span 4">등록된 사진이 없습니다</div>';
+    return;
+  }
+  el.innerHTML = data.map(g => `
+    <div style="position:relative;border-radius:10px;overflow:hidden;background:#eee;aspect-ratio:1">
+      <img src="${g.image_url}" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;justify-content:space-between;padding:8px" class="gal-hover">
+        <span style="font-size:10px;font-weight:700;color:#fff;background:var(--blue);padding:2px 7px;border-radius:50px">${CATS[g.category] || g.category}</span>
+        <button type="button" onclick="delGallery('${g.id}','${g.image_url}')" style="background:rgba(204,34,34,.85);color:#fff;border:none;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;font-weight:700">삭제</button>
+      </div>
+    </div>`).join('');
+
+  // hover 효과
+  el.querySelectorAll('.gal-hover').forEach(h => {
+    h.parentElement.onmouseenter = () => h.style.opacity = '1';
+    h.parentElement.onmouseleave = () => h.style.opacity = '0';
+  });
+}
+
+async function delGallery(id, imgUrl) {
+  if (!confirm('이 사진을 삭제하시겠습니까?')) return;
+  const path = imgUrl.split('/thebox-assets/')[1];
+  if (path) await sb.storage.from('thebox-assets').remove([path]);
+  await sb.from('gallery').delete().eq('id', id);
+  toast('🗑️ 삭제되었습니다');
+  loadGallery();
 }
 
 // 세션 확인

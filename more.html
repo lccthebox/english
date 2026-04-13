@@ -2,8 +2,57 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+    <meta name="naver-site-verification" content="2166235f6c7aedaab2ee06be0f181bea27b58439">
+  <meta name="google-site-verification" content="162a86e476a8a827">
+  <!-- SEO -->
+  <title>더박스 플러스 | 공지·이벤트</title>
+  <meta name="description" content="더박스 어학원 공지사항, 이벤트, 월간 더박스 소식을 확인하세요.">
+  <meta name="keywords" content="더박스공지사항, 더박스혜택, 영어학원이벤트">
+  <meta name="author" content="더박스(TheBox)">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://theboxis.com/more.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="더박스 플러스 | 공지 & 제휴 혜택">
+  <meta property="og:description" content="더박스 어학원 공지사항, 월간 더박스, 제휴업체 혜택.">
+  <meta property="og:url" content="https://theboxis.com/more.html">
+  <meta property="og:site_name" content="더박스(TheBox)">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://theboxis.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="더박스 플러스 | 공지 & 제휴 혜택">
+  <meta name="twitter:description" content="더박스 어학원 공지사항, 월간 더박스, 제휴업체 혜택.">
+  <meta name="twitter:image" content="https://theboxis.com/og-image.jpg">
+
+  <!-- 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LanguageSchool",
+    "name": "더박스(TheBox)",
+    "url": "https://theboxis.com",
+    "logo": "https://theboxis.com/favicon.ico",
+    "description": "대구 동성로 원어민 영어회화 어학원 & 스터디",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "대구광역시 중구 동성로2(동성로3가 90-1) 6층",
+      "addressLocality": "대구",
+      "addressCountry": "KR"
+    },
+    "telephone": "010-8673-9664",
+    "sameAs": [
+      "https://www.instagram.com/thebox_daegu/",
+      "https://naver.me/GdyGWbSC"
+    ]
+  }
+  </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>더박스 플러스 | 더박스</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -31,8 +80,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .nav-cta{background:var(--blue);color:#fff;border:none;border-radius:50px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;padding:4px;flex-shrink:0}
-.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
+.hamburger{display:none;flex-direction:row;align-items:center;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--blue);color:var(--blue)}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:18px;font-weight:700;color:var(--ink);text-decoration:none}
@@ -147,7 +196,8 @@ footer{background:#111;padding:28px var(--px);display:flex;justify-content:space
 @media(max-width:768px){
   :root{--px:4%}
   nav .nav-links{display:none}
-  .hamburger{display:flex}
+  .nav-live,.nav-study{display:none}
+  .hamburger{display:flex!important}
   .partner-layout{grid-template-columns:1fr}
   .video-grid{grid-template-columns:repeat(2,1fr)}
   .monthly-grid{grid-template-columns:repeat(2,1fr)}
@@ -158,15 +208,166 @@ footer{background:#111;padding:28px var(--px);display:flex;justify-content:space
   .monthly-grid{grid-template-columns:repeat(2,1fr)}
   .tab-btn{padding:14px 14px;font-size:12px}
 }
-</style>
-<script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
-<script type="text/javascript">
-if(!wcs_add) var wcs_add = {};
-wcs_add["wa"] = "29094729988b98";
-if(window.wcs) {
-wcs_do();
+
+/* ── 모바일 2줄 네비 ── */
+@media(max-width:768px){
+  nav{
+    height:auto!important;
+    flex-wrap:wrap;
+    padding:8px var(--px) 0!important;
+    gap:0!important;
+    align-items:center;
+  }
+  /* 1줄: 로고(order:1) + nav-right(order:2) → 같은 줄 */
+  .nav-logo{font-size:14px!important;order:1}
+  .nav-right{order:2;flex-shrink:0;gap:6px!important}
+  .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
+  .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
+  .hamburger{display:none!important}
+  /* 2줄: nav-links(order:3) → 다음 줄 전체 */
+  .nav-links{
+    order:3;
+    display:flex!important;
+    flex-basis:100%;
+    gap:0!important;
+    justify-content:space-between;
+    border-top:1px solid var(--border);
+    margin-top:8px;
+    padding:7px 0 8px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links li{flex:1;text-align:center}
+  .nav-links a{
+    font-size:11px!important;
+    white-space:nowrap;
+    color:var(--ink-mute)!important;
+    font-weight:500;
+    padding:2px 4px;
+    display:block;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--blue)!important;font-weight:700}
+  .nav-review{color:var(--ink-mute)!important}
 }
-</script>
+@media(max-width:400px){
+  .nav-live,.nav-study{font-size:9px!important}
+  .nav-cta{font-size:9px!important;padding:5px 8px!important}
+  .nav-links a{font-size:10px!important}
+}
+
+/* ══════════════════════════════════════
+   전체 모바일 최적화 v2
+   - 글자 축소 / 패딩 축소 / 색상 완화
+   ══════════════════════════════════════ */
+
+/* 색상 완화: 레드를 조금 더 차분하게 */
+:root {
+  --red:#B91C1C;
+  --red-dark:#991818;
+  --red-light:#FEF2F2;
+}
+
+@media(max-width:768px){
+  /* ── 기본 타이포 ── */
+  body{font-size:14px}
+
+  /* ── 히어로 ── */
+  .page-hero{padding:28px 4% 22px!important}
+  .page-hero h1{font-size:20px!important;line-height:1.25!important;margin-bottom:8px!important}
+  .page-hero p{font-size:12px!important;line-height:1.7!important;max-width:100%!important}
+  .hero-eyebrow{font-size:9px!important;margin-bottom:8px!important;letter-spacing:1.5px!important}
+  .hero-eyebrow::before,.hero-eyebrow::after{width:10px!important}
+  .slide-title{font-size:clamp(18px,5vw,26px)!important;line-height:1.2!important}
+  .slide-sub{font-size:12px!important}
+
+  /* ── 섹션 공통 ── */
+  section{padding:28px 4%!important}
+  .section-title{font-size:18px!important;line-height:1.25!important;margin-bottom:6px!important}
+  .section-sub{font-size:12px!important;line-height:1.7!important}
+  .section-eyebrow{font-size:9px!important;letter-spacing:1.5px!important;margin-bottom:6px!important}
+  .section-eyebrow::before{width:12px!important}
+
+  /* ── 카드 ── */
+  .program-card{padding:18px!important}
+  .program-name{font-size:13px!important}
+  .program-desc{font-size:12px!important}
+  .level-card,.lv-default,.lv-popular{padding:18px!important}
+  .lv-title{font-size:15px!important}
+  .lv-desc{font-size:12px!important;line-height:1.7!important}
+  .why-card{padding:18px!important}
+  .why-num{font-size:24px!important;margin-bottom:6px!important}
+  .why-title{font-size:13px!important;margin-bottom:6px!important}
+  .why-desc{font-size:12px!important;line-height:1.7!important}
+  .value-card{padding:18px!important}
+  .value-title{font-size:13px!important;margin-bottom:4px!important}
+  .value-desc{font-size:12px!important;line-height:1.7!important}
+  .naver-card{padding:14px!important}
+  .naver-body{font-size:12px!important;line-height:1.75!important;-webkit-line-clamp:4!important}
+  .naver-meta{font-size:10px!important}
+  .review-card{padding:16px!important}
+  .review-text{font-size:12px!important;line-height:1.75!important}
+
+  /* ── stats ── */
+  .stat-num{font-size:24px!important}
+  .stat-label{font-size:10px!important}
+  .stat-unit{font-size:14px!important}
+
+  /* ── 버튼 ── */
+  .btn-red,.btn-white,.btn-outline,.nav-cta{font-size:12px!important;padding:10px 20px!important}
+  .cta-title{font-size:18px!important;line-height:1.3!important;margin-bottom:8px!important}
+  .cta-desc{font-size:12px!important;margin-bottom:20px!important}
+
+  /* ── 패널/탭 ── */
+  .panel-title{font-size:16px!important}
+  .panel-sub{font-size:12px!important}
+  .tab-btn{font-size:11px!important;padding:10px 10px!important}
+
+  /* ── 지점 카드 ── */
+  .branch-name{font-size:13px!important}
+  .branch-addr{font-size:11px!important;line-height:1.5!important}
+  .branch-body{padding:12px!important}
+
+  /* ── FAQ ── */
+  .faq-q{font-size:13px!important;padding:14px 16px!important}
+  .faq-a{font-size:12px!important;padding:0 16px 14px!important}
+
+  /* ── 스케줄/수강료 표 ── */
+  .sch-card{padding:16px!important}
+  .sch-label{font-size:10px!important}
+  .sch-time{font-size:11px!important;min-width:64px!important}
+  .sch-name{font-size:11px!important}
+
+  /* ── 네비 2줄 ── */
+  .nav-links a{font-size:10px!important}
+  .nav-academy,.nav-live{font-size:9px!important}
+
+  /* ── footer ── */
+  .footer-info,.fl-info{font-size:10px!important;line-height:1.7!important}
+}
+
+@media(max-width:400px){
+  .page-hero h1{font-size:18px!important}
+  .section-title{font-size:16px!important}
+  .cta-title{font-size:16px!important}
+}
+
+
+/* ── 가로 스크롤 완전 차단 ── */
+html, body { overflow-x: hidden; max-width: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+img { max-width: 100%; }
+@media(max-width:768px){
+  section, div, nav, footer { max-width: 100%; }
+  .stats-band, .hero-stats { overflow-x: hidden; }
+  .tab-nav, .filter-inner, .nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* 슬라이더 삐져나옴 방지 */
+  .tc-slider, .hero-slideshow, .slide { overflow: hidden; }
+  /* 테이블/그리드 삐져나옴 방지 */
+  .sch-header-grid, .sch-row-grid, .fee-header-grid, .fee-row-grid { overflow-x: auto; }
+}
+</style>
 </head>
 <body>
 
@@ -175,15 +376,15 @@ wcs_do();
   <ul class="nav-links">
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
-    <li><a href="more.html">더박스 플러스</a></li>
-    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
+    <li><a href="more.html" class="active">더박스 플러스</a></li>
+    <li><a href="reviews.html" >더박스후기</a></li>
   </ul>
   <div class="nav-right">
     <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mM').classList.toggle('open')" aria-label="메뉴">
-      <span></span><span></span><span></span>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.5px;white-space:nowrap">MENU</span>
     </button>
   </div>
 </nav>
@@ -250,14 +451,10 @@ wcs_do();
   <script async src="//www.instagram.com/embed.js"></script>
 </div>
 
-  <div class="video-grid" id="videoGrid"><div class="loading-state" style="grid-column:1/-1"><span class="loading-dot">●</span> 로딩 중...</div></div>
-  <div class="more-row" id="videoMoreRow" style="display:none">
-    <button class="load-more-btn" id="videoMoreBtn" onclick="loadMoreVideos()">더보기 ↓</button>
-  </div>
 </div>
 
 <div class="cta-band fade-up">
-  <div class="cta-band-title">더박스와 함께<br><em>영어가 즐거워지는</em> 경험</div>
+  <div class="cta-band-title">영어회화는 더박스<br><em>영어가 즐거워지는</em> 경험</div>
   <p class="cta-band-sub">지금 바로 무료 상담으로 첫 수업을 경험해보세요.</p>
   <div class="cta-btns">
     <a href="https://naver.me/5BcjX84R" target="_blank" class="btn-blue">무료 상담 예약</a>
@@ -267,7 +464,7 @@ wcs_do();
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9b5babaadb1bcbbb6a199beb4b8b0b5f7bab6b4">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87ebe4e4f3efe2e5e8ffc7e0eae6eeeba9e4e8ea">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="academy.html">홈</a>
     <a href="introduce.html">소개</a>
@@ -290,45 +487,241 @@ const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.tar
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
-const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-const{createClient}=supabase;
-const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const SUPABASE_URL = 'https://oualwikibctxvlscpuyn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const PAGE=6; // 1행 3열 x 2행
-const badgeMap={new:'<span class="notice-badge badge-new">NEW</span>',event:'<span class="notice-badge badge-event">이벤트</span>',general:'<span class="notice-badge badge-general">공지</span>'};
-function fmtDate(d){return new Date(d).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1)}
+const PAGE = 6;
+const badgeMap = {
+  new: '<span class="notice-badge badge-new">NEW</span>',
+  event: '<span class="notice-badge badge-event">이벤트</span>',
+  general: '<span class="notice-badge badge-general">공지</span>'
+};
 
-// 공지
-async function loadNotices(){
-  const el=document.getElementById('noticeList');
-  const{data}=await sb.from('notices').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(30);
-  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 공지가 없습니다</div>';return;}
-  el.innerHTML=data.map(n=>`<a href="#" class="notice-item">${badgeMap[n.badge]||badgeMap.general}<span class="notice-title">${n.title}</span><span class="notice-date">${fmtDate(n.created_at)}</span></a>`).join('');
+function fmtDate(d) {
+  return new Date(d).toLocaleDateString('ko-KR', {year:'numeric', month:'2-digit', day:'2-digit'}).replace(/\. /g, '.').slice(0, -1);
 }
 
-// 월간 - 6개씩 더보기
-let monthlyAll=[],monthlyShown=0;
-async function loadMonthly(){
-  const el=document.getElementById('monthlyGrid');
-  const{data}=await sb.from('monthly').select('*').eq('is_published',true).order('created_at',{ascending:false});
-  if(!data||!data.length){el.innerHTML='<div class="empty-state">등록된 월간 더박스가 없습니다</div>';return;}
-  monthlyAll=data; monthlyShown=0;
-  el.innerHTML='';
-  renderMonthly();
+var noticesData = [];
+
+function openNoticeModal(i) {
+  var n = noticesData[i];
+  if (!n) return;
+  var badges = {new:'새 공지', event:'이벤트', general:'공지'};
+  var colors = {
+    new:  'background:#fff0f0;color:#cc2222',
+    event:'background:#f0f4ff;color:#1A5FCC',
+    general:'background:#f5f5f5;color:#555'
+  };
+  document.getElementById('nmBadge').textContent = badges[n.badge] || badges.general;
+  document.getElementById('nmBadge').style.cssText = colors[n.badge] || colors.general;
+  document.getElementById('nmTitle').textContent = n.title;
+  document.getElementById('nmDate').textContent = fmtDate(n.created_at);
+  var cont = document.getElementById('nmContent');
+  cont.textContent = n.content || '';
+  cont.style.display = n.content ? 'block' : 'none';
+  var imgWrap = document.getElementById('nmImg');
+  if (n.image_url) {
+    document.getElementById('nmImgEl').src = n.image_url;
+    imgWrap.style.display = 'block';
+  } else {
+    imgWrap.style.display = 'none';
+  }
+  document.getElementById('noticeModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
-function renderMonthly(){
-  const el=document.getElementById('monthlyGrid');
-  const slice=monthlyAll.slice(monthlyShown,monthlyShown+PAGE);
-  slice.forEach(m=>{
-    const card=document.createElement('a');
-    card.href=m.link_url||m.cover_url; card.target='_blank'; card.className='monthly-card';
-    card.innerHTML=`<div class="monthly-thumb"><img src="${m.cover_url}" alt="${m.title}" loading="lazy" onerror="this.parentElement.innerHTML='📰'"></div><div class="monthly-body"><div class="monthly-ym">${m.year_month}</div><div class="monthly-title">${m.title}</div></div>`;
+
+function closeNoticeModal() {
+  document.getElementById('noticeModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+async function loadNotices() {
+  var el = document.getElementById('noticeList');
+  try {
+    var res = await sb.from('notices').select('*').eq('is_published', true).order('created_at', {ascending: false}).limit(30);
+    if (res.error) throw res.error;
+    if (!res.data || !res.data.length) { el.innerHTML = '<div class="empty-state">등록된 공지가 없습니다</div>'; return; }
+    noticesData = res.data;
+    el.innerHTML = res.data.map(function(n, i) {
+      var badge = badgeMap[n.badge] || badgeMap.general;
+      var arrow = (n.content || n.image_url) ? '<span style="font-size:10px;color:#aaa;flex-shrink:0">&#9654; 자세히</span>' : '';
+      return '<a href="#" class="notice-item" onclick="openNoticeModal(' + i + ');return false;">'
+           + badge + '<span class="notice-title">' + n.title + '</span>'
+           + '<span class="notice-date">' + fmtDate(n.created_at) + '</span>' + arrow + '</a>';
+    }).join('');
+  } catch(e) {
+    console.error('notices error:', e);
+    el.innerHTML = '<div class="empty-state">공지사항 로드 실패<br><small>' + e.message + '</small></div>';
+  }
+}
+
+var monthlyAll = [];
+var monthlyShown = 0;
+
+async function loadMonthly() {
+  var el = document.getElementById('monthlyGrid');
+  try {
+    var res = await sb.from('monthly').select('*').eq('is_published', true).order('created_at', {ascending: false});
+    if (res.error) throw res.error;
+    if (!res.data || !res.data.length) { el.innerHTML = '<div class="empty-state">등록된 월간 더박스가 없습니다</div>'; return; }
+    monthlyAll = res.data;
+    monthlyShown = 0;
+    el.innerHTML = '';
+    renderMonthly();
+  } catch(e) {
+    console.error('monthly error:', e);
+    el.innerHTML = '<div class="empty-state">월간 더박스 로드 실패<br><small>' + e.message + '</small></div>';
+  }
+}
+
+function renderMonthly() {
+  var el = document.getElementById('monthlyGrid');
+  var slice = monthlyAll.slice(monthlyShown, monthlyShown + PAGE);
+  slice.forEach(function(m) {
+    var card = document.createElement('a');
+    card.href = m.link_url || m.cover_url || '#';
+    card.target = '_blank';
+    card.className = 'monthly-card';
+
+    var thumb = document.createElement('div');
+    thumb.className = 'monthly-thumb';
+    var img = document.createElement('img');
+    img.src = m.cover_url || '';
+    img.alt = m.title || '';
+    img.loading = 'lazy';
+    img.onerror = function() { this.parentElement.textContent = ''; };
+    thumb.appendChild(img);
+
+    var body = document.createElement('div');
+    body.className = 'monthly-body';
+    var ym = document.createElement('div');
+    ym.className = 'monthly-ym';
+    ym.textContent = m.year_month || '';
+    var title = document.createElement('div');
+    title.className = 'monthly-title';
+    title.textContent = m.title || '';
+    body.appendChild(ym);
+    body.appendChild(title);
+
+    card.appendChild(thumb);
+    card.appendChild(body);
     el.appendChild(card);
   });
-  monthlyShown+=slice.length;
-  const row=document.getEle
+  monthlyShown += slice.length;
+  var row = document.getElementById('monthlyMoreRow');
+  if (row) row.style.display = monthlyShown < monthlyAll.length ? 'flex' : 'none';
+}
+
+function loadMoreMonthly() { renderMonthly(); }
+
+async function loadPartners() {
+  var el = document.getElementById('partnerGrid');
+  if (!el) return;
+  try {
+    var res = await sb.from('partners').select('*').eq('is_published', true).order('sort_order', {ascending: true});
+    if (res.error) throw res.error;
+    if (!res.data || !res.data.length) { el.innerHTML = '<div class="empty-state">등록된 제휴업체가 없습니다</div>'; return; }
+    el.innerHTML = '';
+    res.data.forEach(function(p) {
+      var a = document.createElement('a');
+      a.href = p.link_url || '#';
+      a.target = '_blank';
+      a.style.cssText = 'text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s';
+
+      var imgWrap = document.createElement('div');
+      imgWrap.style.cssText = 'width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg)';
+      var img = document.createElement('img');
+      img.src = p.image_url || '';
+      img.alt = p.name || '';
+      img.loading = 'lazy';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
+      img.onerror = function() { this.parentElement.style.background = '#f0f0f0'; };
+      imgWrap.appendChild(img);
+
+      var info = document.createElement('div');
+      info.style.cssText = 'padding:12px 14px';
+      var nameEl = document.createElement('div');
+      nameEl.style.cssText = 'font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px';
+      nameEl.textContent = p.name || '';
+      var descEl = document.createElement('div');
+      descEl.style.cssText = 'font-size:11px;color:var(--ink-mute)';
+      descEl.textContent = p.desc || '';
+      info.appendChild(nameEl);
+      info.appendChild(descEl);
+
+      a.appendChild(imgWrap);
+      a.appendChild(info);
+      el.appendChild(a);
+    });
+  } catch(e) {
+    console.error('partners error:', e);
+    el.innerHTML = '<div class="empty-state">제휴업체 로드 실패<br><small>' + e.message + '</small></div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var modal = document.getElementById('noticeModal');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) closeNoticeModal();
+    });
+  }
+  loadNotices();
+  loadMonthly();
+  loadPartners();
+});
+</script>
+
+<!-- 공지사항 상세 모달 -->
+<div id="noticeModal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);overflow-y:auto;padding:20px">
+  <div style="background:#fff;border-radius:16px;max-width:620px;margin:0 auto;overflow:hidden;position:relative">
+    <div style="padding:20px 24px 16px;border-bottom:1px solid #eee;display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+      <div>
+        <div id="nmBadge" style="display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:50px;margin-bottom:8px"></div>
+        <div id="nmTitle" style="font-size:17px;font-weight:700;color:#1a1a1a;line-height:1.4"></div>
+        <div id="nmDate" style="font-size:12px;color:#888;margin-top:4px"></div>
+      </div>
+      <button onclick="closeNoticeModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#888;flex-shrink:0;padding:0;line-height:1">✕</button>
+    </div>
+    <div id="nmImg" style="display:none"><img id="nmImgEl" src="" alt="" style="width:100%;display:block;max-height:400px;object-fit:contain;background:#f8f8f8"></div>
+    <div id="nmContent" style="padding:20px 24px;font-size:14px;color:#333;line-height:1.9;white-space:pre-wrap"></div>
+  </div>
+</div>
+
+<!-- ── 플로팅 상담 버튼 ── -->
+<div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+
+  <!-- 카카오톡 -->
+  <div class="float-item" id="floatKakao" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
+    <div class="float-label" id="labelKakao">카카오톡 상담</div>
+    <div class="float-btn" style="background:#FAE100;box-shadow:0 4px 16px rgba(250,225,0,.5)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.4 4.37 6.97L5.5 21l3.5-1.8C10.27 19.72 11.12 19.9 12 19.9c5.52 0 10-3.69 10-8.65S17.52 3 12 3z"/></svg>
+    </div>
+  </div>
+
+  <!-- 전화 -->
+  <div class="float-item" id="floatCall" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.location.href='tel:01086739664'">
+    <div class="float-label" id="labelCall">전화 문의</div>
+    <div class="float-btn" style="background:#1A5FCC;box-shadow:0 4px 16px rgba(26,95,204,.45)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.32.57 3.55.57a1 1 0 011 1V20a1 1 0 01-1 1C10.26 21 3 13.74 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.44.57 3.55a1 1 0 01-.24 1.01l-2.21 2.23z"/></svg>
+    </div>
+  </div>
+
+</div>
+
+<style>
+.float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;flex-shrink:0}
+.float-btn:hover{transform:scale(1.1)}
+.float-label{background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+.float-item:hover .float-label{opacity:1;transform:translateX(0)}
+@media(max-width:768px){
+  .float-label{display:none}
+  .float-btn{width:46px;height:46px}
+  #floatBtns{bottom:20px;right:14px;gap:8px}
+}
+</style>
 </body>
 </html>

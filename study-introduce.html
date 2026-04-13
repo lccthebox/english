@@ -336,14 +336,6 @@ img { max-width: 100%; }
   .sch-header-grid, .sch-row-grid, .fee-header-grid, .fee-row-grid { overflow-x: auto; }
 }
 </style>
-<script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
-<script type="text/javascript">
-if(!wcs_add) var wcs_add = {};
-wcs_add["wa"] = "29094729988b98";
-if(window.wcs) {
-wcs_do();
-}
-</script>
 </head>
 <body>
 
@@ -539,7 +531,7 @@ wcs_do();
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb7b8b8afb3beb9b4a39bbcb6bab2b7f5b8b4b6">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="study.html">스터디 홈</a>
     <a href="study-introduce.html">스터디 소개</a>
@@ -566,7 +558,9 @@ wcs_do();
 </div>
 <style>div:hover .fl{opacity:1!important;transform:translateX(0)!important}@media(max-width:768px){#floatBtns{bottom:20px;right:14px;gap:8px}}</style>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const obs=new Inters
+<script>
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.07});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
