@@ -24,8 +24,8 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 .nav-back:hover{border-color:var(--blue);color:var(--blue)}
 .nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:row;align-items:center;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
-.hamburger:hover{border-color:var(--blue);color:var(--blue)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
@@ -115,7 +115,7 @@ footer{background:#111;padding:28px 6%;display:flex;justify-content:space-betwee
   .hero-photo-col{flex-direction:row;align-items:center;gap:20px}
   .class-photos-grid{grid-template-columns:1fr 1fr}
   .nav-links{display:none}
-  .hamburger{display:flex!important}
+  .hamburger{display:flex}
 }
 @media(max-width:480px){
   .hero-photo-col{flex-direction:column}
@@ -167,8 +167,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
   padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
   font-family:inherit;text-decoration:none;white-space:nowrap}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:row;align-items:center;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
-.hamburger:hover{border-color:var(--blue);color:var(--blue)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;
+  background:none;border:none;padding:4px;flex-shrink:0}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);
   z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
 .mobile-menu.open{display:flex}
@@ -205,8 +206,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 @media(max-width:768px){
   :root{--px:4%}
   nav .nav-links{display:none}
-  .nav-live,.nav-study{display:none}
-  .hamburger{display:flex!important}
+  .hamburger{display:flex}
   section{padding:48px var(--px)}
   footer{flex-direction:column;gap:12px}
   .footer-links{gap:12px}
@@ -223,72 +223,30 @@ footer{background:#111;padding:28px var(--px);display:flex;
   .class-photos-grid{grid-template-columns:1fr 1fr}
   .schedule-link-inner{flex-direction:column;align-items:flex-start;gap:12px}
 }
-
-/* ── 모바일 2줄 네비 ── */
-@media(max-width:768px){
-  nav{
-    height:auto!important;
-    flex-wrap:wrap;
-    padding:8px var(--px) 0!important;
-    gap:0!important;
-    align-items:center;
-  }
-  /* 1줄: 로고(order:1) + nav-right(order:2) → 같은 줄 */
-  .nav-logo{font-size:14px!important;order:1}
-  .nav-right{order:2;flex-shrink:0;gap:6px!important}
-  .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
-  .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
-  .hamburger{display:none!important}
-  /* 2줄: nav-links(order:3) → 다음 줄 전체 */
-  .nav-links{
-    order:3;
-    display:flex!important;
-    flex-basis:100%;
-    gap:0!important;
-    justify-content:space-between;
-    border-top:1px solid var(--border);
-    margin-top:8px;
-    padding:7px 0 8px;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-  }
-  .nav-links::-webkit-scrollbar{display:none}
-  .nav-links li{flex:1;text-align:center}
-  .nav-links a{
-    font-size:11px!important;
-    white-space:nowrap;
-    color:var(--ink-mute)!important;
-    font-weight:500;
-    padding:2px 4px;
-    display:block;
-  }
-  .nav-links a:hover,.nav-links a.active{color:var(--blue)!important;font-weight:700}
-  .nav-review{color:var(--ink-mute)!important}
-}
-@media(max-width:400px){
-  .nav-live,.nav-study{font-size:9px!important}
-  .nav-cta{font-size:9px!important;padding:5px 8px!important}
-  .nav-links a{font-size:10px!important}
-}
 </style>
+<script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "8ccf5925c6c2a0";
+if(window.wcs) { wcs_do(); }
+</script>
 </head>
 <body>
 
 <nav>
-  <a href="../academy.html" class="nav-logo">THE<span>BOX</span></a>
+  <a href="academy.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
     <li><a href="../introduce.html">더박스 소개</a></li>
     <li><a href="../classes.html">수업 안내</a></li>
     <li><a href="../more.html">더박스 플러스</a></li>
-    <li><a href="../reviews.html" >더박스후기</a></li>
+    <li><a href="../reviews.html" class="nav-review">⭐ 후기</a></li>
   </ul>
   <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
     <a href="../study.html" class="nav-study">원어민스터디</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="메뉴">
-      <span style="font-size:11px;font-weight:700;letter-spacing:.5px;white-space:nowrap">MENU</span>
+      <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
@@ -298,7 +256,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
   <a href="../introduce.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 소개</a>
   <a href="../classes.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">수업 안내</a>
   <a href="../more.html" onclick="document.getElementById('mobileMenu').classList.remove('open')">더박스 플러스</a>
-  <a href="../reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" >더박스후기</a>
+  <a href="../reviews.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
   <a href="../study.html" onclick="document.getElementById('mobileMenu').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
   <a href="https://theboxlive.kr/" target="_blank" style="color:#7C3AED;font-weight:700">더박스라이브</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
@@ -375,9 +333,9 @@ footer{background:#111;padding:28px var(--px);display:flex;
 </div>
 
 <div class="teacher-nav">
-  <a href="../riley.html" class="t-nav-btn">← 라일리</a>
+  <a href="riley.html" class="t-nav-btn">← 라일리</a>
   <a href="../classes.html" class="t-nav-back">강사 전체 보기</a>
-  <a href="../jane.html" class="t-nav-btn">제인 →</a>
+  <a href="jane.html" class="t-nav-btn">제인 →</a>
 </div>
 
 <section class="cta-section fade-up">
@@ -391,7 +349,7 @@ footer{background:#111;padding:28px var(--px);display:flex;
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="deb2bdbdaab6bbbcb1a69eb9b3bfb7b2f0bdb1b3">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="../academy.html">홈</a>
     <a href="../introduce.html">소개</a>
@@ -402,42 +360,4 @@ footer{background:#111;padding:28px var(--px);display:flex;
   </div>
 </footer>
 
-<script>
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});},{threshold:.07});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-</script>
-
-<!-- ── 플로팅 상담 버튼 ── -->
-<div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
-
-  <!-- 카카오톡 -->
-  <div class="float-item" id="floatKakao" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
-    <div class="float-label" id="labelKakao">카카오톡 상담</div>
-    <div class="float-btn" style="background:#FAE100;box-shadow:0 4px 16px rgba(250,225,0,.5)">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.4 4.37 6.97L5.5 21l3.5-1.8C10.27 19.72 11.12 19.9 12 19.9c5.52 0 10-3.69 10-8.65S17.52 3 12 3z"/></svg>
-    </div>
-  </div>
-
-  <!-- 전화 -->
-  <div class="float-item" id="floatCall" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.location.href='tel:01086739664'">
-    <div class="float-label" id="labelCall">전화 문의</div>
-    <div class="float-btn" style="background:#1A5FCC;box-shadow:0 4px 16px rgba(26,95,204,.45)">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.32.57 3.55.57a1 1 0 011 1V20a1 1 0 01-1 1C10.26 21 3 13.74 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.44.57 3.55a1 1 0 01-.24 1.01l-2.21 2.23z"/></svg>
-    </div>
-  </div>
-
-</div>
-
-<style>
-.float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;flex-shrink:0}
-.float-btn:hover{transform:scale(1.1)}
-.float-label{background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
-.float-item:hover .float-label{opacity:1;transform:translateX(0)}
-@media(max-width:768px){
-  .float-label{display:none}
-  .float-btn{width:46px;height:46px}
-  #floatBtns{bottom:20px;right:14px;gap:8px}
-}
-</style>
-</body>
-</html>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><sc
