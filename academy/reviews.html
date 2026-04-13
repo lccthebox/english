@@ -31,8 +31,8 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .nav-cta{background:var(--blue);color:var(--white);border:none;border-radius:50px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.hamburger{display:none;flex-direction:row;align-items:center;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--blue);color:var(--blue)}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
@@ -66,15 +66,15 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 .panel-sub{font-size:14px;color:var(--ink-mute);margin-bottom:40px}
 
 /* KAKAO ALBUM */
-.kakao-album-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.kakao-album-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
+.kakao-album-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.kakao-album-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
 .kakao-album-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.1);border-color:var(--orange)}
 .kakao-album-thumb{width:100%;aspect-ratio:1080/1320;overflow:hidden;position:relative;background:var(--bg)}
 .kakao-album-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;display:block}
 .kakao-album-card:hover .kakao-album-thumb img{transform:scale(1.05)}
-.kakao-album-count{position:absolute;top:5px;right:5px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:50px}
-.kakao-album-body{padding:10px 12px}
-.kakao-album-month{font-size:12px;font-weight:700;color:var(--ink)}
+.kakao-album-count{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:50px}
+.kakao-album-body{padding:12px 14px}
+.kakao-album-month{font-size:13px;font-weight:700;color:var(--ink)}
 .kakao-album-sub{font-size:11px;color:var(--ink-mute);margin-top:2px}
 
 /* KAKAO MODAL */
@@ -94,9 +94,9 @@ body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-se
 .kakao-modal-counter{color:rgba(255,255,255,.5);font-size:12px;margin-top:10px}
 
 /* 스와이프 힌트 */
-@media(max-width:900px){.kakao-album-grid{grid-template-columns:repeat(3,1fr)}.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.kakao-album-grid{grid-template-columns:repeat(2,1fr)}.cafe-review-grid{grid-template-columns:1fr}}
-@media(max-width:400px){.kakao-album-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.kakao-album-grid{grid-template-columns:repeat(2,1fr)}.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.kakao-album-grid{grid-template-columns:repeat(2,1fr)}.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.kakao-album-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.kakao-modal-prev{left:6px}.kakao-modal-next{right:6px}.kakao-modal-prev,.kakao-modal-next{width:36px;height:52px;font-size:28px}}
 
 /* NAVER */
@@ -169,7 +169,7 @@ footer{background:#111;padding:32px 6%;display:flex;justify-content:space-betwee
   .cafe-grid{grid-template-columns:1fr}
   .video-grid{grid-template-columns:repeat(2,1fr)}
   nav .nav-links{display:none}
-  .hamburger{display:flex}
+  .hamburger{display:flex!important}
 }
 @media(max-width:600px){
   .tab-btn{padding:14px 14px;font-size:12px}
@@ -205,9 +205,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
   padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
   font-family:inherit;text-decoration:none;white-space:nowrap}
 .nav-cta:hover{background:var(--blue-dark)}
-.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;
-  background:none;border:none;padding:4px;flex-shrink:0}
-.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
+.hamburger{display:none;flex-direction:row;align-items:center;cursor:pointer;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;flex-shrink:0;color:var(--ink);font-size:12px;font-weight:700;font-family:inherit;transition:all .2s}
+.hamburger:hover{border-color:var(--blue);color:var(--blue)}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);
   z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
 .mobile-menu.open{display:flex}
@@ -244,7 +243,8 @@ footer{background:#111;padding:28px var(--px);display:flex;
 @media(max-width:768px){
   :root{--px:4%}
   nav .nav-links{display:none}
-  .hamburger{display:flex}
+  .nav-live,.nav-study{display:none}
+  .hamburger{display:flex!important}
   section{padding:48px var(--px)}
   footer{flex-direction:column;gap:12px}
   .footer-links{gap:12px}
@@ -265,27 +265,86 @@ footer{background:#111;padding:28px var(--px);display:flex;
 }
 
 @media(max-width:768px){
-  .tab-nav{top:58px}
-  .tab-btn{padding:13px 14px!important;font-size:12px!important}
-  .kakao-album-grid{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
+  .tab-nav{top:auto}
+  /* 히어로 */
+  .page-hero{padding:36px var(--px) 32px!important}
+  .page-hero h1{font-size:clamp(24px,7vw,36px)!important;margin-bottom:10px}
+  .page-hero p{font-size:13px!important;margin-bottom:20px}
+  .hero-badge{font-size:10px!important;padding:4px 12px!important;margin-bottom:14px}
+  .hero-stat-num{font-size:22px!important}
+  .hero-stat-label{font-size:10px!important}
+  .hero-stats{gap:20px!important}
+  /* 탭 */
+  .tab-btn{padding:12px 10px!important;font-size:11px!important;gap:4px!important}
+  /* 패널 */
+  .panel-title{font-size:18px!important;margin-bottom:4px}
+  .panel-sub{font-size:12px!important;margin-bottom:24px}
+  /* 카드 */
+  .kakao-album-month{font-size:12px!important}
+  .kakao-album-sub{font-size:10px!important}
+  .naver-body{font-size:12px!important}
+  .naver-meta{font-size:10px!important}
+  .cafe-review-title{font-size:12px!important}
+  .cafe-review-meta{font-size:10px!important}
+  /* 그리드 */
+  .kakao-album-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
   .naver-grid{grid-template-columns:1fr!important}
-  .cafe-review-grid{grid-template-columns:1fr!important}
+  .cafe-review-grid{grid-template-columns:repeat(2,1fr)!important}
   .video-grid{grid-template-columns:1fr!important}
-  .hero-stats{gap:16px!important}
-  .page-hero h1{font-size:clamp(28px,6vw,46px)!important}
-  .kakao-modal-img-wrap{width:min(340px,92vw)!important}
 }
 @media(max-width:480px){
-  .kakao-album-grid{grid-template-columns:repeat(2,1fr)!important}
+  .kakao-album-grid{grid-template-columns:1fr!important}
   .tab-btn{padding:11px 10px!important;font-size:11px!important}
 }
+
+/* ── 모바일 2줄 네비 ── */
+@media(max-width:768px){
+  nav{
+    height:auto!important;
+    flex-wrap:wrap;
+    padding:8px var(--px) 0!important;
+    gap:0!important;
+    align-items:center;
+  }
+  /* 1줄: 로고(order:1) + nav-right(order:2) → 같은 줄 */
+  .nav-logo{font-size:14px!important;order:1}
+  .nav-right{order:2;flex-shrink:0;gap:6px!important}
+  .nav-live,.nav-study{display:flex!important;font-size:10px!important;white-space:nowrap}
+  .nav-cta{font-size:10px!important;padding:6px 10px!important;white-space:nowrap}
+  .hamburger{display:none!important}
+  /* 2줄: nav-links(order:3) → 다음 줄 전체 */
+  .nav-links{
+    order:3;
+    display:flex!important;
+    flex-basis:100%;
+    gap:0!important;
+    justify-content:space-between;
+    border-top:1px solid var(--border);
+    margin-top:8px;
+    padding:7px 0 8px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links li{flex:1;text-align:center}
+  .nav-links a{
+    font-size:11px!important;
+    white-space:nowrap;
+    color:var(--ink-mute)!important;
+    font-weight:500;
+    padding:2px 4px;
+    display:block;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--blue)!important;font-weight:700}
+  .nav-review{color:var(--ink-mute)!important}
+}
+@media(max-width:400px){
+  .nav-live,.nav-study{font-size:9px!important}
+  .nav-cta{font-size:9px!important;padding:5px 8px!important}
+  .nav-links a{font-size:10px!important}
+}
 </style>
-<script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
-<script type="text/javascript">
-if(!wcs_add) var wcs_add = {};
-wcs_add["wa"] = "8ccf5925c6c2a0";
-if(window.wcs) { wcs_do(); }
-</script>
 </head>
 <body>
 
@@ -295,14 +354,14 @@ if(window.wcs) { wcs_do(); }
     <li><a href="introduce.html">더박스 소개</a></li>
     <li><a href="classes.html">수업 안내</a></li>
     <li><a href="more.html">더박스 플러스</a></li>
-    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
+    <li><a href="reviews.html" class="active">더박스후기</a></li>
   </ul>
   <div class="nav-right" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
     <a href="study.html" class="nav-study">원어민스터디</a>
     <a href="https://theboxlive.kr/" target="_blank" class="nav-live">더박스라이브</a>
     <a href="https://naver.me/5BcjX84R" target="_blank" class="nav-cta">상담 예약</a>
     <button class="hamburger" onclick="document.getElementById('mobMenuReviews').classList.toggle('open')" aria-label="메뉴">
-      <span></span><span></span><span></span>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.5px;white-space:nowrap">MENU</span>
     </button>
   </div>
 </nav>
@@ -312,7 +371,7 @@ if(window.wcs) { wcs_do(); }
   <a href="introduce.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">더박스 소개</a>
   <a href="classes.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">수업 안내</a>
   <a href="more.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">더박스 플러스</a>
-  <a href="reviews.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')" style="color:#FF6B00;font-weight:700">⭐ 후기</a>
+  <a href="reviews.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')">더박스후기</a>
   <a href="study.html" onclick="document.getElementById('mobMenuReviews').classList.remove('open')" style="color:#10B981;font-weight:700">원어민스터디</a>
   <a href="https://theboxlive.kr/" target="_blank" style="color:#7C3AED;font-weight:700">더박스라이브</a>
   <a href="https://naver.me/5BcjX84R" target="_blank" style="background:#1A5FCC;color:#fff;padding:12px 32px;border-radius:50px;font-size:16px">상담 예약</a>
@@ -334,16 +393,16 @@ if(window.wcs) { wcs_do(); }
 <!-- TAB NAV -->
 <div class="tab-nav">
   <div class="tab-nav-inner">
-    <button class="tab-btn active" onclick="switchTab('kakao', this)"><span style="display:inline-block;background:#FAE100;color:#3A1D1D;font-size:10px;font-weight:900;padding:1px 6px;border-radius:3px;margin-right:4px">KAKAO</span>카톡 후기</button>
-    <button class="tab-btn" onclick="switchTab('naver', this)"><span style="color:#03C75A;font-weight:900;font-size:12px">N</span> 네이버 후기</button>
-    <button class="tab-btn" onclick="switchTab('cafe', this)">☕ 카페 후기</button>
+    <button class="tab-btn active" onclick="switchTab('kakao', this)"><img src="academy/icons/kakao.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;display:inline-block">카톡 후기</button>
+    <button class="tab-btn" onclick="switchTab('naver', this)"><img src="academy/icons/naver.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:6px;display:inline-block"> 네이버플레이스 후기</button>
+    <button class="tab-btn" onclick="switchTab('cafe', this)"><img src="academy/icons/cafe.png" style="height:18px;width:auto;vertical-align:middle;margin-right:5px;display:inline-block"> 카페 후기</button>
     <button class="tab-btn" onclick="switchTab('video', this)">🎬 영상 후기</button>
   </div>
 </div>
 
 <!-- KAKAO -->
 <div class="tab-panel active" id="panel-kakao">
-  <div class="panel-title"><span style="display:inline-block;background:#FAE100;color:#3A1D1D;font-size:12px;font-weight:900;padding:2px 10px;border-radius:5px;margin-right:8px">KAKAO</span>카톡 후기</div>
+  <div class="panel-title"><img src="academy/icons/kakao.png" style="width:22px;height:22px;border-radius:50%;vertical-align:middle;margin-right:8px">카톡 후기</div>
   <p class="panel-sub">월별 카톡 후기 — 앨범을 클릭하면 슬라이드로 볼 수 있어요</p>
   <!-- 월별 앨범 그리드 -->
   <div class="kakao-album-grid" id="kakaoAlbumGrid">
@@ -367,7 +426,7 @@ if(window.wcs) { wcs_do(); }
 
 <!-- NAVER -->
 <div class="tab-panel" id="panel-naver">
-  <div class="panel-title"><span style="display:inline-block;background:#03C75A;color:#fff;font-size:11px;font-weight:900;padding:2px 8px;border-radius:4px;letter-spacing:.5px;margin-right:8px">NAVER</span>네이버 후기</div>
+  <div class="panel-title"><img src="academy/icons/naver.png" style="width:22px;height:22px;border-radius:50%;vertical-align:middle;margin-right:8px">네이버플레이스 후기</div>
   <p class="panel-sub">네이버 플레이스에 남겨주신 수강생 후기</p>
   <div class="naver-grid" id="naverGrid">
 
@@ -640,13 +699,21 @@ if(window.wcs) { wcs_do(); }
 
 <!-- CAFE -->
 <div class="tab-panel" id="panel-cafe">
-  <div class="panel-title"><span style="display:inline-block;background:#03C75A;color:#fff;font-size:11px;font-weight:900;padding:2px 8px;border-radius:4px;letter-spacing:.5px;margin-right:8px">N카페</span>카페 후기</div>
+  <div class="panel-title"><img src="academy/icons/cafe.png" style="height:18px;width:auto;vertical-align:middle;margin-right:5px;display:inline-block">카페 후기</div>
   <p class="panel-sub">더박스 공식 네이버 카페에 올라온 수강 후기 — 클릭하면 원문으로 이동해요</p>
   <div class="cafe-review-grid" id="cafeGrid">
     <div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--ink-mute);font-size:13px">로딩 중...</div>
   </div>
   <div class="more-row" id="cafeMoreRow" style="display:none;justify-content:center;margin-top:24px">
     <button onclick="loadMoreCafe()" style="background:transparent;border:1.5px solid var(--border);border-radius:50px;padding:10px 28px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-mute);transition:all .2s" onmouseover="this.style.borderColor='#9B4521';this.style.color='#9B4521'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink-mute)'">더보기 ↓</button>
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <a href="https://cafe.naver.com/f-e/cafes/29533704/menus/7?viewType=L" target="_blank"
+       style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:#03C75A;border:1.5px solid #03C75A;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s"
+       onmouseover="this.style.background='#03C75A';this.style.color='#fff'"
+       onmouseout="this.style.background='transparent';this.style.color='#03C75A'">
+      <img src="academy/icons/cafe.png" style="height:16px;width:auto;vertical-align:middle"> 네이버카페에서 더보기 →
+    </a>
   </div>
 </div>
 
@@ -674,7 +741,7 @@ if(window.wcs) { wcs_do(); }
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f131c1c0b171a1d10073f18121e1613511c1012">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4d8d7d7c0dcd1d6dbccf4d3d9d5ddd89ad7dbd9">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
   <div class="footer-links">
     <a href="academy.html">홈</a>
     <a href="introduce.html">소개</a>
@@ -692,6 +759,17 @@ function switchTab(name, btn) {
   document.getElementById('panel-' + name).classList.add('active');
   btn.classList.add('active');
 }
+
+// URL 해시로 탭 자동 이동 (academy.html에서 #panel-kakao 등으로 올 때)
+function initTabFromHash() {
+  const hash = location.hash; // e.g. #panel-kakao
+  if (hash) {
+    const name = hash.replace('#panel-', '');
+    const btn = document.querySelector(`[onclick*="switchTab('${name}'"]`);
+    if (btn) { switchTab(name, btn); btn.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+  }
+}
+window.addEventListener('DOMContentLoaded', initTabFromHash);
 function toggleNaverExtra(btn) {
   const el = document.getElementById('naverExtra');
   const isHidden = el.style.display === 'none';
@@ -735,7 +813,7 @@ async function loadKakaoAlbum() {
     <div class="kakao-album-card" onclick="openKakaoModal('${month}', 0)">
       <div class="kakao-album-thumb">
         <img src="${imgs[0]}" alt="${month}" loading="lazy" onerror="this.parentElement.style.background='#f0f0f0'">
-        ${imgs.length > 1 ? `<div class="kakao-album-count">⧉ ${imgs.length}</div>` : ''}
+        <div class="kakao-album-count" style="background:rgba(0,0,0,.55)"><img src="academy/icons/kakao.png" style="width:12px;height:12px;border-radius:50%;vertical-align:middle;margin-right:3px"> ${imgs.length > 1 ? `⧉ ${imgs.length}` : '1'}</div>
       </div>
       <div class="kakao-album-body">
         <div class="kakao-album-month">${month}</div>
@@ -760,7 +838,7 @@ function renderCafe(){
     const card=document.createElement('a');
     card.href=c.link_url;card.target='_blank';card.className='cafe-review-card';
     const date=new Date(c.created_at).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1);
-    card.innerHTML=`<div class="cafe-review-thumb"><img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy" onerror="this.parentElement.style.background='#f5ede8'"><div class="cafe-review-badge"><span style="font-weight:900;font-size:11px">N</span> 카페</div></div><div class="cafe-review-body"><div class="cafe-review-title">${c.title}</div><div class="cafe-review-meta">${date} · 더박스 공식카페</div></div>`;
+    card.innerHTML=`<div class="cafe-review-thumb"><img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy" onerror="this.parentElement.style.background='#f5ede8'"><div class="cafe-review-badge"><img src="academy/icons/cafe.png" style="height:18px;width:auto;vertical-align:middle;margin-right:5px;display:inline-block"> 카페</div></div><div class="cafe-review-body"><div class="cafe-review-title">${c.title}</div><div class="cafe-review-meta">${date} · 더박스 공식카페</div></div>`;
     el.appendChild(card);
   });
   cafeShown+=slice.length;
@@ -841,5 +919,50 @@ document.getElementById('kakaoModal').addEventListener('touchend', e => {
   if (Math.abs(diff) > 50) window.kakaoSlide(diff > 0 ? 1 : -1);
 });
 
-// 탭별 로드
-document.querySelector('[onclick*="cafe"]')?.addEventListener('clic
+// 탭별 로드 - 페이지 로드 시 카카오+카페+영상 병렬 로드로 속도 개선
+switchTab('kakao', document.querySelector('.tab-btn'));
+// 모두 병렬로 즉시 시작
+loadKakaoAlbum();
+loadCafe();
+loadVideos();
+
+// fade
+const obs2 = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, {threshold:.07});
+document.querySelectorAll('.fade-up').forEach(el => obs2.observe(el));
+
+</script>
+
+<!-- ── 플로팅 상담 버튼 ── -->
+<div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+
+  <!-- 카카오톡 -->
+  <div class="float-item" id="floatKakao" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
+    <div class="float-label" id="labelKakao">카카오톡 상담</div>
+    <div class="float-btn" style="background:#FAE100;box-shadow:0 4px 16px rgba(250,225,0,.5)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.4 4.37 6.97L5.5 21l3.5-1.8C10.27 19.72 11.12 19.9 12 19.9c5.52 0 10-3.69 10-8.65S17.52 3 12 3z"/></svg>
+    </div>
+  </div>
+
+  <!-- 전화 -->
+  <div class="float-item" id="floatCall" style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.location.href='tel:01086739664'">
+    <div class="float-label" id="labelCall">전화 문의</div>
+    <div class="float-btn" style="background:#1A5FCC;box-shadow:0 4px 16px rgba(26,95,204,.45)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.32.57 3.55.57a1 1 0 011 1V20a1 1 0 01-1 1C10.26 21 3 13.74 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.44.57 3.55a1 1 0 01-.24 1.01l-2.21 2.23z"/></svg>
+    </div>
+  </div>
+
+</div>
+
+<style>
+.float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;flex-shrink:0}
+.float-btn:hover{transform:scale(1.1)}
+.float-label{background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+.float-item:hover .float-label{opacity:1;transform:translateX(0)}
+@media(max-width:768px){
+  .float-label{display:none}
+  .float-btn{width:46px;height:46px}
+  #floatBtns{bottom:20px;right:14px;gap:8px}
+}
+</style>
+</body>
+</html>
