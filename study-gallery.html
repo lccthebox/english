@@ -319,6 +319,12 @@ img { max-width: 100%; }
   .filter-inner{padding:0 3%!important}
 }
 </style>
+<script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "8ccf5925c6c2a0";
+if(window.wcs) { wcs_do(); }
+</script>
 </head>
 <body>
 
@@ -379,7 +385,7 @@ img { max-width: 100%; }
 
 <footer>
   <div class="fl-logo">THE<span>BOX</span></div>
-  <div class="fl-info">더박스(TheBox) · 010-8673-9664 · lccthebox@gmail.com<br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="fl-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86eae5e5f2eee3e4e9fec6e1ebe7efeaa8e5e9eb">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
 </footer>
 
 <!-- Lightbox -->
@@ -407,7 +413,7 @@ img { max-width: 100%; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 const { createClient } = supabase;
 const sb = createClient(
@@ -505,10 +511,4 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape') closeLb();
 });
 
-const fo=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fo.unobserve(e.target);}});},{threshold:.07});
-document.querySelectorAll('.fade-up').forEach(el=>fo.observe(el));
-
-load();
-</script>
-</body>
-</html>
+const fo=new IntersectionObs

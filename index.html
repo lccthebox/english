@@ -2,57 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-    <meta name="naver-site-verification" content="2166235f6c7aedaab2ee06be0f181bea27b58439">
-  <meta name="google-site-verification" content="162a86e476a8a827">
-  <!-- SEO -->
-  <title>더박스 | 대구 영어회화 원어민스터디 & 어학원</title>
-  <meta name="description" content="대구 원어민 회화스터디와 영어 어학원. 실전 영어를 원어민과 함께 배우는 더박스입니다.">
-  <meta name="keywords" content="더박스, 대구영어회화, 원어민스터디, 대구어학원, 동성로영어, 영어회화스터디">
-  <meta name="author" content="더박스(TheBox)">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://theboxis.com/">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="더박스 | 대구 원어민회화스터디 & 영어회화 어학원">
-  <meta property="og:description" content="대구 동성로 더박스. 원어민 친구들과 함께하는 영어회화스터디와 어학원 회화수업. 12년 경력, 100+ 원어민 파트너.">
-  <meta property="og:url" content="https://theboxis.com/">
-  <meta property="og:site_name" content="더박스(TheBox)">
-  <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://theboxis.com/og-image.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="더박스 | 대구 원어민회화스터디 & 영어회화 어학원">
-  <meta name="twitter:description" content="대구 동성로 더박스. 원어민 친구들과 함께하는 영어회화스터디와 어학원 회화수업. 12년 경력, 100+ 원어민 파트너.">
-  <meta name="twitter:image" content="https://theboxis.com/og-image.jpg">
-
-  <!-- 구조화 데이터 -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LanguageSchool",
-    "name": "더박스(TheBox)",
-    "url": "https://theboxis.com",
-    "logo": "https://theboxis.com/favicon.ico",
-    "description": "대구 동성로 원어민 영어회화 어학원 & 스터디",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "대구광역시 중구 동성로2(동성로3가 90-1) 6층",
-      "addressLocality": "대구",
-      "addressCountry": "KR"
-    },
-    "telephone": "010-8673-9664",
-    "sameAs": [
-      "https://www.instagram.com/thebox_daegu/",
-      "https://naver.me/GdyGWbSC"
-    ]
-  }
-  </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>영어회화는? 더박스!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -73,13 +24,7 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.6;overflow-x:hidden}
 
 /* NAV */
-nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(245,244,242,0.95);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  padding:0 6%;height:64px;
-  display:flex;align-items:center;justify-content:space-between;
-}
+
 .nav-logo{font-family:'Noto Sans KR',sans-serif;font-size:18px;font-weight:900;color:var(--ink);text-decoration:none;letter-spacing:1px}
 .nav-logo span{color:var(--red)}
 .nav-links{display:flex;gap:28px;list-style:none}
@@ -88,11 +33,11 @@ nav{
 
 /* HERO */
 .hero{
-  min-height:40vh;
+  min-height:72vh;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   text-align:center;
-  padding:36px 6% 16px;
+  padding:64px var(--px) 60px;
   position:relative;overflow:hidden;
 }
 .hero::before{
@@ -102,13 +47,13 @@ nav{
 }
 .hero-sub-label{
   font-size:13px;color:var(--ink-mute);letter-spacing:1px;
-  margin-bottom:12px;font-weight:400;
+  margin-bottom:24px;font-weight:400;
 }
 .hero-title{
   font-family:'Noto Sans KR',sans-serif;
   font-size:clamp(48px,8vw,100px);
   font-weight:900;line-height:1.05;
-  color:var(--ink);margin-bottom:16px;
+  color:var(--ink);margin-bottom:28px;
   letter-spacing:-2px;
 }
 .hero-title .red{color:var(--red)}
@@ -120,7 +65,7 @@ nav{
 .hero-desc strong{color:var(--ink);font-weight:500}
 
 /* CARDS SECTION */
-.cards-section{padding:0 6% 48px}
+.cards-section{padding:0 6% 100px}
 .cards-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:24px;max-width:1200px;margin:0 auto;
@@ -173,7 +118,7 @@ nav{
 /* divider */
 .section-divider{
   text-align:center;
-  padding:4px 0 20px;
+  padding:20px 0 56px;
   color:var(--ink-mute);font-size:13px;
 }
 .section-divider::before,.section-divider::after{
@@ -226,51 +171,109 @@ footer{
 .mobile-menu a{font-size:20px;font-weight:700;color:var(--ink);text-decoration:none}
 .mobile-menu-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:#777}
 
-/* ── 모바일 ── */
+/* 후기 강조 탭 */
+.nav-review{color:#FF6B00!important;font-weight:700!important;font-size:14px!important;transition:all .2s!important}
+.nav-review:hover{color:#FFB800!important}
+/* 원어민스터디 버튼 */
+.nav-study{background:transparent;color:#10B981!important;border:1.5px solid #10B981;border-radius:50px;padding:7px 16px;font-size:13px!important;font-weight:600!important;transition:all .2s!important;white-space:nowrap}
+.nav-study:hover{background:#10B981;color:#fff!important}
+
+/* ── RESPONSIVE SYSTEM ── */
+:root{
+  --white:#fff;--bg:#F3F6FB;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#888;
+  --blue:#1A5FCC;--blue-dark:#1448A8;--blue-light:#EEF4FF;--border:#D8E4F5;
+  --radius:12px;--green:#10B981;--orange:#FF6B00;
+  --px:5%;--max:1120px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;
+  line-height:1.65;overflow-x:hidden;-webkit-text-size-adjust:100%}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);border-bottom:1.5px solid var(--border);
+  padding:0 var(--px);height:58px;display:flex;align-items:center;
+  justify-content:space-between;gap:8px;max-width:100%}
+.nav-logo{font-size:16px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0;letter-spacing:-.3px}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:20px;list-style:none;align-items:center}
+.nav-links a{font-size:13px;color:var(--ink-mute);text-decoration:none;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--blue)}
+.nav-review{color:var(--orange)!important;font-weight:700!important}
+.nav-study{color:var(--green)!important;border:1.5px solid var(--green);border-radius:50px;
+  padding:5px 14px;font-size:12px!important;font-weight:600!important;white-space:nowrap}
+.nav-study:hover{background:var(--green);color:#fff!important}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-cta{background:var(--blue);color:#fff;border:none;border-radius:50px;
+  padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:inherit;text-decoration:none;white-space:nowrap}
+.nav-cta:hover{background:var(--blue-dark)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;
+  background:none;border:none;padding:4px;flex-shrink:0}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(255,255,255,.99);
+  z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:18px;font-weight:700;color:var(--ink);text-decoration:none}
+.mobile-menu-close{position:absolute;top:18px;right:20px;font-size:22px;
+  background:none;border:none;cursor:pointer;color:var(--ink-mute)}
+
+/* SECTIONS */
+section{padding:64px var(--px)}
+.section-inner{max-width:var(--max);margin:0 auto}
+.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--blue);
+  text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.section-eyebrow::before{content:'';width:16px;height:2px;background:var(--blue)}
+.section-title{font-size:clamp(22px,3vw,38px);font-weight:900;line-height:1.2;
+  margin-bottom:10px;color:var(--ink)}
+.section-sub{font-size:14px;color:var(--ink-mute);font-weight:300;
+  line-height:1.85;max-width:520px}
+
+/* FOOTER */
+footer{background:#111;padding:28px var(--px);display:flex;
+  justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:14px;font-weight:900;color:rgba(255,255,255,.7)}
+.footer-logo span{color:#7BB3FF}
+.footer-info{font-size:11px;color:rgba(255,255,255,.3);line-height:1.9}
+.footer-links{display:flex;gap:14px;flex-wrap:wrap}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none}
+.footer-links a:hover{color:rgba(255,255,255,.6)}
+
+/* FADE */
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* MOBILE */
 @media(max-width:768px){
-  .hero{padding:36px 5% 20px!important;min-height:auto!important}
-  .hero-title{font-size:clamp(38px,10vw,60px)!important;letter-spacing:-1px!important;margin-bottom:18px}
-  .hero-desc{font-size:14px!important;line-height:1.8!important}
-  .hero-sub-label{font-size:11px!important;margin-bottom:14px}
-  .cards-section{padding:0 5% 40px!important}
-  .cards-grid{grid-template-columns:1fr 1fr!important;gap:10px!important}
-  .card-body{padding:14px 14px 16px!important}
-  .card-title{font-size:14px!important;margin-bottom:6px!important}
-  .card-desc{font-size:12px!important;line-height:1.6!important}
-  .card-btn{padding:10px 16px!important;font-size:12px!important;margin-top:14px!important}
-  .card-eyebrow{font-size:10px!important}
-  .card-img{aspect-ratio:3/2!important}
-  .card-desc{font-size:13px!important}
-  .section-divider{padding:6px 0 20px!important;font-size:12px!important}
-  .bottom-strip{padding:32px 5%!important}
-  .bottom-strip-title{font-size:20px!important}
-  .bottom-strip p{font-size:12px!important;line-height:1.9}
-  footer{flex-direction:column;gap:8px!important;padding:20px 5%!important}
+  :root{--px:4%}
+  nav .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:48px var(--px)}
+  footer{flex-direction:column;gap:12px}
+  .footer-links{gap:12px}
+}
+@media(max-width:480px){
+  :root{--px:4%}
+  .section-title{font-size:clamp(20px,6vw,28px)}
 }
 
-/* ── 가로 스크롤 완전 차단 ── */
-html, body { overflow-x: hidden; max-width: 100%; }
-*, *::before, *::after { box-sizing: border-box; }
-img { max-width: 100%; }
-@media(max-width:768px){
-  section, div, nav, footer { max-width: 100%; }
-  .stats-band, .hero-stats { overflow-x: hidden; }
-  .tab-nav, .filter-inner, .nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  /* 슬라이더 삐져나옴 방지 */
-  .tc-slider, .hero-slideshow, .slide { overflow: hidden; }
-  /* 테이블/그리드 삐져나옴 방지 */
-  .sch-header-grid, .sch-row-grid, .fee-header-grid, .fee-row-grid { overflow-x: auto; }
-}
 </style>
+<script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "8ccf5925c6c2a0";
+if(window.wcs) { wcs_do(); }
+</script>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">THE<span>BOX</span></a>
+  <a href="academy.html" class="nav-logo">THE<span>BOX</span></a>
   <ul class="nav-links">
-    <li><a href="study.html">원어민회화스터디</a></li>
-    <li><a href="academy.html">어학원 회화수업</a></li>
-    <li><a href="https://theboxlive.kr/" target="_blank">온라인강의</a></li>
+    <li><a href="introduce.html">더박스 소개</a></li>
+    <li><a href="classes.html">수업 안내</a></li>
+    <li><a href="more.html">더박스 플러스</a></li>
+    <li><a href="reviews.html" class="nav-review">⭐ 후기</a></li>
   </ul>
 </nav>
 
@@ -281,20 +284,19 @@ img { max-width: 100%; }
     <span class="red">더박스!</span>
   </h1>
   <p class="hero-desc fade-up">
-    더박스는 <strong>원어민회화스터디</strong>와<br>
-    <strong>어학원 회화수업</strong>으로 운영됩니다.<br>
-    아래에서 원하는 프로그램을 선택하세요.
+    더박스는 <strong>원어민회화스터디 / 어학원 회화수업</strong>으로 시스템이 나누어져 있습니다.<br>
+    아래에서 각 시스템에 대하여 더 자세히 확인해보세요.
   </p>
 </section>
 
 <section class="cards-section">
-  <div class="section-divider">프로그램을 선택하세요</div>
+  <div class="section-divider">시스템을 선택하세요</div>
   <div class="cards-grid">
 
     <!-- 원어민회화스터디 -->
     <a href="study.html" class="card fade-up">
       <div class="card-img">
-        <img src="intro/thebox1.jpg" alt="원어민회화스터디" onerror="this.parentElement.innerHTML='<div class=card-img-placeholder>👥</div>'">
+        <div class="card-img-placeholder">👥</div>
       </div>
       <div class="card-body">
         <div class="card-eyebrow">더박스</div>
@@ -307,7 +309,7 @@ img { max-width: 100%; }
     <!-- 어학원 회화수업 -->
     <a href="academy.html" class="card fade-up" style="transition-delay:.1s">
       <div class="card-img">
-        <img src="intro/thebox2.jpg" alt="어학원 회화수업" onerror="this.parentElement.innerHTML='<div class=card-img-placeholder>🏫</div>'">
+        <div class="card-img-placeholder">🏫</div>
       </div>
       <div class="card-body">
         <div class="card-eyebrow">더박스</div>
@@ -320,7 +322,7 @@ img { max-width: 100%; }
     <!-- 온라인강의 -->
     <a href="https://theboxlive.kr/" target="_blank" class="card fade-up" style="transition-delay:.2s">
       <div class="card-img">
-        <img src="intro/thebox3.jpg" alt="온라인강의" onerror="this.parentElement.innerHTML='<div class=card-img-placeholder>💻</div>'">
+        <div class="card-img-placeholder">💻</div>
       </div>
       <div class="card-body">
         <div class="card-eyebrow">더박스</div>
@@ -335,46 +337,20 @@ img { max-width: 100%; }
 
 <div class="bottom-strip fade-up">
   <div class="bottom-strip-title">영어회화는 <span>더박스</span></div>
-  <p>대구광역시 중구 동성로2 (동성로3가 90-1) 6층&nbsp;&nbsp;|&nbsp;&nbsp;010-8673-9664&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89e5eaeafde1ecebe6f1c9eee4e8e0e5a7eae6e4">[email&#160;protected]</a></p>
+  <p>대구광역시 중구 동성로2 (동성로3가 90-1) 6층&nbsp;&nbsp;|&nbsp;&nbsp;010-8673-9664&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="214d4242554944434e5961464c40484d0f424e4c">[email&#160;protected]</a></p>
 </div>
 
 <footer>
   <div class="footer-logo">THE<span>BOX</span></div>
-  <div class="footer-info">사업자등록번호 755-86-01909 &nbsp;|&nbsp; 대표자 정원철 &nbsp;|&nbsp; © 2025 THE BOX</div>
+  <div class="footer-info">더박스(TheBox) · 010-8673-9664 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82eee1e1f6eae7e0edfac2e5efe3ebeeace1edef">[email&#160;protected]</a><br>사업자등록번호 755-86-01909 · 대표자 정원철</div>
+  <div class="footer-links">
+    <a href="academy.html">홈</a>
+    <a href="introduce.html">소개</a>
+    <a href="classes.html">수업 안내</a>
+    <a href="study.html">원어민스터디</a>
+    <a href="https://theboxlive.kr/" target="_blank">온라인강의</a>
+    <a href="https://www.instagram.com/thebox_daegu/" target="_blank">인스타그램</a>
+  </div>
 </footer>
 
-<script>
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
-},{threshold:.08});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-</script>
-
-<!-- ── 플로팅 상담 버튼 ── -->
-<div id="floatBtns" style="position:fixed;bottom:28px;right:20px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
-  <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.open('http://pf.kakao.com/_lJpxjT/chat','_blank')">
-    <div class="float-label-idx">카카오톡 상담</div>
-    <div class="float-btn-idx" style="background:#FAE100;box-shadow:0 4px 16px rgba(250,225,0,.5)">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.48 3 2 6.69 2 11.25c0 2.88 1.74 5.4 4.37 6.97L5.5 21l3.5-1.8C10.27 19.72 11.12 19.9 12 19.9c5.52 0 10-3.69 10-8.65S17.52 3 12 3z"/></svg>
-    </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="window.location.href='tel:01086739664'">
-    <div class="float-label-idx">전화 문의</div>
-    <div class="float-btn-idx" style="background:#CC2222;box-shadow:0 4px 16px rgba(204,34,34,.45)">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.32.57 3.55.57a1 1 0 011 1V20a1 1 0 01-1 1C10.26 21 3 13.74 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.44.57 3.55a1 1 0 01-.24 1.01l-2.21 2.23z"/></svg>
-    </div>
-  </div>
-</div>
-<style>
-.float-btn-idx{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s;flex-shrink:0}
-.float-btn-idx:hover{transform:scale(1.1)}
-.float-label-idx{background:rgba(20,20,20,.82);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;opacity:0;transform:translateX(8px);transition:opacity .2s,transform .2s;pointer-events:none}
-div:hover .float-label-idx{opacity:1;transform:translateX(0)}
-@media(max-width:768px){
-  .float-label-idx{display:none}
-  .float-btn-idx{width:46px;height:46px}
-  #floatBtns{bottom:20px;right:14px;gap:8px}
-}
-</style>
-</body>
-</html>
+<sc
