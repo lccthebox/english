@@ -849,14 +849,9 @@ dots.forEach((d,i)=>d.addEventListener('click',()=>{clearInterval(auto);goSlide(
 // ── COUNT UP ──
 function countUp(el){const t=+el.dataset.target;let c=0;const r=setInterval(()=>{c=Math.min(c+t/60,t);el.textContent=Math.floor(c).toLocaleString();if(c>=t)clearInterval(r)},30)}
 new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.count-num').forEach(countUp)}})},{threshold:.3}).observe(document.querySelector('.stats-band'));
-
-// ── TEACHER CAROUSEL ──
-const track=document.getElementById('tcTrack');
-const cards=track.querySelectorAll('.tc');
-const total=cards.length;
 // ── TEACHER SLIDER ──
 let tcIdx = 0;
-const tcTotal = 3;
+const tcTotal = 4;
 const tcSlidesEl = document.getElementById('tcSlides');
 
 function tcBuildDots(){
@@ -913,6 +908,7 @@ const T={
   riley:   {name:'라일리',  cls:'Right 영어',  f:'academy/riley.html',    p:'academy/profile/riley.jpg'},
   tina:    {name:'티나',    cls:'트렌디영어',   f:'academy/tina.html',     p:'academy/profile/tina.jpg'},
   jane:    {name:'제인',    cls:'제일영어',    f:'academy/jane.html',     p:'academy/profile/jane.jpg'},
+  judy:    {name:'주디',    cls:'주디영어',    f:'academy/judy.html',     p:'academy/profile/judy.jpg'},
   courtney:{name:'코트니',  cls:'Go-To 영어',  f:'academy/courtney.html', p:'academy/profile/courtney.jpg'},
   diana:   {name:'다이애나',cls:'바로영어',    f:'academy/diana.html',    p:'academy/profile/diana.jpg'},
   chinese: {name:'짜이뤼',  cls:'미親중국어',   f:'academy/chinese.html',  p:'academy/profile/짜이뤼.jpg'},
@@ -921,35 +917,35 @@ const T={
 // 점수 테이블 - 각 답변별 점수
 const SCORE_MAP = {
   // Q1 레벨
-  '왕기초':        {james:2, chris:2, diana:2, tina:1, jane:1, riley:1, cerline:1},
-  '기초':          {james:2, chris:2, diana:2, tina:2, jane:2, riley:2, cerline:2, courtney:1},
-  '중급':          {james:2, chris:2, diana:2, tina:2, jane:2, riley:2, cerline:2, courtney:2},
+  '왕기초':        {james:2, chris:2, diana:2, tina:1, jane:1, riley:1, cerline:1, judy:2},
+  '기초':          {james:2, chris:2, diana:2, tina:2, jane:2, riley:2, cerline:2, courtney:1, judy:2},
+  '중급':          {james:2, chris:2, diana:2, tina:2, jane:2, riley:2, cerline:2, courtney:2, judy:1},
   '고급':          {james:2, chris:2, diana:2, courtney:2},
   // Q2 목적
-  '생존영어':      {cerline:3, riley:3, chris:2, james:2},
+  '생존영어':      {cerline:3, riley:3, chris:2, james:2, judy:2},
   '소셜영어':      {tina:3, courtney:3, jane:3, riley:2},
-  '커리어영어':    {chris:3, james:3, diana:3},
+  '커리어영어':    {chris:3, james:3, diana:3, judy:1},
   '콘텐츠영어':   {chris:3, riley:3, diana:2, courtney:2},
   // Q3 스타일
   '에너지뿜뿜':   {tina:3, diana:3, courtney:3, cerline:2},
-  '차분꼼꼼':     {chris:3, riley:3, james:3, diana:2},
-  '친구편하게':   {tina:3, jane:3, cerline:3, courtney:2},
+  '차분꼼꼼':     {chris:3, riley:3, james:3, diana:2, judy:2},
+  '친구편하게':   {tina:3, jane:3, cerline:3, courtney:2, judy:2},
   '스파르타':     {chris:3, james:3, diana:3},
   // Q4 시간대
-  '평일오전':     {tina:2, cerline:2, james:2, jane:2, courtney:2, chris:2},
-  '평일오후':     {chris:2, tina:2, cerline:2, james:2, jane:2, courtney:2, riley:2},
+  '평일오전':     {tina:2, cerline:2, james:2, jane:2, courtney:2, chris:2, judy:2},
+  '평일오후':     {chris:2, tina:2, cerline:2, james:2, jane:2, courtney:2, riley:2, judy:2},
   '주말':         {diana:3, riley:3},
   '교차수강':     {chris:2, tina:2, cerline:2, james:2, jane:2, courtney:2, riley:2},
   // Q5 집중
   '발음억양':         {chris:3, courtney:3},
-  '문법정확성':       {chris:2, james:2, riley:2, cerline:2, jane:2, diana:2},
+  '문법정확성':       {chris:2, james:2, riley:2, cerline:2, jane:2, diana:2, judy:2},
   '풍부어휘':         {courtney:3, chris:2, tina:2, jane:2, diana:2},
-  '뉘앙스자연스러움': {courtney:3, cerline:2, tina:2, james:2},
+  '뉘앙스자연스러움': {courtney:3, cerline:2, tina:2, james:2, judy:3},
 };
 
 function getRec(){
   // 점수 초기화
-  const scores={james:0,chris:0,cerline:0,riley:0,tina:0,jane:0,courtney:0,diana:0,chinese:0};
+  const scores={james:0,chris:0,cerline:0,riley:0,tina:0,jane:0,courtney:0,diana:0,chinese:0,judy:0};
   // 각 답변 점수 합산
   Object.values(ans).forEach(val=>{
     const map=SCORE_MAP[val];
@@ -1089,6 +1085,9 @@ function showRv(btn,type){
   btn.classList.add('active');
 }
 
-// ── FADE ─
+// ── FADE ──
+const fo=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fo.unobserve(e.target)}})},{threshold:0.07});
+document.querySelectorAll('.fade-up').forEach(el=>fo.observe(el));
+</script>
 </body>
 </html>
