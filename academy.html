@@ -225,6 +225,20 @@ section{padding:64px var(--px)}
 .cafe-card-name{font-size:11px;color:#777}
 .cafe-card-class{font-size:11px;color:#03C75A;font-weight:600;margin-left:auto}
 
+/* CAFE REVIEW ALBUM GRID */
+.cafe-review-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cafe-review-grid{grid-template-columns:repeat(2,1fr)}}
+.cafe-review-card{text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s}
+.cafe-review-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.12);border-color:#03C75A}
+.cafe-review-thumb{width:100%;aspect-ratio:1080/1320;overflow:hidden;background:var(--bg);position:relative}
+.cafe-review-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.cafe-review-card:hover .cafe-review-thumb img{transform:scale(1.05)}
+.cafe-review-thumb-badge{position:absolute;top:7px;left:7px;background:#03C75A;color:#fff;font-size:9px;font-weight:900;padding:2px 6px;border-radius:3px}
+.cafe-review-info{padding:10px 12px}
+.cafe-review-title{font-size:12px;font-weight:700;color:var(--ink);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cafe-review-meta{font-size:10px;color:var(--ink-mute);margin-top:4px}
+
 .rv-more{text-align:center;margin-top:28px}
 .btn-out-blue{background:transparent;color:var(--blue);border:1.5px solid var(--blue);padding:12px 32px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none;display:inline-block}
 .btn-out-blue:hover{background:var(--blue);color:var(--white)}
@@ -704,7 +718,7 @@ wcs_do();
 <section class="schedule-section fade-up" id="schedule">
   <div class="section-eyebrow">시간표</div>
   <div class="section-title">수업 시간표</div>
-  <p class="section-sub">강사를 선택해 5월 수업 일정을 확인하세요</p>
+  <p class="section-sub">강사를 선택해 4월 수업 일정을 확인하세요</p>
   <div class="schedule-tabs">
     <button class="sch-tab total-tab active" onclick="showSch(this,'total')">📋 전체 아카데미</button>
     <button class="sch-tab" onclick="showSch(this,'제임스')">제임스</button>
@@ -784,7 +798,7 @@ wcs_do();
 
     <!-- CAFE - Supabase 동적 로드 -->
     <div class="rv-panel" id="rv-cafe">
-      <div class="cafe-review-grid" id="rvCafeGrid" style="grid-template-columns:repeat(2,1fr);gap:14px">
+      <div class="cafe-review-grid" id="rvCafeGrid">
         <div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--ink-mute);font-size:13px">로딩 중...</div>
       </div>
       <div style="text-align:center;margin-top:20px">
@@ -1046,19 +1060,19 @@ async function loadCafePreview() {
     const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
     const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
     const sb2 = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const {data} = await sb2.from('cafe_reviews').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(4);
+    const {data} = await sb2.from('cafe_reviews').select('*').eq('is_published',true).order('created_at',{ascending:false}).limit(8);
     const el = document.getElementById('rvCafeGrid');
     if (!el) return;
     if (!data || !data.length) { el.innerHTML='<div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--ink-mute);font-size:13px">등록된 카페 후기가 없습니다</div>'; return; }
     el.innerHTML = data.map(c=>`
-      <a href="${c.link_url}" target="_blank" class="cafe-review-card" style="text-decoration:none;color:inherit;display:block;background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .2s">
-        <div style="width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--bg);position:relative">
-          <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-          <div style="position:absolute;top:7px;left:7px;background:#03C75A;color:#fff;font-size:9px;font-weight:900;padding:2px 6px;border-radius:3px">N카페</div>
+      <a href="${c.link_url}" target="_blank" class="cafe-review-card">
+        <div class="cafe-review-thumb">
+          <img src="${c.thumbnail_url}" alt="${c.title}" loading="lazy">
+          <div class="cafe-review-thumb-badge">N카페</div>
         </div>
-        <div style="padding:10px 12px">
-          <div style="font-size:12px;font-weight:700;color:var(--ink);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${c.title}</div>
-          <div style="font-size:10px;color:var(--ink-mute);margin-top:4px">더박스 공식카페</div>
+        <div class="cafe-review-info">
+          <div class="cafe-review-title">${c.title}</div>
+          <div class="cafe-review-meta">더박스 공식카페</div>
         </div>
       </a>`).join('');
   } catch(e) { setTimeout(loadCafePreview, 300); }
