@@ -6,7 +6,7 @@
   <meta name="google-site-verification" content="162a86e476a8a827">
   <!-- SEO -->
   <title>더박스 플러스 | 공지·이벤트·제휴</title>
-  <meta name="description" content="대구 동성로 더박스 어학원의 공지사항, 월간 뉴스레터, 수강생 제휴 혜택을 한 곳에 모은 소식 공간입니다. ">
+  <meta name="description" content="더박스 원어민스터디의 공지사항, 월간 더박스, 제휴혜택을 확인하세요.">
   <meta name="keywords" content="더박스공지, 더박스이벤트, 영어스터디이벤트">
   <meta name="author" content="더박스(TheBox)">
   <meta name="robots" content="index, follow">
@@ -61,7 +61,7 @@
   --white:#fff;--bg:#F5F4F2;--ink:#1a1a1a;--ink-soft:#444;--ink-mute:#777;
   --red:#CC2222;--red-dark:#A81818;--red-light:#FFF0F0;--border:#E2E0DE;
   --blue:#CC2222;--blue-dark:#A81818;--blue-light:#FFF0F0;
-  --radius:14px;--px:5%;--green:#10B981;--orange:#FF6B00;
+  --radius:14px;--px:5%;--green:#10B981;--orange:#FF6B00;--max:1100px;
 }
 html{scroll-behavior:smooth}
 body{background:var(--white);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.65;overflow-x:hidden;-webkit-text-size-adjust:100%}
@@ -107,7 +107,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-
 .tab-btn.active::after{transform:scaleX(1)}
 
 /* PANELS */
-.tab-panel{display:none;padding:44px var(--px) 64px;max-width:var(--max);margin:0 auto;width:100%}
+.tab-panel{display:none;padding:44px var(--px) 96px;max-width:var(--max);margin:0 auto;width:100%}
 .tab-panel.active{display:block}
 .panel-wrap{max-width:var(--max)}
 .panel-head{margin-bottom:28px}
@@ -422,7 +422,7 @@ wcs_do();
 <div class="page-hero fade-up">
   <div class="hero-eyebrow">더박스 플러스</div>
   <h1>더박스의<br><em>모든 소식</em></h1>
-  <p>공지사항, 월간 더박스, 제휴 혜택, 영상 후기를 한 곳에서 확인하세요.</p>
+  <p>공지사항, 월간 더박스, 멤버 제휴 혜택을 한 곳에서 확인하세요.</p>
 </div>
 
 <div class="tab-nav">
@@ -511,7 +511,11 @@ document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 <script>
 const SUPABASE_URL = 'https://oualwikibctxvlscpuyn.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const nativeFetch = window.fetch.bind(window);
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  global: { fetch: nativeFetch },
+  auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+});
 
 const PAGE = 6;
 const badgeMap = {
