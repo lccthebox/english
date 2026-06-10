@@ -331,6 +331,22 @@ wcs_do();
   </div>
 </footer>
 
+<!-- 공지사항 상세 모달 -->
+<div id="noticeModal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);overflow-y:auto;padding:20px">
+  <div style="background:#fff;border-radius:16px;max-width:620px;margin:0 auto;overflow:hidden;position:relative">
+    <div style="padding:20px 24px 16px;border-bottom:1px solid #eee;display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+      <div>
+        <div id="nmBadge" style="display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:50px;margin-bottom:8px"></div>
+        <div id="nmTitle" style="font-size:17px;font-weight:700;color:#1a1a1a;line-height:1.4"></div>
+        <div id="nmDate" style="font-size:12px;color:#888;margin-top:4px"></div>
+      </div>
+      <button onclick="closeNoticeModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#888;flex-shrink:0;padding:0;line-height:1">✕</button>
+    </div>
+    <div id="nmImg" style="display:none"><img id="nmImgEl" src="" alt="" style="width:100%;display:block;max-height:400px;object-fit:contain;background:#f8f8f8"></div>
+    <div id="nmContent" style="padding:20px 24px;font-size:14px;color:#333;line-height:1.9;white-space:pre-wrap"></div>
+  </div>
+</div>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function switchTab(name,btn){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
@@ -349,7 +365,22 @@ const SUPABASE_URL='https://oualwikibctxvlscpuyn.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91YWx3aWtpYmN0eHZsc2NwdXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MjA5MDcsImV4cCI6MjA5MDA5NjkwN30.F6c_Pc0X5OnzlJteCmFkuyBbWihT24yJrnqBPCTbyPM';
 // 다른 위젯/확장이 window.fetch를 가로채 DataCloneError를 일으키는 것을 피하기 위해
 // 페이지 로드 시점의 네이티브 fetch를 직접 바인딩해 Supabase에 주입
-const nativeFetch = window.fetch.bind(window);
+// 네이버 wcslog 등 다른 스크립트가 window.fetch를 후킹해
+// DataCloneError(postMessage Headers 복제 실패)를 일으키는 것을 우회하기 위해
+// 아무도 건드리지 않은 iframe의 순정 fetch를 추출해 사용
+function getCleanFetch(){
+  try{
+    var ifr = document.createElement('iframe');
+    ifr.style.display = 'none';
+    document.body.appendChild(ifr);
+    var f = ifr.contentWindow.fetch.bind(ifr.contentWindow);
+    // iframe은 제거해도 contentWindow.fetch 참조는 유효
+    return f;
+  }catch(e){
+    return window.fetch.bind(window);
+  }
+}
+const nativeFetch = getCleanFetch();
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   global: { fetch: nativeFetch },
@@ -365,22 +396,57 @@ const badgeMap = {
 function fmtDate(d){ return new Date(d).toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'.').slice(0,-1); }
 
 // 공지
+var noticesData = [];
 async function loadNotices(){
   var el = document.getElementById('noticeList');
   try {
     var res = await sb.from('notices').select('*').eq('is_published', true).order('created_at', {ascending:false}).limit(30);
     if (res.error) throw res.error;
     if (!res.data || !res.data.length){ el.innerHTML = '<div class="empty-state">등록된 공지가 없습니다</div>'; return; }
-    el.innerHTML = res.data.map(function(n){
-      return '<a href="#" class="notice-item" onclick="return false;">'
+    noticesData = res.data;
+    el.innerHTML = res.data.map(function(n, i){
+      var arrow = (n.content || n.image_url) ? '<span style="font-size:10px;color:#aaa;flex-shrink:0">&#9654; 자세히</span>' : '';
+      return '<a href="#" class="notice-item" onclick="openNoticeModal(' + i + ');return false;">'
         + (badgeMap[n.badge]||badgeMap.general)
         + '<span class="notice-title">' + n.title + '</span>'
-        + '<span class="notice-date">' + fmtDate(n.created_at) + '</span></a>';
+        + '<span class="notice-date">' + fmtDate(n.created_at) + '</span>' + arrow + '</a>';
     }).join('');
   } catch(e){
     console.error('notices error:', e);
     el.innerHTML = '<div class="empty-state">공지를 불러오지 못했습니다<br><small style="color:#bbb">' + (e && e.message ? e.message : e) + '</small></div>';
   }
+}
+
+// 공지 상세 모달
+function openNoticeModal(i){
+  var n = noticesData[i];
+  if (!n) return;
+  var badges = {new:'새 공지', event:'이벤트', general:'공지'};
+  var colors = {
+    new:  'display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:50px;margin-bottom:8px;background:#fff0f0;color:#cc2222',
+    event:'display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:50px;margin-bottom:8px;background:#f0f4ff;color:#1A5FCC',
+    general:'display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:50px;margin-bottom:8px;background:#f5f5f5;color:#555'
+  };
+  document.getElementById('nmBadge').textContent = badges[n.badge] || badges.general;
+  document.getElementById('nmBadge').style.cssText = colors[n.badge] || colors.general;
+  document.getElementById('nmTitle').textContent = n.title;
+  document.getElementById('nmDate').textContent = fmtDate(n.created_at);
+  var cont = document.getElementById('nmContent');
+  cont.textContent = n.content || '';
+  cont.style.display = n.content ? 'block' : 'none';
+  var imgWrap = document.getElementById('nmImg');
+  if (n.image_url) {
+    document.getElementById('nmImgEl').src = n.image_url;
+    imgWrap.style.display = 'block';
+  } else {
+    imgWrap.style.display = 'none';
+  }
+  document.getElementById('noticeModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeNoticeModal(){
+  document.getElementById('noticeModal').style.display = 'none';
+  document.body.style.overflow = '';
 }
 
 // 월간 - 6개씩 더보기
@@ -416,6 +482,10 @@ function loadMoreMonthly(){ renderMonthly(); }
 
 // 초기 실행 (DOM 완성 후)
 document.addEventListener('DOMContentLoaded', function(){
+  var modal = document.getElementById('noticeModal');
+  if (modal) {
+    modal.addEventListener('click', function(e){ if (e.target === this) closeNoticeModal(); });
+  }
   loadNotices();
   loadMonthly();
 });
